@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-![ko-fi](https://ko-fi.com)](https://ko-fi.com)
+[![Support my work!](https://img.shields.io/badge/Support%20my%20work%21-87CEFA?style=flat)](https://ko-fi.com/TUO_USERNAME)
 </div>
 
 # TracciaBianca
