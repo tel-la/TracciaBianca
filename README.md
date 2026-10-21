@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
- [![ko-fi](https://ko-fi.com)](https://ko-fi.com)
+ ![ko-fi](https://ko-fi.com)](https://ko-fi.com)
 </div>
 
 # TracciaBianca
