@@ -287,3 +287,5 @@ The attribution associated with adapted Sorbetto material is:
 > Based on or adapted from [Sorbetto](https://tartamillo.wordpress.com/sorbetto/) by Maki, licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Changes were made for TracciaBianca.
 
 Conceptual inspiration alone does not place independently created TracciaBianca content under the Sorbetto license. TracciaBianca is an independent project and does not imply endorsement by Maki.
+
+[![ko-fi](https://ko-fi.com)](https://ko-fi.com)
