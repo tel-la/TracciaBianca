@@ -9,6 +9,8 @@ TracciaBianca is a collection of offline raster maps for ski touring in the Ital
 
 TracciaBianca is a continuous WIP public distribution.
 
+The project is built upon a solid foundation of publicly available online geospatial data and a robust analysis and processing workflow that has been tested across multiple geographic areas. Nevertheless, TracciaBianca remains an exploratory project, and the resulting maps may contain errors, inaccuracies, inconsistencies or other limitations, particularly in certain regions. All maps and information are provided **"as is"**, without any warranty or guarantee of completeness, accuracy, reliability, truthfulness or currency. Users should therefore consider the maps as experimental resources, acknowledge their potential limitations and independently verify any information relevant to their intended use.
+
 ### Public release checklist
 
 - [x] Raster MBTiles export workflow available.
