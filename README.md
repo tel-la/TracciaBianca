@@ -1,6 +1,6 @@
 
 
-<img width="1254" height="1254" alt="TracciaBianca_ Avventura Alpina Offline" src="https://github.com/user-attachments/assets/72693f2d-37bd-48da-a9e5-2e44835e20c7" />
+<img width="400" height="400" alt="TracciaBianca_ Avventura Alpina Offline" src="https://github.com/user-attachments/assets/72693f2d-37bd-48da-a9e5-2e44835e20c7" />
 
 
 # TracciaBianca
