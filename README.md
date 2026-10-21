@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[![Support my work!](https://img.shields.io/badge/Support%20my%20work%21-87CEFA?style=flat)](https://ko-fi.com/TUO_USERNAME)
+[![Support my work!](https://img.shields.io/badge/Support%20my%20work%21-87CEFA?style=flat)](https://ko-fi.com/andretella)
 
 </div>
 
