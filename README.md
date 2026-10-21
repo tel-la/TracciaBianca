@@ -1,6 +1,9 @@
-
 <div align="center">
 <img width="280" height="280" alt="TracciaBianca_ Avventura Alpina Offline" src="https://github.com/user-attachments/assets/72693f2d-37bd-48da-a9e5-2e44835e20c7" />
+</div>
+
+<div align="center">
+[![ko-fi](https://ko-fi.com)](https://ko-fi.com)
 </div>
 
 # TracciaBianca
@@ -288,4 +291,4 @@ The attribution associated with adapted Sorbetto material is:
 
 Conceptual inspiration alone does not place independently created TracciaBianca content under the Sorbetto license. TracciaBianca is an independent project and does not imply endorsement by Maki.
 
-[![ko-fi](https://ko-fi.com)](https://ko-fi.com)
+
