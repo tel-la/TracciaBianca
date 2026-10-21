@@ -1,8 +1,14 @@
 <div align="center">
+ 
 <img width="280" height="280" alt="TracciaBianca_ Avventura Alpina Offline" src="https://github.com/user-attachments/assets/72693f2d-37bd-48da-a9e5-2e44835e20c7" />
+
 </div>
 
+<div align="center">
+
 [![Support my work!](https://img.shields.io/badge/Support%20my%20work%21-87CEFA?style=flat)](https://ko-fi.com/TUO_USERNAME)
+
+</div>
 
 
 # TracciaBianca
