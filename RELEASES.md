@@ -34,8 +34,7 @@ stored only as Release assets and never committed to the repository.
 
 ## Publishing sequence
 
-1. Validate the MBTiles and complete the required application, hosting and
-   licensing checks.
+1. Complete the automatic MBTiles technical validation.
 2. Prepare release notes, checksums and the technical manifest.
 3. Upload all assets to a **draft** release.
 4. Check asset names, byte counts, notes and manifest.
@@ -44,9 +43,12 @@ stored only as Release assets and never committed to the repository.
 7. Regenerate and commit docs/ so the interactive atlas points to the exact
    GitHub Release asset URLs.
 
-A map sheet is shown as Available only after its release is public and the
-remote asset has been verified. Local exports and draft assets remain
-Validation pending.
+A technically valid local export is shown as Ready for release. It becomes
+Available only after its release is public and the remote asset has been
+verified.
+
+No per-sheet application, hosting or licensing checklist is required. Released
+map content uses the CC BY-NC-SA 4.0 license declared in the repository README.
 
 ## Integrity check
 

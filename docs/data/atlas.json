@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-22T18:28:35Z",
+  "generated_at": "2026-10-22T18:46:07Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
@@ -760,7 +760,7 @@
       "id": "ALP_E143_N084",
       "locality": "Brixen - Bressanone",
       "display_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
-      "status": "validation_pending",
+      "status": "release_ready",
       "edition": "20261022T180730Z",
       "zoom": [
         12,
@@ -792,7 +792,7 @@
       "id": "ALP_E143_N085",
       "locality": "Niedervintl - Vandoies di Sotto",
       "display_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
-      "status": "validation_pending",
+      "status": "release_ready",
       "edition": "20261022T175437Z",
       "zoom": [
         12,
@@ -884,7 +884,7 @@
       "id": "ALP_E144_N084",
       "locality": "Cortina d'Ampezzo",
       "display_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
-      "status": "validation_pending",
+      "status": "release_ready",
       "edition": "20261021T205258Z",
       "zoom": [
         12,

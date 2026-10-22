@@ -54,6 +54,7 @@
 
   const statusLabels = {
     published: "Available",
+    release_ready: "Ready for release",
     validation_pending: "Validation pending",
     prepared: "In preparation",
     blocked: "Temporarily unavailable",
@@ -88,6 +89,9 @@
     }
     if (cell.status === "published") {
       return { color: "#145b83", weight: 2, opacity: 0.96, fillColor: "#2a82b3", fillOpacity: 0.31, bubblingMouseEvents: false };
+    }
+    if (cell.status === "release_ready") {
+      return { color: "#145b83", weight: 2, opacity: 0.94, fillColor: "#73acd1", fillOpacity: 0.34, bubblingMouseEvents: false };
     }
     return { color: "#6d8ca1", weight: 1.7, opacity: 0.92, fillColor: "#c9e1f1", fillOpacity: 0.23, bubblingMouseEvents: false };
   }
@@ -176,6 +180,9 @@
     } else {
       downloadButton.removeAttribute("href");
       downloadButton.removeAttribute("aria-label");
+      unavailableMessage.textContent = cell.status === "release_ready"
+        ? "Ready for the next GitHub Release. The download will be enabled as soon as the asset is published."
+        : "Download not available yet. This map sheet is still being prepared.";
     }
   }
 
@@ -277,7 +284,8 @@
       installCellLayer(cores);
       recalculateMapLimits(true);
       updateLabels();
-      summary.textContent = `${catalog.cell_count} map sheets · ${catalog.published_count} available`;
+      const readyCount = catalog.cells.filter((cell) => cell.status === "release_ready").length;
+      summary.textContent = `${catalog.cell_count} map sheets · ${catalog.published_count} available · ${readyCount} ready for release`;
       loadingState.hidden = true;
     } catch (error) {
       console.error(error);

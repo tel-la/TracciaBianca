@@ -167,6 +167,7 @@ a { font: inherit; }
 }
 
 .legend-swatch.available { background: rgb(42 130 179 / 42%); }
+.legend-swatch.ready { background: rgb(115 172 209 / 58%); }
 .legend-swatch.pending { border-color: #6d8ca1; background: rgb(201 225 241 / 58%); }
 
 .loading-state,
