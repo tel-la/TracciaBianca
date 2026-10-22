@@ -18,7 +18,7 @@ TracciaBianca is a collection of offline raster maps for ski touring in the Ital
 > [!CAUTION]
 > These maps are planning and orientation aids only. They do not replace official avalanche bulletins, weather forecasts, local restrictions, professional guidance, current observations, suitable equipment, training or personal risk assessment. Mountain conditions can change rapidly, and every field decision remains the user's responsibility.
 
-## Map
+## Available areas
 
 <p align="center">
   <img
