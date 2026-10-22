@@ -1,0 +1,1252 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-22T17:33:02Z",
+  "repository": "https://github.com/tel-la/TracciaBianca",
+  "grid_id": "ALP35_OVERLAP2_LAEA_v2",
+  "cell_count": 55,
+  "published_count": 0,
+  "bounds": [
+    [
+      45.68816033173499,
+      7.8252718368383976
+    ],
+    [
+      47.10726145817884,
+      13.89894423059885
+    ]
+  ],
+  "cells": [
+    {
+      "id": "ALP_E134_N081",
+      "locality": "Biellese – Valsesia",
+      "display_name": "Biellese – Valsesia",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.671478698217136,
+          7.821244495627431
+        ],
+        [
+          45.99491464992755,
+          8.282281121495235
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E134_N082",
+      "locality": "Valsesia – Monte Rosa",
+      "display_name": "Valsesia – Monte Rosa",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.9506259442553,
+          7.809947219358064
+        ],
+        [
+          46.274055336371816,
+          8.273454473942783
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E134_N083",
+      "locality": "Monte Rosa – Vallese",
+      "display_name": "Monte Rosa – Vallese",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.22972331688871,
+          7.798497024151732
+        ],
+        [
+          46.553148703269045,
+          8.264509053871903
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E135_N081",
+      "locality": "Verbania",
+      "display_name": "Verbania · Lago Maggiore – Ossola",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.67885367672487,
+          8.220750834075586
+        ],
+        [
+          46.00064705023583,
+          8.679581025400372
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E135_N082",
+      "locality": "Domodossola",
+      "display_name": "Domodossola · Lago Maggiore – Ossola",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.95804476864901,
+          8.211522784219948
+        ],
+        [
+          46.27982213475105,
+          8.6727946522774
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E135_N083",
+      "locality": "Premia",
+      "display_name": "Premia · Lago Maggiore – Ossola",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.23718659792723,
+          8.20216978582343
+        ],
+        [
+          46.55895038198627,
+          8.665916939473295
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E136_N081",
+      "locality": "Varese",
+      "display_name": "Varese · Lago Maggiore – Ossola",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.68473993765938,
+          8.620346224123972
+        ],
+        [
+          46.00488021328751,
+          9.07694591707551
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E136_N082",
+      "locality": "Luino",
+      "display_name": "Luino · Lago Maggiore – Ossola",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.96396603559028,
+          8.613189250523751
+        ],
+        [
+          46.284080705460944,
+          9.072201160973249
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E136_N083",
+      "locality": "Ticino – Alpi Lepontine",
+      "display_name": "Ticino – Alpi Lepontine",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.24314335868843,
+          8.605935347097263
+        ],
+        [
+          46.56323471668017,
+          9.067392532847816
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E137_N081",
+      "locality": "Como",
+      "display_name": "Como · Lario – Valchiavenna",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.689137014996135,
+          9.0200106988993
+        ],
+        [
+          46.0076137978203,
+          9.474356254480455
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E137_N082",
+      "locality": "Colico",
+      "display_name": "Colico · Lario – Valchiavenna",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.96838926895795,
+          9.014926237075779
+        ],
+        [
+          46.286830699802074,
+          9.471654054472864
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E137_N083",
+      "locality": "Chiavenna",
+      "display_name": "Chiavenna · Lario – Valchiavenna",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.24759311268533,
+          9.009772901653655
+        ],
+        [
+          46.5660013510143,
+          9.468915474462975
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E138_N081",
+      "locality": "Albino",
+      "display_name": "Albino · Valtellina – Orobie",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.692044560432905,
+          9.41972426309354
+        ],
+        [
+          46.00884758338548,
+          9.871792477099275
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E138_N082",
+      "locality": "Morbegno",
+      "display_name": "Morbegno · Valtellina – Orobie",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.97131411290126,
+          9.41671333331916
+        ],
+        [
+          46.28807189252042,
+          9.871133368144156
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E138_N083",
+      "locality": "Villa di Chiavenna",
+      "display_name": "Villa di Chiavenna · Lario – Valchiavenna",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.25053549631732,
+          9.413661612844487
+        ],
+        [
+          46.56725005480013,
+          9.87046538508914
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E139_N081",
+      "locality": "Darfo Boario Terme",
+      "display_name": "Darfo Boario Terme · Adamello – Garda",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.69327242522861,
+          9.819466901182976
+        ],
+        [
+          46.00892550458344,
+          10.27079907162734
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E139_N082",
+      "locality": "Sondrio",
+      "display_name": "Sondrio · Valtellina – Orobie",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.972549283614214,
+          9.818530107821005
+        ],
+        [
+          46.28815028154041,
+          10.272204249683334
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E139_N083",
+      "locality": "Livigno",
+      "display_name": "Livigno · Valtellina – Orobie",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.251778074821765,
+          9.817580622459023
+        ],
+        [
+          46.567328918205504,
+          10.273628465425883
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E139_N084",
+      "locality": "Engadina – Bernina",
+      "display_name": "Engadina – Bernina",
+      "status": "validation_pending",
+      "edition": "20261021T125152Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 766009344,
+      "analysis_bounds": [
+        [
+          46.53096047992156,
+          9.816618200752002
+        ],
+        [
+          46.846463095103864,
+          10.275072085362147
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E139_N084_engadina-bernina_20261021T125152Z_01_z12-16.mbtiles",
+          "bytes": 766009344,
+          "sha256": "3038a25cf867dd0b1616dbd51c4001c81f151457705f1e351d3a588fe586ec05",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E140_N081",
+      "locality": "Borgo Chiese",
+      "display_name": "Borgo Chiese · Adamello – Garda",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.691518230111924,
+          10.217952437073874
+        ],
+        [
+          46.00870008955728,
+          10.670536894929342
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E140_N082",
+      "locality": "Edolo",
+      "display_name": "Edolo · Adamello – Garda",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.97078465099146,
+          10.219072915025308
+        ],
+        [
+          46.28792351317579,
+          10.674016109307301
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E140_N083",
+      "locality": "Bormio",
+      "display_name": "Bormio · Adamello – Garda",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.25000285915389,
+          10.22020847875783
+        ],
+        [
+          46.56710077751586,
+          10.677542457454903
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E140_N084",
+      "locality": "Glurns - Glorenza",
+      "display_name": "Glurns - Glorenza · Adamello – Garda",
+      "status": "validation_pending",
+      "edition": "20261021T103247Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 701521920,
+      "analysis_bounds": [
+        [
+          46.52917453284774,
+          10.221359416384681
+        ],
+        [
+          46.8462335627317,
+          10.681116846676222
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E140_N084_glurns-glorenza-adamello-garda_20261021T103247Z_01_z12-16.mbtiles",
+          "bytes": 701521920,
+          "sha256": "f89d1855b5684c75abfa256bdbf42a1d92d69397616c6b8d1326442100276e00",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E140_N085",
+      "locality": "Reschen - Resia",
+      "display_name": "Reschen - Resia · Adamello – Garda",
+      "status": "validation_pending",
+      "edition": "20261021T095752Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 776294400,
+      "analysis_bounds": [
+        [
+          46.8083013492571,
+          10.22252602360993
+        ],
+        [
+          47.12532354809284,
+          10.684740208347364
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E140_N085_reschen-resia-adamello-garda_20261021T095752Z_01_z12-16.mbtiles",
+          "bytes": 776294400,
+          "sha256": "accf7e8572578ca624eba3bdc3a9a8b74255b790a7b98c02eff7861efbde649f",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E141_N081",
+      "locality": "Arco",
+      "display_name": "Arco · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.68827431441009,
+          10.615384525078747
+        ],
+        [
+          46.00712762668993,
+          11.070241123360365
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E141_N082",
+      "locality": "Madonna di Campiglio",
+      "display_name": "Madonna di Campiglio · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.96752143616909,
+          10.618548008630825
+        ],
+        [
+          46.28634161001385,
+          11.075793675738218
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E141_N083",
+      "locality": "Dimaro Folgarida",
+      "display_name": "Dimaro Folgarida · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.24672007614657,
+          10.621754081648886
+        ],
+        [
+          46.5655093016247,
+          11.081421439710876
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E141_N084",
+      "locality": "Schlanders - Silandro",
+      "display_name": "Schlanders - Silandro · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.525871907375546,
+          10.625003557442309
+        ],
+        [
+          46.84463237908906,
+          11.087125862774593
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E141_N085",
+      "locality": "Alpi Venoste – Ötztal",
+      "display_name": "Alpi Venoste – Ötztal",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.80497860168702,
+          10.62829727074603
+        ],
+        [
+          47.12371251902019,
+          11.09290843082038
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E142_N081",
+      "locality": "Rovereto",
+      "display_name": "Rovereto · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.683540935156735,
+          11.012786309774798
+        ],
+        [
+          46.00405540406646,
+          11.469891745241977
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E142_N082",
+      "locality": "Trento",
+      "display_name": "Trento · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.962759901752285,
+          11.017992172678643
+        ],
+        [
+          46.28325094529539,
+          11.477516521514106
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E142_N083",
+      "locality": "Bolzano - Bozen",
+      "display_name": "Bolzano - Bozen · Alto Adige – Dolomiti occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.24192999412522,
+          11.023268112483523
+        ],
+        [
+          46.56239993612929,
+          11.48524455808459
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E142_N084",
+      "locality": "Merano - Meran",
+      "display_name": "Merano - Meran · Trentino occidentale – Dolomiti di Brenta",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.521052877704165,
+          11.028615467160641
+        ],
+        [
+          46.84150404908151,
+          11.493077841677598
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E142_N085",
+      "locality": "Sterzing - Vipiteno",
+      "display_name": "Sterzing - Vipiteno · Alto Adige – Dolomiti occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.80013021651539,
+          11.03403560992033
+        ],
+        [
+          47.12056495557785,
+          11.50101841169637
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E143_N081",
+      "locality": "Bassano del Grappa",
+      "display_name": "Bassano del Grappa · Alto Adige – Dolomiti occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.67731846725476,
+          11.410138234123739
+        ],
+        [
+          45.99948366942859,
+          11.869468770969327
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E143_N082",
+      "locality": "Borgo Valsugana",
+      "display_name": "Borgo Valsugana · Alto Adige – Dolomiti occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.95650043076839,
+          11.417385446127055
+        ],
+        [
+          46.27865177216214,
+          11.879164241967526
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E143_N083",
+      "locality": "Moena",
+      "display_name": "Moena · Alto Adige – Dolomiti occidentali",
+      "status": "validation_pending",
+      "edition": "20261020T100501Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 725520384,
+      "analysis_bounds": [
+        [
+          46.235633004458386,
+          11.424730195739686
+        ],
+        [
+          46.557772939716536,
+          11.888990982011018
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261020T100501Z_01_z12-16.mbtiles",
+          "bytes": 725520384,
+          "sha256": "2a3047ed408ffe966a901adbfa8224d9ebb4a5707a3117a721af4a0960f88d34",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E143_N084",
+      "locality": "Brixen - Bressanone",
+      "display_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
+      "status": "validation_pending",
+      "edition": "20261020T102206Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 784023552,
+      "analysis_bounds": [
+        [
+          46.51471784376727,
+          11.432174344716065
+        ],
+        [
+          46.83684883709109,
+          11.898951515729438
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261020T102206Z_01_z12-16.mbtiles",
+          "bytes": 784023552,
+          "sha256": "f04c7896d39ed1cf5153bf27feb6f4cfffb2364e31a43580877dcd46cfc0476f",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E143_N085",
+      "locality": "Niedervintl - Vandoies di Sotto",
+      "display_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.793756602472406,
+          11.43971980382858
+        ],
+        [
+          47.11588112799811,
+          11.90904843466312
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E144_N081",
+      "locality": "Montebelluna",
+      "display_name": "Montebelluna · Dolomiti – Cadore",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.669607403279514,
+          11.807420761355775
+        ],
+        [
+          45.99341279129632,
+          12.268952241224731
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E144_N082",
+      "locality": "Belluno",
+      "display_name": "Belluno · Dolomiti – Cadore",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.94874352646374,
+          11.816707888859796
+        ],
+        [
+          46.27254446716478,
+          12.28071646370701
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E144_N083",
+      "locality": "Agordo",
+      "display_name": "Agordo · Dolomiti – Cadore",
+      "status": "validation_pending",
+      "edition": "20261021T160927Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 789860352,
+      "analysis_bounds": [
+        [
+          46.22782962134779,
+          11.826119977503641
+        ],
+        [
+          46.55162869718357,
+          12.292639913229253
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261021T160927Z_01_z12-16.mbtiles",
+          "bytes": 789860352,
+          "sha256": "1e252cb0f27f126bf134c33ca6faee0a928418e8640dfd135689f05e36713b0d",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E144_N084",
+      "locality": "Cortina d'Ampezzo",
+      "display_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
+      "status": "validation_pending",
+      "edition": "20261021T205258Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 839716864,
+      "analysis_bounds": [
+        [
+          46.50686733101604,
+          11.835659411603318
+        ],
+        [
+          46.830667136384356,
+          12.304725650647722
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261021T205258Z_01_z12-16.mbtiles",
+          "bytes": 839716864,
+          "sha256": "215fac085573ac372faa7444d744dbe52c4c098853859d6fd92b6f1f468aaf62",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E144_N085",
+      "locality": "Sand in Taufers - Campo Tures",
+      "display_name": "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
+      "status": "validation_pending",
+      "edition": "20261021T145229Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 748445696,
+      "analysis_bounds": [
+        [
+          46.78585829656239,
+          11.845328638223329
+        ],
+        [
+          47.10966143824749,
+          12.316976817894208
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261021T145229Z_01_z12-16.mbtiles",
+          "bytes": 748445696,
+          "sha256": "f435a7d893300d96008405a05118a28c0c554734911749539edb690f8727138e",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E145_N082",
+      "locality": "Vittorio Veneto",
+      "display_name": "Vittorio Veneto · Dolomiti – Cadore",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.93948981203665,
+          12.215939589868944
+        ],
+        [
+          46.26492953006038,
+          12.68215285306818
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E145_N083",
+      "locality": "Pieve di Cadore",
+      "display_name": "Pieve di Cadore · Dolomiti – Cadore",
+      "status": "validation_pending",
+      "edition": "20261020T092538Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 880009216,
+      "analysis_bounds": [
+        [
+          46.218520481552545,
+          12.227417133919541
+        ],
+        [
+          46.543967719228384,
+          12.696170594510653
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261020T092538Z_01_z12-16.mbtiles",
+          "bytes": 880009216,
+          "sha256": "dc1b1d2ba58d4a8c7610c41dc934dadda75898a6bbaa17b7f67868e12af602b3",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E145_N084",
+      "locality": "Auronzo di Cadore",
+      "display_name": "Auronzo di Cadore · Dolomiti – Cadore",
+      "status": "validation_pending",
+      "edition": "20261020T094646Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 744148992,
+      "analysis_bounds": [
+        [
+          46.49750199013386,
+          12.239049920362309
+        ],
+        [
+          46.82295946889602,
+          12.710379054539734
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261020T094646Z_01_z12-16.mbtiles",
+          "bytes": 744148992,
+          "sha256": "80f12470241b6de670278aa29855f4b9b69b2c6bce7a1f0e01f280c45b5025e4",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E145_N085",
+      "locality": "Alti Tauri – Pusteria",
+      "display_name": "Alti Tauri – Pusteria",
+      "status": "validation_pending",
+      "edition": "20261020T184707Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 839712768,
+      "analysis_bounds": [
+        [
+          46.7764359637689,
+          12.25084093092908
+        ],
+        [
+          47.10190641980309,
+          12.724781923364963
+        ]
+      ],
+      "packages": [
+        {
+          "file": "ALP_E145_N085_alti-tauri-pusteria_20261020T184707Z_01_z12-16.mbtiles",
+          "bytes": 839712768,
+          "sha256": "843d6e55f5911a74f39e9bd5bce11684046e002841200d04fa9f3343df7994b6",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "id": "ALP_E146_N083",
+      "locality": "Tolmezzo",
+      "display_name": "Tolmezzo · Carnia – Dolomiti Friulane",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.20770634404785,
+          12.628601379609917
+        ],
+        [
+          46.534790642172496,
+          13.099562318346768
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E146_N084",
+      "locality": "Paluzza",
+      "display_name": "Paluzza · Carnia – Dolomiti Friulane",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.48662259668392,
+          12.642325163274476
+        ],
+        [
+          46.81372648494209,
+          13.115890586876574
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E147_N083",
+      "locality": "Gemona del Friuli",
+      "display_name": "Gemona del Friuli · Carnia – Dolomiti Friulane",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.19538808961886,
+          13.029652476058972
+        ],
+        [
+          46.524098227615454,
+          13.502794435588486
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E147_N084",
+      "locality": "Paularo / Paulâr",
+      "display_name": "Paularo / Paulâr · Carnia – Dolomiti Friulane",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.47423005068922,
+          13.045464481020204
+        ],
+        [
+          46.802968962862735,
+          13.52123916741624
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E148_N082",
+      "locality": "Gorizia",
+      "display_name": "Gorizia · Alpi Giulie – Friuli",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.902755831910035,
+          13.412891740102259
+        ],
+        [
+          46.233045765675165,
+          13.885564462476028
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E148_N083",
+      "locality": "Cave del Predil / Raibl / Rabelj / Rabil",
+      "display_name": "Cave del Predil / Raibl / Rabelj / Rabil · Alpi Giulie – Friuli",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.181566720389846,
+          13.430550239950628
+        ],
+        [
+          46.51189136202193,
+          13.90584636402816
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E148_N084",
+      "locality": "Tarvisio",
+      "display_name": "Tarvisio · Alpi Giulie – Friuli",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.460325376146066,
+          13.448447271288877
+        ],
+        [
+          46.790687808595536,
+          13.92640378506697
+        ]
+      ],
+      "packages": []
+    }
+  ]
+}

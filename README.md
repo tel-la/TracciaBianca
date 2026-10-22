@@ -20,6 +20,8 @@ TracciaBianca is a collection of offline raster maps for ski touring in the Ital
 
 ## Available areas
 
+Use the **[interactive map-sheet index](https://tel-la.github.io/TracciaBianca/)** to identify a map by locality, inspect its status and download a published MBTiles release.
+
 <p align="center">
   <img
     src="https://github.com/user-attachments/assets/1fdf3755-7207-4af2-8e2f-3e5c4e9b63e0"
@@ -37,11 +39,12 @@ The project is built upon a solid foundation of publicly available online geospa
 ### Public release checklist
 
 - [x] Raster MBTiles export workflow available.
-- [x] Six current atlas sheets exported for technical review.
+- [x] Eleven current atlas sheets exported for technical review.
 - [x] Release and asset naming conventions defined.
 - [x] OpenStreetMap attribution identified.
 - [x] GitHub repository URL available.
-- [ ] Map-sheet index PNG preview available.
+- [x] Interactive map-sheet index available through GitHub Pages.
+- [x] Map-sheet index PNG preview available.
 - [ ] Full-resolution map-sheet index PDF available.
 - [ ] Repository license selected and published.
 - [ ] Dataset-level license verification completed for every source used by a release.
@@ -78,12 +81,9 @@ The intended workflow consists of:
 
 ## Map-sheet selection
 
-The map-sheet index is not included in the current project package. Its planned publication assets are:
+The [interactive map-sheet index](https://tel-la.github.io/TracciaBianca/) shows all atlas cores and their current publication status. Select a cell to inspect its identifier, locality, edition, download size and checksum. The download button is enabled only for published releases.
 
-- `[PENDING: docs/map-sheet-index-preview.png]`, optimized for display on GitHub;
-- `[PENDING: docs/map-sheet-index.pdf]`, optimized for full-resolution viewing and A3 printing.
-
-Each map-sheet boundary contains a unique ID, such as `A01`. The same ID appears in the corresponding release tag, description and asset filename. A release tag beginning with `tile-A01-` therefore identifies a map covering sheet `A01`. The coverage description in the release provides an additional confirmation before download.
+Each map-sheet boundary contains a stable ID, such as `ALP_E140_N084`. The same ID appears in the corresponding release tag, description and asset filename. A release tag beginning with `tile-ALP_E140_N084-` therefore identifies an edition covering that map sheet.
 
 ## Requirements
 
@@ -116,19 +116,19 @@ After public distribution begins, maps appear on the GitHub **Releases** page. T
 The main asset follows this naming pattern:
 
 ```text
-tracciabianca_<ID>_<YYYY-MM-DD>.mbtiles
+tracciabianca_<ID>_<EDITION>.mbtiles
 ```
 
 Example:
 
 ```text
-tracciabianca_A01_2026-10-20.mbtiles
+tracciabianca_ALP_E140_N084_20261021T103247Z.mbtiles
 ```
 
 The optional checksum asset follows this pattern:
 
 ```text
-tracciabianca_<ID>_<YYYY-MM-DD>.mbtiles.sha256
+tracciabianca_<ID>_<EDITION>.mbtiles.sha256
 ```
 
 The release description records the covered area, publication date, data sources, licenses, file size, changes and known limitations.
@@ -148,13 +148,13 @@ Checksum verification provides an integrity check for large downloads. The `.sha
 On macOS and Linux, verification is available through:
 
 ```sh
-shasum -a 256 -c tracciabianca_A01_2026-10-20.mbtiles.sha256
+shasum -a 256 -c tracciabianca_ALP_E140_N084_20261021T103247Z.mbtiles.sha256
 ```
 
 On Windows PowerShell, checksum calculation is available through:
 
 ```powershell
-Get-FileHash .\tracciabianca_A01_2026-10-20.mbtiles -Algorithm SHA256
+Get-FileHash .\tracciabianca_ALP_E140_N084_20261021T103247Z.mbtiles -Algorithm SHA256
 ```
 
 A matching value confirms that the downloaded file corresponds to the published checksum. A different value identifies an incomplete, corrupted or otherwise non-matching download.
@@ -172,20 +172,20 @@ Each GitHub release represents one map sheet and one dated update. The map-sheet
 ### Release tag
 
 ```text
-tile-<ID>-<YYYY-MM-DD>
+tile-<ID>-<EDITION>
 ```
 
 Example:
 
 ```text
-tile-A01-2026-10-20
+tile-ALP_E140_N084-20261021T103247Z
 ```
 
 ### Release assets
 
 ```text
-tracciabianca_<ID>_<YYYY-MM-DD>.mbtiles
-tracciabianca_<ID>_<YYYY-MM-DD>.mbtiles.sha256
+tracciabianca_<ID>_<EDITION>.mbtiles
+tracciabianca_<ID>_<EDITION>.mbtiles.sha256
 ```
 
 ### Release information

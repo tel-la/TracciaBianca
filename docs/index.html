@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#062A43">
+  <meta name="description" content="Explore and download TracciaBianca offline ski-touring maps for the Italian Alps.">
+  <title>TracciaBianca Interactive Map</title>
+  <link rel="icon" href="./assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+  <a class="skip-link" href="#map">Skip to the map</a>
+  <main class="app" id="app">
+    <section class="map-shell" aria-label="TracciaBianca atlas map">
+      <div id="map" tabindex="0" aria-label="Interactive map of TracciaBianca map sheets"></div>
+
+      <header class="brand-panel" aria-label="TracciaBianca">
+        <img src="./assets/brand-mark.svg" alt="" width="42" height="42">
+        <div>
+          <p class="wordmark"><span>Traccia</span>Bianca</p>
+          <p class="brand-subtitle">Offline Alpine Atlas</p>
+        </div>
+      </header>
+
+      <div class="atlas-summary" id="atlas-summary" aria-live="polite">Loading atlas…</div>
+
+      <section class="legend" aria-label="Map legend">
+        <h2>Map sheets</h2>
+        <div><span class="legend-swatch available"></span>Available</div>
+        <div><span class="legend-swatch pending"></span>In preparation</div>
+      </section>
+
+      <div class="loading-state" id="loading-state" role="status">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Loading the Alpine atlas…</span>
+      </div>
+
+      <div class="error-state" id="error-state" role="alert" hidden>
+        <strong>The atlas could not be loaded.</strong>
+        <span>Please refresh the page or try again later.</span>
+      </div>
+    </section>
+
+    <aside class="details-panel" id="details-panel" aria-labelledby="details-title" aria-hidden="true">
+      <div class="panel-handle" aria-hidden="true"></div>
+      <button class="close-button" id="close-panel" type="button" aria-label="Close map-sheet details">
+        <span aria-hidden="true">×</span>
+      </button>
+
+      <div class="details-content">
+        <p class="eyebrow">Selected map sheet</p>
+        <h1 id="details-title">Map-sheet details</h1>
+        <p class="locality" id="details-locality"></p>
+        <span class="status-badge" id="details-status"></span>
+
+        <dl class="metadata-list">
+          <div><dt>MBTiles coverage</dt><dd>35 × 35 km</dd></div>
+          <div><dt>Edition</dt><dd id="details-edition">—</dd></div>
+          <div><dt>Zoom range</dt><dd id="details-zoom">—</dd></div>
+          <div><dt>File</dt><dd id="details-file">—</dd></div>
+          <div><dt>Download size</dt><dd id="details-size">—</dd></div>
+        </dl>
+
+        <section class="checksum-block" id="checksum-block" hidden>
+          <div class="checksum-heading">
+            <h2>SHA-256</h2>
+            <button id="copy-checksum" type="button">Copy</button>
+          </div>
+          <code id="details-checksum"></code>
+          <p class="copy-feedback" id="copy-feedback" aria-live="polite"></p>
+        </section>
+
+        <a class="download-button" id="download-button" target="_blank" rel="noopener" hidden>
+          Download MBTiles
+          <span aria-hidden="true">↗</span>
+        </a>
+        <p class="unavailable-message" id="unavailable-message" hidden>
+          Download not available yet. This map sheet is still being prepared or validated.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <noscript>This interactive map requires JavaScript.</noscript>
+  <script src="./vendor/leaflet/leaflet.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

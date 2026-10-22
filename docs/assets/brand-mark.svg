@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">TracciaBianca</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#73ACD1"/>
+      <stop offset="1" stop-color="#2A82B3"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#sky)"/>
+  <path d="M7 43 21 25l7 9L40 15l17 28Z" fill="#F8FAFC"/>
+  <path d="m23 43 17-28 17 28-10-12-5 5-4-11-8 18Z" fill="#145B83" opacity=".82"/>
+  <path d="M9 46c11-5 18-4 25 0s13 5 21 0" fill="none" stroke="#F8FAFC" stroke-width="4" stroke-linecap="round"/>
+</svg>
