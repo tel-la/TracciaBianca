@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-22T18:46:07Z",
+  "generated_at": "2026-10-22T18:56:56Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 0,
+  "published_count": 3,
   "bounds": [
     [
       45.68816033173499,
@@ -760,7 +760,7 @@
       "id": "ALP_E143_N084",
       "locality": "Brixen - Bressanone",
       "display_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
-      "status": "release_ready",
+      "status": "published",
       "edition": "20261022T180730Z",
       "zoom": [
         12,
@@ -782,9 +782,9 @@
           "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.mbtiles",
           "bytes": 784486400,
           "sha256": "493fef88e9d71c86d6cbc5f3db0a104b331e31c4d30926aa78b8bccb0405a327",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.mbtiles"
         }
       ]
     },
@@ -792,7 +792,7 @@
       "id": "ALP_E143_N085",
       "locality": "Niedervintl - Vandoies di Sotto",
       "display_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
-      "status": "release_ready",
+      "status": "published",
       "edition": "20261022T175437Z",
       "zoom": [
         12,
@@ -814,9 +814,9 @@
           "file": "ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.mbtiles",
           "bytes": 760049664,
           "sha256": "257d36bb39077c2225e8467ad6e8c987cba1b1ff5b04e9a2aef608d7d4204f35",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.mbtiles"
         }
       ]
     },
@@ -884,7 +884,7 @@
       "id": "ALP_E144_N084",
       "locality": "Cortina d'Ampezzo",
       "display_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
-      "status": "release_ready",
+      "status": "published",
       "edition": "20261021T205258Z",
       "zoom": [
         12,
@@ -906,9 +906,9 @@
           "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261021T205258Z_01_z12-16.mbtiles",
           "bytes": 839716864,
           "sha256": "215fac085573ac372faa7444d744dbe52c4c098853859d6fd92b6f1f468aaf62",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261021T205258Z_01_z12-16.mbtiles"
         }
       ]
     },
