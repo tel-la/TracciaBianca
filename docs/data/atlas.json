@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-22T17:33:02Z",
+  "generated_at": "2026-10-22T18:28:35Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
@@ -380,13 +380,10 @@
       "id": "ALP_E139_N084",
       "locality": "Engadina – Bernina",
       "display_name": "Engadina – Bernina",
-      "status": "validation_pending",
-      "edition": "20261021T125152Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 766009344,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.53096047992156,
@@ -397,16 +394,7 @@
           10.275072085362147
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E139_N084_engadina-bernina_20261021T125152Z_01_z12-16.mbtiles",
-          "bytes": 766009344,
-          "sha256": "3038a25cf867dd0b1616dbd51c4001c81f151457705f1e351d3a588fe586ec05",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E140_N081",
@@ -472,13 +460,10 @@
       "id": "ALP_E140_N084",
       "locality": "Glurns - Glorenza",
       "display_name": "Glurns - Glorenza · Adamello – Garda",
-      "status": "validation_pending",
-      "edition": "20261021T103247Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 701521920,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.52917453284774,
@@ -489,28 +474,16 @@
           10.681116846676222
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E140_N084_glurns-glorenza-adamello-garda_20261021T103247Z_01_z12-16.mbtiles",
-          "bytes": 701521920,
-          "sha256": "f89d1855b5684c75abfa256bdbf42a1d92d69397616c6b8d1326442100276e00",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E140_N085",
       "locality": "Reschen - Resia",
       "display_name": "Reschen - Resia · Adamello – Garda",
-      "status": "validation_pending",
-      "edition": "20261021T095752Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 776294400,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.8083013492571,
@@ -521,16 +494,7 @@
           10.684740208347364
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E140_N085_reschen-resia-adamello-garda_20261021T095752Z_01_z12-16.mbtiles",
-          "bytes": 776294400,
-          "sha256": "accf7e8572578ca624eba3bdc3a9a8b74255b790a7b98c02eff7861efbde649f",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E141_N081",
@@ -776,13 +740,10 @@
       "id": "ALP_E143_N083",
       "locality": "Moena",
       "display_name": "Moena · Alto Adige – Dolomiti occidentali",
-      "status": "validation_pending",
-      "edition": "20261020T100501Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 725520384,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.235633004458386,
@@ -793,28 +754,19 @@
           11.888990982011018
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261020T100501Z_01_z12-16.mbtiles",
-          "bytes": 725520384,
-          "sha256": "2a3047ed408ffe966a901adbfa8224d9ebb4a5707a3117a721af4a0960f88d34",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E143_N084",
       "locality": "Brixen - Bressanone",
       "display_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
       "status": "validation_pending",
-      "edition": "20261020T102206Z",
+      "edition": "20261022T180730Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 784023552,
+      "bytes": 784486400,
       "analysis_bounds": [
         [
           46.51471784376727,
@@ -827,9 +779,9 @@
       ],
       "packages": [
         {
-          "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261020T102206Z_01_z12-16.mbtiles",
-          "bytes": 784023552,
-          "sha256": "f04c7896d39ed1cf5153bf27feb6f4cfffb2364e31a43580877dcd46cfc0476f",
+          "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.mbtiles",
+          "bytes": 784486400,
+          "sha256": "493fef88e9d71c86d6cbc5f3db0a104b331e31c4d30926aa78b8bccb0405a327",
           "release_tag": null,
           "release_url": null,
           "download_url": null
@@ -840,10 +792,13 @@
       "id": "ALP_E143_N085",
       "locality": "Niedervintl - Vandoies di Sotto",
       "display_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "validation_pending",
+      "edition": "20261022T175437Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 760049664,
       "analysis_bounds": [
         [
           46.793756602472406,
@@ -854,7 +809,16 @@
           11.90904843466312
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.mbtiles",
+          "bytes": 760049664,
+          "sha256": "257d36bb39077c2225e8467ad6e8c987cba1b1ff5b04e9a2aef608d7d4204f35",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ]
     },
     {
       "id": "ALP_E144_N081",
@@ -900,13 +864,10 @@
       "id": "ALP_E144_N083",
       "locality": "Agordo",
       "display_name": "Agordo · Dolomiti – Cadore",
-      "status": "validation_pending",
-      "edition": "20261021T160927Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 789860352,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.22782962134779,
@@ -917,16 +878,7 @@
           12.292639913229253
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261021T160927Z_01_z12-16.mbtiles",
-          "bytes": 789860352,
-          "sha256": "1e252cb0f27f126bf134c33ca6faee0a928418e8640dfd135689f05e36713b0d",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E144_N084",
@@ -964,13 +916,10 @@
       "id": "ALP_E144_N085",
       "locality": "Sand in Taufers - Campo Tures",
       "display_name": "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
-      "status": "validation_pending",
-      "edition": "20261021T145229Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 748445696,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.78585829656239,
@@ -981,16 +930,7 @@
           12.316976817894208
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261021T145229Z_01_z12-16.mbtiles",
-          "bytes": 748445696,
-          "sha256": "f435a7d893300d96008405a05118a28c0c554734911749539edb690f8727138e",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E145_N082",
@@ -1016,13 +956,10 @@
       "id": "ALP_E145_N083",
       "locality": "Pieve di Cadore",
       "display_name": "Pieve di Cadore · Dolomiti – Cadore",
-      "status": "validation_pending",
-      "edition": "20261020T092538Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 880009216,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.218520481552545,
@@ -1033,28 +970,16 @@
           12.696170594510653
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261020T092538Z_01_z12-16.mbtiles",
-          "bytes": 880009216,
-          "sha256": "dc1b1d2ba58d4a8c7610c41dc934dadda75898a6bbaa17b7f67868e12af602b3",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E145_N084",
       "locality": "Auronzo di Cadore",
       "display_name": "Auronzo di Cadore · Dolomiti – Cadore",
-      "status": "validation_pending",
-      "edition": "20261020T094646Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 744148992,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.49750199013386,
@@ -1065,28 +990,16 @@
           12.710379054539734
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261020T094646Z_01_z12-16.mbtiles",
-          "bytes": 744148992,
-          "sha256": "80f12470241b6de670278aa29855f4b9b69b2c6bce7a1f0e01f280c45b5025e4",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E145_N085",
       "locality": "Alti Tauri – Pusteria",
       "display_name": "Alti Tauri – Pusteria",
-      "status": "validation_pending",
-      "edition": "20261020T184707Z",
-      "zoom": [
-        12,
-        16
-      ],
-      "bytes": 839712768,
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
       "analysis_bounds": [
         [
           46.7764359637689,
@@ -1097,16 +1010,7 @@
           12.724781923364963
         ]
       ],
-      "packages": [
-        {
-          "file": "ALP_E145_N085_alti-tauri-pusteria_20261020T184707Z_01_z12-16.mbtiles",
-          "bytes": 839712768,
-          "sha256": "843d6e55f5911a74f39e9bd5bce11684046e002841200d04fa9f3343df7994b6",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
-        }
-      ]
+      "packages": []
     },
     {
       "id": "ALP_E146_N083",
