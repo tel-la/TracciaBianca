@@ -23,11 +23,19 @@ TracciaBianca is a collection of offline raster maps for ski touring in the Ital
 Use the **[interactive map-sheet index](https://tel-la.github.io/TracciaBianca/)** to identify a map by locality, inspect its status and download a published MBTiles release.
 
 <p align="center">
-  <img
-    src="https://github.com/user-attachments/assets/1fdf3755-7207-4af2-8e2f-3e5c4e9b63e0"
-    alt="Quadro di unione delle celle alpine"
-    width="100%"
-  />
+  <a href="https://tel-la.github.io/TracciaBianca/">
+    <img
+      src="https://github.com/user-attachments/assets/1fdf3755-7207-4af2-8e2f-3e5c4e9b63e0"
+      alt="Explore the interactive TracciaBianca map-sheet index"
+      width="100%"
+    />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://tel-la.github.io/TracciaBianca/">
+    <strong>Explore the interactive map →</strong>
+  </a>
 </p>
 
 ## Project status
