@@ -1,0 +1,7 @@
+(
+  node["amenity"="parking"]({{bbox}});
+  way["amenity"="parking"]({{bbox}});
+  node["highway"="trailhead"]({{bbox}});
+  way["highway"="trailhead"]({{bbox}});
+);
+out center;

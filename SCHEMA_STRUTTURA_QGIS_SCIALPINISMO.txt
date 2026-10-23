@@ -1,0 +1,30 @@
+STRUTTURA OPERATIVA
+===================
+00_template/          Progetto QGIS vuoto senza dati territoriali.
+03_styles/            Master auto_*.qml correnti, applicati dal generatore.
+04_symbols/           Simboli locali opzionali; quelli ordinari sono incorporati.
+05_queries_quickosm/  Query opzionali per approfondimenti OSM.
+06_documentazione/    Guida, fonti e collaudo corrente, registro di pulizia.
+07_Scripts/           Provider Processing, CLI, wrapper macOS, test e audit.
+08_Atlante/           Catalogo, dati vettoriali e quadro di unione dell'atlante.
+§§_REF/               MBTiles Sorbetto originale.
+##_aree/
+  _archivio_comune/
+    catalogo.gpkg    Coperture DTM e perimetri delle aree.
+    fonti.json       Registro autorevole, provenienza e qualità delle fonti.
+    dtm/originali/   Sorgenti conservate una sola volta.
+    dtm/tasselli/    Cache COG condivisa da 10 km.
+    mosaici/        VRT con percorsi relativi.
+    osm/            PBF territoriale comune ed estratti condivisi per bounding box.
+    logs/           Log delle operazioni recenti.
+  00_template-area/  Struttura duplicata da Prepara area.
+  <area>/
+    area.json       Perimetro, fonti, CRS e impostazioni export.
+    progetto/       <area>.qgz con stili incorporati e percorsi relativi.
+    input/          GPX, sorgenti specifiche, eventuali riferimenti iniziali.
+    elaborati/      DTM locale COG, pendenza, hillshade, stato e rapporto.
+    vettori/        dati_area.gpkg con annotazioni personali separate.
+    output/         mbtiles/, anteprime/, geotiff/, pdf/.
+
+Copiare tutta la cartella principale per rigenerare il lavoro su un altro computer.
+Copiare la sola area per lavorare sulla carta preparata; solo MBTiles per il telefono.

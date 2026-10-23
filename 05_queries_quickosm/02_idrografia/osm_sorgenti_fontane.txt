@@ -1,0 +1,5 @@
+(
+  node["natural"="spring"]({{bbox}});
+  node["amenity"="drinking_water"]({{bbox}});
+);
+out body;

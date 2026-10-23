@@ -1,0 +1,20 @@
+CONVENZIONI DEI NOMI — WORKFLOW 1.3
+===================================
+
+Area ordinaria: <numero>_<nome>, oppure un identificativo breve senza spazi.
+Cella atlante: ALP_E<colonna>_N<riga>; il nome geografico resta nel campo display_name.
+Configurazione: area.json.
+Progetto: progetto/<id-area>.qgz.
+Raster elaborati: dtm_ritagliato.tif, pendenza_gradi.tif, hillshade.tif.
+Vettori: vettori/dati_area.gpkg.
+
+Edizione: YYYYMMDDThhmmssZ; solo in caso di collisione nello stesso secondo si aggiunge -02, -03, ecc.
+MBTiles atlante: <cella>_<nome-geografico>_<edizione>_<parte>_z<min>-<max>.mbtiles.
+Esempio: ALP_E127_N073_agordino-san-martino_20261019T154743Z_01_z12-16.mbtiles.
+
+Cache DTM: <fonte>/epsg-<codice>_r<passo>m/<x>_<y>.tif.
+Mosaico VRT: <fonte>_epsg-<codice>_r<passo>m_x<min>-<max>_y<min>-<max>.vrt.
+Estratto OSM: bbox_<ovest>_<sud>_<est>_<nord>.gpkg.
+Log: <edizione>_workflow.log; eventuali collisioni usano un suffisso numerico progressivo.
+
+Hash e firme restano ammessi dentro i JSON di stato: servono a invalidare le cache, ma non sono nomi di file destinati all’utente.

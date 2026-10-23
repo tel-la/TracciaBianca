@@ -1,0 +1,4 @@
+way
+  ["highway"~"^(path|footway|bridleway|track)$"]
+  ({{bbox}});
+out body;

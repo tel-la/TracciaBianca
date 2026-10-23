@@ -1,0 +1,35 @@
+QGIS SCIALPINISMO — BASE OPERATIVA
+=================================
+
+AVVIO
+  Doppio clic su Avvia_Scialpinismo.command.
+  Gli strumenti ordinari sono: Prepara area, Aggiorna area, Esporta offline.
+
+FLUSSO CORRENTE
+  1. Prepara o aggiorna una zona da ##_aree/<area>/area.json.
+  2. Controlla il progetto QGIS generato in ##_aree/<area>/progetto/.
+  3. Esporta scegliendo zoom minimo e massimo; il default è 12–16.
+  4. Usa solo i file elencati in output/mbtiles/LEGGIMI_PRODUZIONE_CORRENTE.txt.
+
+DATI OSM
+  L'aggiornamento importa punti, linee e poligoni dal PBF locale. Edifici,
+  building:part, ruderi, acque, vegetazione e aree insediate sono controllati
+  prima di creare il progetto. Agli zoom 12–15 le aree insediate danno il
+  quadro dei centri abitati; agli zoom di dettaglio compaiono le sagome edilizie.
+
+DOCUMENTI
+  Installazione e uso:          HOWTO.md
+  Guida rapida:                 06_documentazione/GUIDA_RAPIDA.md
+  Comandi e configurazione:     07_Scripts/README.md
+  Struttura delle cartelle:     SCHEMA_STRUTTURA_QGIS_SCIALPINISMO.txt
+  Scelte cartografiche:         HANDOFF_PROGETTAZIONE_MAPPE.md
+
+STRUTTURA
+  03_styles/       stili QGIS autorevoli
+  05_queries_quickosm/ query opzionali di approfondimento
+  06_documentazione/ guide, collaudi e registri
+  07_Scripts/      workflow, provider e test
+  ##_aree/         configurazioni, dati ed export per area
+  §§_REF/          riferimento MBTiles originale, da non modificare
+
+Ogni export aggiorna il registro Atlante senza produrre altre zone.

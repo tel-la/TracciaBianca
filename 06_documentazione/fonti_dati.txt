@@ -1,0 +1,19 @@
+FONTI DATI — RIFERIMENTO RAPIDO
+===============================
+
+Registro autorevole: ../##_aree/_archivio_comune/fonti.json
+Coperture: ../##_aree/_archivio_comune/catalogo.gpkg
+Fonti usate da una zona: elaborati/rapporto.json
+Attribuzioni MBTiles: output/mbtiles/catalogo_mbtiles.json e tabella metadata del file
+
+Struttura DTM originale corrente:
+- dtm/originali/hrdtm5m/HRDTM5m: base nazionale continua;
+- dtm/originali/AltoAdige/: dati locali a 2,5 m;
+- dtm/originali/Veneto_HQ/: dati locali a 5 m;
+- dtm/originali/tinitaly/: originali supplementari non ancora registrati singolarmente.
+- Slovenia DMR 1 m ARSO: servizio ImageServer numerico, acquisito su richiesta in tasselli cache da 10 km alla griglia di lavoro di 5 m.
+- Austria ALS-DGM 1 m BEV: COG ufficiali indicizzati dal servizio ATOM; il workflow legge via HTTP Range solo la finestra utile e la conserva in tasselli cache da 10 km alla griglia di lavoro.
+- dtm/originali/swissalti3d_2m/: COG svizzeri da 1 km e 2 m indicizzati dall'API STAC, scaricati solo quando necessari;
+
+Le fonti locali fini vengono sovrapposte alla base solo nelle celle valide. Non dedurre qualità, CRS o datum dal nome del file; completare sempre i metadati e la licenza.
+Le sorgenti remote registrate non vengono copiate integralmente: al primo aggiornamento di un riquadro il workflow scarica solo i tasselli necessari e poi li riusa offline. In particolare, i COG BEV da 50 km (circa 5 GB ciascuno) non vengono duplicati per intero; per swissALTI3D si usa la versione 2 m, adeguata alla griglia del progetto, invece della copertura 0,5 m da circa 770 GB.

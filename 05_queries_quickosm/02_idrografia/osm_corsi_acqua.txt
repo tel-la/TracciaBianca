@@ -1,0 +1,4 @@
+way
+  ["waterway"~"^(stream|river|ditch|drain)$"]
+  ({{bbox}});
+out body;

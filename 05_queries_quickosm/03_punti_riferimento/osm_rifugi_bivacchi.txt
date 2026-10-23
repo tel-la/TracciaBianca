@@ -1,0 +1,4 @@
+nwr
+  ["tourism"~"^(alpine_hut|wilderness_hut)$"]
+  ({{bbox}});
+out center;

@@ -1,0 +1,1596 @@
+{
+  "grid_id": "ALP35_OVERLAP2_LAEA_v2",
+  "cell_size_m": 35000,
+  "step_m": 31000,
+  "overlap_side_m": 2000,
+  "cells": [
+    {
+      "id": "ALP_E134_N081",
+      "col": 134,
+      "row": 81,
+      "display_name": "Biellese – Valsesia",
+      "mountain_percent": 94.796,
+      "max_elevation_m": 4601.5,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Biellese – Valsesia",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 8.05241878085998,
+        "lat": 45.833428844291966,
+        "source": "area_montuosa",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E134_N082",
+      "col": 134,
+      "row": 82,
+      "display_name": "Valsesia – Monte Rosa",
+      "mountain_percent": 46.367,
+      "max_elevation_m": 3947.3,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Valsesia – Monte Rosa",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 8.042365640966095,
+        "lat": 46.112573773463176,
+        "source": "area_montuosa",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E134_N083",
+      "col": 134,
+      "row": 83,
+      "display_name": "Monte Rosa – Vallese",
+      "mountain_percent": 8.918,
+      "max_elevation_m": 3550.7,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Monte Rosa – Vallese",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 8.032176824032263,
+        "lat": 46.39167012249518,
+        "source": "area_montuosa",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E135_N081",
+      "col": 135,
+      "row": 81,
+      "display_name": "Verbania · Lago Maggiore – Ossola",
+      "mountain_percent": 45.0,
+      "max_elevation_m": 2387.0,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Verbania",
+        "place": "town",
+        "population": 0,
+        "lon": 8.558006200000001,
+        "lat": 45.9344082,
+        "score": 14000.0,
+        "source": "OpenStreetMap",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E135_N082",
+      "col": 135,
+      "row": 82,
+      "display_name": "Domodossola · Lago Maggiore – Ossola",
+      "mountain_percent": 75.673,
+      "max_elevation_m": 2904.3,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Domodossola",
+        "place": "town",
+        "population": 18466,
+        "lon": 8.2920459,
+        "lat": 46.1152451,
+        "score": 16559.823698734763,
+        "source": "OpenStreetMap",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E135_N083",
+      "col": 135,
+      "row": 83,
+      "display_name": "Premia · Lago Maggiore – Ossola",
+      "mountain_percent": 30.857,
+      "max_elevation_m": 3352.1,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Premia",
+        "place": "village",
+        "population": 564,
+        "lon": 8.339,
+        "lat": 46.2681442,
+        "score": 4650.767462390006,
+        "source": "OpenStreetMap",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E136_N081",
+      "col": 136,
+      "row": 81,
+      "display_name": "Varese · Lago Maggiore – Ossola",
+      "mountain_percent": 16.714,
+      "max_elevation_m": 1707.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Varese",
+        "place": "city",
+        "population": 78962,
+        "lon": 8.8263532,
+        "lat": 45.817549,
+        "score": 7938.45088393345,
+        "source": "OpenStreetMap",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E136_N082",
+      "col": 136,
+      "row": 82,
+      "display_name": "Luino · Lago Maggiore – Ossola",
+      "mountain_percent": 14.816,
+      "max_elevation_m": 2151.1,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Luino",
+        "place": "town",
+        "population": 14234,
+        "lon": 8.739907,
+        "lat": 45.998908400000005,
+        "score": 6491.996176894543,
+        "source": "OpenStreetMap",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E136_N083",
+      "col": 136,
+      "row": 83,
+      "display_name": "Ticino – Alpi Lepontine",
+      "mountain_percent": 0.0,
+      "max_elevation_m": null,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Ticino – Alpi Lepontine",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 8.837336331453145,
+        "lat": 46.40342894834178,
+        "source": "area_montuosa",
+        "sector": "Lago Maggiore – Ossola"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E137_N081",
+      "col": 137,
+      "row": 81,
+      "display_name": "Como · Lario – Valchiavenna",
+      "mountain_percent": 45.327,
+      "max_elevation_m": 2402.8,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Como",
+        "place": "city",
+        "population": 83422,
+        "lon": 9.0830353,
+        "lat": 45.811562300000006,
+        "score": 17952.7683585743,
+        "source": "OpenStreetMap",
+        "sector": "Lario – Valchiavenna"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E137_N082",
+      "col": 137,
+      "row": 82,
+      "display_name": "Colico · Lario – Valchiavenna",
+      "mountain_percent": 57.939,
+      "max_elevation_m": 2723.7,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Colico",
+        "place": "town",
+        "population": 6257,
+        "lon": 9.3738195,
+        "lat": 46.1363111,
+        "score": 6277.8196929865135,
+        "source": "OpenStreetMap",
+        "sector": "Lario – Valchiavenna"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E137_N083",
+      "col": 137,
+      "row": 83,
+      "display_name": "Chiavenna · Lario – Valchiavenna",
+      "mountain_percent": 31.898,
+      "max_elevation_m": 3254.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Chiavenna",
+        "place": "town",
+        "population": 7000,
+        "lon": 9.400742600000001,
+        "lat": 46.3200662,
+        "score": 6307.058824008554,
+        "source": "OpenStreetMap",
+        "sector": "Lario – Valchiavenna"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E138_N081",
+      "col": 138,
+      "row": 81,
+      "display_name": "Albino · Valtellina – Orobie",
+      "mountain_percent": 75.673,
+      "max_elevation_m": 2611.9,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Albino",
+        "place": "town",
+        "population": 17800,
+        "lon": 9.7969489,
+        "lat": 45.760661000000006,
+        "score": 6550.252001385336,
+        "source": "OpenStreetMap",
+        "sector": "Valtellina – Orobie"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E138_N082",
+      "col": 138,
+      "row": 82,
+      "display_name": "Morbegno · Valtellina – Orobie",
+      "mountain_percent": 90.102,
+      "max_elevation_m": 3665.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Morbegno",
+        "place": "town",
+        "population": 10000,
+        "lon": 9.5696759,
+        "lat": 46.1313095,
+        "score": 6400.0,
+        "source": "OpenStreetMap",
+        "sector": "Valtellina – Orobie"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E138_N083",
+      "col": 138,
+      "row": 83,
+      "display_name": "Villa di Chiavenna · Lario – Valchiavenna",
+      "mountain_percent": 30.184,
+      "max_elevation_m": 3886.6,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Villa di Chiavenna",
+        "place": "village",
+        "population": 1000,
+        "lon": 9.489449200000001,
+        "lat": 46.331023200000004,
+        "score": 4800.0,
+        "source": "OpenStreetMap",
+        "sector": "Lario – Valchiavenna"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E139_N081",
+      "col": 139,
+      "row": 81,
+      "display_name": "Darfo Boario Terme · Adamello – Garda",
+      "mountain_percent": 82.878,
+      "max_elevation_m": 2611.9,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Darfo Boario Terme",
+        "place": "town",
+        "population": 15932,
+        "lon": 10.180706800000001,
+        "lat": 45.8834863,
+        "score": 6521.362178642374,
+        "source": "OpenStreetMap",
+        "sector": "Adamello – Garda"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E139_N082",
+      "col": 139,
+      "row": 82,
+      "display_name": "Sondrio · Valtellina – Orobie",
+      "mountain_percent": 90.327,
+      "max_elevation_m": 3312.7,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Sondrio",
+        "place": "town",
+        "population": 19208,
+        "lon": 9.871621600000001,
+        "lat": 46.171208400000005,
+        "score": 16570.089288229385,
+        "source": "OpenStreetMap",
+        "sector": "Valtellina – Orobie"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E139_N083",
+      "col": 139,
+      "row": 83,
+      "display_name": "Livigno · Valtellina – Orobie",
+      "mountain_percent": 55.061,
+      "max_elevation_m": 3987.1,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Livigno",
+        "place": "town",
+        "population": 6000,
+        "lon": 10.1359928,
+        "lat": 46.538173400000005,
+        "score": 16266.890750230186,
+        "source": "OpenStreetMap",
+        "sector": "Valtellina – Orobie"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E139_N084",
+      "col": 139,
+      "row": 84,
+      "display_name": "Engadina – Bernina",
+      "mountain_percent": 11.694,
+      "max_elevation_m": 3130.0,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Engadina – Bernina",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 10.045709298781013,
+        "lat": 46.688883134972556,
+        "source": "area_montuosa",
+        "sector": "Valtellina – Orobie"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E140_N081",
+      "col": 140,
+      "row": 81,
+      "display_name": "Borgo Chiese · Adamello – Garda",
+      "mountain_percent": 93.531,
+      "max_elevation_m": 2832.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Borgo Chiese",
+        "place": "municipality",
+        "population": 2029,
+        "lon": 10.5619745,
+        "lat": 45.8923623,
+        "score": 5484.369228220007,
+        "source": "OpenStreetMap",
+        "sector": "Adamello – Garda"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E140_N082",
+      "col": 140,
+      "row": 82,
+      "display_name": "Edolo · Adamello – Garda",
+      "mountain_percent": 98.265,
+      "max_elevation_m": 3556.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Edolo",
+        "place": "town",
+        "population": 4291,
+        "lon": 10.333256700000002,
+        "lat": 46.180634600000005,
+        "score": 16179.535108719603,
+        "source": "OpenStreetMap",
+        "sector": "Adamello – Garda"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E140_N083",
+      "col": 140,
+      "row": 83,
+      "display_name": "Bormio · Adamello – Garda",
+      "mountain_percent": 97.98,
+      "max_elevation_m": 3889.8,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Bormio",
+        "place": "town",
+        "population": 4096,
+        "lon": 10.3774659,
+        "lat": 46.467670500000004,
+        "score": 16167.415968780664,
+        "source": "OpenStreetMap",
+        "sector": "Adamello – Garda"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E140_N084",
+      "col": 140,
+      "row": 84,
+      "display_name": "Glurns - Glorenza · Adamello – Garda",
+      "mountain_percent": 59.265,
+      "max_elevation_m": 3532.6,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Glurns - Glorenza",
+        "place": "town",
+        "population": 896,
+        "lon": 10.553912700000001,
+        "lat": 46.671492400000005,
+        "score": 5771.3848057972755,
+        "source": "OpenStreetMap",
+        "sector": "Adamello – Garda"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E140_N085",
+      "col": 140,
+      "row": 85,
+      "display_name": "Reschen - Resia · Adamello – Garda",
+      "mountain_percent": 7.755,
+      "max_elevation_m": 3116.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Reschen - Resia",
+        "place": "village",
+        "population": 0,
+        "lon": 10.5183101,
+        "lat": 46.8296374,
+        "score": 3000.0,
+        "source": "OpenStreetMap",
+        "sector": "Adamello – Garda"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E141_N081",
+      "col": 141,
+      "row": 81,
+      "display_name": "Arco · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 76.592,
+      "max_elevation_m": 2253.3,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Arco",
+        "place": "town",
+        "population": 17526,
+        "lon": 10.886095300000001,
+        "lat": 45.9181327,
+        "score": 6546.209684414316,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E141_N082",
+      "col": 141,
+      "row": 82,
+      "display_name": "Madonna di Campiglio · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 93.224,
+      "max_elevation_m": 3556.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Madonna di Campiglio",
+        "place": "village",
+        "population": 656,
+        "lon": 10.8270157,
+        "lat": 46.2269942,
+        "score": 14690.142303625396,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E141_N083",
+      "col": 141,
+      "row": 83,
+      "display_name": "Dimaro Folgarida · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 97.388,
+      "max_elevation_m": 3664.9,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Dimaro Folgarida",
+        "place": "municipality",
+        "population": 2208,
+        "lon": 10.886907800000001,
+        "lat": 46.302192500000004,
+        "score": 5506.399441434297,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E141_N084",
+      "col": 141,
+      "row": 84,
+      "display_name": "Schlanders - Silandro · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 85.796,
+      "max_elevation_m": 3719.1,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Schlanders - Silandro",
+        "place": "town",
+        "population": 6371,
+        "lon": 10.773476500000001,
+        "lat": 46.6280688,
+        "score": 6282.5245630492245,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E141_N085",
+      "col": 141,
+      "row": 85,
+      "display_name": "Alpi Venoste – Ötztal",
+      "mountain_percent": 5.51,
+      "max_elevation_m": 3501.7,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Alpi Venoste – Ötztal",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 10.859912672265985,
+        "lat": 46.9645899572423,
+        "source": "area_montuosa",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E142_N081",
+      "col": 142,
+      "row": 81,
+      "display_name": "Rovereto · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 82.286,
+      "max_elevation_m": 2333.0,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Rovereto",
+        "place": "town",
+        "population": 39809,
+        "lon": 11.0452369,
+        "lat": 45.886548000000005,
+        "score": 6759.988760959855,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E142_N082",
+      "col": 142,
+      "row": 82,
+      "display_name": "Trento · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 81.224,
+      "max_elevation_m": 2487.7,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Trento",
+        "place": "city",
+        "population": 119359,
+        "lon": 11.1257601,
+        "lat": 46.066422800000005,
+        "score": 18000,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E142_N083",
+      "col": 142,
+      "row": 83,
+      "display_name": "Bolzano - Bozen · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 80.51,
+      "max_elevation_m": 2439.0,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Bolzano - Bozen",
+        "place": "city",
+        "population": 105713,
+        "lon": 11.3547399,
+        "lat": 46.4984781,
+        "score": 8000,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E142_N084",
+      "col": 142,
+      "row": 84,
+      "display_name": "Merano - Meran · Trentino occidentale – Dolomiti di Brenta",
+      "mountain_percent": 92.592,
+      "max_elevation_m": 3442.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Merano - Meran",
+        "place": "town",
+        "population": 33656,
+        "lon": 11.1646348,
+        "lat": 46.6713536,
+        "score": 6716.237499405364,
+        "source": "OpenStreetMap",
+        "sector": "Trentino occidentale – Dolomiti di Brenta"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E142_N085",
+      "col": 142,
+      "row": 85,
+      "display_name": "Sterzing - Vipiteno · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 48.816,
+      "max_elevation_m": 3453.6,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Sterzing - Vipiteno",
+        "place": "town",
+        "population": 5785,
+        "lon": 11.4319398,
+        "lat": 46.8963235,
+        "score": 6257.382017972661,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E143_N081",
+      "col": 143,
+      "row": 81,
+      "display_name": "Bassano del Grappa · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 59.551,
+      "max_elevation_m": 2333.0,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Bassano del Grappa",
+        "place": "town",
+        "population": 43372,
+        "lon": 11.7343469,
+        "lat": 45.766910900000006,
+        "score": 6782.325669460855,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E143_N082",
+      "col": 143,
+      "row": 82,
+      "display_name": "Borgo Valsugana · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 93.204,
+      "max_elevation_m": 2983.3,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Borgo Valsugana",
+        "place": "town",
+        "population": 6945,
+        "lon": 11.456600400000001,
+        "lat": 46.0533463,
+        "score": 6305.0033500441805,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E143_N083",
+      "col": 143,
+      "row": 83,
+      "display_name": "Moena · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 99.796,
+      "max_elevation_m": 3342.4,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Moena",
+        "place": "village",
+        "population": 2602,
+        "lon": 11.6592663,
+        "lat": 46.3769434,
+        "score": 15049.18437533534,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E143_N084",
+      "col": 143,
+      "row": 84,
+      "display_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 99.735,
+      "max_elevation_m": 3171.3,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Brixen - Bressanone",
+        "place": "town",
+        "population": 23004,
+        "lon": 11.657792,
+        "lat": 46.716413,
+        "score": 6617.082015355412,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E143_N085",
+      "col": 143,
+      "row": 85,
+      "display_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
+      "mountain_percent": 64.306,
+      "max_elevation_m": 3493.9,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Niedervintl - Vandoies di Sotto",
+        "place": "village",
+        "population": 3108,
+        "lon": 11.7207817,
+        "lat": 46.8151804,
+        "score": 5095.488606077326,
+        "source": "OpenStreetMap",
+        "sector": "Alto Adige – Dolomiti occidentali"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E144_N081",
+      "col": 144,
+      "row": 81,
+      "display_name": "Montebelluna · Dolomiti – Cadore",
+      "mountain_percent": 17.0,
+      "max_elevation_m": 1675.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Montebelluna",
+        "place": "town",
+        "population": 31228,
+        "lon": 12.0452878,
+        "lat": 45.7762844,
+        "score": 6696.7265024155895,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E144_N082",
+      "col": 144,
+      "row": 82,
+      "display_name": "Belluno · Dolomiti – Cadore",
+      "mountain_percent": 68.633,
+      "max_elevation_m": 2983.3,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Belluno",
+        "place": "town",
+        "population": 35870,
+        "lon": 12.218171100000001,
+        "lat": 46.137518500000006,
+        "score": 16732.83882600558,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E144_N083",
+      "col": 144,
+      "row": 83,
+      "display_name": "Agordo · Dolomiti – Cadore",
+      "mountain_percent": 99.98,
+      "max_elevation_m": 3342.4,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Agordo",
+        "place": "town",
+        "population": 4124,
+        "lon": 12.034981,
+        "lat": 46.2821471,
+        "score": 6169.191193966887,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E144_N084",
+      "col": 144,
+      "row": 84,
+      "display_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
+      "mountain_percent": 99.673,
+      "max_elevation_m": 3244.6,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Cortina d'Ampezzo",
+        "place": "town",
+        "population": 5907,
+        "lon": 12.137350600000001,
+        "lat": 46.538333200000004,
+        "score": 16262.820182514668,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E144_N085",
+      "col": 144,
+      "row": 85,
+      "display_name": "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
+      "mountain_percent": 68.122,
+      "max_elevation_m": 3460.7,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Sand in Taufers - Campo Tures",
+        "place": "village",
+        "population": 4880,
+        "lon": 11.9551824,
+        "lat": 46.9192363,
+        "score": 5213.051893201626,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E145_N082",
+      "col": 145,
+      "row": 82,
+      "display_name": "Vittorio Veneto · Dolomiti – Cadore",
+      "mountain_percent": 58.49,
+      "max_elevation_m": 2454.0,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Vittorio Veneto",
+        "place": "town",
+        "population": 28232,
+        "lon": 12.2958519,
+        "lat": 45.9898217,
+        "score": 6670.444987211147,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E145_N083",
+      "col": 145,
+      "row": 83,
+      "display_name": "Pieve di Cadore · Dolomiti – Cadore",
+      "mountain_percent": 99.204,
+      "max_elevation_m": 3257.4,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Pieve di Cadore",
+        "place": "town",
+        "population": 3794,
+        "lon": 12.375296700000002,
+        "lat": 46.4287086,
+        "score": 6147.458395931586,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E145_N084",
+      "col": 145,
+      "row": 84,
+      "display_name": "Auronzo di Cadore · Dolomiti – Cadore",
+      "mountain_percent": 65.327,
+      "max_elevation_m": 3139.7,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Auronzo di Cadore",
+        "place": "town",
+        "population": 3028,
+        "lon": 12.4430387,
+        "lat": 46.5511562,
+        "score": 16088.693522496822,
+        "source": "OpenStreetMap",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E145_N085",
+      "col": 145,
+      "row": 85,
+      "display_name": "Alti Tauri – Pusteria",
+      "mountain_percent": 2.918,
+      "max_elevation_m": 2752.2,
+      "name_source": "geographic_fallback",
+      "reference": {
+        "name": "Alti Tauri – Pusteria",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 12.487118556755314,
+        "lat": 46.93940366660463,
+        "source": "area_montuosa",
+        "sector": "Dolomiti – Cadore"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E146_N083",
+      "col": 146,
+      "row": 83,
+      "display_name": "Tolmezzo · Carnia – Dolomiti Friulane",
+      "mountain_percent": 83.143,
+      "max_elevation_m": 2482.6,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Tolmezzo",
+        "place": "town",
+        "population": 10440,
+        "lon": 13.0158357,
+        "lat": 46.405367600000005,
+        "score": 16411.220299199747,
+        "source": "OpenStreetMap",
+        "sector": "Carnia – Dolomiti Friulane"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E146_N084",
+      "col": 146,
+      "row": 84,
+      "display_name": "Paluzza · Carnia – Dolomiti Friulane",
+      "mountain_percent": 41.204,
+      "max_elevation_m": 2779.3,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Paluzza",
+        "place": "village",
+        "population": 2597,
+        "lon": 13.018206500000002,
+        "lat": 46.5308146,
+        "score": 5048.6831697775815,
+        "source": "OpenStreetMap",
+        "sector": "Carnia – Dolomiti Friulane"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E147_N083",
+      "col": 147,
+      "row": 83,
+      "display_name": "Gemona del Friuli · Carnia – Dolomiti Friulane",
+      "mountain_percent": 73.224,
+      "max_elevation_m": 2754.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Gemona del Friuli",
+        "place": "town",
+        "population": 10964,
+        "lon": 13.1401049,
+        "lat": 46.2770072,
+        "score": 6423.981416120476,
+        "source": "OpenStreetMap",
+        "sector": "Carnia – Dolomiti Friulane"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E147_N084",
+      "col": 147,
+      "row": 84,
+      "display_name": "Paularo / Paulâr · Carnia – Dolomiti Friulane",
+      "mountain_percent": 29.98,
+      "max_elevation_m": 2277.2,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Paularo / Paulâr",
+        "place": "village",
+        "population": 2907,
+        "lon": 13.1165605,
+        "lat": 46.5303455,
+        "score": 5078.067019062257,
+        "source": "OpenStreetMap",
+        "sector": "Carnia – Dolomiti Friulane"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E148_N082",
+      "col": 148,
+      "row": 82,
+      "display_name": "Gorizia · Alpi Giulie – Friuli",
+      "mountain_percent": 8.939,
+      "max_elevation_m": 1643.0,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Gorizia",
+        "place": "town",
+        "population": 34844,
+        "lon": 13.6252288,
+        "lat": 45.944127800000004,
+        "score": 6725.2768030403895,
+        "source": "OpenStreetMap",
+        "sector": "Alpi Giulie – Friuli"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E148_N083",
+      "col": 148,
+      "row": 83,
+      "display_name": "Cave del Predil / Raibl / Rabelj / Rabil · Alpi Giulie – Friuli",
+      "mountain_percent": 21.041,
+      "max_elevation_m": 2673.9,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Cave del Predil / Raibl / Rabelj / Rabil",
+        "place": "village",
+        "population": 0,
+        "lon": 13.570989800000001,
+        "lat": 46.4412512,
+        "score": 3000.0,
+        "source": "OpenStreetMap",
+        "sector": "Alpi Giulie – Friuli"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    },
+    {
+      "id": "ALP_E148_N084",
+      "col": 148,
+      "row": 84,
+      "display_name": "Tarvisio · Alpi Giulie – Friuli",
+      "mountain_percent": 13.755,
+      "max_elevation_m": 2087.4,
+      "name_source": "osm_reference",
+      "reference": {
+        "name": "Tarvisio",
+        "place": "town",
+        "population": 5071,
+        "lon": 13.5783734,
+        "lat": 46.5052624,
+        "score": 16223.056166328724,
+        "source": "OpenStreetMap",
+        "sector": "Alpi Giulie – Friuli"
+      },
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": [],
+      "checks": {}
+    }
+  ]
+}

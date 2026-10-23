@@ -1,0 +1,1050 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E134_N081",
+        "name": "Biellese – Valsesia",
+        "area_name": "Biellese – Valsesia",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.05241878085998,
+          45.833428844291966
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E134_N082",
+        "name": "Valsesia – Monte Rosa",
+        "area_name": "Valsesia – Monte Rosa",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.042365640966095,
+          46.112573773463176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E134_N083",
+        "name": "Monte Rosa – Vallese",
+        "area_name": "Monte Rosa – Vallese",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.032176824032263,
+          46.39167012249518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E135_N081",
+        "name": "Verbania",
+        "area_name": "Verbania · Lago Maggiore – Ossola",
+        "place": "town",
+        "population": 0,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.558006200000001,
+          45.9344082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E135_N082",
+        "name": "Domodossola",
+        "area_name": "Domodossola · Lago Maggiore – Ossola",
+        "place": "town",
+        "population": 18466,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.2920459,
+          46.1152451
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E135_N083",
+        "name": "Premia",
+        "area_name": "Premia · Lago Maggiore – Ossola",
+        "place": "village",
+        "population": 564,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.339,
+          46.2681442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E136_N081",
+        "name": "Varese",
+        "area_name": "Varese · Lago Maggiore – Ossola",
+        "place": "city",
+        "population": 78962,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.8263532,
+          45.817549
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E136_N082",
+        "name": "Luino",
+        "area_name": "Luino · Lago Maggiore – Ossola",
+        "place": "town",
+        "population": 14234,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.739907,
+          45.998908400000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E136_N083",
+        "name": "Ticino – Alpi Lepontine",
+        "area_name": "Ticino – Alpi Lepontine",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Lago Maggiore – Ossola",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.837336331453145,
+          46.40342894834178
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E137_N081",
+        "name": "Como",
+        "area_name": "Como · Lario – Valchiavenna",
+        "place": "city",
+        "population": 83422,
+        "sector": "Lario – Valchiavenna",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.0830353,
+          45.811562300000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E137_N082",
+        "name": "Colico",
+        "area_name": "Colico · Lario – Valchiavenna",
+        "place": "town",
+        "population": 6257,
+        "sector": "Lario – Valchiavenna",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3738195,
+          46.1363111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E137_N083",
+        "name": "Chiavenna",
+        "area_name": "Chiavenna · Lario – Valchiavenna",
+        "place": "town",
+        "population": 7000,
+        "sector": "Lario – Valchiavenna",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.400742600000001,
+          46.3200662
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E138_N081",
+        "name": "Albino",
+        "area_name": "Albino · Valtellina – Orobie",
+        "place": "town",
+        "population": 17800,
+        "sector": "Valtellina – Orobie",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.7969489,
+          45.760661000000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E138_N082",
+        "name": "Morbegno",
+        "area_name": "Morbegno · Valtellina – Orobie",
+        "place": "town",
+        "population": 10000,
+        "sector": "Valtellina – Orobie",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.5696759,
+          46.1313095
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E138_N083",
+        "name": "Villa di Chiavenna",
+        "area_name": "Villa di Chiavenna · Lario – Valchiavenna",
+        "place": "village",
+        "population": 1000,
+        "sector": "Lario – Valchiavenna",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.489449200000001,
+          46.331023200000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E139_N081",
+        "name": "Darfo Boario Terme",
+        "area_name": "Darfo Boario Terme · Adamello – Garda",
+        "place": "town",
+        "population": 15932,
+        "sector": "Adamello – Garda",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.180706800000001,
+          45.8834863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E139_N082",
+        "name": "Sondrio",
+        "area_name": "Sondrio · Valtellina – Orobie",
+        "place": "town",
+        "population": 19208,
+        "sector": "Valtellina – Orobie",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.871621600000001,
+          46.171208400000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E139_N083",
+        "name": "Livigno",
+        "area_name": "Livigno · Valtellina – Orobie",
+        "place": "town",
+        "population": 6000,
+        "sector": "Valtellina – Orobie",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.1359928,
+          46.538173400000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E139_N084",
+        "name": "Engadina – Bernina",
+        "area_name": "Engadina – Bernina",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Valtellina – Orobie",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.045709298781013,
+          46.688883134972556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E140_N081",
+        "name": "Borgo Chiese",
+        "area_name": "Borgo Chiese · Adamello – Garda",
+        "place": "municipality",
+        "population": 2029,
+        "sector": "Adamello – Garda",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.5619745,
+          45.8923623
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E140_N082",
+        "name": "Edolo",
+        "area_name": "Edolo · Adamello – Garda",
+        "place": "town",
+        "population": 4291,
+        "sector": "Adamello – Garda",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.333256700000002,
+          46.180634600000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E140_N083",
+        "name": "Bormio",
+        "area_name": "Bormio · Adamello – Garda",
+        "place": "town",
+        "population": 4096,
+        "sector": "Adamello – Garda",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.3774659,
+          46.467670500000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E140_N084",
+        "name": "Glurns - Glorenza",
+        "area_name": "Glurns - Glorenza · Adamello – Garda",
+        "place": "town",
+        "population": 896,
+        "sector": "Adamello – Garda",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.553912700000001,
+          46.671492400000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E140_N085",
+        "name": "Reschen - Resia",
+        "area_name": "Reschen - Resia · Adamello – Garda",
+        "place": "village",
+        "population": 0,
+        "sector": "Adamello – Garda",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.5183101,
+          46.8296374
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E141_N081",
+        "name": "Arco",
+        "area_name": "Arco · Trentino occidentale – Dolomiti di Brenta",
+        "place": "town",
+        "population": 17526,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.886095300000001,
+          45.9181327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E141_N082",
+        "name": "Madonna di Campiglio",
+        "area_name": "Madonna di Campiglio · Trentino occidentale – Dolomiti di Brenta",
+        "place": "village",
+        "population": 656,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.8270157,
+          46.2269942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E141_N083",
+        "name": "Dimaro Folgarida",
+        "area_name": "Dimaro Folgarida · Trentino occidentale – Dolomiti di Brenta",
+        "place": "municipality",
+        "population": 2208,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.886907800000001,
+          46.302192500000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E141_N084",
+        "name": "Schlanders - Silandro",
+        "area_name": "Schlanders - Silandro · Trentino occidentale – Dolomiti di Brenta",
+        "place": "town",
+        "population": 6371,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.773476500000001,
+          46.6280688
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E141_N085",
+        "name": "Alpi Venoste – Ötztal",
+        "area_name": "Alpi Venoste – Ötztal",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.859912672265985,
+          46.9645899572423
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E142_N081",
+        "name": "Rovereto",
+        "area_name": "Rovereto · Trentino occidentale – Dolomiti di Brenta",
+        "place": "town",
+        "population": 39809,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.0452369,
+          45.886548000000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E142_N082",
+        "name": "Trento",
+        "area_name": "Trento · Trentino occidentale – Dolomiti di Brenta",
+        "place": "city",
+        "population": 119359,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.1257601,
+          46.066422800000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E142_N083",
+        "name": "Bolzano - Bozen",
+        "area_name": "Bolzano - Bozen · Alto Adige – Dolomiti occidentali",
+        "place": "city",
+        "population": 105713,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3547399,
+          46.4984781
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E142_N084",
+        "name": "Merano - Meran",
+        "area_name": "Merano - Meran · Trentino occidentale – Dolomiti di Brenta",
+        "place": "town",
+        "population": 33656,
+        "sector": "Trentino occidentale – Dolomiti di Brenta",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.1646348,
+          46.6713536
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E142_N085",
+        "name": "Sterzing - Vipiteno",
+        "area_name": "Sterzing - Vipiteno · Alto Adige – Dolomiti occidentali",
+        "place": "town",
+        "population": 5785,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.4319398,
+          46.8963235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E143_N081",
+        "name": "Bassano del Grappa",
+        "area_name": "Bassano del Grappa · Alto Adige – Dolomiti occidentali",
+        "place": "town",
+        "population": 43372,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.7343469,
+          45.766910900000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E143_N082",
+        "name": "Borgo Valsugana",
+        "area_name": "Borgo Valsugana · Alto Adige – Dolomiti occidentali",
+        "place": "town",
+        "population": 6945,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.456600400000001,
+          46.0533463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E143_N083",
+        "name": "Moena",
+        "area_name": "Moena · Alto Adige – Dolomiti occidentali",
+        "place": "village",
+        "population": 2602,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.6592663,
+          46.3769434
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E143_N084",
+        "name": "Brixen - Bressanone",
+        "area_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
+        "place": "town",
+        "population": 23004,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.657792,
+          46.716413
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E143_N085",
+        "name": "Niedervintl - Vandoies di Sotto",
+        "area_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
+        "place": "village",
+        "population": 3108,
+        "sector": "Alto Adige – Dolomiti occidentali",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.7207817,
+          46.8151804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E144_N081",
+        "name": "Montebelluna",
+        "area_name": "Montebelluna · Dolomiti – Cadore",
+        "place": "town",
+        "population": 31228,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.0452878,
+          45.7762844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E144_N082",
+        "name": "Belluno",
+        "area_name": "Belluno · Dolomiti – Cadore",
+        "place": "town",
+        "population": 35870,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.218171100000001,
+          46.137518500000006
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E144_N083",
+        "name": "Agordo",
+        "area_name": "Agordo · Dolomiti – Cadore",
+        "place": "town",
+        "population": 4124,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.034981,
+          46.2821471
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E144_N084",
+        "name": "Cortina d'Ampezzo",
+        "area_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
+        "place": "town",
+        "population": 5907,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.137350600000001,
+          46.538333200000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E144_N085",
+        "name": "Sand in Taufers - Campo Tures",
+        "area_name": "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
+        "place": "village",
+        "population": 4880,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.9551824,
+          46.9192363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E145_N082",
+        "name": "Vittorio Veneto",
+        "area_name": "Vittorio Veneto · Dolomiti – Cadore",
+        "place": "town",
+        "population": 28232,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.2958519,
+          45.9898217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E145_N083",
+        "name": "Pieve di Cadore",
+        "area_name": "Pieve di Cadore · Dolomiti – Cadore",
+        "place": "town",
+        "population": 3794,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.375296700000002,
+          46.4287086
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E145_N084",
+        "name": "Auronzo di Cadore",
+        "area_name": "Auronzo di Cadore · Dolomiti – Cadore",
+        "place": "town",
+        "population": 3028,
+        "sector": "Dolomiti – Cadore",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4430387,
+          46.5511562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E145_N085",
+        "name": "Alti Tauri – Pusteria",
+        "area_name": "Alti Tauri – Pusteria",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Dolomiti – Cadore",
+        "source": "area_montuosa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.487118556755314,
+          46.93940366660463
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E146_N083",
+        "name": "Tolmezzo",
+        "area_name": "Tolmezzo · Carnia – Dolomiti Friulane",
+        "place": "town",
+        "population": 10440,
+        "sector": "Carnia – Dolomiti Friulane",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0158357,
+          46.405367600000005
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E146_N084",
+        "name": "Paluzza",
+        "area_name": "Paluzza · Carnia – Dolomiti Friulane",
+        "place": "village",
+        "population": 2597,
+        "sector": "Carnia – Dolomiti Friulane",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.018206500000002,
+          46.5308146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E147_N083",
+        "name": "Gemona del Friuli",
+        "area_name": "Gemona del Friuli · Carnia – Dolomiti Friulane",
+        "place": "town",
+        "population": 10964,
+        "sector": "Carnia – Dolomiti Friulane",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.1401049,
+          46.2770072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E147_N084",
+        "name": "Paularo / Paulâr",
+        "area_name": "Paularo / Paulâr · Carnia – Dolomiti Friulane",
+        "place": "village",
+        "population": 2907,
+        "sector": "Carnia – Dolomiti Friulane",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.1165605,
+          46.5303455
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E148_N082",
+        "name": "Gorizia",
+        "area_name": "Gorizia · Alpi Giulie – Friuli",
+        "place": "town",
+        "population": 34844,
+        "sector": "Alpi Giulie – Friuli",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6252288,
+          45.944127800000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E148_N083",
+        "name": "Cave del Predil / Raibl / Rabelj / Rabil",
+        "area_name": "Cave del Predil / Raibl / Rabelj / Rabil · Alpi Giulie – Friuli",
+        "place": "village",
+        "population": 0,
+        "sector": "Alpi Giulie – Friuli",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.570989800000001,
+          46.4412512
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E148_N084",
+        "name": "Tarvisio",
+        "area_name": "Tarvisio · Alpi Giulie – Friuli",
+        "place": "town",
+        "population": 5071,
+        "sector": "Alpi Giulie – Friuli",
+        "source": "OpenStreetMap"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.5783734,
+          46.5052624
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[general]
+name=Scialpinismo locale
+description=Prepara, aggiorna ed esporta aree offline da un archivio condiviso
+version=1.0.0
+qgisMinimumVersion=3.34
+author=QGIS Scialpinismo
+email=
+category=Raster
+experimental=False
+hasProcessingProvider=yes

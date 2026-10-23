@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Se riusi il software o il materiale originale di TracciaBianca, cita il progetto usando questi metadati."
+title: "TracciaBianca"
+type: software
+authors:
+  - family-names: "Tellatin"
+    given-names: "Andrea"
+repository-code: "https://github.com/tel-la/TracciaBianca"
+url: "https://github.com/tel-la/TracciaBianca"
+abstract: "Workflow QGIS e raccolta di mappe raster offline per lo scialpinismo nelle Alpi italiane."
+license: "GPL-3.0-or-later"
+keywords:
+  - QGIS
+  - scialpinismo
+  - cartografia offline
+  - MBTiles
+  - Alpi italiane

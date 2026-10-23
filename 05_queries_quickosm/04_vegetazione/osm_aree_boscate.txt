@@ -1,0 +1,7 @@
+(
+  way["landuse"="forest"]({{bbox}});
+  way["natural"="wood"]({{bbox}});
+  relation["landuse"="forest"]({{bbox}});
+  relation["natural"="wood"]({{bbox}});
+);
+out body;

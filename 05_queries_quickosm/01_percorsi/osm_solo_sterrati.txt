@@ -1,0 +1,4 @@
+way
+  ["highway"="track"]
+  ({{bbox}});
+out body;

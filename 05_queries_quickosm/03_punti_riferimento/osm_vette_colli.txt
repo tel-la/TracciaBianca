@@ -1,0 +1,4 @@
+node
+  ["natural"~"^(peak|saddle)$"]
+  ({{bbox}});
+out body;

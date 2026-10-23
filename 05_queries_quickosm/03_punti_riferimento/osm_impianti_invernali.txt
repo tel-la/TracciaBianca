@@ -1,0 +1,7 @@
+(
+  way["aerialway"]({{bbox}});
+  node["aerialway"]({{bbox}});
+  way["piste:type"]({{bbox}});
+  relation["piste:type"]({{bbox}});
+);
+out body;

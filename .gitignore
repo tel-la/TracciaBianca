@@ -1,1 +1,89 @@
+# macOS, Windows ed editor
 .DS_Store
+._*
+Thumbs.db
+*~
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Python e test
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Configurazioni locali o sensibili
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Runtime QGIS e file temporanei
+/.qgis_runtime/
+symbology-style.db
+*.qgz~
+*.qgs~
+*.qgd
+*.qgd-shm
+*.qgd-wal
+*.aux.xml
+*.ovr
+*.log
+*.lock
+*.partial
+*.partial.*
+*.merge.partial
+*.tmp
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+
+# Componente HTML non pubblicato da questa importazione
+*.html
+/07_Scripts/build_interactive_map.py
+/07_Scripts/interactive_map_src/
+/07_Scripts/tests/test_interactive_map.py
+
+# Dataset e prodotti cartografici pesanti
+*.mbtiles
+*.tif
+*.tiff
+*.vrt
+*.pbf
+*.gpkg
+*.gdb/
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.asc
+*.zip
+
+# Il GeoPackage leggero dell'atlante viene condiviso
+!/08_Atlante/griglia.gpkg
+
+# Riferimenti locali
+/§§_REF/
+
+# Aree operative, dati condivisi e cache
+/##_aree/*
+
+# Conservare lo scheletro documentale del template
+!/##_aree/00_template-area/
+!/##_aree/00_template-area/**
+
+# Configurazioni e registri territoriali mai versionati
+/##_aree/**/area.json
+/##_aree/**/fonti.json
+
+# Materiale preparatorio per future release di mappe
+/release_staging/

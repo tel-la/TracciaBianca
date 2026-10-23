@@ -247,6 +247,27 @@ Sorbetto is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/license
 
 Software, documentation, generated maps, adapted Sorbetto material and third-party geographic data can be governed by different licenses. The license applicable to each category is stated separately. A software or documentation license does not grant redistribution rights for source data, rendered tiles or derivative databases.
 
+## Source code and usage guide
+
+The repository also contains the QGIS workflow used to prepare and export the
+maps. Installation requirements, local-data setup and the safe working process
+are documented in [`HOWTO.md`](HOWTO.md).
+
+## Citation
+
+If you reuse the software or original TracciaBianca material, cite the project
+using [`CITATION.cff`](CITATION.cff). A compact BibTeX entry is provided here for
+convenience:
+
+```bibtex
+@software{tellatin_tracciabianca,
+  author = {Tellatin, Andrea},
+  title  = {TracciaBianca},
+  year   = {2026},
+  url    = {https://github.com/tel-la/TracciaBianca}
+}
+```
+
 ## Issue reports
 
 The repository's **Issues** page is the designated public support channel after repository publication. A reproducible issue report contains:

@@ -1,0 +1,2 @@
+way["highway"="path"]({{bbox}});
+out body;

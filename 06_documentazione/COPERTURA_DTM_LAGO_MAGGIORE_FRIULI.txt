@@ -1,0 +1,61 @@
+VERIFICA DTM — ARCO ALPINO ITALIANO DAL LAGO MAGGIORE AL FRIULI
+================================================================
+Data della verifica: 19 ottobre 2026
+
+ESITO SINTETICO
+---------------
+Zone completamente prive di un DTM sia locale sia reperibile online: NESSUNA CONFERMATA.
+
+Il raster locale HR-DTM-5m registrato nel progetto copre già il territorio italiano compreso tra il Lago Maggiore e il Friuli e permette la generazione di base. Pertanto non esiste, nel tratto italiano considerato, una zona che debba essere esclusa perché totalmente senza quota. Le celle che oltrepassano il confine sloveno possono integrare il DMR numerico ARSO; quelle che oltrepassano il confine austriaco possono integrare l'ALS-DGM numerico BEV; quelle verso la Svizzera possono integrare swissALTI3D numerico swisstopo.
+
+Aggiornamento 19 ottobre 2026 — Slovenia:
+Il servizio `Slovenija_DMR_D96TM/ImageServer` è registrato come sorgente verificata. I riquadri che intersecano la sua copertura scaricano automaticamente i soli tasselli DTM necessari nella cache comune; questa integrazione riguarda l'altimetria e non modifica la copertura OSM.
+
+Il prodotto `ALS-Hoehenraster` BEV è registrato come sorgente verificata. Il workflow consulta l'indice ATOM ufficiale, seleziona il tassello DTM più recente e legge dai COG da 50 km soltanto la finestra necessaria; il risultato viene normalizzato e riusato dalla cache comune. Anche questa integrazione riguarda soltanto l'altimetria.
+
+Il prodotto `swissALTI3D` è registrato come sorgente verificata. Il workflow consulta l'API STAC ufficiale e scarica i soli COG 2 m da 1 km interessati dal riquadro; gli originali vengono conservati nella cache comune, così gli aggiornamenti successivi possono funzionare offline. La variante 0,5 m non viene acquisita perché non produce benefici sulla griglia di lavoro ma moltiplicherebbe spazio e traffico.
+
+LACUNE LOCALI DI DATI AD ALTA RISOLUZIONE E SORGENTI ONLINE DISPONIBILI
+------------------------------------------------------------------------
+1. Verbano–Cusio–Ossola e Alpi piemontesi orientali
+   Locale: nessun DTM regionale fine registrato; resta HR-DTM-5m.
+   Online: Regione Piemonte pubblica il DTM LiDAR a copertura regionale con griglia 5 x 5 m.
+   Priorità: scaricare e registrare i tasselli 5 m prima di produrre le celle occidentali.
+
+2. Alpi lombarde, dal Lago Maggiore all’Adamello
+   Locale: nessun DTM Lombardia fine registrato; resta HR-DTM-5m.
+   Online: Geoportale Lombardia pubblica il DTM 5 x 5 m, edizione 2015.
+   Priorità: acquisire per Verbano lombardo, Lario, Orobie, Valtellina e settore lombardo dell’Adamello.
+
+3. Trentino
+   Locale: nessun DTM provinciale fine registrato; resta HR-DTM-5m.
+   Online: Provincia autonoma di Trento pubblica DTM LiDAR con passo 1 m nelle aree di tipo 1 e 2 m nelle aree di tipo 2 e 3, licenza CC BY 4.0.
+   Priorità: alta, per sostituire la base nazionale nelle celle trentine.
+
+4. Alto Adige
+   Locale: è presente un solo ritaglio 2,5 m, quindi la maggior parte della provincia usa ancora HR-DTM-5m.
+   Online: Provincia autonoma di Bolzano dichiara copertura completa provinciale del DTM LiDAR a 2,5 m.
+   Priorità: completare il download provinciale e sostituire il ritaglio parziale con tasselli documentati.
+
+5. Veneto alpino e prealpino
+   Locale: sono presenti soltanto tre piccoli raster a 5 m; tutto il resto usa HR-DTM-5m.
+   Online: Regione Veneto offre un DTM LiDAR armonizzato a 5 m per la maggior parte del territorio, con quadro d’unione `c0101071_Lidar5m`; il portale contiene anche un DTM 2 m di Cortina.
+   Priorità: acquisire prima Cadore, Cortina/Tre Cime, Comelico, Agordino e Prealpi bellunesi. Dove il quadro d’unione regionale ha buchi, conservare HR-DTM come fondo.
+
+6. Friuli Venezia Giulia alpino e prealpino
+   Locale: nessun DTM regionale fine registrato; resta HR-DTM-5m.
+   Online: Regione FVG distribuisce DTM della Protezione Civile a 1 m e 10 m, in RDN2008/TM33 o Gauss-Boaga Est.
+   Priorità: acquisire i tasselli 1 m per Alpi Carniche, Alpi Giulie e Prealpi; usare il 10 m o HR-DTM soltanto come fondo.
+
+FONTI ISTITUZIONALI CONSULTATE
+------------------------------
+Piemonte: https://www.geoportale.piemonte.it/geonetwork/srv/search?format=DXF
+Lombardia: https://www.geoportale.regione.lombardia.it/en/metadati?_detailSheetMetadata_WAR_gptmetadataportlet_identifier=r_lombar%3Adfc98d60-5f02-4a2b-8113-5ad24cc53a9c
+Trentino: https://dati.trentino.it/en/dataset/lidar-rilievo-2006-2007-2008-link-al-servizio-di-download
+Alto Adige: https://nature-territory.province.bz.it/it/modelli-digitali-di-elevazione
+Veneto: https://idt2.regione.veneto.it/nuovo-dtm-derivato-da-dati-lidar/
+Friuli Venezia Giulia: https://irdat.regione.fvg.it/CTRN/ricerca-cartografia/
+
+CRITERIO OPERATIVO
+------------------
+Questo elenco distingue “assenza totale di DTM” da “assenza locale di un DTM regionale più preciso”. Prima di ogni zona si scarica solo il pacchetto necessario, si registra in fonti.json, si esegue Aggiorna area, si controlla l’assenza di NoData e infine si esporta. Non avviare una produzione massiva dell’intero arco alpino.
