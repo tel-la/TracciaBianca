@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-22T18:56:56Z",
+  "generated_at": "2026-10-23T17:33:05Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 3,
+  "published_count": 13,
   "bounds": [
     [
       45.68816033173499,
@@ -380,10 +380,13 @@
       "id": "ALP_E139_N084",
       "locality": "Engadina – Bernina",
       "display_name": "Engadina – Bernina",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T170917Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 773246976,
       "analysis_bounds": [
         [
           46.53096047992156,
@@ -394,7 +397,16 @@
           10.275072085362147
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E139_N084_engadina-bernina_20261023T170917Z_01_z12-16.mbtiles",
+          "bytes": 773246976,
+          "sha256": "71b4fe701a4ef351f7f59555b317d948603168b262efd23922b4b83320cbc1c7",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N084_engadina-bernina_20261023T170917Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E140_N081",
@@ -460,10 +472,13 @@
       "id": "ALP_E140_N084",
       "locality": "Glurns - Glorenza",
       "display_name": "Glurns - Glorenza · Adamello – Garda",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T165740Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 701919232,
       "analysis_bounds": [
         [
           46.52917453284774,
@@ -474,16 +489,28 @@
           10.681116846676222
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E140_N084_glurns-glorenza-adamello-garda_20261023T165740Z_01_z12-16.mbtiles",
+          "bytes": 701919232,
+          "sha256": "c6625781d6b2603b84b1366fed787794a9f1aa0c7510ba1be03092de136d628f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N084_glurns-glorenza-adamello-garda_20261023T165740Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E140_N085",
       "locality": "Reschen - Resia",
       "display_name": "Reschen - Resia · Adamello – Garda",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T164505Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 786661376,
       "analysis_bounds": [
         [
           46.8083013492571,
@@ -494,7 +521,16 @@
           10.684740208347364
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.mbtiles",
+          "bytes": 786661376,
+          "sha256": "77082b312d6b033739b862b2a30ffe9b694d483279282f045b2368e30296634d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E141_N081",
@@ -560,10 +596,13 @@
       "id": "ALP_E141_N084",
       "locality": "Schlanders - Silandro",
       "display_name": "Schlanders - Silandro · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T161223Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 679993344,
       "analysis_bounds": [
         [
           46.525871907375546,
@@ -574,16 +613,28 @@
           11.087125862774593
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.mbtiles",
+          "bytes": 679993344,
+          "sha256": "8c2c7721e120a61ab86ed30dbc876d4985fad0fecd6cfa453da17e60bbaea193",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E141_N085",
       "locality": "Alpi Venoste – Ötztal",
       "display_name": "Alpi Venoste – Ötztal",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T160250Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 831889408,
       "analysis_bounds": [
         [
           46.80497860168702,
@@ -594,7 +645,16 @@
           11.09290843082038
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.mbtiles",
+          "bytes": 831889408,
+          "sha256": "b0103345b92ac86fe5b37fab5c4c5e630b37941df2679bda822010e501117970",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E142_N081",
@@ -660,10 +720,13 @@
       "id": "ALP_E142_N084",
       "locality": "Merano - Meran",
       "display_name": "Merano - Meran · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T145114Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 663638016,
       "analysis_bounds": [
         [
           46.521052877704165,
@@ -674,16 +737,28 @@
           11.493077841677598
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E142_N084_merano-meran-trentino-occidentale-dolomiti-di-brenta_20261023T145114Z_01_z12-16.mbtiles",
+          "bytes": 663638016,
+          "sha256": "9531c08b023e460c9f33c4df0d68853239ca914f5d2d787e72a94cd7fd613520",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N084_merano-meran-trentino-occidentale-dolomiti-di-brenta_20261023T145114Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E142_N085",
       "locality": "Sterzing - Vipiteno",
       "display_name": "Sterzing - Vipiteno · Alto Adige – Dolomiti occidentali",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T150125Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 783495168,
       "analysis_bounds": [
         [
           46.80013021651539,
@@ -694,7 +769,16 @@
           11.50101841169637
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.mbtiles",
+          "bytes": 783495168,
+          "sha256": "497e7e28f021ab6c446a918c19dbd5a1759f11bf10969dfeb252b2037dc8cfd3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E143_N081",
@@ -885,12 +969,12 @@
       "locality": "Cortina d'Ampezzo",
       "display_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
       "status": "published",
-      "edition": "20261021T205258Z",
+      "edition": "20261023T132827Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 839716864,
+      "bytes": 813080576,
       "analysis_bounds": [
         [
           46.50686733101604,
@@ -903,12 +987,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261021T205258Z_01_z12-16.mbtiles",
-          "bytes": 839716864,
-          "sha256": "215fac085573ac372faa7444d744dbe52c4c098853859d6fd92b6f1f468aaf62",
+          "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.mbtiles",
+          "bytes": 813080576,
+          "sha256": "5a94e1455673afdb2bc07ea7da84929c00085c33e776a1ac00355323ad019ed0",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261021T205258Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.mbtiles"
         }
       ]
     },
@@ -916,10 +1000,13 @@
       "id": "ALP_E144_N085",
       "locality": "Sand in Taufers - Campo Tures",
       "display_name": "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T142703Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 750325760,
       "analysis_bounds": [
         [
           46.78585829656239,
@@ -930,7 +1017,16 @@
           12.316976817894208
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.mbtiles",
+          "bytes": 750325760,
+          "sha256": "db42637994dc77acdd2cdc3c8e21cd0e05876f6c5daf441b2f0d711c5a565c2f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E145_N082",
@@ -976,10 +1072,13 @@
       "id": "ALP_E145_N084",
       "locality": "Auronzo di Cadore",
       "display_name": "Auronzo di Cadore · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T154943Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 780046336,
       "analysis_bounds": [
         [
           46.49750199013386,
@@ -990,16 +1089,28 @@
           12.710379054539734
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261023T154943Z_01_z12-16.mbtiles",
+          "bytes": 780046336,
+          "sha256": "37fac550b123859e3b773e557fc0b2f9f5501e0d0712b501b50d8ab2995c64d5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261023T154943Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E145_N085",
       "locality": "Alti Tauri – Pusteria",
       "display_name": "Alti Tauri – Pusteria",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T154027Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 850968576,
       "analysis_bounds": [
         [
           46.7764359637689,
@@ -1010,7 +1121,16 @@
           12.724781923364963
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E145_N085_alti-tauri-pusteria_20261023T154027Z_01_z12-16.mbtiles",
+          "bytes": 850968576,
+          "sha256": "deb47406ce57f5385c6fa9062fb2399767ff129b003e9149c35f2e1d37260fd7",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N085_alti-tauri-pusteria_20261023T154027Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E146_N083",
