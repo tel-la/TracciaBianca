@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-23T17:33:05Z",
+  "generated_at": "2026-10-23T18:22:08Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 13,
+  "published_count": 15,
   "bounds": [
     [
       45.68816033173499,
@@ -1156,10 +1156,13 @@
       "id": "ALP_E146_N084",
       "locality": "Paluzza",
       "display_name": "Paluzza · Carnia – Dolomiti Friulane",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T175425Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 831856640,
       "analysis_bounds": [
         [
           46.48662259668392,
@@ -1170,7 +1173,16 @@
           13.115890586876574
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E146_N084_paluzza-carnia-dolomiti-friulane_20261023T175425Z_01_z12-16.mbtiles",
+          "bytes": 831856640,
+          "sha256": "956f4e1febe5fe4b7a7376455bd2dace07a379703113c7e33c7133164df69bbc",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E146_N084_paluzza-carnia-dolomiti-friulane_20261023T175425Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E147_N083",
@@ -1196,10 +1208,13 @@
       "id": "ALP_E147_N084",
       "locality": "Paularo / Paulâr",
       "display_name": "Paularo / Paulâr · Carnia – Dolomiti Friulane",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261023T180939Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 794025984,
       "analysis_bounds": [
         [
           46.47423005068922,
@@ -1210,7 +1225,16 @@
           13.52123916741624
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E147_N084_paularo-paular-carnia-dolomiti-friulane_20261023T180939Z_01_z12-16.mbtiles",
+          "bytes": 794025984,
+          "sha256": "b8950c2d20d6159fb2b78ed29896dab13ce327399fdafe695a3f0a83805cc2a3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E147_N084_paularo-paular-carnia-dolomiti-friulane_20261023T180939Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E148_N082",
