@@ -27,7 +27,8 @@ Every release contains:
 - SHA256SUMS.txt covering every MBTiles asset in that release;
 - release-manifest.json with map-sheet ID, area, edition, zoom range, byte
   count and SHA-256;
-- release notes listing only the newly added or updated sheets.
+- release notes listing the newly added or updated sheets; an explicitly
+  documented in-place beta refresh lists the complete current contents.
 
 Each MBTiles asset remains below GitHub's 2 GiB per-file limit. MBTiles are
 stored only as Release assets and never committed to the repository.
@@ -64,6 +65,9 @@ On Windows PowerShell, compare each manifest checksum with:
 Get-FileHash .\MAP_FILE.mbtiles -Algorithm SHA256
 ~~~
 
-Older releases remain available for reproducibility. A published asset is
-never silently replaced; a new edition receives a new filename and is
-published in a new incremental release.
+As a rule, older releases remain available for reproducibility and a new
+edition receives a new filename in a new incremental release. Beta 1 was
+exceptionally refreshed in place on 23 October 2026: the release notes identify
+the replaced Cortina edition, the manifest and checksum list were regenerated,
+and the old asset was removed only after the new asset had been uploaded and
+verified. Published assets must never be replaced silently.

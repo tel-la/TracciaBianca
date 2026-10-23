@@ -172,11 +172,26 @@ Per ogni integrazione:
 5. eseguire mark-published per le sole celle incluse;
 6. pubblicare la nuova versione di docs/.
 
-Non modificare una Release già pubblicata e non sostituire un asset esistente
-con lo stesso nome. Una nuova edizione riceve un nuovo nome e una nuova Release.
+La regola ordinaria è non modificare una Release già pubblicata: una nuova
+edizione riceve un nuovo nome e una nuova Release. Un aggiornamento in-place di
+una beta è ammesso soltanto come eccezione esplicita, se la Release non è
+immutabile. In quel caso:
+
+1. conservare gli asset invariati senza ricaricarli;
+2. caricare con nomi univoci tutti gli asset nuovi o aggiornati;
+3. verificare sul server nome, byte e SHA-256;
+4. sostituire manifest, checksum e note;
+5. eliminare l'asset superato soltanto dopo tutte le verifiche;
+6. registrare la pubblicazione nei cataloghi e rigenerare `docs/`.
+
+Non usare `--clobber` per un MBTiles: il comando elimina il vecchio asset prima
+di aver completato il nuovo upload. Ogni aggiornamento in-place deve dichiarare
+data, edizione sostituita e necessità di riscaricare la cella interessata.
 
 ## Stato attuale
 
-Le celle ALP_E143_N084, ALP_E143_N085 e ALP_E144_N084 sono tecnicamente valide
-e impostate come release_ready. Possono entrare nella prossima Release senza
-ulteriori collaudi manuali.
+La Release `v0.1.0-beta.1` è stata aggiornata in-place il 23 ottobre 2026 e
+contiene 13 celle pubblicate. `ALP_E143_N084` e `ALP_E143_N085` sono rimaste
+invariate; `ALP_E144_N084` è stata sostituita con l'edizione
+`20261023T132827Z`; le altre dieci celle sono state aggiunte. Manifest,
+checksum, note e mappa interattiva sono stati aggiornati e verificati.
