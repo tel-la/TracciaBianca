@@ -38,6 +38,8 @@ Use the **[interactive map-sheet index](https://tel-la.github.io/TracciaBianca/)
   </a>
 </p>
 
+For western and maritime Alps, please refer to [Sorbetto](https://tartamillo.wordpress.com/sorbetto/)'s maps (the project TracciaBianca took A LOT of inspiration from).
+
 ## Walkthrough usage with MapsViewer app for Android (iOS is very similar)
 
 <div align="center">
@@ -48,6 +50,9 @@ Use the **[interactive map-sheet index](https://tel-la.github.io/TracciaBianca/)
   </video>
 </div>
 
+Find the app here:
+[Maps Viewer for Android (Google Play)](https://play.google.com/store/apps/details?id=com.ravenfeld.maps&hl=it&pli=1)
+[Maps Viewer for iOS (App Store)](https://apps.apple.com/it/app/maps-viewer/id6566186978)
 
 ## Project status
 
