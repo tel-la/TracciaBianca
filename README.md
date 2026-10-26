@@ -38,6 +38,14 @@ Use the **[interactive map-sheet index](https://tel-la.github.io/TracciaBianca/)
   </a>
 </p>
 
+## Walkthrough usage with MapsViewer app for Android (iOS is very similar)
+
+<p align="center">
+  <video src="https://github.com/user-attachments/assets/48e7d11e-0e71-497e-b69f-036bd5993e34" width="320" height="240" controls>
+  </video>
+</p>
+
+
 ## Project status
 
 TracciaBianca is a continuous WIP public distribution.
