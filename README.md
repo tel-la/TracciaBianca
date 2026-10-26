@@ -51,7 +51,9 @@ For western and maritime Alps, please refer to [Sorbetto](https://tartamillo.wor
 </div>
 
 Find the app here:
+
 [Maps Viewer for Android (Google Play)](https://play.google.com/store/apps/details?id=com.ravenfeld.maps&hl=it&pli=1)
+
 [Maps Viewer for iOS (App Store)](https://apps.apple.com/it/app/maps-viewer/id6566186978)
 
 ## Project status
