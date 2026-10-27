@@ -20,6 +20,7 @@ from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 import numpy as np
+from scipy.ndimage import binary_dilation, distance_transform_edt, gaussian_filter
 from osgeo import gdal, ogr, osr
 from qgis.core import (
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsFeature, QgsField,
@@ -33,9 +34,20 @@ ogr.UseExceptions()
 gdal.SetCacheMax(256 * 1024 * 1024)
 gdal.SetConfigOption('GDAL_NUM_THREADS', '2')
 gdal.SetConfigOption('OSM_MAX_TMPFILE_SIZE', '128')
-VERSION = '1.3.2'
+VERSION = '1.4.1'
 OSM_EXTRACTOR_VERSION = 'osm-interleaved-v2'
 COG_OPTIONS = ['COMPRESS=DEFLATE', 'PREDICTOR=YES', 'BLOCKSIZE=512', 'NUM_THREADS=2', 'BIGTIFF=IF_SAFER', 'RESAMPLING=AVERAGE']
+DTM_COMPARISON_MIN_M = 20.0
+DTM_CORRECTION_DEPTH_M = 500.0
+DTM_BLEND_MIN_M = 20.0
+DTM_BLEND_MAX_M = 60.0
+DTM_MIN_COREG_SAMPLES = 200
+DTM_MAX_VERTICAL_SHIFT_M = 15.0
+DTM_MAX_RESIDUAL_M = 8.0
+HILLSHADE_ALTITUDE_DEG = 45.0
+HILLSHADE_PRIMARY_AZIMUTH_DEG = 315.0
+HILLSHADE_PRIMARY_WEIGHT = 0.70
+HILLSHADE_SECONDARY_AZIMUTHS_DEG = (225.0, 270.0, 360.0)
 ATOM_NS = '{http://www.w3.org/2005/Atom}'
 BEV_DTM_TITLE = re.compile(r'ALS\s+DTM\s+CRS3035RES\d+mN(\d+)E(\d+).*Stichtag\s+\d{2}\.\d{2}\.(\d{4})')
 OSM_PBF_NAME = re.compile(r'^(?P<name>.+)-(?P<date>\d{6})\.osm\.pbf$')
@@ -107,6 +119,162 @@ def osm_file_metadata(path, archive):
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, default=str).encode()).hexdigest()
+
+
+def smoothstep(value):
+    """Interpolazione C1 limitata all'intervallo 0..1."""
+    value = np.clip(value, 0.0, 1.0)
+    return value * value * (3.0 - 2.0 * value)
+
+
+def normalized_gaussian(values, valid, sigma):
+    """Filtro gaussiano che non propaga NoData oltre i pixel validi."""
+    valid_float = valid.astype(np.float32)
+    numerator = gaussian_filter(np.where(valid, values, 0.0).astype(np.float32), sigma, mode='nearest')
+    denominator = gaussian_filter(valid_float, sigma, mode='constant', cval=0.0)
+    result = np.full(values.shape, np.nan, dtype=np.float32)
+    supported = denominator > 0.05
+    result[supported] = numerator[supported] / denominator[supported]
+    return result, supported
+
+
+def robust_linear_model(matrix, values, minimum=DTM_MIN_COREG_SAMPLES):
+    """Minimi quadrati iterativi con filtro NMAD; restituisce coefficienti e diagnostica."""
+    finite = np.isfinite(values) & np.all(np.isfinite(matrix), axis=1)
+    matrix = matrix[finite]
+    values = values[finite]
+    if values.size < minimum:
+        return None
+    keep = np.ones(values.size, dtype=bool)
+    coefficients = None
+    for _ in range(6):
+        if keep.sum() < minimum:
+            return None
+        coefficients, _, _, _ = np.linalg.lstsq(matrix[keep], values[keep], rcond=None)
+        residual = values - matrix @ coefficients
+        centre = float(np.median(residual[keep]))
+        nmad = 1.4826 * float(np.median(np.abs(residual[keep] - centre)))
+        limit = max(0.25, 3.0 * nmad)
+        updated = np.abs(residual - centre) <= limit
+        if np.array_equal(updated, keep):
+            break
+        keep = updated
+    residual = values - matrix @ coefficients
+    centre = float(np.median(residual[keep]))
+    nmad = 1.4826 * float(np.median(np.abs(residual[keep] - centre)))
+    return coefficients, keep, {'samples': int(keep.sum()), 'nmad_m': nmad,
+                                 'residual_median_m': centre}
+
+
+def estimate_dem_coregistration(base, candidate, base_valid, candidate_valid,
+                                pixel_size, worst_native_resolution):
+    """Stima dx, dy e dz su superfici filtrate, senza confondere quota e spostamento."""
+    comparison_m = max(DTM_COMPARISON_MIN_M, 2.0 * float(worst_native_resolution))
+    sigma = max(0.8, comparison_m / (2.355 * float(pixel_size)))
+    base_low, base_support = normalized_gaussian(base, base_valid, sigma)
+    candidate_low, candidate_support = normalized_gaussian(candidate, candidate_valid, sigma)
+    overlap = base_support & candidate_support & base_valid & candidate_valid
+    if not np.any(overlap):
+        return {'accepted': False, 'reason': 'no_overlap', 'comparison_m': comparison_m,
+                'samples': 0, 'dx_m': 0.0, 'dy_m': 0.0, 'dz_m': 0.0}
+    # Le righe raster crescono verso Sud: il passo Y è negativo nel sistema cartografico.
+    gy, gx = np.gradient(candidate_low.astype(np.float64), -float(pixel_size), float(pixel_size))
+    slope = np.degrees(np.arctan(np.hypot(gx, gy)))
+    usable = overlap & np.isfinite(slope) & (slope >= 2.0) & (slope <= 60.0)
+    stride = max(1, int(round(comparison_m / float(pixel_size))))
+    sampled = np.zeros(usable.shape, dtype=bool)
+    sampled[::stride, ::stride] = True
+    usable &= sampled
+    rows, cols = np.nonzero(usable)
+    if rows.size < DTM_MIN_COREG_SAMPLES:
+        return {'accepted': False, 'reason': 'insufficient_samples',
+                'comparison_m': comparison_m, 'samples': int(rows.size),
+                'dx_m': 0.0, 'dy_m': 0.0, 'dz_m': 0.0}
+    delta = (base_low[rows, cols] - candidate_low[rows, cols]).astype(np.float64)
+    matrix = np.column_stack((gx[rows, cols], gy[rows, cols], np.ones(rows.size)))
+    fitted = robust_linear_model(matrix, delta)
+    if fitted is None:
+        return {'accepted': False, 'reason': 'unstable_fit', 'comparison_m': comparison_m,
+                'samples': int(rows.size), 'dx_m': 0.0, 'dy_m': 0.0, 'dz_m': 0.0}
+    coefficients, _, diagnostics = fitted
+    dx, dy, dz = map(float, coefficients)
+    maximum_horizontal = max(5.0, 2.0 * float(worst_native_resolution))
+    accepted = (math.hypot(dx, dy) <= maximum_horizontal and
+                abs(dz) <= DTM_MAX_VERTICAL_SHIFT_M and
+                diagnostics['nmad_m'] <= DTM_MAX_RESIDUAL_M)
+    return {**diagnostics, 'accepted': accepted,
+            'reason': 'accepted' if accepted else 'implausible_shift',
+            'comparison_m': comparison_m, 'dx_m': dx, 'dy_m': dy, 'dz_m': dz,
+            'max_horizontal_m': maximum_horizontal}
+
+
+def seam_fields(base, candidate, base_valid, candidate_valid, pixel_size,
+                worst_native_resolution, vertical_shift=0.0):
+    """Crea correzione lenta e pesi della seamline su una griglia di confronto."""
+    valid_overlap = base_valid & candidate_valid
+    comparison_m = max(DTM_COMPARISON_MIN_M, 2.0 * float(worst_native_resolution))
+    sigma = max(1.0, comparison_m / float(pixel_size))
+    base_low, base_support = normalized_gaussian(base, base_valid, sigma)
+    candidate_shifted = candidate.astype(np.float32) + float(vertical_shift)
+    if np.all(candidate_valid):
+        ones = np.ones(candidate.shape, dtype=np.float32)
+        return np.zeros(candidate.shape, dtype=np.float32), ones, ones, {
+            'comparison_m': comparison_m, 'correction_depth_m': DTM_CORRECTION_DEPTH_M,
+            'blend_m': 0.0, 'overlap_cells': int(base_valid.sum()),
+            'incompatible_cells': 0, 'residual_p95_m': None,
+            'action': 'full_coverage',
+        }
+    candidate_low, candidate_support = normalized_gaussian(candidate_shifted, candidate_valid, sigma)
+    supported = valid_overlap & base_support & candidate_support
+    residual = np.where(supported, base_low - candidate_low, np.nan).astype(np.float32)
+    residual_smooth, residual_support = normalized_gaussian(
+        np.where(np.isfinite(residual), residual, 0.0), np.isfinite(residual),
+        max(1.0, 100.0 / float(pixel_size)))
+    edge_distance = distance_transform_edt(candidate_valid) * float(pixel_size)
+    edge_influence = 1.0 - smoothstep(edge_distance / DTM_CORRECTION_DEPTH_M)
+    correction = np.where(residual_support, residual_smooth, 0.0) * edge_influence
+    correction = np.clip(correction, -DTM_MAX_RESIDUAL_M, DTM_MAX_RESIDUAL_M).astype(np.float32)
+    corrected_low = candidate_low + correction
+    corrected_residual = np.abs(base_low - corrected_low)
+    incompatible = supported & (corrected_residual > DTM_MAX_RESIDUAL_M)
+    if np.any(incompatible):
+        incompatible = binary_dilation(incompatible, iterations=1)
+    trust = candidate_valid & ~incompatible
+    seam_distance = distance_transform_edt(trust) * float(pixel_size)
+    blend_m = min(DTM_BLEND_MAX_M,
+                  max(DTM_BLEND_MIN_M, 4.0 * float(worst_native_resolution)))
+    low_weight = smoothstep(seam_distance / blend_m).astype(np.float32)
+    low_weight[~candidate_valid] = 0.0
+    low_weight[candidate_valid & ~base_valid] = 1.0
+    # Il micro-rilievo cambia sorgente in una fascia molto più stretta del raccordo lento.
+    high_weight = smoothstep((low_weight - 0.42) / 0.16).astype(np.float32)
+    return correction, low_weight, high_weight, {
+        'comparison_m': comparison_m, 'correction_depth_m': DTM_CORRECTION_DEPTH_M,
+        'blend_m': blend_m, 'overlap_cells': int(valid_overlap.sum()),
+        'incompatible_cells': int(incompatible.sum()),
+        'residual_p95_m': (round(float(np.nanpercentile(corrected_residual[supported], 95)), 4)
+                           if np.any(supported) else None),
+        'action': 'coregistered_short_seam',
+    }
+
+
+def multidirectional_hillshade(gx, gy):
+    """Ombreggiatura con sole dominante 45°/315° e riempimento secondario."""
+    altitude = math.radians(HILLSHADE_ALTITUDE_DEG)
+    normalization = np.sqrt(1.0 + gx*gx + gy*gy)
+    def illumination(azimuth_degrees):
+        azimuth = math.radians(azimuth_degrees)
+        # Normale del terreno (-dz/dx, -dz/dy, 1) e azimut da Nord in senso orario.
+        value = (math.sin(altitude) -
+                 gx*math.cos(altitude)*math.sin(azimuth) -
+                 gy*math.cos(altitude)*math.cos(azimuth)) / normalization
+        return np.clip(value, 0.0, 1.0)
+    principal = illumination(HILLSHADE_PRIMARY_AZIMUTH_DEG)
+    secondary = np.mean(
+        [illumination(value) for value in HILLSHADE_SECONDARY_AZIMUTHS_DEG], axis=0)
+    combined = (HILLSHADE_PRIMARY_WEIGHT*principal +
+                (1.0-HILLSHADE_PRIMARY_WEIGHT)*secondary)
+    return np.rint(np.clip(combined, 0.0, 1.0)*255.0).astype(np.uint8)
 
 
 def parse_bev_atom_index(content):
@@ -929,6 +1097,331 @@ class Workflow:
             raise RuntimeError('Correzione delle micro-cuciture DTM fallita')
         self.log(f'Micro-cuciture DTM corrette entro {max_distance_m:g} m; i vuoti maggiori restano NoData')
 
+    def _coarse_dem(self, path, bounds, resolution):
+        """Legge un DTM su una griglia fisica di confronto con antialiasing."""
+        dataset = gdal.Warp(
+            '', str(path), format='MEM', outputBounds=bounds,
+            xRes=resolution, yRes=resolution, outputType=gdal.GDT_Float32,
+            resampleAlg='average', srcNodata=-9999, dstNodata=-9999,
+            warpMemoryLimit=128, multithread=False)
+        if dataset is None:
+            raise RuntimeError(f'Griglia di confronto non creata per {path}')
+        values = dataset.GetRasterBand(1).ReadAsArray().astype(np.float32)
+        valid = np.isfinite(values) & (values != -9999)
+        return dataset, values, valid
+
+    def _shift_aligned_dem(self, source, destination, dx, dy, bounds, width, height):
+        """Applica una traslazione sub-pixel correggendo la georeferenziazione del candidato."""
+        shifted_vrt = Path(str(destination) + '.shift.vrt')
+        shifted_vrt.unlink(missing_ok=True)
+        vrt = gdal.Translate(str(shifted_vrt), str(source), format='VRT')
+        if vrt is None:
+            raise RuntimeError('VRT temporaneo per la co-registrazione non creato')
+        transform = list(vrt.GetGeoTransform())
+        transform[0] -= float(dx)
+        transform[3] -= float(dy)
+        vrt.SetGeoTransform(transform)
+        vrt = None
+        try:
+            output = gdal.Warp(
+                str(destination), str(shifted_vrt), format='GTiff', outputBounds=bounds,
+                width=width, height=height, outputType=gdal.GDT_Float32,
+                resampleAlg='cubic', srcNodata=-9999, dstNodata=-9999,
+                warpMemoryLimit=128, multithread=False,
+                creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3', 'BIGTIFF=IF_SAFER'])
+            if output is None:
+                raise RuntimeError('Applicazione della co-registrazione DTM fallita')
+            output = None
+        finally:
+            shifted_vrt.unlink(missing_ok=True)
+
+    def _write_seam_grid(self, path, reference, correction, low_weight, high_weight):
+        driver = gdal.GetDriverByName('GTiff')
+        dataset = driver.Create(str(path), reference.RasterXSize, reference.RasterYSize, 3,
+                                gdal.GDT_Float32,
+                                options=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3'])
+        dataset.SetGeoTransform(reference.GetGeoTransform())
+        dataset.SetProjection(reference.GetProjection())
+        for index, values in enumerate((correction, low_weight, high_weight), 1):
+            dataset.GetRasterBand(index).WriteArray(values)
+        dataset = None
+
+    def _compose_pair_blocks(self, base_path, candidate_path, seam_path, provenance_path,
+                             output_path, source_index, resolution, worst_native):
+        """Fonde due DTM a piena risoluzione per blocchi, preservando le alte frequenze."""
+        base = gdal.Open(str(base_path))
+        candidate = gdal.Open(str(candidate_path))
+        seam = gdal.Open(str(seam_path))
+        provenance = gdal.Open(str(provenance_path), gdal.GA_Update)
+        driver = gdal.GetDriverByName('GTiff')
+        output = driver.Create(
+            str(output_path), base.RasterXSize, base.RasterYSize, 1, gdal.GDT_Float32,
+            options=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3', 'BIGTIFF=IF_SAFER'])
+        output.SetGeoTransform(base.GetGeoTransform())
+        output.SetProjection(base.GetProjection())
+        output_band = output.GetRasterBand(1)
+        output_band.SetNoDataValue(-9999)
+        sigma = max(0.8, float(worst_native) / (2.0 * float(resolution)))
+        halo = max(3, int(math.ceil(3.0 * sigma)))
+        qa_rejected = 0
+        for y in range(0, base.RasterYSize, 512):
+            height = min(512, base.RasterYSize - y)
+            for x in range(0, base.RasterXSize, 512):
+                self.cancel()
+                width = min(512, base.RasterXSize - x)
+                x0 = max(0, x - halo); y0 = max(0, y - halo)
+                x1 = min(base.RasterXSize, x + width + halo)
+                y1 = min(base.RasterYSize, y + height + halo)
+                expanded_width = x1 - x0; expanded_height = y1 - y0
+                base_values = base.GetRasterBand(1).ReadAsArray(
+                    x0, y0, expanded_width, expanded_height).astype(np.float32)
+                candidate_values = candidate.GetRasterBand(1).ReadAsArray(
+                    x0, y0, expanded_width, expanded_height).astype(np.float32)
+                seam_values = seam.ReadAsArray(x0, y0, expanded_width, expanded_height)
+                correction, low_weight, high_weight = seam_values
+                base_valid = np.isfinite(base_values) & (base_values != -9999)
+                candidate_valid = np.isfinite(candidate_values) & (candidate_values != -9999)
+                corrected = candidate_values + correction
+                base_low, _ = normalized_gaussian(base_values, base_valid, sigma)
+                candidate_low, _ = normalized_gaussian(corrected, candidate_valid, sigma)
+                base_low = np.where(np.isfinite(base_low), base_low, base_values)
+                candidate_low = np.where(np.isfinite(candidate_low), candidate_low, corrected)
+                merged = ((1.0-low_weight)*base_low + low_weight*candidate_low +
+                          (1.0-high_weight)*(base_values-base_low) +
+                          high_weight*(corrected-candidate_low))
+                merged = np.where(base_valid & ~candidate_valid, base_values, merged)
+                merged = np.where(candidate_valid & ~base_valid, corrected, merged)
+                merged = np.where(base_valid | candidate_valid, merged, -9999).astype(np.float32)
+
+                overlap = base_valid & candidate_valid & (low_weight > 0) & (low_weight < 1)
+                if np.any(overlap):
+                    def slope(values):
+                        gy, gx = np.gradient(values.astype(np.float64),
+                                             float(resolution), float(resolution))
+                        return np.degrees(np.arctan(np.hypot(gx, gy)))
+                    safe_base = np.where(base_valid, base_values, merged)
+                    safe_candidate = np.where(candidate_valid, corrected, merged)
+                    slope_base = slope(safe_base)
+                    slope_candidate = slope(safe_candidate)
+                    slope_merged = slope(merged)
+                    invalid_slope = overlap & (
+                        (slope_merged > np.maximum(slope_base, slope_candidate) + 5.0) |
+                        ((slope_merged >= 30.0) & (slope_base < 25.0) &
+                         (slope_candidate < 25.0)))
+                    if np.any(invalid_slope):
+                        invalid_slope = binary_dilation(invalid_slope, iterations=1) & overlap
+                        qa_rejected += int(invalid_slope.sum())
+                        merged[invalid_slope] = base_values[invalid_slope]
+                        high_weight[invalid_slope] = 0.0
+
+                crop_y = y-y0; crop_x = x-x0
+                cropped = merged[crop_y:crop_y+height, crop_x:crop_x+width]
+                output_band.WriteArray(cropped, x, y)
+                provenance_values = provenance.GetRasterBand(1).ReadAsArray(x, y, width, height)
+                candidate_choice = high_weight[crop_y:crop_y+height, crop_x:crop_x+width] >= 0.5
+                candidate_only = (candidate_valid & ~base_valid)[
+                    crop_y:crop_y+height, crop_x:crop_x+width]
+                provenance_values[candidate_choice | candidate_only] = source_index
+                provenance.GetRasterBand(1).WriteArray(provenance_values, x, y)
+        output_band = None; output = None
+        provenance = None; seam = None; candidate = None; base = None
+        return qa_rejected
+
+    def compose_dtm_sources(self, vrts, sources, bounds, crs, resolution, destination):
+        """Mosaico gerarchico: co-registrazione, correzione lenta e seamline corta."""
+        work = Path(destination).parent
+        current = work/'dtm_mosaic.current.tif'
+        candidate = work/'dtm_source.partial.tif'
+        shifted = work/'dtm_source_shifted.partial.tif'
+        seam_coarse = work/'dtm_seam_coarse.partial.tif'
+        seam_fine = work/'dtm_seam_fine.partial.tif'
+        following = work/'dtm_mosaic.next.tif'
+        provenance_path = work/'dtm_provenance.partial.tif'
+        temporaries = (current, candidate, shifted, seam_coarse, seam_fine, following,
+                       provenance_path)
+        for path in temporaries:
+            path.unlink(missing_ok=True)
+        diagnostics = []
+        try:
+            first = gdal.Warp(
+                str(current), str(vrts[0]), format='GTiff', dstSRS=crs,
+                outputBounds=bounds, xRes=resolution, yRes=resolution,
+                targetAlignedPixels=True, outputType=gdal.GDT_Float32,
+                resampleAlg='bilinear', srcNodata=-9999, dstNodata=-9999,
+                warpMemoryLimit=128, multithread=False,
+                creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3', 'BIGTIFF=IF_SAFER'])
+            if first is None:
+                raise RuntimeError('DTM di base non creato')
+            transform = first.GetGeoTransform()
+            width, height = first.RasterXSize, first.RasterYSize
+            aligned_bounds = [transform[0], transform[3] + height*transform[5],
+                              transform[0] + width*transform[1], transform[3]]
+            projection = first.GetProjection()
+            first = None
+            provenance = gdal.GetDriverByName('GTiff').Create(
+                str(provenance_path), width, height, 1, gdal.GDT_Byte,
+                options=['TILED=YES', 'COMPRESS=DEFLATE'])
+            provenance.SetGeoTransform(transform); provenance.SetProjection(projection)
+            provenance.GetRasterBand(1).Fill(0)
+            source_dataset = gdal.Open(str(current))
+            for y in range(0, height, 512):
+                block_height = min(512, height-y)
+                for x in range(0, width, 512):
+                    block_width = min(512, width-x)
+                    values = source_dataset.GetRasterBand(1).ReadAsArray(
+                        x, y, block_width, block_height)
+                    provenance.GetRasterBand(1).WriteArray(
+                        (np.isfinite(values) & (values != -9999)).astype(np.uint8), x, y)
+            source_dataset = None
+            provenance = None
+
+            for source_index, (vrt, source) in enumerate(zip(vrts[1:], sources[1:]), 2):
+                self.cancel()
+                candidate.unlink(missing_ok=True)
+                warped = gdal.Warp(
+                    str(candidate), str(vrt), format='GTiff', outputBounds=aligned_bounds,
+                    width=width, height=height, outputType=gdal.GDT_Float32,
+                    resampleAlg='cubic', srcNodata=-9999, dstNodata=-9999,
+                    warpMemoryLimit=128, multithread=False,
+                    creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3', 'BIGTIFF=IF_SAFER'])
+                if warped is None:
+                    raise RuntimeError(f"Allineamento DTM {source['id']} fallito")
+                warped = None
+                worst_native = max(float(source.get('native_resolution_m') or source['grid_m']),
+                                   max(float(s.get('native_resolution_m') or s['grid_m'])
+                                       for s in sources[:source_index-1]))
+                analysis_resolution = max(DTM_COMPARISON_MIN_M, 2.0*worst_native)
+                base_coarse, base_values, base_valid = self._coarse_dem(
+                    current, aligned_bounds, analysis_resolution)
+                candidate_coarse, candidate_values, candidate_valid = self._coarse_dem(
+                    candidate, aligned_bounds, analysis_resolution)
+                coreg = estimate_dem_coregistration(
+                    base_values, candidate_values, base_valid, candidate_valid,
+                    analysis_resolution, worst_native)
+                active_candidate = candidate
+                if coreg['accepted'] and math.hypot(coreg['dx_m'], coreg['dy_m']) >= 0.05:
+                    shifted.unlink(missing_ok=True)
+                    self._shift_aligned_dem(candidate, shifted, coreg['dx_m'], coreg['dy_m'],
+                                            aligned_bounds, width, height)
+                    active_candidate = shifted
+                    candidate_coarse = None
+                    candidate_coarse, candidate_values, candidate_valid = self._coarse_dem(
+                        active_candidate, aligned_bounds, analysis_resolution)
+                vertical_shift = coreg['dz_m'] if coreg['accepted'] else 0.0
+                correction, low_weight, high_weight, seam_diagnostics = seam_fields(
+                    base_values, candidate_values, base_valid, candidate_valid,
+                    analysis_resolution, worst_native, vertical_shift)
+                # dz è una traslazione globale; la griglia contiene la sola correzione locale.
+                correction += float(vertical_shift)
+                self._write_seam_grid(seam_coarse, base_coarse, correction,
+                                      low_weight, high_weight)
+                base_coarse = None; candidate_coarse = None
+                seam_dataset = gdal.Warp(
+                    str(seam_fine), str(seam_coarse), format='GTiff',
+                    outputBounds=aligned_bounds, width=width, height=height,
+                    outputType=gdal.GDT_Float32, resampleAlg='bilinear',
+                    warpMemoryLimit=128, multithread=False,
+                    creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3', 'BIGTIFF=IF_SAFER'])
+                if seam_dataset is None:
+                    raise RuntimeError('Campi di cucitura non riportati alla griglia fine')
+                seam_dataset = None
+                following.unlink(missing_ok=True)
+                qa_rejected = self._compose_pair_blocks(
+                    current, active_candidate, seam_fine, provenance_path, following,
+                    source_index, resolution, worst_native)
+                current.unlink()
+                following.replace(current)
+                diagnostics.append({
+                    'source_id': source['id'], **coreg, **seam_diagnostics,
+                    'qa_rejected_cells': qa_rejected,
+                })
+                self.log(
+                    f"Cucitura {source['id']}: dx={coreg['dx_m']:.2f} m, "
+                    f"dy={coreg['dy_m']:.2f} m, dz={vertical_shift:.2f} m, "
+                    f"raccordo={seam_diagnostics['blend_m']:.0f} m, "
+                    f"settori incompatibili={seam_diagnostics['incompatible_cells']}")
+                for path in (candidate, shifted, seam_coarse, seam_fine):
+                    path.unlink(missing_ok=True)
+            Path(destination).unlink(missing_ok=True)
+            current.replace(destination)
+            return diagnostics, provenance_path
+        except Exception:
+            for path in temporaries:
+                path.unlink(missing_ok=True)
+            raise
+
+    def adaptive_terrain_derivatives(self, dtm_path, provenance_path, sources, resolution,
+                                     slope_path, hillshade_path):
+        """Derivati con supporto fisico legato alla risoluzione della sorgente scelta."""
+        dtm = gdal.Open(str(dtm_path))
+        provenance = gdal.Open(str(provenance_path))
+        driver = gdal.GetDriverByName('GTiff')
+        options = ['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3', 'BIGTIFF=IF_SAFER']
+        slope_ds = driver.Create(str(slope_path), dtm.RasterXSize, dtm.RasterYSize, 1,
+                                 gdal.GDT_Float32, options=options)
+        shade_ds = driver.Create(str(hillshade_path), dtm.RasterXSize, dtm.RasterYSize, 1,
+                                 gdal.GDT_Byte,
+                                 options=['TILED=YES', 'COMPRESS=DEFLATE', 'BIGTIFF=IF_SAFER'])
+        for output in (slope_ds, shade_ds):
+            output.SetGeoTransform(dtm.GetGeoTransform())
+            output.SetProjection(dtm.GetProjection())
+        slope_ds.GetRasterBand(1).SetNoDataValue(-9999)
+        shade_ds.GetRasterBand(1).SetNoDataValue(0)
+        native = {index: float(source.get('native_resolution_m') or source['grid_m'])
+                  for index, source in enumerate(sources, 1)}
+        maximum_sigma = max(max(0.0, value/float(resolution)/2.0)
+                            for value in native.values())
+        halo = max(3, int(math.ceil(3.0*maximum_sigma)) + 1)
+        for y in range(0, dtm.RasterYSize, 512):
+            height = min(512, dtm.RasterYSize-y)
+            for x in range(0, dtm.RasterXSize, 512):
+                self.cancel()
+                width = min(512, dtm.RasterXSize-x)
+                x0=max(0, x-halo); y0=max(0, y-halo)
+                x1=min(dtm.RasterXSize, x+width+halo)
+                y1=min(dtm.RasterYSize, y+height+halo)
+                values = dtm.GetRasterBand(1).ReadAsArray(
+                    x0, y0, x1-x0, y1-y0).astype(np.float32)
+                provenance_values = provenance.GetRasterBand(1).ReadAsArray(
+                    x0, y0, x1-x0, y1-y0)
+                valid = np.isfinite(values) & (values != -9999)
+                if np.all(valid):
+                    filled = values
+                elif np.any(valid):
+                    nearest = distance_transform_edt(~valid, return_distances=False,
+                                                     return_indices=True)
+                    filled = values[tuple(nearest)]
+                else:
+                    filled = np.zeros(values.shape, dtype=np.float32)
+                gx = np.zeros(values.shape, dtype=np.float32)
+                gy = np.zeros(values.shape, dtype=np.float32)
+                for source_index in np.unique(provenance_values):
+                    if source_index == 0 or int(source_index) not in native:
+                        continue
+                    native_resolution = native[int(source_index)]
+                    ratio = native_resolution/float(resolution)
+                    if ratio <= 1.05:
+                        surface = filled
+                    else:
+                        surface = gaussian_filter(filled, max(0.8, ratio/2.0), mode='nearest')
+                    row_gradient, source_gx = np.gradient(
+                        surface.astype(np.float64), float(resolution), float(resolution))
+                    source_gy = -row_gradient
+                    mask = provenance_values == source_index
+                    gx[mask] = source_gx[mask]
+                    gy[mask] = source_gy[mask]
+                slope_radians = np.arctan(np.hypot(gx, gy))
+                slope_values = np.degrees(slope_radians).astype(np.float32)
+                shade_values = multidirectional_hillshade(gx, gy)
+                slope_values[~valid] = -9999
+                shade_values[~valid] = 0
+                crop_y=y-y0; crop_x=x-x0
+                slope_ds.GetRasterBand(1).WriteArray(
+                    slope_values[crop_y:crop_y+height, crop_x:crop_x+width], x, y)
+                shade_ds.GetRasterBand(1).WriteArray(
+                    shade_values[crop_y:crop_y+height, crop_x:crop_x+width], x, y)
+        slope_ds = None; shade_ds = None; provenance = None; dtm = None
+
     def update(self, config_path, max_missing_percent=None):
         with self.locked():
             return self._update(config_path, max_missing_percent)
@@ -981,42 +1474,46 @@ class Workflow:
         shade = area / 'elaborati/hillshade.tif'
         resolution = min(s['grid_m'] for s in selected)
         raw_signature = {'sources': [{**s, 'current': self.source_fingerprint(s)} for s in selected],
-                         'coverage_validation': 'technical_buffer_v6-remote-edge-1km',
+                         'coverage_validation': 'native-detail-coregistration-v1',
                          'nodata_policy': c.get('dtm_nodata_policy', {'mode': 'strict'}),
                          'geometry': perimeter_signature, 'crs': c['processing_crs'], 'buffer': c['buffer_m'], 'res': resolution}
+        previous_report_path = area / 'elaborati/rapporto.json'
+        previous_report = load_json(previous_report_path) if previous_report_path.exists() else {}
+        dtm_seams = list(previous_report.get('dtm_seams', []))
         def prepare_dtm():
+            nonlocal dtm_seams
             buffered = geometry.buffer(c['buffer_m'], 12)
             bb = buffered.boundingBox()
             vrts = [self.cached_tiles(s, buffered, c['processing_crs'], resolution) for s in selected]
             temp = area / 'elaborati/dtm.partial.tif'
-            gdal.Warp(str(temp), [str(v) for v in vrts], format='GTiff', dstSRS=c['processing_crs'],
-                      outputBounds=[bb.xMinimum(), bb.yMinimum(), bb.xMaximum(), bb.yMaximum()],
-                      xRes=resolution, yRes=resolution, targetAlignedPixels=True, outputType=gdal.GDT_Float32,
-                      resampleAlg='bilinear', srcNodata=-9999, dstNodata=-9999, warpMemoryLimit=64,
-                      callback=self.gdal_callback,
-                      creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3'])
-            self.repair_dtm_seams(temp, resolution)
-            buffered_file = area/'elaborati/margine_tecnico.geojson'
-            buffered_wgs = geometry_in(buffered, c['processing_crs'], 'EPSG:4326')
-            save_json(buffered_file, {'type':'FeatureCollection', 'features':[{'type':'Feature','properties':{},'geometry':json.loads(buffered_wgs.asJson())}]})
-            coverage = self.validate_dtm(temp, buffered_file, c.get('dtm_nodata_policy'))
-            cog_copy(temp, dtm)
-            temp.unlink()
-            save_json(dtm_coverage, coverage)
-        self.stage('dtm', raw_signature, [dtm, dtm_coverage], state, area, prepare_dtm)
+            slope_temp = area / 'elaborati/slope.partial.tif'
+            shade_temp = area / 'elaborati/hillshade.partial.tif'
+            for path in (temp, slope_temp, shade_temp):
+                path.unlink(missing_ok=True)
+            bounds = [bb.xMinimum(), bb.yMinimum(), bb.xMaximum(), bb.yMaximum()]
+            provenance = None
+            try:
+                dtm_seams, provenance = self.compose_dtm_sources(
+                    vrts, selected, bounds, c['processing_crs'], resolution, temp)
+                self.repair_dtm_seams(temp, resolution)
+                buffered_file = area/'elaborati/margine_tecnico.geojson'
+                buffered_wgs = geometry_in(buffered, c['processing_crs'], 'EPSG:4326')
+                save_json(buffered_file, {'type':'FeatureCollection', 'features':[{'type':'Feature','properties':{},'geometry':json.loads(buffered_wgs.asJson())}]})
+                coverage = self.validate_dtm(temp, buffered_file, c.get('dtm_nodata_policy'))
+                self.adaptive_terrain_derivatives(
+                    temp, provenance, selected, resolution, slope_temp, shade_temp)
+                cog_copy(temp, dtm)
+                cog_copy(slope_temp, slope)
+                cog_copy(shade_temp, shade)
+                save_json(dtm_coverage, coverage)
+            finally:
+                for path in (temp, slope_temp, shade_temp, provenance):
+                    if path is not None:
+                        Path(path).unlink(missing_ok=True)
+        self.stage('dtm', raw_signature, [dtm, dtm_coverage, slope, shade], state, area, prepare_dtm)
+        state.pop('pendenza', None)
+        state.pop('hillshade', None)
         self.progress(25, 'DTM locale pronto')
-        def derivative(mode, out):
-            temp = area / 'elaborati' / f'{mode}.partial.tif'
-            options = {'format': 'GTiff', 'creationOptions': ['TILED=YES', 'COMPRESS=DEFLATE'], 'computeEdges': True}
-            if mode == 'slope':
-                options.update(slopeFormat='degree', alg='Horn', scale=1)
-            else:
-                options.update(multiDirectional=True, altitude=45, zFactor=1, scale=1)
-            gdal.DEMProcessing(str(temp), str(dtm), mode, callback=self.gdal_callback, **options)
-            cog_copy(temp, out)
-            temp.unlink()
-        self.stage('pendenza', fingerprint(dtm), [slope], state, area, lambda: derivative('slope', slope))
-        self.stage('hillshade', fingerprint(dtm), [shade], state, area, lambda: derivative('hillshade', shade))
         contours_marker = area / 'elaborati/curve.json'
         def contours():
             temporary = area / 'elaborati/curve.partial.gpkg'
@@ -1094,7 +1591,8 @@ class Workflow:
                   'seconds_this_run': round(time.monotonic()-started, 3), 'updated': dt.datetime.now(dt.timezone.utc).isoformat(),
                   'peak_process_rss_mb': round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/(1e6 if sys.platform=='darwin' else 1000), 1) if resource else None,
                   'log': str(self.log_path),
-                  'portable': True, 'dtm_coverage': coverage, 'warnings': warnings,
+                  'portable': True, 'dtm_coverage': coverage, 'dtm_seams': dtm_seams,
+                  'warnings': warnings,
                   'osm': osm, 'stages': state}
         save_json(area / 'elaborati/rapporto.json', report)
         self.progress(100, 'Area pronta')

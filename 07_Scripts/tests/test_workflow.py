@@ -20,7 +20,12 @@ sys.path.insert(0, str(ROOT/'07_Scripts'))
 from scialpinismo.engine import (Workflow, save_json, cog_copy, geometry_in,
                                  dtm_nodata_policy, parse_bev_atom_index,
                                  parse_bev_atom_tif, parse_swisstopo_stac_page,
-                                 osm_records)
+                                 osm_records, estimate_dem_coregistration,
+                                 seam_fields, DTM_BLEND_MAX_M,
+                                 multidirectional_hillshade,
+                                 HILLSHADE_ALTITUDE_DEG,
+                                 HILLSHADE_PRIMARY_AZIMUTH_DEG,
+                                 HILLSHADE_PRIMARY_WEIGHT)
 from scialpinismo.exporter import inspect_mbtiles, tile_bounds
 
 
@@ -457,6 +462,88 @@ class WorkflowTests(unittest.TestCase):
         np.testing.assert_array_equal(raster.ReadAsArray(), plane)
         slope = gdal.DEMProcessing('', raster, 'slope', format='MEM', alg='Horn', scale=1)
         np.testing.assert_allclose(slope.ReadAsArray()[2:-2, 2:-2], 35, atol=0.001)
+
+    def test_dem_coregistration_separates_horizontal_and_vertical_shift(self):
+        from scipy.ndimage import shift
+        pixel = 2.5
+        y, x = np.mgrid[:400, :400] * pixel
+        terrain = (1400 + 0.18*x + 0.11*y + 18*np.sin(x/85) +
+                   11*np.cos(y/63) + 4*np.sin((x+y)/27)).astype(np.float32)
+        # Il candidato è traslato di +5 m Est, -2,5 m Nord e più basso di 3 m.
+        candidate = shift(terrain, (-1, 2), order=1, mode='nearest') - 3
+        valid = np.ones(terrain.shape, dtype=bool)
+        result = estimate_dem_coregistration(terrain, candidate, valid, valid, pixel, 10)
+        self.assertTrue(result['accepted'], result)
+        self.assertAlmostEqual(result['dx_m'], 5.0, delta=0.8)
+        self.assertAlmostEqual(result['dy_m'], 2.5, delta=0.8)
+        self.assertAlmostEqual(result['dz_m'], 3.0, delta=0.5)
+
+    def test_seam_fields_keep_blend_short_and_reject_bad_sector(self):
+        pixel = 5.0
+        y, x = np.mgrid[:240, :320] * pixel
+        base = (1200 + 0.08*x + 0.04*y).astype(np.float32)
+        candidate = base - 2.0
+        base_valid = np.ones(base.shape, dtype=bool)
+        candidate_valid = np.zeros(base.shape, dtype=bool)
+        candidate_valid[:, 80:] = True
+        candidate[70:150, 80:145] += 20.0
+        correction, low_weight, high_weight, diagnostics = seam_fields(
+            base, candidate, base_valid, candidate_valid, pixel, 10, vertical_shift=2.0)
+        self.assertLessEqual(diagnostics['blend_m'], DTM_BLEND_MAX_M)
+        self.assertGreater(diagnostics['incompatible_cells'], 0)
+        self.assertEqual(float(low_weight[:, :80].max()), 0.0)
+        self.assertGreater(float(low_weight[:, 180:].min()), 0.99)
+        self.assertGreater(float(high_weight[:, 180:].min()), 0.99)
+        self.assertLess(float(np.max(np.abs(correction))), 8.01)
+
+    def test_disk_mosaic_preserves_fine_detail_away_from_short_seam(self):
+        from osgeo import osr
+        size = 240
+        pixel = 5.0
+        y, x = np.mgrid[:size, :size] * pixel
+        base_values = (1300 + 0.06*x + 0.03*y).astype(np.float32)
+        fine_values = (base_values - 3 + 1.8*np.sin(x/8.0)*np.cos(y/11.0)).astype(np.float32)
+        fine_values[:, :80] = -9999
+        srs = osr.SpatialReference(); srs.ImportFromEPSG(32633)
+        def create(path, values):
+            dataset = gdal.GetDriverByName('GTiff').Create(
+                str(path), size, size, 1, gdal.GDT_Float32,
+                options=['TILED=YES', 'COMPRESS=DEFLATE'])
+            dataset.SetGeoTransform([0, pixel, 0, size*pixel, 0, -pixel])
+            dataset.SetProjection(srs.ExportToWkt())
+            dataset.GetRasterBand(1).SetNoDataValue(-9999)
+            dataset.GetRasterBand(1).WriteArray(values)
+            dataset = None
+        base_path=self.root/'base.tif'; fine_path=self.root/'fine.tif'
+        output=self.root/'mosaic.tif'
+        create(base_path, base_values); create(fine_path, fine_values)
+        sources = [
+            {'id':'base','grid_m':10,'native_resolution_m':10},
+            {'id':'fine','grid_m':5,'native_resolution_m':5},
+        ]
+        diagnostics, provenance = self.w.compose_dtm_sources(
+            [base_path, fine_path], sources, [0, 0, size*pixel, size*pixel],
+            'EPSG:32633', pixel, output)
+        result = gdal.Open(str(output)).ReadAsArray()
+        interior = np.s_[:, 150:220]
+        np.testing.assert_allclose(result[interior], fine_values[interior] + 3,
+                                   atol=0.35)
+        self.assertLessEqual(diagnostics[0]['blend_m'], DTM_BLEND_MAX_M)
+        self.assertTrue(Path(provenance).exists())
+        Path(provenance).unlink()
+
+    def test_multidirectional_hillshade_keeps_315_degree_sun_dominant(self):
+        self.assertEqual(HILLSHADE_ALTITUDE_DEG, 45.0)
+        self.assertEqual(HILLSHADE_PRIMARY_AZIMUTH_DEG, 315.0)
+        self.assertGreater(HILLSHADE_PRIMARY_WEIGHT, 0.5)
+        # Una normale rivolta a Nord-Ovest deve ricevere più luce della normale opposta.
+        northwest = multidirectional_hillshade(
+            np.array([[1.0]], dtype=np.float32),
+            np.array([[-1.0]], dtype=np.float32))
+        southeast = multidirectional_hillshade(
+            np.array([[-1.0]], dtype=np.float32),
+            np.array([[1.0]], dtype=np.float32))
+        self.assertGreater(int(northwest[0, 0]), int(southeast[0, 0]))
 
     def test_dtm_seam_repair_closes_narrow_join_but_not_real_gap(self):
         path = self.root/'seams.tif'

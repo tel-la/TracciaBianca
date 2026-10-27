@@ -16,16 +16,16 @@ SPEC.loader.exec_module(release)
 class PrepareGithubReleaseTests(unittest.TestCase):
     def test_discovers_only_current_map_sheet_catalogues(self):
         self.assertEqual(release.discover_cells(ROOT), [
-            "ALP_E143_N084",
-            "ALP_E143_N085",
-            "ALP_E144_N084",
+            "ALP_E146_N084",
+            "ALP_E147_N084",
         ])
 
-    def test_current_cells_are_ready_after_technical_validation(self):
+    def test_current_cells_are_ready_or_already_published_after_validation(self):
         for cell_id in release.discover_cells(ROOT):
             record = release.inspect_cell(ROOT, cell_id, False)
             self.assertEqual(record["catalog"]["technical_validation"], "passed")
-            self.assertEqual(record["catalog"]["publication_status"], "release_ready")
+            self.assertIn(record["catalog"]["publication_status"],
+                          ("release_ready", "published"))
             self.assertTrue(record["packages"])
             self.assertEqual(record["failures"], [])
 
