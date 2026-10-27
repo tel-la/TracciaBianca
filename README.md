@@ -56,6 +56,23 @@ Find the app here:
 
 [Maps Viewer for iOS (App Store)](https://apps.apple.com/it/app/maps-viewer/id6566186978)
 
+## Map styles by zoom level
+
+<div align="center">
+  <img height="600" alt="Zoom12" src="https://github.com/user-attachments/assets/f2166a90-5db7-4383-8216-226d3bd9880a" />
+  <img height="600" alt="Screenshot_1793116365" src="https://github.com/user-attachments/assets/888e44b2-53c2-41bd-915b-26e106ec24c1" />
+  <img height="600" alt="Screenshot_1793116381" src="https://github.com/user-attachments/assets/9cf13c08-46ba-4929-87fb-5869f3d4a8b1" />
+</div>
+
+Slope colour legend:
+- Up to 5°: green (these are the “flat sections”).
+- From 5° to 10°: the shading gradually fades out.
+- From 30° to 45°: the shading gradually transitions from yellow to red.
+- From 45° to 50°: uniform red shading.
+- Above 50°: uniform dark grey shading (in most cases, these are actually rock cliffs).
+
+At the lower zoom level (15-), slopes steeper than 30° are highlighted in yellow, and those steeper than 50° in grey.
+
 ## Project status
 
 TracciaBianca is a continuous WIP public distribution.
