@@ -56,6 +56,17 @@ Find the app here:
 
 [Maps Viewer for iOS (App Store)](https://apps.apple.com/it/app/maps-viewer/id6566186978)
 
+## Map styles by zoom level
+
+Zoom 12-13
+<img height="800" alt="Zoom12" src="https://github.com/user-attachments/assets/f2166a90-5db7-4383-8216-226d3bd9880a" />
+
+Zoom 14-15
+<img height="800" alt="Screenshot_1793116365" src="https://github.com/user-attachments/assets/888e44b2-53c2-41bd-915b-26e106ec24c1" />
+
+Zoom 16+
+<img height="800" alt="Screenshot_1793116381" src="https://github.com/user-attachments/assets/9cf13c08-46ba-4929-87fb-5869f3d4a8b1" />
+
 ## Project status
 
 TracciaBianca is a continuous WIP public distribution.
