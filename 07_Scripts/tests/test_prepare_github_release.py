@@ -16,8 +16,12 @@ SPEC.loader.exec_module(release)
 class PrepareGithubReleaseTests(unittest.TestCase):
     def test_discovers_only_current_map_sheet_catalogues(self):
         self.assertEqual(release.discover_cells(ROOT), [
-            "ALP_E146_N084",
-            "ALP_E147_N084",
+            "ALP_E134_N083",
+            "ALP_E135_N083",
+            "ALP_E136_N083",
+            "ALP_E137_N083",
+            "ALP_E138_N083",
+            "ALP_E148_N084",
         ])
 
     def test_current_cells_are_ready_or_already_published_after_validation(self):

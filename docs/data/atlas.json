@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-23T18:22:08Z",
+  "generated_at": "2026-10-28T08:05:54Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 15,
+  "published_count": 21,
   "bounds": [
     [
       45.68816033173499,
@@ -60,10 +60,13 @@
       "id": "ALP_E134_N083",
       "locality": "Monte Rosa – Vallese",
       "display_name": "Monte Rosa – Vallese",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261027T194827Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 826568704,
       "analysis_bounds": [
         [
           46.22972331688871,
@@ -74,7 +77,16 @@
           8.264509053871903
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E134_N083_monte-rosa-vallese_20261027T194827Z_01_z12-16.mbtiles",
+          "bytes": 826568704,
+          "sha256": "cca9fa62cf97290c31161b0d497e28df3fa077ee1c5767393269b5d00f0c04dd",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N083_monte-rosa-vallese_20261027T194827Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E135_N081",
@@ -120,10 +132,13 @@
       "id": "ALP_E135_N083",
       "locality": "Premia",
       "display_name": "Premia · Lago Maggiore – Ossola",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261027T201602Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 800432128,
       "analysis_bounds": [
         [
           46.23718659792723,
@@ -134,7 +149,16 @@
           8.665916939473295
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E135_N083_premia-lago-maggiore-ossola_20261027T201602Z_01_z12-16.mbtiles",
+          "bytes": 800432128,
+          "sha256": "a1ba814ed2fb67b16bbc751d4157b49e3af4385f9faf0afe2d3c2dee8126e9ad",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N083_premia-lago-maggiore-ossola_20261027T201602Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E136_N081",
@@ -180,10 +204,13 @@
       "id": "ALP_E136_N083",
       "locality": "Ticino – Alpi Lepontine",
       "display_name": "Ticino – Alpi Lepontine",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261027T210103Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 891002880,
       "analysis_bounds": [
         [
           46.24314335868843,
@@ -194,7 +221,16 @@
           9.067392532847816
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E136_N083_ticino-alpi-lepontine_20261027T210103Z_01_z12-16.mbtiles",
+          "bytes": 891002880,
+          "sha256": "44c51beabdc91300aabe9ccbfb96a4a54513d530e30ad0e8573d872a8f730ed3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N083_ticino-alpi-lepontine_20261027T210103Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E137_N081",
@@ -240,10 +276,13 @@
       "id": "ALP_E137_N083",
       "locality": "Chiavenna",
       "display_name": "Chiavenna · Lario – Valchiavenna",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261027T212350Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 800264192,
       "analysis_bounds": [
         [
           46.24759311268533,
@@ -254,7 +293,16 @@
           9.468915474462975
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.mbtiles",
+          "bytes": 800264192,
+          "sha256": "2bae7d3148767efc1371bf228d8d6c0d7a4922239827378e3ca4db8f2fe18e4f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E138_N081",
@@ -300,10 +348,13 @@
       "id": "ALP_E138_N083",
       "locality": "Villa di Chiavenna",
       "display_name": "Villa di Chiavenna · Lario – Valchiavenna",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261027T214751Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 757383168,
       "analysis_bounds": [
         [
           46.25053549631732,
@@ -314,7 +365,16 @@
           9.87046538508914
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.mbtiles",
+          "bytes": 757383168,
+          "sha256": "b9fc7a38d39b0d9fc8bd50cf7f4283c4d8518e1cabaa56a307aaad16722555f5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E139_N081",
@@ -1280,10 +1340,13 @@
       "id": "ALP_E148_N084",
       "locality": "Tarvisio",
       "display_name": "Tarvisio · Alpi Giulie – Friuli",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261027T191020Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 721268736,
       "analysis_bounds": [
         [
           46.460325376146066,
@@ -1294,7 +1357,16 @@
           13.92640378506697
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.mbtiles",
+          "bytes": 721268736,
+          "sha256": "1941c613d61657e1467b98ff0daa282cd41e2ee54290d0cd8e34fc4ae5ff6ee4",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.mbtiles"
+        }
+      ]
     }
   ]
 }
