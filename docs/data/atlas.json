@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T08:05:54Z",
+  "generated_at": "2026-10-28T13:47:06Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 21,
+  "published_count": 25,
   "bounds": [
     [
       45.68816033173499,
@@ -420,10 +420,13 @@
       "id": "ALP_E139_N083",
       "locality": "Livigno",
       "display_name": "Livigno · Valtellina – Orobie",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T104811Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 718651392,
       "analysis_bounds": [
         [
           46.251778074821765,
@@ -434,7 +437,16 @@
           10.273628465425883
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.mbtiles",
+          "bytes": 718651392,
+          "sha256": "efff28164204dab3583167414098a8e4270f7432860090dd95cf5432cbe23cb1",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E139_N084",
@@ -512,10 +524,13 @@
       "id": "ALP_E140_N083",
       "locality": "Bormio",
       "display_name": "Bormio · Adamello – Garda",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T110231Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 703787008,
       "analysis_bounds": [
         [
           46.25000285915389,
@@ -526,7 +541,16 @@
           10.677542457454903
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.mbtiles",
+          "bytes": 703787008,
+          "sha256": "33ba6bb60b631146c8f1c65ff4f3eb4ceb73c7f47079f82ef08bc76ead61605d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E140_N084",
@@ -636,10 +660,13 @@
       "id": "ALP_E141_N083",
       "locality": "Dimaro Folgarida",
       "display_name": "Dimaro Folgarida · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T111418Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 698068992,
       "analysis_bounds": [
         [
           46.24672007614657,
@@ -650,7 +677,16 @@
           11.081421439710876
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.mbtiles",
+          "bytes": 698068992,
+          "sha256": "7e9788142f07552badac2a930125746bd99b46c87c59d9cb3e99757bf03ed86d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E141_N084",
@@ -760,10 +796,13 @@
       "id": "ALP_E142_N083",
       "locality": "Bolzano - Bozen",
       "display_name": "Bolzano - Bozen · Alto Adige – Dolomiti occidentali",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T112653Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 636968960,
       "analysis_bounds": [
         [
           46.24192999412522,
@@ -774,7 +813,16 @@
           11.48524455808459
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E142_N083_bolzano-bozen-alto-adige-dolomiti-occidentali_20261028T112653Z_01_z12-16.mbtiles",
+          "bytes": 636968960,
+          "sha256": "c47e9cb594e17dac50ecd3aa78e87309dcd09879dd9d870a83dea09ced80bf78",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N083_bolzano-bozen-alto-adige-dolomiti-occidentali_20261028T112653Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E142_N084",
