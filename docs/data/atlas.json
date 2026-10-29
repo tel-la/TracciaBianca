@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T11:42:43Z",
+  "generated_at": "2026-10-29T18:18:06Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 39,
+  "published_count": 55,
   "bounds": [
     [
       45.68816033173499,
@@ -20,10 +20,13 @@
       "id": "ALP_E134_N081",
       "locality": "Biellese – Valsesia",
       "display_name": "Biellese – Valsesia",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T162344Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 789032960,
       "analysis_bounds": [
         [
           45.671478698217136,
@@ -34,7 +37,16 @@
           8.282281121495235
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E134_N081_biellese-valsesia_20261029T162344Z_01_z12-16.mbtiles",
+          "bytes": 789032960,
+          "sha256": "9500b11a1c07f4bbbc00936ef6dc57b41f1aa76042eb7977e7430c498f88d6f8",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N081_biellese-valsesia_20261029T162344Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E134_N082",
@@ -104,10 +116,13 @@
       "id": "ALP_E135_N081",
       "locality": "Verbania",
       "display_name": "Verbania · Lago Maggiore – Ossola",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T163500Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 580640768,
       "analysis_bounds": [
         [
           45.67885367672487,
@@ -118,7 +133,16 @@
           8.679581025400372
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles",
+          "bytes": 580640768,
+          "sha256": "318c2ce1e6e5605e8e5135457e16bdd9328ed8e48ebbd3218ec270f4e8a34a10",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E135_N082",
@@ -188,10 +212,13 @@
       "id": "ALP_E136_N081",
       "locality": "Varese",
       "display_name": "Varese · Lago Maggiore – Ossola",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T164520Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 574955520,
       "analysis_bounds": [
         [
           45.68473993765938,
@@ -202,7 +229,16 @@
           9.07694591707551
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles",
+          "bytes": 574955520,
+          "sha256": "e123a968cdb2bb47f3b706cd5618756824cfdfa4dd24a1331c81c835af16dc66",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E136_N082",
@@ -272,10 +308,13 @@
       "id": "ALP_E137_N081",
       "locality": "Como",
       "display_name": "Como · Lario – Valchiavenna",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T165353Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 643166208,
       "analysis_bounds": [
         [
           45.689137014996135,
@@ -286,7 +325,16 @@
           9.474356254480455
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles",
+          "bytes": 643166208,
+          "sha256": "fd600d76b0ed4ffb29ec1f8572f11ddb199432cfd02882c7c55962e8af7c9e61",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E137_N082",
@@ -356,10 +404,13 @@
       "id": "ALP_E138_N081",
       "locality": "Albino",
       "display_name": "Albino · Valtellina – Orobie",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T170141Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 743444480,
       "analysis_bounds": [
         [
           45.692044560432905,
@@ -370,7 +421,16 @@
           9.871792477099275
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E138_N081_albino-valtellina-orobie_20261029T170141Z_01_z12-16.mbtiles",
+          "bytes": 743444480,
+          "sha256": "64a5072d8a71d343cd421816a0b21bf70acd63aeceb36584d1dd97a6c11e9955",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N081_albino-valtellina-orobie_20261029T170141Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E138_N082",
@@ -440,10 +500,13 @@
       "id": "ALP_E139_N081",
       "locality": "Darfo Boario Terme",
       "display_name": "Darfo Boario Terme · Adamello – Garda",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T170958Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 703934464,
       "analysis_bounds": [
         [
           45.69327242522861,
@@ -454,7 +517,16 @@
           10.27079907162734
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles",
+          "bytes": 703934464,
+          "sha256": "3209df5ca3be2790347dbdfb07997e088442d39666404bf08e5737941094315f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E139_N082",
@@ -556,10 +628,13 @@
       "id": "ALP_E140_N081",
       "locality": "Borgo Chiese",
       "display_name": "Borgo Chiese · Adamello – Garda",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T171953Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 749023232,
       "analysis_bounds": [
         [
           45.691518230111924,
@@ -570,7 +645,16 @@
           10.670536894929342
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E140_N081_borgo-chiese-adamello-garda_20261029T171953Z_01_z12-16.mbtiles",
+          "bytes": 749023232,
+          "sha256": "99eab9a5fe44bcc7902b619c4da1fb57fab5742ba2e3895d519faa8fe72b32d9",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N081_borgo-chiese-adamello-garda_20261029T171953Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E140_N082",
@@ -704,10 +788,13 @@
       "id": "ALP_E141_N081",
       "locality": "Arco",
       "display_name": "Arco · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T173542Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 720625664,
       "analysis_bounds": [
         [
           45.68827431441009,
@@ -718,7 +805,16 @@
           11.070241123360365
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles",
+          "bytes": 720625664,
+          "sha256": "8f17e88b372792f63eddb3f31fa6eb6e854f0a823269746c850b8807aba19eec",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E141_N082",
@@ -852,10 +948,13 @@
       "id": "ALP_E142_N081",
       "locality": "Rovereto",
       "display_name": "Rovereto · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T174245Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 737468416,
       "analysis_bounds": [
         [
           45.683540935156735,
@@ -866,16 +965,28 @@
           11.469891745241977
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E142_N081_rovereto-trentino-occidentale-dolomiti-di-brenta_20261029T174245Z_01_z12-16.mbtiles",
+          "bytes": 737468416,
+          "sha256": "04b809e4901754c243be6dfb458c28476f45f5ec28f15d4c8efa1b19395a7c16",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N081_rovereto-trentino-occidentale-dolomiti-di-brenta_20261029T174245Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E142_N082",
       "locality": "Trento",
       "display_name": "Trento · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T143940Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 710889472,
       "analysis_bounds": [
         [
           45.962759901752285,
@@ -886,7 +997,16 @@
           11.477516521514106
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E142_N082_trento-trentino-occidentale-dolomiti-di-brenta_20261029T143940Z_01_z12-16.mbtiles",
+          "bytes": 710889472,
+          "sha256": "c8125d02f7720290b13f610d92679f7d7966327adf6f1ef909154a69868b9aa0",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N082_trento-trentino-occidentale-dolomiti-di-brenta_20261029T143940Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E142_N083",
@@ -988,10 +1108,13 @@
       "id": "ALP_E143_N081",
       "locality": "Bassano del Grappa",
       "display_name": "Bassano del Grappa · Alto Adige – Dolomiti occidentali",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T175133Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 587350016,
       "analysis_bounds": [
         [
           45.67731846725476,
@@ -1002,16 +1125,28 @@
           11.869468770969327
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.mbtiles",
+          "bytes": 587350016,
+          "sha256": "7b2ad2d408f1fd617302e38c1b4fca6343219a9f581cd4c5554a4acc7eb8cf6b",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E143_N082",
       "locality": "Borgo Valsugana",
       "display_name": "Borgo Valsugana · Alto Adige – Dolomiti occidentali",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T145214Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 754782208,
       "analysis_bounds": [
         [
           45.95650043076839,
@@ -1022,7 +1157,16 @@
           11.879164241967526
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E143_N082_borgo-valsugana-alto-adige-dolomiti-occidentali_20261029T145214Z_01_z12-16.mbtiles",
+          "bytes": 754782208,
+          "sha256": "70c7d978798b605a4dfc09b269a921d1f7ded183d17cc15e1673d14577db3fcc",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N082_borgo-valsugana-alto-adige-dolomiti-occidentali_20261029T145214Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E143_N083",
@@ -1124,10 +1268,13 @@
       "id": "ALP_E144_N081",
       "locality": "Montebelluna",
       "display_name": "Montebelluna · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T175827Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 491847680,
       "analysis_bounds": [
         [
           45.669607403279514,
@@ -1138,16 +1285,28 @@
           12.268952241224731
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E144_N081_montebelluna-dolomiti-cadore_20261029T175827Z_01_z12-16.mbtiles",
+          "bytes": 491847680,
+          "sha256": "3219c9a333bc443ce3f87ddac9264061eb2b394c67c17d9fae6bb5a1582da27e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N081_montebelluna-dolomiti-cadore_20261029T175827Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E144_N082",
       "locality": "Belluno",
       "display_name": "Belluno · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T150210Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 722784256,
       "analysis_bounds": [
         [
           45.94874352646374,
@@ -1158,7 +1317,16 @@
           12.28071646370701
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E144_N082_belluno-dolomiti-cadore_20261029T150210Z_01_z12-16.mbtiles",
+          "bytes": 722784256,
+          "sha256": "e341542ecba677a385a81141a4abf72842abe9a4680a992f0a8bf2c5a17157f6",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N082_belluno-dolomiti-cadore_20261029T150210Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E144_N083",
@@ -1260,10 +1428,13 @@
       "id": "ALP_E145_N082",
       "locality": "Vittorio Veneto",
       "display_name": "Vittorio Veneto · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T151016Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 608083968,
       "analysis_bounds": [
         [
           45.93948981203665,
@@ -1274,7 +1445,16 @@
           12.68215285306818
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E145_N082_vittorio-veneto-dolomiti-cadore_20261029T151016Z_01_z12-16.mbtiles",
+          "bytes": 608083968,
+          "sha256": "5fcab638041c86043efb5604f7370163895765863c2c99f8d0b1b64f160fa7d2",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N082_vittorio-veneto-dolomiti-cadore_20261029T151016Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E145_N083",
@@ -1504,10 +1684,13 @@
       "id": "ALP_E148_N082",
       "locality": "Gorizia",
       "display_name": "Gorizia · Alpi Giulie – Friuli",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T161148Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 696045568,
       "analysis_bounds": [
         [
           45.902755831910035,
@@ -1518,7 +1701,16 @@
           13.885564462476028
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E148_N082_gorizia-alpi-giulie-friuli_20261029T161148Z_01_z12-16.mbtiles",
+          "bytes": 696045568,
+          "sha256": "9d78d35d5ac3ce4c37a206ae4e91a617f7e187f151992835aa42a1a6f01f120c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N082_gorizia-alpi-giulie-friuli_20261029T161148Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E148_N083",
