@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T08:19:54Z",
+  "generated_at": "2026-10-29T11:42:43Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 31,
+  "published_count": 39,
   "bounds": [
     [
       45.68816033173499,
@@ -40,10 +40,13 @@
       "id": "ALP_E134_N082",
       "locality": "Valsesia – Monte Rosa",
       "display_name": "Valsesia – Monte Rosa",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T084332Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 801308672,
       "analysis_bounds": [
         [
           45.9506259442553,
@@ -54,7 +57,16 @@
           8.273454473942783
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E134_N082_valsesia-monte-rosa_20261029T084332Z_01_z12-16.mbtiles",
+          "bytes": 801308672,
+          "sha256": "279218823dce1a577a25e0ad7588d82ab10a9b79172769c6f46fc06bb922f4b3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N082_valsesia-monte-rosa_20261029T084332Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E134_N083",
@@ -112,10 +124,13 @@
       "id": "ALP_E135_N082",
       "locality": "Domodossola",
       "display_name": "Domodossola · Lago Maggiore – Ossola",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T085830Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 771768320,
       "analysis_bounds": [
         [
           45.95804476864901,
@@ -126,7 +141,16 @@
           8.6727946522774
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles",
+          "bytes": 771768320,
+          "sha256": "23ffa2999a188839a0d1abc6f8b171552ea91eed7917478c28d6f7bc0c0564a8",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E135_N083",
@@ -184,10 +208,13 @@
       "id": "ALP_E136_N082",
       "locality": "Luino",
       "display_name": "Luino · Lago Maggiore – Ossola",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T091825Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 771923968,
       "analysis_bounds": [
         [
           45.96396603559028,
@@ -198,7 +225,16 @@
           9.072201160973249
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles",
+          "bytes": 771923968,
+          "sha256": "763c15d1e96d5d64176024e5f036941b64214caa70f2b1f328709c92cfc578a9",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E136_N083",
@@ -256,10 +292,13 @@
       "id": "ALP_E137_N082",
       "locality": "Colico",
       "display_name": "Colico · Lario – Valchiavenna",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T100244Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 731783168,
       "analysis_bounds": [
         [
           45.96838926895795,
@@ -270,7 +309,16 @@
           9.471654054472864
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles",
+          "bytes": 731783168,
+          "sha256": "d5599cd6e60636445bc7c98c7e68200b21ccea5a2c7043b6a751c8d0495d4f8b",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E137_N083",
@@ -328,10 +376,13 @@
       "id": "ALP_E138_N082",
       "locality": "Morbegno",
       "display_name": "Morbegno · Valtellina – Orobie",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T101306Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 743718912,
       "analysis_bounds": [
         [
           45.97131411290126,
@@ -342,7 +393,16 @@
           9.871133368144156
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E138_N082_morbegno-valtellina-orobie_20261029T101306Z_01_z12-16.mbtiles",
+          "bytes": 743718912,
+          "sha256": "a974672aa5a20d260e455b5d10b6aa6bd152c8cfdd9eccd2a4b3b888414ae167",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N082_morbegno-valtellina-orobie_20261029T101306Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E138_N083",
@@ -400,10 +460,13 @@
       "id": "ALP_E139_N082",
       "locality": "Sondrio",
       "display_name": "Sondrio · Valtellina – Orobie",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T105329Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 717529088,
       "analysis_bounds": [
         [
           45.972549283614214,
@@ -414,7 +477,16 @@
           10.272204249683334
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.mbtiles",
+          "bytes": 717529088,
+          "sha256": "d8dffd95e17b23ca92ba686b1893ddbad82c4e04caa76cf6e0cc3f7c1bf3b79a",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E139_N083",
@@ -504,10 +576,13 @@
       "id": "ALP_E140_N082",
       "locality": "Edolo",
       "display_name": "Edolo · Adamello – Garda",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T110532Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 707117056,
       "analysis_bounds": [
         [
           45.97078465099146,
@@ -518,7 +593,16 @@
           10.674016109307301
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E140_N082_edolo-adamello-garda_20261029T110532Z_01_z12-16.mbtiles",
+          "bytes": 707117056,
+          "sha256": "24185ba9136bf383b5556e3d563326f899bd6f34861241833126ae7775b3226d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N082_edolo-adamello-garda_20261029T110532Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E140_N083",
@@ -640,10 +724,13 @@
       "id": "ALP_E141_N082",
       "locality": "Madonna di Campiglio",
       "display_name": "Madonna di Campiglio · Trentino occidentale – Dolomiti di Brenta",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261029T112208Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 727142400,
       "analysis_bounds": [
         [
           45.96752143616909,
@@ -654,7 +741,16 @@
           11.075793675738218
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E141_N082_madonna-di-campiglio-trentino-occidentale-dolomiti-di-brenta_20261029T112208Z_01_z12-16.mbtiles",
+          "bytes": 727142400,
+          "sha256": "520e74cf7e8753a14834d2ecb5ab39c12badaa961a7ba418e5292c4e1b7d765e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N082_madonna-di-campiglio-trentino-occidentale-dolomiti-di-brenta_20261029T112208Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E141_N083",
