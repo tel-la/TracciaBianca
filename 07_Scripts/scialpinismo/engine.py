@@ -383,6 +383,8 @@ def cog_copy(src, dst):
     temp = Path(str(dst) + '.partial.tif')
     gdal.Translate(str(temp), str(src), format='COG', creationOptions=COG_OPTIONS)
     temp.replace(dst)
+    # Una statistica GDAL precedente non deve descrivere il nuovo raster.
+    Path(str(dst) + '.aux.xml').unlink(missing_ok=True)
 
 
 def osm_config_path(archive):
@@ -846,6 +848,10 @@ class Workflow:
                 stamp = tile.with_suffix('.json')
                 signature_data = {'source': self.source_fingerprint(source), 'crs': crs,
                                   'res': resolution, 'source_crs': source['crs']}
+                if source.get('provider') == 'arcgis_imageserver':
+                    # Il servizio ARSO restituisce -3 (NoData) se interrogato a 5 m:
+                    # i tasselli salvati con il vecchio campionamento vanno rigenerati.
+                    signature_data['sampling'] = 'native-lerc2-v2'
                 if float(source.get('native_resolution_m') or source['grid_m']) > float(source['grid_m']) * 1.01:
                     signature_data['sampling'] = 'native-prefilter-v1'
                 signature = digest(signature_data)
@@ -892,46 +898,100 @@ class Workflow:
         return vrt
 
     def download_arcgis_tile(self, source, rect, crs, resolution, destination):
-        """Scarica dal servizio numerico solo il tassello richiesto e normalizza il NoData."""
+        """Legge ARSO al passo nativo, poi ricampiona localmente alla griglia di lavoro.
+
+        ARSO non serve piramidi affidabili: exportImage a 2–5 m può restituire
+        un TIFF valido ma composto interamente dal valore -3, anche dove identify
+        restituisce quote. LERC2 senza perdita evita di scaricare TIFF 1 m enormi.
+        """
         width = int(round(rect.width()/resolution))
         height = int(round(rect.height()/resolution))
         max_width = int(source.get('max_image_width', 15000))
         max_height = int(source.get('max_image_height', 4100))
-        if width <= 0 or height <= 0 or width > max_width or height > max_height:
-            raise ValueError(
-                f"{source['id']}: richiesta {width}x{height} oltre il limite del servizio "
-                f"({max_width}x{max_height}); aumentare grid_m o ridurre i tasselli")
+        native = min(float(source.get('native_resolution_m') or resolution), float(resolution))
+        if width <= 0 or height <= 0 or native <= 0:
+            raise ValueError(f"{source['id']}: dimensioni raster non valide")
+        # Il margine copre i vicini necessari all'interpolazione ai bordi dei blocchi.
+        halo = 2 * native
+        # Blocchi LERC di circa 4 milioni di pixel per evitare il limite di
+        # decodifica del driver MRF usato da GDAL per il formato LERC grezzo.
+        block_pixels = max(1, int((min(2000, max_width, max_height)-4)*native/resolution))
         wkid = crs.split(':', 1)[-1]
-        params = {
-            'bbox': ','.join(f'{value:.12g}' for value in
-                             (rect.xMinimum(), rect.yMinimum(), rect.xMaximum(), rect.yMaximum())),
-            'bboxSR': wkid, 'imageSR': wkid, 'size': f'{width},{height}',
-            'format': 'tiff', 'pixelType': 'F32',
-            'interpolation': 'RSP_BilinearInterpolation', 'f': 'image',
-        }
-        url = source['url'].rstrip('/') + '/exportImage?' + urlencode(params)
-        raw = Path(str(destination) + '.download.tif')
+        footprint = self.source_coverage(source, crs) if source.get('coverage_wkt') else None
+        raw = Path(str(destination) + '.download.lerc')
         raw.unlink(missing_ok=True)
+        output = None
         try:
-            request = Request(url, headers={'User-Agent': f'Scialpinismo-QGIS/{VERSION}'})
-            with urlopen(request, timeout=180) as response, raw.open('wb') as stream:
-                shutil.copyfileobj(response, stream, length=1024*1024)
-            dataset = gdal.Open(str(raw))
-            if dataset is None or dataset.RasterCount != 1:
-                preview = raw.read_bytes()[:200].decode('utf-8', errors='replace')
-                raise RuntimeError(f'risposta non raster: {preview}')
-            dataset = None
-            warped = gdal.Warp(
-                str(destination), str(raw), format='GTiff', dstSRS=crs,
-                outputBounds=[rect.xMinimum(), rect.yMinimum(), rect.xMaximum(), rect.yMaximum()],
-                xRes=resolution, yRes=resolution, targetAlignedPixels=True,
-                srcNodata=source.get('nodata', -9999), dstNodata=-9999,
-                outputType=gdal.GDT_Float32, resampleAlg='bilinear', warpMemoryLimit=64,
-                multithread=False, creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3'])
-            if warped is None:
-                raise RuntimeError('normalizzazione GeoTIFF fallita')
-            warped = None
+            driver = gdal.GetDriverByName('GTiff')
+            output = driver.Create(str(destination), width, height, 1, gdal.GDT_Float32,
+                                   options=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3'])
+            output.SetGeoTransform((rect.xMinimum(), resolution, 0,
+                                    rect.yMaximum(), 0, -resolution))
+            spatial = osr.SpatialReference(); spatial.SetFromUserInput(crs)
+            output.SetProjection(spatial.ExportToWkt())
+            band = output.GetRasterBand(1)
+            band.SetNoDataValue(-9999); band.Fill(-9999)
+            for y in range(0, height, block_pixels):
+                for x in range(0, width, block_pixels):
+                    self.cancel()
+                    w = min(block_pixels, width-x); h = min(block_pixels, height-y)
+                    west = rect.xMinimum()+x*resolution
+                    east = west+w*resolution
+                    north = rect.yMaximum()-y*resolution
+                    south = north-h*resolution
+                    sample = (west-halo, south-halo, east+halo, north+halo)
+                    if footprint is not None and not footprint.intersects(
+                            QgsGeometry.fromRect(QgsRectangle(*sample))):
+                        continue
+                    sample_width = int(math.ceil((sample[2]-sample[0])/native))
+                    sample_height = int(math.ceil((sample[3]-sample[1])/native))
+                    if sample_width > max_width or sample_height > max_height:
+                        raise ValueError(f"{source['id']}: blocco nativo oltre il limite del servizio")
+                    params = {
+                        'bbox': ','.join(f'{value:.12g}' for value in sample),
+                        'bboxSR': wkid, 'imageSR': wkid,
+                        'size': f'{sample_width},{sample_height}',
+                        'format': 'lerc', 'lercVersion': '2',
+                        'lercCompressionTolerance': '0',
+                        'pixelType': 'F32', 'f': 'image',
+                    }
+                    url = source['url'].rstrip('/') + '/exportImage?' + urlencode(params)
+                    request = Request(url, headers={'User-Agent': f'Scialpinismo-QGIS/{VERSION}'})
+                    with urlopen(request, timeout=180) as response, raw.open('wb') as stream:
+                        shutil.copyfileobj(response, stream, length=1024*1024)
+                    dataset = gdal.Open(str(raw))
+                    if dataset is None or dataset.RasterCount != 1 or dataset.GetRasterBand(1).DataType != gdal.GDT_Float32:
+                        preview = raw.read_bytes()[:120].decode('utf-8', errors='replace')
+                        raise RuntimeError(f'risposta LERC2 Float32 non valida: {preview}')
+                    # ARSO codifica il fuori-copertura LERC come -1e10, mentre il
+                    # TIFF a bassa risoluzione usa -3. Normalizzare entrambi prima
+                    # dell'interpolazione evita quote spurie ai bordi.
+                    values = dataset.ReadAsArray()
+                    invalid = (~np.isfinite(values) | (values == source.get('nodata', -9999)) |
+                               (values <= -1e8))
+                    values[invalid] = -9999
+                    normalized = gdal.GetDriverByName('MEM').Create(
+                        '', sample_width, sample_height, 1, gdal.GDT_Float32)
+                    normalized.GetRasterBand(1).SetNoDataValue(-9999)
+                    normalized.GetRasterBand(1).WriteArray(values)
+                    georef = gdal.Translate('', normalized, format='VRT',
+                                            outputBounds=[sample[0], sample[3], sample[2], sample[1]],
+                                            outputSRS=crs)
+                    values = normalized = dataset = None
+                    warped = gdal.Warp('', georef, format='MEM',
+                                       outputBounds=[west, south, east, north],
+                                       width=w, height=h, srcNodata=-9999,
+                                       dstNodata=-9999, outputType=gdal.GDT_Float32,
+                                       resampleAlg='bilinear', warpMemoryLimit=64)
+                    if warped is None:
+                        raise RuntimeError('ricampionamento del blocco ARSO fallito')
+                    band.WriteArray(warped.ReadAsArray(), x, y)
+                    warped = georef = None
+                    raw.unlink()
+            band = None
+            output = None
         except Exception as exc:
+            output = None
             Path(destination).unlink(missing_ok=True)
             raise RuntimeError(f"Download DTM remoto {source['id']} fallito: {exc}") from exc
         finally:
@@ -1475,6 +1535,8 @@ class Workflow:
         resolution = min(s['grid_m'] for s in selected)
         raw_signature = {'sources': [{**s, 'current': self.source_fingerprint(s)} for s in selected],
                          'coverage_validation': 'native-detail-coregistration-v1',
+                         'arcgis_sampling': 'native-lerc2-v2' if any(
+                             s.get('provider') == 'arcgis_imageserver' for s in selected) else None,
                          'nodata_policy': c.get('dtm_nodata_policy', {'mode': 'strict'}),
                          'geometry': perimeter_signature, 'crs': c['processing_crs'], 'buffer': c['buffer_m'], 'res': resolution}
         previous_report_path = area / 'elaborati/rapporto.json'
@@ -1612,7 +1674,7 @@ class Workflow:
         # RasterizeLayer non riproietta implicitamente: trasformazione esplicita tramite VectorTranslate.
         shapes_projected = gdal.VectorTranslate('', shapes, format='MEM', dstSRS=ds.GetProjection())
         gdal.RasterizeLayer(mask, [1], shapes_projected.GetLayer(0), burn_values=[1])
-        missing = total = 0
+        missing = total = impossible = 0
         for y in range(0, ds.RasterYSize, 512):
             for x in range(0, ds.RasterXSize, 512):
                 self.cancel()
@@ -1621,10 +1683,15 @@ class Workflow:
                 inside = mask.GetRasterBand(1).ReadAsArray(x, y, w, h) == 1
                 total += int(inside.sum())
                 missing += int((inside & ((values == -9999) | ~np.isfinite(values))).sum())
+                impossible += int((inside & np.isfinite(values) & (values != -9999) &
+                                   ((values < -1000) | (values > 9000))).sum())
         ds = mask = shapes_projected = shapes = None
         mask_path.unlink(missing_ok=True)
         if total == 0:
             raise ValueError('DTM senza celle dentro il perimetro. Export bloccato.')
+        if impossible:
+            raise ValueError(f'DTM con {impossible} quote fuori intervallo plausibile '
+                             '(-1000–9000 m). Export bloccato.')
         missing_percent = missing / total * 100
         result = {'total_cells': total, 'missing_cells': missing, 'missing_percent': round(missing_percent, 6),
                   'complete': missing == 0, 'policy': mode,

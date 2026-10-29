@@ -204,6 +204,42 @@ class WorkflowTests(unittest.TestCase):
             self.w.cached_tiles(source, extent, 'EPSG:32632', 5)
         self.assertEqual(created, [(590000.0, 5200000.0)])
 
+    def test_arcgis_tile_is_sampled_at_native_resolution_before_downsampling(self):
+        from urllib.parse import parse_qs, urlparse
+        source = {'id': 'arso', 'url': 'https://example.test/ImageServer',
+                  'native_resolution_m': 1, 'nodata': -3,
+                  'max_image_width': 15000, 'max_image_height': 4100}
+        requests = []
+
+        def fake_urlopen(request, timeout):
+            params = parse_qs(urlparse(request.full_url).query)
+            west, south, east, north = map(float, params['bbox'][0].split(','))
+            width, height = map(int, params['size'][0].split(','))
+            requests.append(params)
+            ds = gdal.GetDriverByName('GTiff').Create(
+                '/vsimem/arso_native_test.tif', width, height, 1, gdal.GDT_Float32)
+            # Riproduce il servizio: a 5 m risponde solo NoData, a 1 m dà quote.
+            values = np.full((height, width), 1234 if (east-west)/width <= 1 else -3,
+                             dtype=np.float32)
+            values[:, :width//2] = -1e10  # NoData LERC2 osservato nel servizio.
+            ds.GetRasterBand(1).WriteArray(values)
+            ds = None
+            payload = bytes(gdal.VSIGetMemFileBuffer_unsafe('/vsimem/arso_native_test.tif'))
+            gdal.Unlink('/vsimem/arso_native_test.tif')
+            return io.BytesIO(payload)
+
+        destination = self.root/'arso.tif'
+        with patch('scialpinismo.engine.urlopen', side_effect=fake_urlopen):
+            self.w.download_arcgis_tile(source, QgsRectangle(400000, 5130000, 400100, 5130100),
+                                       'EPSG:32633', 5, destination)
+        self.assertEqual(requests[0]['format'], ['lerc'])
+        self.assertEqual(requests[0]['lercVersion'], ['2'])
+        self.assertEqual(len(requests), 1)
+        result = gdal.Open(str(destination)).ReadAsArray()
+        self.assertEqual(result[10, 1], -9999)
+        self.assertEqual(result[10, -2], 1234)
+        self.assertTrue(np.all((result == -9999) | (result == 1234)))
+
     def test_remote_source_is_selected_in_simplified_border_margin(self):
         coverage = geometry_in(
             QgsGeometry.fromRect(QgsRectangle(600100, 5200100, 601000, 5201000)),
@@ -434,6 +470,13 @@ class WorkflowTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'soglia 0.5%'):
             self.w.validate_dtm(
                 raster_path, perimeter, {'mode': 'allow_partial', 'max_missing_percent': 0.5})
+        raster = gdal.Open(str(raster_path), gdal.GA_Update)
+        values[5, 6] = -1e10  # Segnaposto LERC2 non dichiarato come NoData.
+        raster.GetRasterBand(1).WriteArray(values)
+        raster = None
+        with self.assertRaisesRegex(ValueError, 'quote fuori intervallo plausibile'):
+            self.w.validate_dtm(
+                raster_path, perimeter, {'mode': 'allow_partial', 'max_missing_percent': 10})
 
     def test_unverified_source_not_automatic(self):
         self.source(native=2.5, verified=False)
@@ -457,7 +500,12 @@ class WorkflowTests(unittest.TestCase):
         ds.GetRasterBand(1).WriteArray(plane)
         ds = None
         optimized = self.root/'plane_cog.tif'
+        stale_stats = Path(str(optimized) + '.aux.xml')
+        stale_stats.write_text('<PAMDataset><PAMRasterBand band="1"><Metadata>'
+                               '<MDI key="STATISTICS_MINIMUM">-10000000000</MDI>'
+                               '</Metadata></PAMRasterBand></PAMDataset>')
         cog_copy(source, optimized)
+        self.assertFalse(stale_stats.exists())
         raster = gdal.Open(str(optimized))
         np.testing.assert_array_equal(raster.ReadAsArray(), plane)
         slope = gdal.DEMProcessing('', raster, 'slope', format='MEM', alg='Horn', scale=1)
