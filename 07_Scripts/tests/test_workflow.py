@@ -240,6 +240,57 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(result[10, -2], 1234)
         self.assertTrue(np.all((result == -9999) | (result == 1234)))
 
+    def test_arcgis_html_outage_is_reported_without_leaving_a_partial_tile(self):
+        source = {'id': 'slovenia_arso_dmr1',
+                  'url': 'https://example.test/ImageServer',
+                  'native_resolution_m': 1, 'nodata': -3}
+        destination = self.root/'arso_outage.tif'
+        portal_message = (b'<html><title>GIS portal</title><p>'
+                          b'Nekateri deli GIS portala na ARSO so zacasno nedostopni.'
+                          b'</p></html>')
+        with patch('scialpinismo.engine.urlopen',
+                   side_effect=lambda *args, **kwargs: io.BytesIO(portal_message)) as request, \
+             patch('scialpinismo.engine.time.sleep'):
+            with self.assertRaisesRegex(RuntimeError,
+                                        'pagina HTML al posto del raster LERC2'):
+                self.w.download_arcgis_tile(
+                    source, QgsRectangle(400000, 5130000, 400100, 5130100),
+                    'EPSG:32633', 5, destination)
+        self.assertEqual(request.call_count, 3)
+        self.assertFalse(destination.exists())
+        self.assertFalse(Path(str(destination) + '.download.lerc').exists())
+
+    def test_arcgis_uses_geohub_fallback_after_arso_html_outage(self):
+        primary = 'https://arso.example.test/ImageServer'
+        fallback = 'https://geohub.example.test/ImageServer'
+        source = {'id': 'slovenia_arso_dmr1', 'url': primary,
+                  'fallback_url': fallback, 'native_resolution_m': 1,
+                  'nodata': -3}
+        ds = gdal.GetDriverByName('GTiff').Create(
+            '/vsimem/geohub_fallback_test.tif', 104, 104, 1, gdal.GDT_Float32)
+        ds.GetRasterBand(1).Fill(850)
+        ds = None
+        payload = bytes(gdal.VSIGetMemFileBuffer_unsafe('/vsimem/geohub_fallback_test.tif'))
+        gdal.Unlink('/vsimem/geohub_fallback_test.tif')
+        requests = []
+
+        def fake_urlopen(request, timeout):
+            requests.append(request.full_url)
+            if request.full_url.startswith(primary):
+                return io.BytesIO(b'<html>GIS portal ARSO temporarily unavailable</html>')
+            return io.BytesIO(payload)
+
+        destination = self.root/'geohub_fallback.tif'
+        with patch('scialpinismo.engine.urlopen', side_effect=fake_urlopen), \
+             patch('scialpinismo.engine.time.sleep'):
+            origins = self.w.download_arcgis_tile(
+                source, QgsRectangle(400000, 5130000, 400100, 5130100),
+                'EPSG:32633', 5, destination)
+        self.assertEqual(origins, [fallback])
+        self.assertEqual(sum(url.startswith(primary) for url in requests), 3)
+        self.assertEqual(sum(url.startswith(fallback) for url in requests), 1)
+        self.assertTrue(np.all(gdal.Open(str(destination)).ReadAsArray() == 850))
+
     def test_remote_source_is_selected_in_simplified_border_margin(self):
         coverage = geometry_in(
             QgsGeometry.fromRect(QgsRectangle(600100, 5200100, 601000, 5201000)),

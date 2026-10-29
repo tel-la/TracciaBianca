@@ -25,7 +25,7 @@ L’export crea per impostazione predefinita un solo file MBTiles per area. **Su
 - riproietta ogni fonte nel CRS metrico dell’area;
 - allinea le celle alla stessa griglia;
 - usa `-9999` come NoData, quindi il dato fine sostituisce la base solo dove è valido;
-- per ARSO richiede blocchi numerici LERC2 al passo nativo di 1 m, converte sia `-3` sia `-1e10` in NoData e ricampiona localmente alla griglia dell’area; i tasselli finali da 10 km restano nella cache comune. Il servizio può restituire solo NoData se interrogato direttamente a 2–5 m;
+- per ARSO richiede blocchi numerici LERC2 al passo nativo di 1 m, converte sia `-3` sia `-1e10` in NoData e ricampiona localmente alla griglia dell’area; i tasselli finali da 10 km restano nella cache comune. Il servizio può restituire solo NoData se interrogato direttamente a 2–5 m. Se il portale risponde con HTML invece del raster, il workflow riprova tre volte e passa al DMR1 numerico ufficiale di GeoHub/GURS. Se entrambi i servizi non sono disponibili o non coprono abbastanza area, la preparazione resta bloccata dalla consueta verifica NoData;
 - per BEV individua i COG correnti tramite l'indice ATOM, ne legge via HTTP Range soltanto la finestra richiesta e la conserva in tasselli da 10 km, senza scaricare i file da 50 km completi;
 - per swisstopo interroga l'API STAC, scarica una sola volta i piccoli COG 2 m da 1 km che intersecano l'area e li conserva in `dtm/originali/swissalti3d_2m`; la versione 0,5 m non viene usata perché sovradimensionata rispetto alla griglia del progetto;
 - corregge le sole micro-cuciture di riproiezione fra DTM confinanti quando esiste una quota valida entro 20 m; i vuoti altimetrici più ampi restano NoData e continuano a bloccare l’area;

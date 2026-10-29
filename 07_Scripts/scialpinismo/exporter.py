@@ -454,7 +454,10 @@ def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=
                     'bounds': ','.join(str(v) for v in (bb.xMinimum(), bb.yMinimum(), bb.xMaximum(), bb.yMaximum())),
                     'type': 'baselayer', 'version': '1.3',
                     'description': f"Carta del terreno; zoom massimo {e['maxzoom']} renderizzato dal progetto, senza aumento del dettaglio altimetrico della fonte. Pendenza in gradi; SAC escursionistica estiva. Risoluzione nel catalogo.",
-                    'attribution': '© OpenStreetMap contributors; ' + '; '.join(s['title']+' — '+s['url'] for s in report['sources'])}
+                    'attribution': '© OpenStreetMap contributors; ' + '; '.join(
+                        s['title']+' — '+s['url']+
+                        ('; '+s['fallback_url'] if s.get('fallback_url') else '')
+                        for s in report['sources'])}
         connection = sqlite3.connect(str(pending))
         for k, v in metadata.items():
             connection.execute('delete from metadata where name=?', (k,))

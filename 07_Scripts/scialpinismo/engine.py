@@ -16,6 +16,7 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from urllib.error import URLError
 from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
@@ -426,6 +427,8 @@ class Workflow:
         self.areas = self.root / '##_aree'
         self.archive = self.areas / '_archivio_comune'
         self.feedback = feedback
+        self._arcgis_unavailable_until = {}
+        self._arcgis_fallback_reported = set()
         display = log or (lambda message: feedback.pushInfo(message) if feedback else None)
         log_dir = self.archive/'logs'
         log_dir.mkdir(parents=True, exist_ok=True)
@@ -855,11 +858,17 @@ class Workflow:
                 if float(source.get('native_resolution_m') or source['grid_m']) > float(source['grid_m']) * 1.01:
                     signature_data['sampling'] = 'native-prefilter-v1'
                 signature = digest(signature_data)
-                if not tile.exists() or not stamp.exists() or load_json(stamp).get('signature') != signature:
+                saved = load_json(stamp) if stamp.exists() else {}
+                valid_origins = {source['url'], source.get('fallback_url')} if source.get('provider') == 'arcgis_imageserver' else set()
+                reusable = (tile.exists() and saved.get('signature') == signature and
+                            (not saved.get('remote_origins') or
+                             set(saved['remote_origins']).issubset(valid_origins)))
+                if not reusable:
                     temp = cache / f'{ix}_{iy}.partial.tif'
                     source_nodata = source.get('nodata', -9999)
+                    remote_origins = None
                     if source.get('provider') == 'arcgis_imageserver':
-                        self.download_arcgis_tile(source, rect, crs, resolution, temp)
+                        remote_origins = self.download_arcgis_tile(source, rect, crs, resolution, temp)
                     elif source.get('provider') == 'bev_atom_cog':
                         self.download_bev_cog_tile(source, rect, crs, resolution, temp)
                     elif source.get('provider') == 'swisstopo_stac_cog':
@@ -868,7 +877,11 @@ class Workflow:
                         self.warp_local_dtm_tile(source, rect, crs, resolution, temp)
                     cog_copy(temp, tile)
                     temp.unlink()
-                    save_json(stamp, {'signature': signature, 'source_id': source['id'], 'crs': crs, 'resolution_m': resolution})
+                    details = {'signature': signature, 'source_id': source['id'],
+                               'crs': crs, 'resolution_m': resolution}
+                    if remote_origins is not None:
+                        details['remote_origins'] = remote_origins
+                    save_json(stamp, details)
                     self.log(f'Tassello comune creato: {source["id"]}/{ix}_{iy}')
                 else:
                     self.log(f'Tassello comune riutilizzato: {source["id"]}/{ix}_{iy}')
@@ -921,6 +934,7 @@ class Workflow:
         raw = Path(str(destination) + '.download.lerc')
         raw.unlink(missing_ok=True)
         output = None
+        remote_origins = set()
         try:
             driver = gdal.GetDriverByName('GTiff')
             output = driver.Create(str(destination), width, height, 1, gdal.GDT_Float32,
@@ -956,13 +970,8 @@ class Workflow:
                         'pixelType': 'F32', 'f': 'image',
                     }
                     url = source['url'].rstrip('/') + '/exportImage?' + urlencode(params)
-                    request = Request(url, headers={'User-Agent': f'Scialpinismo-QGIS/{VERSION}'})
-                    with urlopen(request, timeout=180) as response, raw.open('wb') as stream:
-                        shutil.copyfileobj(response, stream, length=1024*1024)
-                    dataset = gdal.Open(str(raw))
-                    if dataset is None or dataset.RasterCount != 1 or dataset.GetRasterBand(1).DataType != gdal.GDT_Float32:
-                        preview = raw.read_bytes()[:120].decode('utf-8', errors='replace')
-                        raise RuntimeError(f'risposta LERC2 Float32 non valida: {preview}')
+                    dataset, origin = self.download_arcgis_lerc_block(source, url, raw)
+                    remote_origins.add(origin)
                     # ARSO codifica il fuori-copertura LERC come -1e10, mentre il
                     # TIFF a bassa risoluzione usa -3. Normalizzare entrambi prima
                     # dell'interpolazione evita quote spurie ai bordi.
@@ -990,12 +999,71 @@ class Workflow:
                     raw.unlink()
             band = None
             output = None
+            return sorted(remote_origins)
         except Exception as exc:
             output = None
             Path(destination).unlink(missing_ok=True)
             raise RuntimeError(f"Download DTM remoto {source['id']} fallito: {exc}") from exc
         finally:
             raw.unlink(missing_ok=True)
+
+    def download_arcgis_lerc_block(self, source, url, raw):
+        """Legge LERC2 da ARSO o dal servizio ufficiale GeoHub di riserva."""
+        last_error = None
+        primary = source['url'].rstrip('/')
+        suffix = url[len(primary):]
+        endpoints = [primary]
+        if source.get('fallback_url'):
+            endpoints.append(source['fallback_url'].rstrip('/'))
+        for endpoint in endpoints:
+            if endpoint == primary and len(endpoints) > 1 and time.monotonic() < self._arcgis_unavailable_until.get(primary, 0):
+                continue
+            for attempt in range(3):
+                self.cancel()
+                if attempt:
+                    time.sleep((1, 3)[attempt-1])
+                raw.unlink(missing_ok=True)
+                request = Request(endpoint + suffix,
+                                  headers={'User-Agent': f'Scialpinismo-QGIS/{VERSION}'})
+                try:
+                    with urlopen(request, timeout=180) as response, raw.open('wb') as stream:
+                        shutil.copyfileobj(response, stream, length=1024*1024)
+                except (URLError, TimeoutError, ConnectionError) as exc:
+                    last_error = f'errore di rete: {exc}'
+                    self.log(f'{source["id"]} {endpoint}: tentativo {attempt+1}/3 fallito ({last_error})')
+                    continue
+                with raw.open('rb') as stream:
+                    header = stream.read(1024).lstrip()
+                if header.lower().startswith((b'<html', b'<!doctype html')):
+                    last_error = 'pagina HTML al posto del raster LERC2 (portale GIS temporaneamente indisponibile)'
+                    self.log(f'{source["id"]} {endpoint}: tentativo {attempt+1}/3 fallito ({last_error})')
+                    continue
+                if header.startswith(b'{'):
+                    try:
+                        response = json.loads(raw.read_text(encoding='utf-8'))
+                        error = response.get('error', {})
+                        last_error = f"errore ArcGIS {error.get('code', '?')}: {error.get('message', 'risposta JSON')}"
+                    except (ValueError, AttributeError, UnicodeError):
+                        last_error = 'risposta JSON non raster'
+                    self.log(f'{source["id"]} {endpoint}: tentativo {attempt+1}/3 fallito ({last_error})')
+                    continue
+                try:
+                    dataset = gdal.Open(str(raw))
+                    if dataset is None or dataset.RasterCount != 1 or dataset.GetRasterBand(1).DataType != gdal.GDT_Float32:
+                        raise RuntimeError('risposta LERC2 Float32 non valida')
+                except RuntimeError as exc:
+                    last_error = f'risposta non raster: {exc}'
+                    self.log(f'{source["id"]} {endpoint}: tentativo {attempt+1}/3 fallito ({last_error})')
+                    continue
+                if endpoint != primary and endpoint not in self._arcgis_fallback_reported:
+                    self.log(f'{source["id"]}: uso del DMR1 numerico GeoHub come sorgente di riserva')
+                    self._arcgis_fallback_reported.add(endpoint)
+                return dataset, endpoint
+            if endpoint == primary and len(endpoints) > 1:
+                self._arcgis_unavailable_until[primary] = time.monotonic() + 300
+        raise RuntimeError(f'servizio DTM {source["id"]} temporaneamente non disponibile: '
+                           f'{last_error}. Riprovare quando i servizi tornano online; '
+                           'i tasselli già validi restano in cache')
 
     def bev_cogs_for_rect(self, source, rect, crs):
         """Risolve dall'indice ATOM i COG da 50 km che intersecano il tassello."""
@@ -1635,7 +1703,10 @@ class Workflow:
         styles = {str(p.name): fingerprint(p) for p in (self.root/'03_styles').glob('auto_*.qml')}
         gpx = [fingerprint(p) for p in sorted((area/'input/tracce_gpx').glob('*.gpx'))]
         project = area / c['project']
-        source_report = [{k: s[k] for k in ('id', 'title', 'grid_m', 'native_resolution_m', 'verified', 'url', 'license', 'notes')} for s in selected]
+        source_report = [{**{k: s[k] for k in ('id', 'title', 'grid_m', 'native_resolution_m',
+                                               'verified', 'url', 'license', 'notes')},
+                          **({'fallback_url': s['fallback_url']} if s.get('fallback_url') else {})}
+                         for s in selected]
         # Non usare mtime del GPKG: le annotazioni possono cambiare senza richiedere una ricomposizione.
         self.stage('progetto', [c, styles, gpx, 'cartografia-v12-testi-z13-15', state['dtm']['signature'], state['curve']['signature'], state.get('osm', {}).get('signature')],
                    [project], state, area, lambda: build_project(self.root, area, c, geometry))
