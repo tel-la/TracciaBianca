@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T13:47:06Z",
+  "generated_at": "2026-10-29T08:19:54Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 55,
-  "published_count": 25,
+  "published_count": 31,
   "bounds": [
     [
       45.68816033173499,
@@ -932,10 +932,13 @@
       "id": "ALP_E143_N083",
       "locality": "Moena",
       "display_name": "Moena · Alto Adige – Dolomiti occidentali",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T135351Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 713420800,
       "analysis_bounds": [
         [
           46.235633004458386,
@@ -946,7 +949,16 @@
           11.888990982011018
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.mbtiles",
+          "bytes": 713420800,
+          "sha256": "377ec1cd04ec80f867f50d8aa70e1e1ecc9ca75885e4fbd681d1027e8dda83b5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E143_N084",
@@ -1056,10 +1068,13 @@
       "id": "ALP_E144_N083",
       "locality": "Agordo",
       "display_name": "Agordo · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T142447Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 779350016,
       "analysis_bounds": [
         [
           46.22782962134779,
@@ -1070,7 +1085,16 @@
           12.292639913229253
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.mbtiles",
+          "bytes": 779350016,
+          "sha256": "2a6072f83acc3f6c08368eb06b457779ec84c3757d12b82b69ca699f37e6d857",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E144_N084",
@@ -1160,10 +1184,13 @@
       "id": "ALP_E145_N083",
       "locality": "Pieve di Cadore",
       "display_name": "Pieve di Cadore · Dolomiti – Cadore",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T144820Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 843939840,
       "analysis_bounds": [
         [
           46.218520481552545,
@@ -1174,7 +1201,16 @@
           12.696170594510653
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261028T144820Z_01_z12-16.mbtiles",
+          "bytes": 843939840,
+          "sha256": "5749cff04d1f8e497ce47ca660c7220e655a3f74d3f949f502c5c9e1ea3eeab5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261028T144820Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E145_N084",
@@ -1244,10 +1280,13 @@
       "id": "ALP_E146_N083",
       "locality": "Tolmezzo",
       "display_name": "Tolmezzo · Carnia – Dolomiti Friulane",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T150043Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 782721024,
       "analysis_bounds": [
         [
           46.20770634404785,
@@ -1258,7 +1297,16 @@
           13.099562318346768
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E146_N083_tolmezzo-carnia-dolomiti-friulane_20261028T150043Z_01_z12-16.mbtiles",
+          "bytes": 782721024,
+          "sha256": "ac1c5219a2f699f7e5ad9d1eaadb7dd91378a6544975532f70be5f77700db37c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E146_N083_tolmezzo-carnia-dolomiti-friulane_20261028T150043Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E146_N084",
@@ -1296,10 +1344,13 @@
       "id": "ALP_E147_N083",
       "locality": "Gemona del Friuli",
       "display_name": "Gemona del Friuli · Carnia – Dolomiti Friulane",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T210114Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 816709632,
       "analysis_bounds": [
         [
           46.19538808961886,
@@ -1310,7 +1361,16 @@
           13.502794435588486
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E147_N083_gemona-del-friuli-carnia-dolomiti-friulane_20261028T210114Z_01_z12-16.mbtiles",
+          "bytes": 816709632,
+          "sha256": "ea5b91195bb26eedc6a0c956de5c7fb8a4f864e63235ede813210337114a0e6e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E147_N083_gemona-del-friuli-carnia-dolomiti-friulane_20261028T210114Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E147_N084",
@@ -1368,10 +1428,13 @@
       "id": "ALP_E148_N083",
       "locality": "Cave del Predil / Raibl / Rabelj / Rabil",
       "display_name": "Cave del Predil / Raibl / Rabelj / Rabil · Alpi Giulie – Friuli",
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261028T211305Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 878166016,
       "analysis_bounds": [
         [
           46.181566720389846,
@@ -1382,7 +1445,16 @@
           13.90584636402816
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E148_N083_cave-del-predil-raibl-rabelj-rabil-alpi-giulie-friuli_20261028T211305Z_01_z12-16.mbtiles",
+          "bytes": 878166016,
+          "sha256": "ad742d604ef1ec092e95d691a944825bf3d7429abd8e3a849db3a00aef34cd77",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N083_cave-del-predil-raibl-rabelj-rabil-alpi-giulie-friuli_20261028T211305Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E148_N084",
