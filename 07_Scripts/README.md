@@ -61,10 +61,10 @@ Export PNG RGBA, 256 px, 96 DPI, opaco all'interno e trasparente fuori dal perim
 
 L'audit controlla fonti e materiali supplementari, tutti i QGZ, collegamenti locali/online, VRT relativi e symlink. I software installati e i file temporanei di prova non sono dipendenze territoriali del progetto.
 
-## Atlante alpino
+## Atlante TracciaBianca
 
-La griglia v2 genera le aree montane Lago Maggiore–Friuli in EPSG:3035. Ogni `cella_analisi` misura 35 × 35 km; il passo è 31 km, quindi ogni cella si estende 2 km oltre il proprio nucleo su ciascun lato e condivide 4 km con l’adiacente. Il filtro DTM, configurabile dalla finestra QGIS, esclude i settori senza montagne. Gli output vettoriali sono `##_aree/_archivio_comune/atlante_griglia_v2.gpkg`, `08_Atlante/griglia.gpkg` e `08_Atlante/celle_analisi.geojson`.
+La griglia v2 include 86 celle alpine, dalle Alpi occidentali e marittime al Friuli, e 8 celle dell'Appennino centrale. Ogni `cella_analisi` misura 35 × 35 km; il passo è 31 km, quindi ogni cella si estende 2 km oltre il proprio nucleo su ciascun lato e condivide 4 km con l’adiacente. Le nuove celle sono selezionate dallo script `extend_atlas_regions.py` a partire dai contorni delle due immagini di riferimento, con le esclusioni editoriali e l'aggiunta `APP_E149_N067` documentate nello script; il filtro DTM del comando `grid` resta dedicato alla copertura alpina ordinaria. Gli output vettoriali sono `##_aree/_archivio_comune/atlante_griglia_v2.gpkg`, `08_Atlante/griglia.gpkg` e i GeoJSON in `08_Atlante/`.
 
-`prepare-cells` accetta una cella o al massimo due celle adiacenti e crea normali aree utilizzabili da **Aggiorna area** ed **Esporta offline**; non esporta automaticamente. Ogni export riguarda una sola area e produce normalmente un solo MBTiles. CLI: `grid`, `prepare-cells`, `rename-cell`, `atlas`, `publish-cell`.
+`prepare-cells` accetta una cella o al massimo due celle adiacenti e crea normali aree utilizzabili da **Aggiorna area** ed **Esporta offline**; non esporta automaticamente. Ogni export riguarda una sola area e produce normalmente un solo MBTiles. I codici sono `ALP_E…_N…` per le Alpi e `APP_E…_N…` per l'Appennino. CLI: `grid`, `prepare-cells`, `rename-cell`, `atlas`, `publish-cell`.
 
 I nuovi export sono conservati in edizioni; leggere sempre `output/mbtiles/catalogo_mbtiles.json` per i percorsi correnti. Guida completa: `06_documentazione/ATLANTE_ALPINO.md`.

@@ -22,10 +22,29 @@ class AtlasTests(unittest.TestCase):
         self.assertEqual(a.area(), 35000**2); self.assertEqual(core.area(),31000**2)
         overlap = a.intersection(adjacent).boundingBox()
         self.assertEqual(overlap.width(),4000); self.assertEqual(overlap.height(),35000)
+    def test_rebuild_preserves_published_cell_without_local_mbtiles(self):
+        key = atlas.cell_id(140, 84)
+        self.w.archive.mkdir(parents=True, exist_ok=True)
+        save_json(atlas.grid_path(self.w), {'grid_id': atlas.GRID_ID, 'cells': [
+            {'id': key, 'col': 140, 'row': 84, 'display_name': 'Glurns – Glorenza'}]})
+        out = self.root/'08_Atlante'; out.mkdir()
+        package = {'file': 'sheet.mbtiles', 'bytes': 8, 'sha256': 'a'*64,
+                   'download_url': 'https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/sheet.mbtiles'}
+        save_json(out/'catalogo.json', {'cells': [{'id': key, 'status': 'published',
+            'edition': '20261029T120000Z', 'zoom': [12, 16], 'bytes': 8,
+            'packages': [package]}]})
+        with patch.object(atlas, 'assign_reference_names', return_value={'type': 'FeatureCollection', 'features': []}), \
+             patch.object(atlas, 'write_grid'), patch.object(atlas, 'write_overview'):
+            result = atlas.build_catalog(self.w)
+        record = load_json(out/'catalogo.json')['cells'][0]
+        self.assertEqual(result['published'], 1)
+        self.assertEqual(record['packages'][0]['download_url'], package['download_url'])
     def test_editorial_cell_exceptions_are_disjoint(self):
         self.assertFalse(atlas.EXCLUDED_CELL_IDS & atlas.FORCED_CELL_IDS)
         self.assertEqual(atlas.FORCED_CELL_IDS, {'ALP_E136_N083'})
         self.assertEqual(atlas.EXCLUDED_CELL_IDS, {
+            'ALP_E133_N076', 'ALP_E133_N077', 'ALP_E133_N078',
+            'ALP_E133_N079', 'ALP_E134_N074',
             'ALP_E134_N080', 'ALP_E135_N080', 'ALP_E139_N080',
             'ALP_E140_N080', 'ALP_E141_N080', 'ALP_E142_N080',
             'ALP_E144_N086', 'ALP_E146_N082', 'ALP_E147_N082'})

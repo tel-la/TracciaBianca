@@ -5,6 +5,843 @@
   "overlap_side_m": 2000,
   "cells": [
     {
+      "id": "ALP_E130_N076",
+      "col": 130,
+      "row": 76,
+      "display_name": "Ubaye occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Ubaye occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.547680189381021,
+        "lat": 44.396942497979396,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 44.5,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E130_N077",
+      "col": 130,
+      "row": 77,
+      "display_name": "Queyras sud-occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Queyras sud-occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.530595018916144,
+        "lat": 44.67612583471327,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 49.8,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E130_N078",
+      "col": 130,
+      "row": 78,
+      "display_name": "Queyras nord-occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Queyras nord-occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.5132857530192725,
+        "lat": 44.955249184811954,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 43.1,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E130_N079",
+      "col": 130,
+      "row": 79,
+      "display_name": "Vanoise occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Vanoise occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.495748257133167,
+        "lat": 45.23431415129809,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 30.4,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N074",
+      "col": 131,
+      "row": 74,
+      "display_name": "Mercantour meridionale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Mercantour meridionale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.965509207227672,
+        "lat": 43.85042020546946,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 16.7,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N075",
+      "col": 131,
+      "row": 75,
+      "display_name": "Mercantour settentrionale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Mercantour settentrionale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.95072605431717,
+        "lat": 44.12979625557196,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 90.1,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N076",
+      "col": 131,
+      "row": 76,
+      "display_name": "Ubaye orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Ubaye orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.93575090304392,
+        "lat": 44.409110015950134,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N077",
+      "col": 131,
+      "row": 77,
+      "display_name": "Queyras sud-orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Queyras sud-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.9205802570534205,
+        "lat": 44.68836311364563,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N078",
+      "col": 131,
+      "row": 78,
+      "display_name": "Queyras nord-orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Queyras nord-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.905210531704026,
+        "lat": 44.967557172549654,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N079",
+      "col": 131,
+      "row": 79,
+      "display_name": "Haute Maurienne",
+      "name_source": "manual",
+      "reference": {
+        "name": "Haute Maurienne",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.889638051299018,
+        "lat": 45.246693813444004,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N080",
+      "col": 131,
+      "row": 80,
+      "display_name": "Vanoise orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Vanoise orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.873859046213382,
+        "lat": 45.52577465404,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 97.5,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N081",
+      "col": 131,
+      "row": 81,
+      "display_name": "Monte Bianco – Chamonix",
+      "name_source": "manual",
+      "reference": {
+        "name": "Monte Bianco – Chamonix",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.857869649910581,
+        "lat": 45.80480130901502,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 70.7,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N082",
+      "col": 131,
+      "row": 82,
+      "display_name": "Vallese occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Vallese occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 6.841665895844429,
+        "lat": 46.08377539004663,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 13.8,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N074",
+      "col": 132,
+      "row": 74,
+      "display_name": "Alpi Liguri sud-occidentali",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Liguri sud-occidentali",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.3499592713141455,
+        "lat": 43.86101853463505,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 69.7,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N075",
+      "col": 132,
+      "row": 75,
+      "display_name": "Alpi Marittime",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Marittime",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.33704464254702,
+        "lat": 44.14045444571499,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N076",
+      "col": 132,
+      "row": 76,
+      "display_name": "Cuneese occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Cuneese occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.323962214207468,
+        "lat": 44.41982887284041,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N077",
+      "col": 132,
+      "row": 77,
+      "display_name": "Monviso",
+      "name_source": "manual",
+      "reference": {
+        "name": "Monviso",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.310708928684429,
+        "lat": 44.69914345796691,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N078",
+      "col": 132,
+      "row": 78,
+      "display_name": "Val di Susa meridionale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Val di Susa meridionale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.297281651101039,
+        "lat": 44.97839984027598,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N079",
+      "col": 132,
+      "row": 79,
+      "display_name": "Val di Susa settentrionale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Val di Susa settentrionale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.283677166889969,
+        "lat": 45.25759965622808,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N080",
+      "col": 132,
+      "row": 80,
+      "display_name": "Gran Paradiso occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Gran Paradiso occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.269892179276429,
+        "lat": 45.536744539613665,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N081",
+      "col": 132,
+      "row": 81,
+      "display_name": "Valle d'Aosta occidentale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Valle d'Aosta occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.255923306664708,
+        "lat": 45.81583612160254,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N082",
+      "col": 132,
+      "row": 82,
+      "display_name": "Vallese centrale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Vallese centrale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.241767079923934,
+        "lat": 46.094876030791205,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 94.4,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N083",
+      "col": 132,
+      "row": 83,
+      "display_name": "Alpi Bernesi occidentali",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Bernesi occidentali",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.227419939568488,
+        "lat": 46.37386589324828,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 14.6,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N074",
+      "col": 133,
+      "row": 74,
+      "display_name": "Alpi Liguri meridionali",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Liguri meridionali",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.734527442801748,
+        "lat": 43.87018366393148,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 72.7,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N075",
+      "col": 133,
+      "row": 75,
+      "display_name": "Alpi Liguri centrali",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Liguri centrali",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.723483699272074,
+        "lat": 44.14967136423927,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N080",
+      "col": 133,
+      "row": 80,
+      "display_name": "Gran Paradiso orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Gran Paradiso orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.666058502908929,
+        "lat": 45.54623113020019,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 76.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N081",
+      "col": 133,
+      "row": 81,
+      "display_name": "Valle d'Aosta orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Valle d'Aosta orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.654112895654714,
+        "lat": 45.82537888693454,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 99.9,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N082",
+      "col": 133,
+      "row": 82,
+      "display_name": "Vallese sud-orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Vallese sud-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.642007008662,
+        "lat": 46.104475751005474,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 100.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N083",
+      "col": 133,
+      "row": 83,
+      "display_name": "Vallese nord-orientale",
+      "name_source": "manual",
+      "reference": {
+        "name": "Vallese nord-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 7.629737795046904,
+        "lat": 46.38352336352338,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 64.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E134_N075",
+      "col": 134,
+      "row": 75,
+      "display_name": "Alpi Liguri orientali",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Liguri orientali",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 8.110025816490184,
+        "lat": 44.157446340963176,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 59.1,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "ALP_E134_N076",
+      "col": 134,
+      "row": 76,
+      "display_name": "Alpi Liguri settentrionali",
+      "name_source": "manual",
+      "reference": {
+        "name": "Alpi Liguri settentrionali",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 8.10073574431334,
+        "lat": 44.436917547394124,
+        "source": "manual_region_reference",
+        "sector": "Western and Maritime Alps"
+      },
+      "planning_region": "western_alps",
+      "planning_overlap_percent": 12.7,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
       "id": "ALP_E134_N081",
       "col": 134,
       "row": 81,
@@ -21,15 +858,24 @@
         "source": "area_montuosa",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261029T162344Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 789032960,
+      "packages": [
+        {
+          "file": "ALP_E134_N081_biellese-valsesia_20261029T162344Z_01_z12-16.mbtiles",
+          "bytes": 789032960,
+          "sha256": "9500b11a1c07f4bbbc00936ef6dc57b41f1aa76042eb7977e7430c498f88d6f8",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N081_biellese-valsesia_20261029T162344Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -49,15 +895,24 @@
         "source": "area_montuosa",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261029T084332Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 801308672,
+      "packages": [
+        {
+          "file": "ALP_E134_N082_valsesia-monte-rosa_20261029T084332Z_01_z12-16.mbtiles",
+          "bytes": 801308672,
+          "sha256": "279218823dce1a577a25e0ad7588d82ab10a9b79172769c6f46fc06bb922f4b3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N082_valsesia-monte-rosa_20261029T084332Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -77,15 +932,24 @@
         "source": "area_montuosa",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261027T194827Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 826568704,
+      "packages": [
+        {
+          "file": "ALP_E134_N083_monte-rosa-vallese_20261027T194827Z_01_z12-16.mbtiles",
+          "bytes": 826568704,
+          "sha256": "cca9fa62cf97290c31161b0d497e28df3fa077ee1c5767393269b5d00f0c04dd",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N083_monte-rosa-vallese_20261027T194827Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -106,15 +970,24 @@
         "source": "OpenStreetMap",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261029T163500Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 580640768,
+      "packages": [
+        {
+          "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles",
+          "bytes": 580640768,
+          "sha256": "318c2ce1e6e5605e8e5135457e16bdd9328ed8e48ebbd3218ec270f4e8a34a10",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -135,15 +1008,24 @@
         "source": "OpenStreetMap",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261029T085830Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 771768320,
+      "packages": [
+        {
+          "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles",
+          "bytes": 771768320,
+          "sha256": "23ffa2999a188839a0d1abc6f8b171552ea91eed7917478c28d6f7bc0c0564a8",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -164,15 +1046,24 @@
         "source": "OpenStreetMap",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261027T201602Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 800432128,
+      "packages": [
+        {
+          "file": "ALP_E135_N083_premia-lago-maggiore-ossola_20261027T201602Z_01_z12-16.mbtiles",
+          "bytes": 800432128,
+          "sha256": "a1ba814ed2fb67b16bbc751d4157b49e3af4385f9faf0afe2d3c2dee8126e9ad",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N083_premia-lago-maggiore-ossola_20261027T201602Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -193,15 +1084,24 @@
         "source": "OpenStreetMap",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261029T164520Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 574955520,
+      "packages": [
+        {
+          "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles",
+          "bytes": 574955520,
+          "sha256": "e123a968cdb2bb47f3b706cd5618756824cfdfa4dd24a1331c81c835af16dc66",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -222,15 +1122,24 @@
         "source": "OpenStreetMap",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261029T091825Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 771923968,
+      "packages": [
+        {
+          "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles",
+          "bytes": 771923968,
+          "sha256": "763c15d1e96d5d64176024e5f036941b64214caa70f2b1f328709c92cfc578a9",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -250,15 +1159,24 @@
         "source": "area_montuosa",
         "sector": "Lago Maggiore – Ossola"
       },
-      "edition": null,
+      "edition": "20261027T210103Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 891002880,
+      "packages": [
+        {
+          "file": "ALP_E136_N083_ticino-alpi-lepontine_20261027T210103Z_01_z12-16.mbtiles",
+          "bytes": 891002880,
+          "sha256": "44c51beabdc91300aabe9ccbfb96a4a54513d530e30ad0e8573d872a8f730ed3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N083_ticino-alpi-lepontine_20261027T210103Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -279,15 +1197,24 @@
         "source": "OpenStreetMap",
         "sector": "Lario – Valchiavenna"
       },
-      "edition": null,
+      "edition": "20261029T165353Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 643166208,
+      "packages": [
+        {
+          "file": "ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles",
+          "bytes": 643166208,
+          "sha256": "fd600d76b0ed4ffb29ec1f8572f11ddb199432cfd02882c7c55962e8af7c9e61",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -308,15 +1235,24 @@
         "source": "OpenStreetMap",
         "sector": "Lario – Valchiavenna"
       },
-      "edition": null,
+      "edition": "20261029T100244Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 731783168,
+      "packages": [
+        {
+          "file": "ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles",
+          "bytes": 731783168,
+          "sha256": "d5599cd6e60636445bc7c98c7e68200b21ccea5a2c7043b6a751c8d0495d4f8b",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -337,15 +1273,24 @@
         "source": "OpenStreetMap",
         "sector": "Lario – Valchiavenna"
       },
-      "edition": null,
+      "edition": "20261027T212350Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 800264192,
+      "packages": [
+        {
+          "file": "ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.mbtiles",
+          "bytes": 800264192,
+          "sha256": "2bae7d3148767efc1371bf228d8d6c0d7a4922239827378e3ca4db8f2fe18e4f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -366,15 +1311,24 @@
         "source": "OpenStreetMap",
         "sector": "Valtellina – Orobie"
       },
-      "edition": null,
+      "edition": "20261029T170141Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 743444480,
+      "packages": [
+        {
+          "file": "ALP_E138_N081_albino-valtellina-orobie_20261029T170141Z_01_z12-16.mbtiles",
+          "bytes": 743444480,
+          "sha256": "64a5072d8a71d343cd421816a0b21bf70acd63aeceb36584d1dd97a6c11e9955",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N081_albino-valtellina-orobie_20261029T170141Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -395,15 +1349,24 @@
         "source": "OpenStreetMap",
         "sector": "Valtellina – Orobie"
       },
-      "edition": null,
+      "edition": "20261029T101306Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 743718912,
+      "packages": [
+        {
+          "file": "ALP_E138_N082_morbegno-valtellina-orobie_20261029T101306Z_01_z12-16.mbtiles",
+          "bytes": 743718912,
+          "sha256": "a974672aa5a20d260e455b5d10b6aa6bd152c8cfdd9eccd2a4b3b888414ae167",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N082_morbegno-valtellina-orobie_20261029T101306Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -424,15 +1387,24 @@
         "source": "OpenStreetMap",
         "sector": "Lario – Valchiavenna"
       },
-      "edition": null,
+      "edition": "20261027T214751Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 757383168,
+      "packages": [
+        {
+          "file": "ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.mbtiles",
+          "bytes": 757383168,
+          "sha256": "b9fc7a38d39b0d9fc8bd50cf7f4283c4d8518e1cabaa56a307aaad16722555f5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -453,15 +1425,24 @@
         "source": "OpenStreetMap",
         "sector": "Adamello – Garda"
       },
-      "edition": null,
+      "edition": "20261029T170958Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 703934464,
+      "packages": [
+        {
+          "file": "ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles",
+          "bytes": 703934464,
+          "sha256": "3209df5ca3be2790347dbdfb07997e088442d39666404bf08e5737941094315f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -482,15 +1463,24 @@
         "source": "OpenStreetMap",
         "sector": "Valtellina – Orobie"
       },
-      "edition": null,
+      "edition": "20261029T105329Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 717529088,
+      "packages": [
+        {
+          "file": "ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.mbtiles",
+          "bytes": 717529088,
+          "sha256": "d8dffd95e17b23ca92ba686b1893ddbad82c4e04caa76cf6e0cc3f7c1bf3b79a",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -511,15 +1501,24 @@
         "source": "OpenStreetMap",
         "sector": "Valtellina – Orobie"
       },
-      "edition": null,
+      "edition": "20261028T104811Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 718651392,
+      "packages": [
+        {
+          "file": "ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.mbtiles",
+          "bytes": 718651392,
+          "sha256": "efff28164204dab3583167414098a8e4270f7432860090dd95cf5432cbe23cb1",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -539,15 +1538,24 @@
         "source": "area_montuosa",
         "sector": "Valtellina – Orobie"
       },
-      "edition": null,
+      "edition": "20261023T170917Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 773246976,
+      "packages": [
+        {
+          "file": "ALP_E139_N084_engadina-bernina_20261023T170917Z_01_z12-16.mbtiles",
+          "bytes": 773246976,
+          "sha256": "71b4fe701a4ef351f7f59555b317d948603168b262efd23922b4b83320cbc1c7",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N084_engadina-bernina_20261023T170917Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -568,15 +1576,24 @@
         "source": "OpenStreetMap",
         "sector": "Adamello – Garda"
       },
-      "edition": null,
+      "edition": "20261029T171953Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 749023232,
+      "packages": [
+        {
+          "file": "ALP_E140_N081_borgo-chiese-adamello-garda_20261029T171953Z_01_z12-16.mbtiles",
+          "bytes": 749023232,
+          "sha256": "99eab9a5fe44bcc7902b619c4da1fb57fab5742ba2e3895d519faa8fe72b32d9",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N081_borgo-chiese-adamello-garda_20261029T171953Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -597,15 +1614,24 @@
         "source": "OpenStreetMap",
         "sector": "Adamello – Garda"
       },
-      "edition": null,
+      "edition": "20261029T110532Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 707117056,
+      "packages": [
+        {
+          "file": "ALP_E140_N082_edolo-adamello-garda_20261029T110532Z_01_z12-16.mbtiles",
+          "bytes": 707117056,
+          "sha256": "24185ba9136bf383b5556e3d563326f899bd6f34861241833126ae7775b3226d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N082_edolo-adamello-garda_20261029T110532Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -626,15 +1652,24 @@
         "source": "OpenStreetMap",
         "sector": "Adamello – Garda"
       },
-      "edition": null,
+      "edition": "20261028T110231Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 703787008,
+      "packages": [
+        {
+          "file": "ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.mbtiles",
+          "bytes": 703787008,
+          "sha256": "33ba6bb60b631146c8f1c65ff4f3eb4ceb73c7f47079f82ef08bc76ead61605d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -655,15 +1690,24 @@
         "source": "OpenStreetMap",
         "sector": "Adamello – Garda"
       },
-      "edition": null,
+      "edition": "20261023T165740Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 701919232,
+      "packages": [
+        {
+          "file": "ALP_E140_N084_glurns-glorenza-adamello-garda_20261023T165740Z_01_z12-16.mbtiles",
+          "bytes": 701919232,
+          "sha256": "c6625781d6b2603b84b1366fed787794a9f1aa0c7510ba1be03092de136d628f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N084_glurns-glorenza-adamello-garda_20261023T165740Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -684,15 +1728,24 @@
         "source": "OpenStreetMap",
         "sector": "Adamello – Garda"
       },
-      "edition": null,
+      "edition": "20261023T164505Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 786661376,
+      "packages": [
+        {
+          "file": "ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.mbtiles",
+          "bytes": 786661376,
+          "sha256": "77082b312d6b033739b862b2a30ffe9b694d483279282f045b2368e30296634d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -713,15 +1766,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261029T173542Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 720625664,
+      "packages": [
+        {
+          "file": "ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles",
+          "bytes": 720625664,
+          "sha256": "8f17e88b372792f63eddb3f31fa6eb6e854f0a823269746c850b8807aba19eec",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -742,15 +1804,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261029T112208Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 727142400,
+      "packages": [
+        {
+          "file": "ALP_E141_N082_madonna-di-campiglio-trentino-occidentale-dolomiti-di-brenta_20261029T112208Z_01_z12-16.mbtiles",
+          "bytes": 727142400,
+          "sha256": "520e74cf7e8753a14834d2ecb5ab39c12badaa961a7ba418e5292c4e1b7d765e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N082_madonna-di-campiglio-trentino-occidentale-dolomiti-di-brenta_20261029T112208Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -771,15 +1842,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261028T111418Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 698068992,
+      "packages": [
+        {
+          "file": "ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.mbtiles",
+          "bytes": 698068992,
+          "sha256": "7e9788142f07552badac2a930125746bd99b46c87c59d9cb3e99757bf03ed86d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -800,15 +1880,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261023T161223Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 679993344,
+      "packages": [
+        {
+          "file": "ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.mbtiles",
+          "bytes": 679993344,
+          "sha256": "8c2c7721e120a61ab86ed30dbc876d4985fad0fecd6cfa453da17e60bbaea193",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -828,15 +1917,24 @@
         "source": "area_montuosa",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261023T160250Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 831889408,
+      "packages": [
+        {
+          "file": "ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.mbtiles",
+          "bytes": 831889408,
+          "sha256": "b0103345b92ac86fe5b37fab5c4c5e630b37941df2679bda822010e501117970",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -857,15 +1955,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261029T174245Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 737468416,
+      "packages": [
+        {
+          "file": "ALP_E142_N081_rovereto-trentino-occidentale-dolomiti-di-brenta_20261029T174245Z_01_z12-16.mbtiles",
+          "bytes": 737468416,
+          "sha256": "04b809e4901754c243be6dfb458c28476f45f5ec28f15d4c8efa1b19395a7c16",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N081_rovereto-trentino-occidentale-dolomiti-di-brenta_20261029T174245Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -886,15 +1993,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261029T143940Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 710889472,
+      "packages": [
+        {
+          "file": "ALP_E142_N082_trento-trentino-occidentale-dolomiti-di-brenta_20261029T143940Z_01_z12-16.mbtiles",
+          "bytes": 710889472,
+          "sha256": "c8125d02f7720290b13f610d92679f7d7966327adf6f1ef909154a69868b9aa0",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N082_trento-trentino-occidentale-dolomiti-di-brenta_20261029T143940Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -915,15 +2031,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261028T112653Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 636968960,
+      "packages": [
+        {
+          "file": "ALP_E142_N083_bolzano-bozen-alto-adige-dolomiti-occidentali_20261028T112653Z_01_z12-16.mbtiles",
+          "bytes": 636968960,
+          "sha256": "c47e9cb594e17dac50ecd3aa78e87309dcd09879dd9d870a83dea09ced80bf78",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N083_bolzano-bozen-alto-adige-dolomiti-occidentali_20261028T112653Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -944,15 +2069,24 @@
         "source": "OpenStreetMap",
         "sector": "Trentino occidentale – Dolomiti di Brenta"
       },
-      "edition": null,
+      "edition": "20261023T145114Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 663638016,
+      "packages": [
+        {
+          "file": "ALP_E142_N084_merano-meran-trentino-occidentale-dolomiti-di-brenta_20261023T145114Z_01_z12-16.mbtiles",
+          "bytes": 663638016,
+          "sha256": "9531c08b023e460c9f33c4df0d68853239ca914f5d2d787e72a94cd7fd613520",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N084_merano-meran-trentino-occidentale-dolomiti-di-brenta_20261023T145114Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -973,15 +2107,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261023T150125Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 783495168,
+      "packages": [
+        {
+          "file": "ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.mbtiles",
+          "bytes": 783495168,
+          "sha256": "497e7e28f021ab6c446a918c19dbd5a1759f11bf10969dfeb252b2037dc8cfd3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1002,15 +2145,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261029T175133Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 587350016,
+      "packages": [
+        {
+          "file": "ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.mbtiles",
+          "bytes": 587350016,
+          "sha256": "7b2ad2d408f1fd617302e38c1b4fca6343219a9f581cd4c5554a4acc7eb8cf6b",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1031,15 +2183,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261029T145214Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 754782208,
+      "packages": [
+        {
+          "file": "ALP_E143_N082_borgo-valsugana-alto-adige-dolomiti-occidentali_20261029T145214Z_01_z12-16.mbtiles",
+          "bytes": 754782208,
+          "sha256": "70c7d978798b605a4dfc09b269a921d1f7ded183d17cc15e1673d14577db3fcc",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N082_borgo-valsugana-alto-adige-dolomiti-occidentali_20261029T145214Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1060,15 +2221,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261028T135351Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 713420800,
+      "packages": [
+        {
+          "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.mbtiles",
+          "bytes": 713420800,
+          "sha256": "377ec1cd04ec80f867f50d8aa70e1e1ecc9ca75885e4fbd681d1027e8dda83b5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1089,15 +2259,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261022T180730Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 784486400,
+      "packages": [
+        {
+          "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.mbtiles",
+          "bytes": 784486400,
+          "sha256": "493fef88e9d71c86d6cbc5f3db0a104b331e31c4d30926aa78b8bccb0405a327",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1118,15 +2297,24 @@
         "source": "OpenStreetMap",
         "sector": "Alto Adige – Dolomiti occidentali"
       },
-      "edition": null,
+      "edition": "20261022T175437Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 760049664,
+      "packages": [
+        {
+          "file": "ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.mbtiles",
+          "bytes": 760049664,
+          "sha256": "257d36bb39077c2225e8467ad6e8c987cba1b1ff5b04e9a2aef608d7d4204f35",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1147,15 +2335,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261029T175827Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 491847680,
+      "packages": [
+        {
+          "file": "ALP_E144_N081_montebelluna-dolomiti-cadore_20261029T175827Z_01_z12-16.mbtiles",
+          "bytes": 491847680,
+          "sha256": "3219c9a333bc443ce3f87ddac9264061eb2b394c67c17d9fae6bb5a1582da27e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N081_montebelluna-dolomiti-cadore_20261029T175827Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1176,15 +2373,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261029T150210Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 722784256,
+      "packages": [
+        {
+          "file": "ALP_E144_N082_belluno-dolomiti-cadore_20261029T150210Z_01_z12-16.mbtiles",
+          "bytes": 722784256,
+          "sha256": "e341542ecba677a385a81141a4abf72842abe9a4680a992f0a8bf2c5a17157f6",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N082_belluno-dolomiti-cadore_20261029T150210Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1205,15 +2411,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261028T142447Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 779350016,
+      "packages": [
+        {
+          "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.mbtiles",
+          "bytes": 779350016,
+          "sha256": "2a6072f83acc3f6c08368eb06b457779ec84c3757d12b82b69ca699f37e6d857",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1234,15 +2449,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261023T132827Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 813080576,
+      "packages": [
+        {
+          "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.mbtiles",
+          "bytes": 813080576,
+          "sha256": "5a94e1455673afdb2bc07ea7da84929c00085c33e776a1ac00355323ad019ed0",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1263,15 +2487,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261023T142703Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 750325760,
+      "packages": [
+        {
+          "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.mbtiles",
+          "bytes": 750325760,
+          "sha256": "db42637994dc77acdd2cdc3c8e21cd0e05876f6c5daf441b2f0d711c5a565c2f",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1292,15 +2525,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261029T151016Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 608083968,
+      "packages": [
+        {
+          "file": "ALP_E145_N082_vittorio-veneto-dolomiti-cadore_20261029T151016Z_01_z12-16.mbtiles",
+          "bytes": 608083968,
+          "sha256": "5fcab638041c86043efb5604f7370163895765863c2c99f8d0b1b64f160fa7d2",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N082_vittorio-veneto-dolomiti-cadore_20261029T151016Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1321,15 +2563,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261028T144820Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 843939840,
+      "packages": [
+        {
+          "file": "ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261028T144820Z_01_z12-16.mbtiles",
+          "bytes": 843939840,
+          "sha256": "5749cff04d1f8e497ce47ca660c7220e655a3f74d3f949f502c5c9e1ea3eeab5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261028T144820Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1350,15 +2601,24 @@
         "source": "OpenStreetMap",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261023T154943Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 780046336,
+      "packages": [
+        {
+          "file": "ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261023T154943Z_01_z12-16.mbtiles",
+          "bytes": 780046336,
+          "sha256": "37fac550b123859e3b773e557fc0b2f9f5501e0d0712b501b50d8ab2995c64d5",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261023T154943Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1378,15 +2638,24 @@
         "source": "area_montuosa",
         "sector": "Dolomiti – Cadore"
       },
-      "edition": null,
+      "edition": "20261023T154027Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 850968576,
+      "packages": [
+        {
+          "file": "ALP_E145_N085_alti-tauri-pusteria_20261023T154027Z_01_z12-16.mbtiles",
+          "bytes": 850968576,
+          "sha256": "deb47406ce57f5385c6fa9062fb2399767ff129b003e9149c35f2e1d37260fd7",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N085_alti-tauri-pusteria_20261023T154027Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1407,15 +2676,24 @@
         "source": "OpenStreetMap",
         "sector": "Carnia – Dolomiti Friulane"
       },
-      "edition": null,
+      "edition": "20261028T150043Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 782721024,
+      "packages": [
+        {
+          "file": "ALP_E146_N083_tolmezzo-carnia-dolomiti-friulane_20261028T150043Z_01_z12-16.mbtiles",
+          "bytes": 782721024,
+          "sha256": "ac1c5219a2f699f7e5ad9d1eaadb7dd91378a6544975532f70be5f77700db37c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E146_N083_tolmezzo-carnia-dolomiti-friulane_20261028T150043Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1436,15 +2714,24 @@
         "source": "OpenStreetMap",
         "sector": "Carnia – Dolomiti Friulane"
       },
-      "edition": null,
+      "edition": "20261023T175425Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 831856640,
+      "packages": [
+        {
+          "file": "ALP_E146_N084_paluzza-carnia-dolomiti-friulane_20261023T175425Z_01_z12-16.mbtiles",
+          "bytes": 831856640,
+          "sha256": "956f4e1febe5fe4b7a7376455bd2dace07a379703113c7e33c7133164df69bbc",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E146_N084_paluzza-carnia-dolomiti-friulane_20261023T175425Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1465,15 +2752,24 @@
         "source": "OpenStreetMap",
         "sector": "Carnia – Dolomiti Friulane"
       },
-      "edition": null,
+      "edition": "20261028T210114Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 816709632,
+      "packages": [
+        {
+          "file": "ALP_E147_N083_gemona-del-friuli-carnia-dolomiti-friulane_20261028T210114Z_01_z12-16.mbtiles",
+          "bytes": 816709632,
+          "sha256": "ea5b91195bb26eedc6a0c956de5c7fb8a4f864e63235ede813210337114a0e6e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E147_N083_gemona-del-friuli-carnia-dolomiti-friulane_20261028T210114Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1494,15 +2790,24 @@
         "source": "OpenStreetMap",
         "sector": "Carnia – Dolomiti Friulane"
       },
-      "edition": null,
+      "edition": "20261023T180939Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 794025984,
+      "packages": [
+        {
+          "file": "ALP_E147_N084_paularo-paular-carnia-dolomiti-friulane_20261023T180939Z_01_z12-16.mbtiles",
+          "bytes": 794025984,
+          "sha256": "b8950c2d20d6159fb2b78ed29896dab13ce327399fdafe695a3f0a83805cc2a3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E147_N084_paularo-paular-carnia-dolomiti-friulane_20261023T180939Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1523,15 +2828,24 @@
         "source": "OpenStreetMap",
         "sector": "Alpi Giulie – Friuli"
       },
-      "edition": null,
+      "edition": "20261029T161148Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 696045568,
+      "packages": [
+        {
+          "file": "ALP_E148_N082_gorizia-alpi-giulie-friuli_20261029T161148Z_01_z12-16.mbtiles",
+          "bytes": 696045568,
+          "sha256": "9d78d35d5ac3ce4c37a206ae4e91a617f7e187f151992835aa42a1a6f01f120c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N082_gorizia-alpi-giulie-friuli_20261029T161148Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1552,15 +2866,24 @@
         "source": "OpenStreetMap",
         "sector": "Alpi Giulie – Friuli"
       },
-      "edition": null,
+      "edition": "20261028T211305Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": [],
+      "bytes": 878166016,
+      "packages": [
+        {
+          "file": "ALP_E148_N083_cave-del-predil-raibl-rabelj-rabil-alpi-giulie-friuli_20261028T211305Z_01_z12-16.mbtiles",
+          "bytes": 878166016,
+          "sha256": "ad742d604ef1ec092e95d691a944825bf3d7429abd8e3a849db3a00aef34cd77",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N083_cave-del-predil-raibl-rabelj-rabil-alpi-giulie-friuli_20261028T211305Z_01_z12-16.mbtiles"
+        }
+      ],
       "checks": {}
     },
     {
@@ -1581,6 +2904,43 @@
         "source": "OpenStreetMap",
         "sector": "Alpi Giulie – Friuli"
       },
+      "edition": "20261027T191020Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "status": "published",
+      "reason": "",
+      "bytes": 721268736,
+      "packages": [
+        {
+          "file": "ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.mbtiles",
+          "bytes": 721268736,
+          "sha256": "1941c613d61657e1467b98ff0daa282cd41e2ee54290d0cd8e34fc4ae5ff6ee4",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.mbtiles"
+        }
+      ],
+      "checks": {}
+    },
+    {
+      "id": "APP_E147_N069",
+      "col": 147,
+      "row": 69,
+      "display_name": "Monti dell'Aquila",
+      "name_source": "manual",
+      "reference": {
+        "name": "Monti dell'Aquila",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.048102413197174,
+        "lat": 42.450027320505285,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 11.6,
       "edition": null,
       "zoom": [
         12,
@@ -1589,8 +2949,196 @@
       "status": "planned",
       "reason": "",
       "bytes": 0,
-      "packages": [],
-      "checks": {}
+      "packages": []
+    },
+    {
+      "id": "APP_E148_N068",
+      "col": 148,
+      "row": 68,
+      "display_name": "Sirente – Velino",
+      "name_source": "manual",
+      "reference": {
+        "name": "Sirente – Velino",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.40758603441083,
+        "lat": 42.15830221841771,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 12.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "APP_E148_N069",
+      "col": 148,
+      "row": 69,
+      "display_name": "Gran Sasso",
+      "name_source": "manual",
+      "reference": {
+        "name": "Gran Sasso",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.423405837948462,
+        "lat": 42.43800838689065,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 92.9,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "APP_E148_N070",
+      "col": 148,
+      "row": 70,
+      "display_name": "Monti della Laga",
+      "name_source": "manual",
+      "reference": {
+        "name": "Monti della Laga",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.439424994246092,
+        "lat": 42.71764141547874,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 67.4,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "APP_E149_N067",
+      "col": 149,
+      "row": 67,
+      "display_name": "Monti Marsicani – Pescasseroli",
+      "name_source": "manual",
+      "reference": {
+        "name": "Monti Marsicani – Pescasseroli",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.763692722781636,
+        "lat": 41.865252421872114,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 0.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "APP_E149_N068",
+      "col": 149,
+      "row": 68,
+      "display_name": "Monti del Morrone",
+      "name_source": "manual",
+      "reference": {
+        "name": "Monti del Morrone",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.78102165679219,
+        "lat": 42.144962410003274,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 83.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "APP_E149_N069",
+      "col": 149,
+      "row": 69,
+      "display_name": "Campo Imperatore",
+      "name_source": "manual",
+      "reference": {
+        "name": "Campo Imperatore",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 13.798567824223339,
+        "lat": 42.42459670298042,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 34.5,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
+    },
+    {
+      "id": "APP_E150_N068",
+      "col": 150,
+      "row": 68,
+      "display_name": "Maiella",
+      "name_source": "manual",
+      "reference": {
+        "name": "Maiella",
+        "place": "mountain_region",
+        "population": 0,
+        "lon": 14.154303488114088,
+        "lat": 42.13023814984766,
+        "source": "manual_region_reference",
+        "sector": "Central Apennines"
+      },
+      "planning_region": "central_apennines",
+      "planning_overlap_percent": 46.0,
+      "edition": null,
+      "zoom": [
+        12,
+        17
+      ],
+      "status": "planned",
+      "reason": "",
+      "bytes": 0,
+      "packages": []
     }
   ]
 }

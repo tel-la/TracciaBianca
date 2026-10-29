@@ -55,7 +55,12 @@ python3 07_Scripts/prepare_github_release.py audit
 ~~~
 
 Senza identificativi, il comando considera soltanto le cartelle
-##_aree/ALP_E…_N… effettivamente presenti. Per una selezione:
+`##_aree/ALP_E…_N…` e `##_aree/APP_E…_N…` effettivamente esportate. `ALP`
+identifica le Alpi; `APP` identifica l'Appennino centrale. Le celle pianificate
+non entrano in una Release finché non esiste il relativo MBTiles. Prima di
+preparare nuove celle `APP` occorre aggiungere la copertura OSM necessaria;
+per le celle transfrontaliere alpine occorre verificare la copertura DTM.
+Per una selezione:
 
 ~~~sh
 python3 07_Scripts/prepare_github_release.py audit \
@@ -72,7 +77,7 @@ se un file è mancante, alterato o supera il limite per asset:
 ~~~sh
 python3 07_Scripts/prepare_github_release.py prepare \
   --tag v0.1.0-beta.1 \
-  --title "Offline Alpine Maps — Beta 1" \
+  --title "Offline Ski Touring Maps — Beta 1" \
   --output release_staging/v0.1.0-beta.1 \
   ALP_E143_N084 ALP_E143_N085 ALP_E144_N084
 ~~~
@@ -103,7 +108,7 @@ gh release create v0.1.0-beta.1 \
   --target main \
   --draft \
   --prerelease \
-  --title "Offline Alpine Maps — Beta 1" \
+  --title "Offline Ski Touring Maps — Beta 1" \
   --notes-file release_staging/v0.1.0-beta.1/RELEASE_NOTES.md \
   PERCORSO_MAPPA_1.mbtiles \
   PERCORSO_MAPPA_2.mbtiles \
@@ -191,5 +196,6 @@ data, edizione sostituita e necessità di riscaricare la cella interessata.
 ## Stato attuale
 
 La Release `v0.1.0-beta.1` è stata aggiornata in-place il 29 ottobre 2026 e contiene 55 celle pubblicate.
+L'indice dell'atlante comprende anche 39 nuove celle pianificate, 31 nelle Alpi occidentali e marittime e 8 nell'Appennino centrale; nessuna di queste è ancora scaricabile. Le cinque celle alpine eliminate dall'indice non vanno preparate né aggiunte alle release; `APP_E149_N067` è invece pianificata immediatamente a sud di `APP_E149_N068`.
 Nell'ultimo aggiornamento sono state aggiunte `ALP_E134_N081`, `ALP_E135_N081`, `ALP_E136_N081`, `ALP_E137_N081`, `ALP_E138_N081`, `ALP_E139_N081`, `ALP_E140_N081`, `ALP_E141_N081`, `ALP_E142_N081`, `ALP_E142_N082`, `ALP_E143_N081`, `ALP_E143_N082`, `ALP_E144_N081`, `ALP_E144_N082`, `ALP_E145_N082`, `ALP_E148_N082`.
 Gli MBTiles invariati sono stati conservati senza ricaricarli. Manifest, checksum, note e mappa interattiva sono stati aggiornati e verificati.

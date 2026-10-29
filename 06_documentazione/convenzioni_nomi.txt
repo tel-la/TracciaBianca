@@ -2,7 +2,9 @@ CONVENZIONI DEI NOMI — WORKFLOW 1.3
 ===================================
 
 Area ordinaria: <numero>_<nome>, oppure un identificativo breve senza spazi.
-Cella atlante: ALP_E<colonna>_N<riga>; il nome geografico resta nel campo display_name.
+Cella atlante alpino: ALP_E<colonna>_N<riga>.
+Cella atlante appenninico: APP_E<colonna>_N<riga>.
+Il nome geografico resta nel campo display_name; colonne e righe usano EPSG:3035 e passo 31 km.
 Configurazione: area.json.
 Progetto: progetto/<id-area>.qgz.
 Raster elaborati: dtm_ritagliato.tif, pendenza_gradi.tif, hillshade.tif.

@@ -1,6 +1,6 @@
-# Atlante alpino — griglia delle aree di analisi
+# Atlante TracciaBianca — griglia delle aree di analisi
 
-La griglia `ALP35_OVERLAP2_LAEA_v2` serve a pianificare e creare le aree cartografiche dell’arco alpino italiano dal Lago Maggiore al Friuli.
+La griglia `ALP35_OVERLAP2_LAEA_v2` comprende 94 nuclei: 86 alpini, dalle Alpi occidentali e marittime al Friuli, e 8 nell'Appennino centrale, fra Gran Sasso, Sirente–Velino, Maiella e Monti Marsicani. Il codice della griglia resta invariato per compatibilità con i pacchetti esistenti. I prefissi delle celle sono `ALP` e `APP` rispettivamente.
 
 ## Geometria
 
@@ -13,6 +13,17 @@ La griglia `ALP35_OVERLAP2_LAEA_v2` serve a pianificare e creare le aree cartogr
 
 La fascia di 2 km appartiene a ciascun riquadro. Per questo due riquadri confinanti condividono 2 km da una parte e 2 km dall’altra, cioè una fascia comune di 4 km.
 
+## Estensioni del 29 ottobre 2026
+
+Le due immagini di riferimento sono `Screenshot 2026-10-29 alle 19.25.32.png` (Alpi occidentali e marittime) e `Screenshot 2026-10-29 alle 19.26.12.png` (Appennino centrale). I contorni disegnati sono indicativi: `07_Scripts/extend_atlas_regions.py` ne registra i vertici e seleziona un nucleo quando almeno il 10% della sua superficie interseca il contorno. Il risultato è riproducibile con `--dry-run`. Le 31 nuove celle alpine usano esattamente l'origine e il passo della griglia esistente; anche le 8 appenniniche usano la stessa griglia EPSG:3035 per mantenere una codifica uniforme.
+
+Per scelta editoriale sono escluse definitivamente `ALP_E134_N074`, `ALP_E133_N076`, `ALP_E133_N077`, `ALP_E133_N078` e `ALP_E133_N079`. La cella `APP_E149_N067` è aggiunta esplicitamente a sud di `APP_E149_N068`, oltre il contorno indicativo della seconda immagine. I nomi delle celle pianificate sono univoci e mantenuti nello script di estensione, così una rigenerazione non reintroduce duplicati.
+
+Lo script aggiorna la griglia, i GeoJSON, il catalogo locale e i nomi delle località; non prepara aree né esporta MBTiles. Le celle nuove sono `planned` e non hanno URL di download finché non vengono pubblicate. Il sito GitHub Pages si aggiorna separatamente con `07_Scripts/build_interactive_map.py --repository <checkout>`.
+Se l'archivio locale `atlante_griglia_v2.json` non è presente in un nuovo checkout, lo script ricostruisce la griglia a partire dal catalogo leggero versionato in `08_Atlante/catalogo.json`.
+
+Prima di esportare celle appenniniche occorre registrare un estratto OSM che copra l'Appennino centrale: gli estratti attuali non arrivano a queste latitudini. Per le celle alpine transfrontaliere verso la Francia occorre inoltre verificare e, dove necessario, integrare la copertura DTM. Queste esigenze riguardano i dati di produzione delle future mappe, non la visualizzazione dei nuclei nell'indice.
+
 ## Creare la griglia in QGIS
 
 1. Avviare `Avvia_Scialpinismo.command`.
@@ -23,8 +34,8 @@ La fascia di 2 km appartiene a ciascun riquadro. Per questo due riquadri confina
 
 Il filtro campiona il DTM verificato, preferibilmente `hrdtm5m`, e conserva i riquadri che contengono una superficie montana significativa. Estensione e soglie sono modificabili dalla finestra QGIS.
 
-La composizione editoriale applica inoltre le eccezioni concordate: esclude
-`ALP_E135_N080`, `ALP_E144_N086`, `ALP_E146_N082` e `ALP_E147_N082`, e conserva
+La composizione editoriale applica le esclusioni definite in `EXCLUDED_CELL_IDS` in
+`07_Scripts/scialpinismo/atlas.py`, comprese le cinque celle eliminate qui sopra, e conserva
 sempre `ALP_E136_N083`. Le eccezioni restano attive nelle rigenerazioni successive.
 
 Gli output vettoriali sono:

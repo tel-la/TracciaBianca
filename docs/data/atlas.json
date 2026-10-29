@@ -1,21 +1,641 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T18:18:06Z",
+  "generated_at": "2026-10-29T21:01:37Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
-  "cell_count": 55,
+  "cell_count": 94,
   "published_count": 55,
   "bounds": [
     [
-      45.68816033173499,
-      7.8252718368383976
+      41.7182365525305,
+      6.2895140858422875
     ],
     [
       47.10726145817884,
-      13.89894423059885
+      14.350915659516525
     ]
   ],
   "cells": [
+    {
+      "id": "ALP_E130_N076",
+      "locality": "Ubaye occidentale",
+      "display_name": "Ubaye occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.23182779010189,
+          6.3184516001596505
+        ],
+        [
+          44.56162297795456,
+          6.77567769271627
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E130_N077",
+      "locality": "Queyras sud-occidentale",
+      "display_name": "Queyras sud-occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.5110029969167,
+          6.30015311142176
+        ],
+        [
+          44.84081295966739,
+          6.759789796165375
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E130_N078",
+      "locality": "Queyras nord-occidentale",
+      "display_name": "Queyras nord-occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.7901167323621,
+          6.28161397400757
+        ],
+        [
+          45.11994441467968,
+          6.74369406227224
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E130_N079",
+      "locality": "Vanoise occidentale",
+      "display_name": "Vanoise occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.06917059067615,
+          6.262829732586569
+        ],
+        [
+          45.39901895444926,
+          6.727386669764927
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N074",
+      "locality": "Mercantour meridionale",
+      "display_name": "Mercantour meridionale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.686085120789635,
+          6.73962446245985
+        ],
+        [
+          44.01431887591609,
+          7.19019443696203
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N075",
+      "locality": "Mercantour settentrionale",
+      "display_name": "Mercantour settentrionale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.96545998278672,
+          6.723672041416198
+        ],
+        [
+          44.29369460928256,
+          7.1765650601906135
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N076",
+      "locality": "Ubaye orientale",
+      "display_name": "Ubaye orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.24477113777766,
+          6.707511888818175
+        ],
+        [
+          44.57300944482528,
+          7.162759136734377
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N077",
+      "locality": "Queyras sud-orientale",
+      "display_name": "Queyras sud-orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.524020205436365,
+          6.691140208572091
+        ],
+        [
+          44.8522650165882,
+          7.148773462905477
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N078",
+      "locality": "Queyras nord-orientale",
+      "display_name": "Queyras nord-orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.80320880203174,
+          6.674553108452384
+        ],
+        [
+          45.131462955710745,
+          7.1346047543531625
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N079",
+      "locality": "Haute Maurienne",
+      "display_name": "Haute Maurienne",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.08233854046277,
+          6.657746597078517
+        ],
+        [
+          45.41060489047469,
+          7.120249643542703
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N080",
+      "locality": "Vanoise orientale",
+      "display_name": "Vanoise orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.36141103029127,
+          6.640716580776525
+        ],
+        [
+          45.689692446348985,
+          7.105704677138693
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N081",
+      "locality": "Monte Bianco – Chamonix",
+      "display_name": "Monte Bianco – Chamonix",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.64042787777196,
+          6.6234588603201
+        ],
+        [
+          45.96872724603249,
+          7.090966313288437
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E131_N082",
+      "locality": "Vallese occidentale",
+      "display_name": "Vallese occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.91939068587998,
+          6.605969127545753
+        ],
+        [
+          46.247710909494664,
+          7.076030918801039
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N074",
+      "locality": "Alpi Liguri sud-occidentali",
+      "display_name": "Alpi Liguri sud-occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.69745620197748,
+          7.12505136295328
+        ],
+        [
+          44.02413935780843,
+          7.573668220799637
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N075",
+      "locality": "Alpi Marittime",
+      "display_name": "Alpi Marittime",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.97689499235,
+          7.11097957011325
+        ],
+        [
+          44.303570816058944,
+          7.5618952531028265
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N076",
+      "locality": "Cuneese occidentale",
+      "display_name": "Cuneese occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.25627093355127,
+          7.096724453442636
+        ],
+        [
+          44.58294212892639,
+          7.549969728084442
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N077",
+      "locality": "Monviso",
+      "display_name": "Monviso",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.535585661065674,
+          7.082282660589997
+        ],
+        [
+          44.86225494444032,
+          7.537888875776826
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N078",
+      "locality": "Val di Susa meridionale",
+      "display_name": "Val di Susa meridionale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.81484080737009,
+          7.067650754240767
+        ],
+        [
+          45.14151090808017,
+          7.525649856422092
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N079",
+      "locality": "Val di Susa settentrionale",
+      "display_name": "Val di Susa settentrionale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.09403800198137,
+          7.052825209442679
+        ],
+        [
+          45.42071166283332,
+          7.513249758289026
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N080",
+      "locality": "Gran Paradiso occidentale",
+      "display_name": "Gran Paradiso occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.37317887150201,
+          7.037802410829024
+        ],
+        [
+          45.699858849251555,
+          7.50068559540706
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N081",
+      "locality": "Valle d'Aosta occidentale",
+      "display_name": "Valle d'Aosta occidentale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.65226503966366,
+          7.022578649735176
+        ],
+        [
+          45.978954105505835,
+          7.487954305213662
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N082",
+      "locality": "Vallese centrale",
+      "display_name": "Vallese centrale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.93129812736842,
+          7.007150121203591
+        ],
+        [
+          46.25799906743939,
+          7.475052746111282
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E132_N083",
+      "locality": "Alpi Bernesi occidentali",
+      "display_name": "Alpi Bernesi occidentali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.210279752727985,
+          6.991512920872236
+        ],
+        [
+          46.536995368619124,
+          7.461977694929769
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N074",
+      "locality": "Alpi Liguri meridionali",
+      "display_name": "Alpi Liguri meridionali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.70739900359831,
+          7.5106074198851145
+        ],
+        [
+          44.032521708780045,
+          7.957249280754783
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N075",
+      "locality": "Alpi Liguri centrali",
+      "display_name": "Alpi Liguri centrali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.986893719455715,
+          7.49841884334778
+        ],
+        [
+          44.3120007511275,
+          7.947334861610894
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N080",
+      "locality": "Gran Paradiso orientale",
+      "display_name": "Gran Paradiso orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.38346877172886,
+          7.435033934039694
+        ],
+        [
+          45.70853659125257,
+          7.895787454410668
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N081",
+      "locality": "Valle d'Aosta orientale",
+      "display_name": "Valle d'Aosta orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.662615585638584,
+          7.421847139026203
+        ],
+        [
+          45.987683474257146,
+          7.88506572099317
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N082",
+      "locality": "Vallese sud-orientale",
+      "display_name": "Vallese sud-orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          45.94171015854813,
+          7.408482899309956
+        ],
+        [
+          46.266780782280684,
+          7.874200544264116
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E133_N083",
+      "locality": "Vallese nord-orientale",
+      "display_name": "Vallese nord-orientale",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          46.22075412468521,
+          7.394937829337132
+        ],
+        [
+          46.5458301628191,
+          7.86318920742394
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E134_N075",
+      "locality": "Alpi Liguri orientali",
+      "display_name": "Alpi Liguri orientali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          43.995455443651615,
+          7.885972282882228
+        ],
+        [
+          44.31898379594951,
+          8.332866648203478
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "ALP_E134_N076",
+      "locality": "Alpi Liguri settentrionali",
+      "display_name": "Alpi Liguri settentrionali",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          44.27493661261207,
+          7.8755348428354255
+        ],
+        [
+          44.598443299232095,
+          8.324708152569778
+        ]
+      ],
+      "packages": []
+    },
     {
       "id": "ALP_E134_N081",
       "locality": "Biellese – Valsesia",
@@ -1775,6 +2395,166 @@
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.mbtiles"
         }
       ]
+    },
+    {
+      "id": "APP_E147_N069",
+      "locality": "Monti dell'Aquila",
+      "display_name": "Monti dell'Aquila",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          42.28550772851384,
+          12.82875795545028
+        ],
+        [
+          42.614118729497704,
+          13.268573025446107
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E148_N068",
+      "locality": "Sirente – Velino",
+      "display_name": "Sirente – Velino",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          41.993032516718515,
+          13.188415088038894
+        ],
+        [
+          42.32314977737462,
+          13.62786958000697
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E148_N069",
+      "locality": "Gran Sasso",
+      "display_name": "Gran Sasso",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          42.2727413202203,
+          13.203154912692195
+        ],
+        [
+          42.60285202646719,
+          13.644783285948838
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E148_N070",
+      "locality": "Monti della Laga",
+      "display_name": "Monti della Laga",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          42.55237554957095,
+          13.218080030313986
+        ],
+        [
+          42.882482547915124,
+          13.661910647089544
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E149_N067",
+      "locality": "Monti Marsicani – Pescasseroli",
+      "display_name": "Monti Marsicani – Pescasseroli",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          41.69924309411653,
+          13.544712469257899
+        ],
+        [
+          42.03084549131127,
+          13.983772101126412
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E149_N068",
+      "locality": "Monti del Morrone",
+      "display_name": "Monti del Morrone",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          41.97895355601333,
+          13.560964881787402
+        ],
+        [
+          42.31055380331403,
+          14.00219122538496
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E149_N069",
+      "locality": "Campo Imperatore",
+      "display_name": "Campo Imperatore",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          42.25858685132644,
+          13.577420550721328
+        ],
+        [
+          42.59018787089995,
+          14.020841796379006
+        ]
+      ],
+      "packages": []
+    },
+    {
+      "id": "APP_E150_N068",
+      "locality": "Maiella",
+      "display_name": "Maiella",
+      "status": "planned",
+      "edition": null,
+      "zoom": null,
+      "bytes": 0,
+      "analysis_bounds": [
+        [
+          41.96349480975464,
+          13.933370938938744
+        ],
+        [
+          42.296568697856635,
+          14.376348837880414
+        ]
+      ],
+      "packages": []
     }
   ]
 }

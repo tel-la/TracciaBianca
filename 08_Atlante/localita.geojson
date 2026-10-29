@@ -4,6 +4,595 @@
     {
       "type": "Feature",
       "properties": {
+        "cell_id": "ALP_E130_N076",
+        "name": "Ubaye occidentale",
+        "area_name": "Ubaye occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.547680189381021,
+          44.396942497979396
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E130_N077",
+        "name": "Queyras sud-occidentale",
+        "area_name": "Queyras sud-occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.530595018916144,
+          44.67612583471327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E130_N078",
+        "name": "Queyras nord-occidentale",
+        "area_name": "Queyras nord-occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.5132857530192725,
+          44.955249184811954
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E130_N079",
+        "name": "Vanoise occidentale",
+        "area_name": "Vanoise occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.495748257133167,
+          45.23431415129809
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N074",
+        "name": "Mercantour meridionale",
+        "area_name": "Mercantour meridionale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.965509207227672,
+          43.85042020546946
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N075",
+        "name": "Mercantour settentrionale",
+        "area_name": "Mercantour settentrionale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.95072605431717,
+          44.12979625557196
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N076",
+        "name": "Ubaye orientale",
+        "area_name": "Ubaye orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.93575090304392,
+          44.409110015950134
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N077",
+        "name": "Queyras sud-orientale",
+        "area_name": "Queyras sud-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.9205802570534205,
+          44.68836311364563
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N078",
+        "name": "Queyras nord-orientale",
+        "area_name": "Queyras nord-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.905210531704026,
+          44.967557172549654
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N079",
+        "name": "Haute Maurienne",
+        "area_name": "Haute Maurienne",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.889638051299018,
+          45.246693813444004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N080",
+        "name": "Vanoise orientale",
+        "area_name": "Vanoise orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.873859046213382,
+          45.52577465404
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N081",
+        "name": "Monte Bianco – Chamonix",
+        "area_name": "Monte Bianco – Chamonix",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.857869649910581,
+          45.80480130901502
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E131_N082",
+        "name": "Vallese occidentale",
+        "area_name": "Vallese occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.841665895844429,
+          46.08377539004663
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N074",
+        "name": "Alpi Liguri sud-occidentali",
+        "area_name": "Alpi Liguri sud-occidentali",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.3499592713141455,
+          43.86101853463505
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N075",
+        "name": "Alpi Marittime",
+        "area_name": "Alpi Marittime",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.33704464254702,
+          44.14045444571499
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N076",
+        "name": "Cuneese occidentale",
+        "area_name": "Cuneese occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.323962214207468,
+          44.41982887284041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N077",
+        "name": "Monviso",
+        "area_name": "Monviso",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.310708928684429,
+          44.69914345796691
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N078",
+        "name": "Val di Susa meridionale",
+        "area_name": "Val di Susa meridionale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.297281651101039,
+          44.97839984027598
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N079",
+        "name": "Val di Susa settentrionale",
+        "area_name": "Val di Susa settentrionale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.283677166889969,
+          45.25759965622808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N080",
+        "name": "Gran Paradiso occidentale",
+        "area_name": "Gran Paradiso occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.269892179276429,
+          45.536744539613665
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N081",
+        "name": "Valle d'Aosta occidentale",
+        "area_name": "Valle d'Aosta occidentale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.255923306664708,
+          45.81583612160254
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N082",
+        "name": "Vallese centrale",
+        "area_name": "Vallese centrale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.241767079923934,
+          46.094876030791205
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E132_N083",
+        "name": "Alpi Bernesi occidentali",
+        "area_name": "Alpi Bernesi occidentali",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.227419939568488,
+          46.37386589324828
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E133_N074",
+        "name": "Alpi Liguri meridionali",
+        "area_name": "Alpi Liguri meridionali",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.734527442801748,
+          43.87018366393148
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E133_N075",
+        "name": "Alpi Liguri centrali",
+        "area_name": "Alpi Liguri centrali",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.723483699272074,
+          44.14967136423927
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E133_N080",
+        "name": "Gran Paradiso orientale",
+        "area_name": "Gran Paradiso orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.666058502908929,
+          45.54623113020019
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E133_N081",
+        "name": "Valle d'Aosta orientale",
+        "area_name": "Valle d'Aosta orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.654112895654714,
+          45.82537888693454
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E133_N082",
+        "name": "Vallese sud-orientale",
+        "area_name": "Vallese sud-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.642007008662,
+          46.104475751005474
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E133_N083",
+        "name": "Vallese nord-orientale",
+        "area_name": "Vallese nord-orientale",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.629737795046904,
+          46.38352336352338
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E134_N075",
+        "name": "Alpi Liguri orientali",
+        "area_name": "Alpi Liguri orientali",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.110025816490184,
+          44.157446340963176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "ALP_E134_N076",
+        "name": "Alpi Liguri settentrionali",
+        "area_name": "Alpi Liguri settentrionali",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Western and Maritime Alps",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.10073574431334,
+          44.436917547394124
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "cell_id": "ALP_E134_N081",
         "name": "Biellese – Valsesia",
         "area_name": "Biellese – Valsesia",
@@ -1043,6 +1632,158 @@
         "coordinates": [
           13.5783734,
           46.5052624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E147_N069",
+        "name": "Monti dell'Aquila",
+        "area_name": "Monti dell'Aquila",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.048102413197174,
+          42.450027320505285
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E148_N068",
+        "name": "Sirente – Velino",
+        "area_name": "Sirente – Velino",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.40758603441083,
+          42.15830221841771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E148_N069",
+        "name": "Gran Sasso",
+        "area_name": "Gran Sasso",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.423405837948462,
+          42.43800838689065
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E148_N070",
+        "name": "Monti della Laga",
+        "area_name": "Monti della Laga",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.439424994246092,
+          42.71764141547874
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E149_N067",
+        "name": "Monti Marsicani – Pescasseroli",
+        "area_name": "Monti Marsicani – Pescasseroli",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.763692722781636,
+          41.865252421872114
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E149_N068",
+        "name": "Monti del Morrone",
+        "area_name": "Monti del Morrone",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.78102165679219,
+          42.144962410003274
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E149_N069",
+        "name": "Campo Imperatore",
+        "area_name": "Campo Imperatore",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.798567824223339,
+          42.42459670298042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "APP_E150_N068",
+        "name": "Maiella",
+        "area_name": "Maiella",
+        "place": "mountain_region",
+        "population": 0,
+        "sector": "Central Apennines",
+        "source": "manual_region_reference"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.154303488114088,
+          42.13023814984766
         ]
       }
     }

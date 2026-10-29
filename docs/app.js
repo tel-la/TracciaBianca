@@ -51,10 +51,11 @@
   const cellsById = new Map();
   const layersById = new Map();
   const labels = [];
+  const labelContext = document.createElement("canvas").getContext("2d");
 
   const statusLabels = {
     published: "Available",
-    release_ready: "Ready for release",
+    release_ready: "Planned",
     validation_pending: "Validation pending",
     prepared: "In preparation",
     blocked: "Temporarily unavailable",
@@ -62,8 +63,30 @@
   };
 
   function compactId(cellId) {
-    const match = /^ALP_(E\d+)_(N\d+)$/.exec(cellId);
-    return match ? `${match[1]}\n${match[2]}` : cellId;
+    const match = /^([A-Z]{3})_(E\d+)_(N\d+)$/.exec(cellId);
+    return match ? `${match[1]}\n${match[2]}\n${match[3]}` : cellId;
+  }
+
+  function displayId(cellId) {
+    return cellId.replaceAll("_", " ");
+  }
+
+  function wrappedLineCount(text, width) {
+    if (!labelContext) return Infinity;
+    labelContext.font = '10px Inter, ui-sans-serif, system-ui, sans-serif';
+    let lines = 1;
+    let current = "";
+    for (const word of text.split(/\s+/)) {
+      if (labelContext.measureText(word).width > width) return Infinity;
+      const candidate = current ? `${current} ${word}` : word;
+      if (labelContext.measureText(candidate).width <= width) {
+        current = candidate;
+      } else {
+        lines += 1;
+        current = word;
+      }
+    }
+    return lines;
   }
 
   function formatBytes(bytes) {
@@ -90,13 +113,11 @@
     if (cell.status === "published") {
       return { color: "#145b83", weight: 2, opacity: 0.96, fillColor: "#2a82b3", fillOpacity: 0.31, bubblingMouseEvents: false };
     }
-    if (cell.status === "release_ready") {
-      return { color: "#145b83", weight: 2, opacity: 0.94, fillColor: "#73acd1", fillOpacity: 0.34, bubblingMouseEvents: false };
-    }
     return { color: "#6d8ca1", weight: 1.7, opacity: 0.92, fillColor: "#c9e1f1", fillOpacity: 0.23, bubblingMouseEvents: false };
   }
 
-  function createLabel(cell, bounds) {
+  function createLabel(cell, featureLayer) {
+    const bounds = featureLayer.getBounds();
     const label = document.createElement("div");
     label.className = "cell-label";
 
@@ -107,7 +128,7 @@
     const detailed = document.createElement("span");
     detailed.className = "detailed";
     const identifier = document.createElement("strong");
-    identifier.textContent = cell.id;
+    identifier.textContent = compactId(cell.id);
     const locality = document.createElement("span");
     locality.textContent = cell.locality;
     detailed.append(identifier, locality);
@@ -119,11 +140,12 @@
       icon: L.divIcon({
         className: "cell-label-wrapper",
         html: label,
-        iconSize: [116, 54],
-        iconAnchor: [58, 27],
+        iconSize: [0, 0],
+        iconAnchor: [0, 0],
       }),
     }).addTo(map);
-    labels.push({ marker, label, bounds });
+    featureLayer.on("add", () => marker.setLatLng(featureLayer.getCenter()));
+    labels.push({ marker, label, bounds, cell, identifier });
   }
 
   function updateLabels() {
@@ -132,7 +154,21 @@
       const southEast = map.latLngToContainerPoint(item.bounds.getSouthEast());
       const width = Math.abs(southEast.x - northWest.x);
       const height = Math.abs(southEast.y - northWest.y);
-      item.label.classList.toggle("is-detailed", width >= 116 && height >= 62);
+      const contentWidth = Math.max(8, Math.floor(width * 0.82));
+      const contentHeight = Math.max(8, Math.floor(height * 0.88));
+      const compactFont = Math.max(3, Math.min(9, width / 3.2, height / 3.3));
+      item.label.style.setProperty("--label-width", `${contentWidth}px`);
+      item.label.style.setProperty("--compact-font-size", `${compactFont.toFixed(2)}px`);
+      if (labelContext) labelContext.font = '800 9px Inter, ui-sans-serif, system-ui, sans-serif';
+      const idInlineFits = Boolean(labelContext) && labelContext.measureText(displayId(item.cell.id)).width + 2 <= contentWidth;
+      const idStackedFits = Boolean(labelContext) && compactId(item.cell.id).split("\n")
+        .every((line) => labelContext.measureText(line).width + 2 <= contentWidth);
+      item.identifier.textContent = idInlineFits ? displayId(item.cell.id) : compactId(item.cell.id);
+      const localityLines = wrappedLineCount(item.cell.locality, contentWidth);
+      const idLines = idInlineFits ? 1 : 3;
+      const detailedFits = idStackedFits && localityLines <= 3
+        && idLines * 9 + 3 + localityLines * 11 <= contentHeight;
+      item.label.classList.toggle("is-detailed", detailedFits);
     }
   }
 
@@ -180,9 +216,7 @@
     } else {
       downloadButton.removeAttribute("href");
       downloadButton.removeAttribute("aria-label");
-      unavailableMessage.textContent = cell.status === "release_ready"
-        ? "Ready for the next GitHub Release. The download will be enabled as soon as the asset is published."
-        : "Download not available yet. This map sheet is still being prepared.";
+      unavailableMessage.textContent = "Download not available yet. This map sheet is still being prepared.";
     }
   }
 
@@ -198,8 +232,9 @@
     app.classList.add("panel-open");
     panel.setAttribute("aria-hidden", "false");
     window.setTimeout(() => {
+      const wasOverview = map.getZoom() <= map.getMinZoom() + 0.25;
       map.invalidateSize({ pan: false });
-      recalculateMapLimits(false);
+      recalculateMapLimits(wasOverview);
       updateLabels();
       if (moveFocus) closePanelButton.focus();
     }, 240);
@@ -214,8 +249,9 @@
     selectedLayer = null;
     selectedCell = null;
     window.setTimeout(() => {
+      const wasOverview = map.getZoom() <= map.getMinZoom() + 0.25;
       map.invalidateSize({ pan: false });
-      recalculateMapLimits(false);
+      recalculateMapLimits(wasOverview);
       updateLabels();
       if (returnFocus && focusTarget) focusTarget.focus();
     }, 240);
@@ -223,7 +259,9 @@
 
   function recalculateMapLimits(fitInitial) {
     if (!catalog || !atlasBounds || map.getSize().x < 1 || map.getSize().y < 1) return;
-    const minZoom = map.getBoundsZoom(atlasBounds, false, L.point(24, 24));
+    map.setMinZoom(0);
+    map.setMaxZoom(19);
+    const minZoom = map.getBoundsZoom(atlasBounds, false, L.point(48, 48));
     const referenceZooms = catalog.cells.map((cell) =>
       map.getBoundsZoom(L.latLngBounds(cell.analysis_bounds), false, L.point(26, 26))
     );
@@ -264,7 +302,7 @@
             if (featureLayer !== selectedLayer) featureLayer.setStyle(cellStyle(cell));
           },
         });
-        createLabel(cell, featureLayer.getBounds());
+        createLabel(cell, featureLayer);
       },
     }).addTo(map);
     atlasBounds = layer.getBounds();
@@ -279,13 +317,15 @@
       if (!catalogResponse.ok || !coresResponse.ok) throw new Error("Atlas data request failed");
       catalog = await catalogResponse.json();
       const cores = await coresResponse.json();
-      if (!Array.isArray(catalog.cells) || catalog.cells.length !== 55) throw new Error("Unexpected atlas catalogue");
+      if (!Array.isArray(catalog.cells) || !catalog.cells.length || catalog.cells.length !== catalog.cell_count ||
+          !Array.isArray(cores.features) || cores.features.length !== catalog.cell_count) {
+        throw new Error("Unexpected atlas catalogue");
+      }
       for (const cell of catalog.cells) cellsById.set(cell.id, cell);
       installCellLayer(cores);
       recalculateMapLimits(true);
       updateLabels();
-      const readyCount = catalog.cells.filter((cell) => cell.status === "release_ready").length;
-      summary.textContent = `${catalog.cell_count} map sheets · ${catalog.published_count} available · ${readyCount} ready for release`;
+      summary.textContent = `${catalog.cell_count} map sheets · ${catalog.published_count} available`;
       loadingState.hidden = true;
     } catch (error) {
       console.error(error);
@@ -315,8 +355,9 @@
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
+      const wasOverview = Boolean(catalog) && map.getZoom() <= map.getMinZoom() + 0.25;
       map.invalidateSize({ pan: false });
-      recalculateMapLimits(false);
+      recalculateMapLimits(wasOverview);
       updateLabels();
     }, 120);
   });

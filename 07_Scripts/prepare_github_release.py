@@ -26,7 +26,7 @@ from pathlib import Path
 REPOSITORY = "tel-la/TracciaBianca"
 REPOSITORY_URL = f"https://github.com/{REPOSITORY}"
 TAG_PATTERN = re.compile(r"^v\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$")
-CELL_PATTERN = re.compile(r"^ALP_E\d+_N\d+$")
+CELL_PATTERN = re.compile(r"^(?:ALP|APP)_E\d+_N\d+$")
 MAX_ASSET_BYTES = 2 * 1024**3
 
 
@@ -62,7 +62,7 @@ def catalog_path(root: Path, cell_id: str) -> Path:
 
 def discover_cells(root: Path) -> list[str]:
     result = []
-    for path in (root / "##_aree").glob("ALP_E*_N*/output/mbtiles/catalogo_mbtiles.json"):
+    for path in (root / "##_aree").glob("*_E*_N*/output/mbtiles/catalogo_mbtiles.json"):
         cell_id = path.parents[2].name
         if CELL_PATTERN.fullmatch(cell_id):
             result.append(cell_id)

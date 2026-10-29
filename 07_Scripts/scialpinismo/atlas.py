@@ -28,6 +28,11 @@ DEFAULT_MIN_MOUNTAIN_PERCENT = 1.0
 # Composizione editoriale dell'atlante: queste eccezioni restano applicate anche
 # quando la griglia viene rigenerata dal DTM.
 EXCLUDED_CELL_IDS = {
+    'ALP_E133_N076',
+    'ALP_E133_N077',
+    'ALP_E133_N078',
+    'ALP_E133_N079',
+    'ALP_E134_N074',
     'ALP_E134_N080',
     'ALP_E135_N080',
     'ALP_E139_N080',
@@ -84,8 +89,10 @@ def sha256_file(path):
     return h.hexdigest()
 
 
-def cell_id(col, row):
-    return f'ALP_E{col:03d}_N{row:03d}'
+def cell_id(col, row, prefix='ALP'):
+    if prefix not in ('ALP', 'APP'):
+        raise ValueError('Prefisso atlante non valido')
+    return f'{prefix}_E{col:03d}_N{row:03d}'
 
 
 def core_geometry(col, row):
@@ -104,7 +111,7 @@ def validate_atlas_config(c):
     a = c['atlas']
     if (a['grid_id'] != GRID_ID or a['margin_m'] != OVERLAP_SIDE
             or a.get('cell_size_m') != CELL_SIZE or a.get('step_m') != STEP
-            or c['id'] != cell_id(a['col'], a['row'])):
+            or c['id'] != cell_id(a['col'], a['row'], c['id'].split('_', 1)[0])):
         raise ValueError('Configurazione griglia atlante incoerente')
     if not a['display_name'].strip():
         raise ValueError('Nome pubblico obbligatorio')
@@ -174,7 +181,9 @@ def assign_reference_names(w, data):
     features = []
     for cell in data['cells']:
         key = cell['id']; choice = choices.get(key)
-        if choice:
+        if cell.get('name_source') == 'manual' and cell.get('reference', {}).get('name'):
+            reference = cell['reference']
+        elif choice:
             sector = _sector_name(choice['lon'])
             reference = {**choice, 'sector': sector}
             if cell.get('name_source') != 'manual':
@@ -255,6 +264,8 @@ def make_grid(w, bbox=None, mountain_only=True, min_elevation_m=DEFAULT_MIN_ELEV
             if cell_geometry(col, row).intersection(target).area() <= 0:
                 continue
             key = cell_id(col, row)
+            if cells.get(key, {}).get('planning_region'):
+                continue
             candidates.append({**cells.get(key, {}), 'id': key, 'col': col, 'row': row,
                                'display_name': cells.get(key, {}).get('display_name', 'Settore alpino '+key)})
     candidate_ids = {record['id'] for record in candidates}
@@ -399,6 +410,8 @@ def publish_cell(w, key):
 
 def build_catalog(w):
     data = load_json(grid_path(w)); out = w.root/'08_Atlante'; out.mkdir(exist_ok=True)
+    previous_path = out/'catalogo.json'
+    previous = {record['id']: record for record in load_json(previous_path).get('cells', [])} if previous_path.exists() else {}
     places = assign_reference_names(w, data)
     save_json(grid_path(w), data)
     write_grid(w, data)
@@ -409,13 +422,19 @@ def build_catalog(w):
     for cell in data['cells']:
         key = cell['id']; source = w.areas/key/'output/mbtiles/catalogo_mbtiles.json'
         cat = load_json(source) if source.exists() else {}
-        published = (cat.get('publication_status') == 'published' and publication_ready(cat)
-                     and cat.get('atlas', {}).get('display_name') == cell['display_name'])
+        archived = previous.get(key, {}) if not source.exists() else {}
+        published_from_archive = archived.get('status') == 'published'
+        if published_from_archive:
+            cat = {'edition': archived.get('edition'), 'packages': archived.get('packages', []),
+                   'settings': {'minzoom': (archived.get('zoom') or [12, 17])[0],
+                                'maxzoom': (archived.get('zoom') or [12, 17])[1]}}
+        published = (published_from_archive or (cat.get('publication_status') == 'published' and publication_ready(cat)
+                     and cat.get('atlas', {}).get('display_name') == cell['display_name']))
         packs = []
         for pack in cat.get('packages', []):
-            item = {k: pack[k] for k in ('bytes', 'sha256') if k in pack}
+            item = dict(pack) if published_from_archive else {k: pack[k] for k in ('bytes', 'sha256') if k in pack}
             item['file'] = Path(pack['file']).name
-            if published:
+            if published and not published_from_archive:
                 src = source.parent/pack['file']
                 if src.stat().st_size != pack['bytes'] or sha256_file(src) != pack['sha256']:
                     raise ValueError('Checksum non valido: ' + key)
@@ -456,25 +475,25 @@ def write_overview(w, out, data):
     shutil.copy2(grid_vector_path(w), out/'griglia.gpkg')
     core = QgsVectorLayer(str(out/'griglia.gpkg')+'|layername=nuclei', 'Nuclei 31 km', 'ogr')
     coverage = QgsVectorLayer(str(out/'griglia.gpkg')+'|layername=celle_analisi', 'Aree analisi 35 km', 'ogr')
-    core.renderer().setSymbol(QgsFillSymbol.createSimple({'color': '223,235,229,100', 'outline_color': '#245b50', 'outline_width': '0.45'}))
-    coverage.renderer().setSymbol(QgsFillSymbol.createSimple({'style': 'no', 'outline_color': '#b87528', 'outline_style': 'dash'}))
-    labels = QgsPalLayerSettings(); labels.fieldName = '"cell_id" || \'\\n\' || "nome"'; labels.isExpression = True; labels.priority = 10; labels.displayAll = True
-    fmt = QgsTextFormat(); fmt.setSize(8); fmt.setColor(QColor('#173e36')); labels.setFormat(fmt)
+    core.renderer().setSymbol(QgsFillSymbol.createSimple({'color': '201,225,241,100', 'outline_color': '#145b83', 'outline_width': '0.35'}))
+    coverage.renderer().setSymbol(QgsFillSymbol.createSimple({'style': 'no', 'outline_color': '#73acd1', 'outline_style': 'dash'}))
+    labels = QgsPalLayerSettings()
+    labels.fieldName = '''if(left("cell_id",3)='APP','APP\\n','') || substr("cell_id",6,3) || '/' || right("cell_id",3)'''
+    labels.isExpression = True; labels.priority = 10; labels.displayAll = False
+    fmt = QgsTextFormat(); fmt.setSize(4.5); fmt.setColor(QColor('#082c45')); labels.setFormat(fmt)
     core.setLabeling(QgsVectorLayerSimpleLabeling(labels)); core.setLabelsEnabled(True)
     project.addMapLayer(coverage); project.addMapLayer(core)
     places = QgsVectorLayer(str(out/'localita.geojson'), 'Localita OSM', 'ogr')
     map_layers = [core, coverage]
     if places.isValid() and places.featureCount():
-        places.renderer().setSymbol(QgsMarkerSymbol.createSimple({'name':'circle','color':'#375e50','size':'1'}))
-        pl = QgsPalLayerSettings(); pl.fieldName = 'name'; pl.priority = 1
-        pf = QgsTextFormat(); pf.setSize(6); pl.setFormat(pf)
-        places.setLabeling(QgsVectorLayerSimpleLabeling(pl)); places.setLabelsEnabled(True)
-        project.addMapLayer(places); map_layers.insert(0, places)
+        places.renderer().setSymbol(QgsMarkerSymbol.createSimple({'name':'circle','color':'#145b83','size':'1'}))
+        project.addMapLayer(places)
+        project.layerTreeRoot().findLayer(places.id()).setItemVisibilityChecked(False)
     project.layerTreeRoot().findLayer(coverage.id()).setItemVisibilityChecked(False)
     project.viewSettings().setDefaultViewExtent(__import__('qgis.core', fromlist=['QgsReferencedRectangle']).QgsReferencedRectangle(core.extent(), project.crs()))
     layout = QgsPrintLayout(project); layout.initializeDefaults(); layout.setName('Quadro di unione')
     layout.pageCollection().pages()[0].setPageSize('A4', __import__('qgis.core', fromlist=['QgsLayoutItemPage']).QgsLayoutItemPage.Landscape)
-    title = QgsLayoutItemLabel(layout); title.setText('ATLANTE ALPINO | Quadro di unione'); title.setFont(QFont('Arial', 18)); layout.addLayoutItem(title); title.attemptMove(QgsLayoutPoint(12, 9)); title.attemptResize(QgsLayoutSize(275, 14))
+    title = QgsLayoutItemLabel(layout); title.setText('TRACCIABIANCA | Quadro di unione'); title.setFont(QFont('Arial', 18)); layout.addLayoutItem(title); title.attemptMove(QgsLayoutPoint(12, 9)); title.attemptResize(QgsLayoutSize(275, 14))
     item = QgsLayoutItemMap(layout); layout.addLayoutItem(item); item.attemptMove(QgsLayoutPoint(12, 30)); item.attemptResize(QgsLayoutSize(273, 150)); item.setCrs(project.crs()); item.setLayers(map_layers); item.setKeepLayerSet(True)
     extent = coverage.extent(); extent.scale(1.10); item.zoomToExtent(extent)
     foot = QgsLayoutItemLabel(layout); foot.setText('Tratteggio: area di analisi 35 x 35 km | Linea continua: nucleo 31 x 31 km\nFascia di 2 km per lato; sovrapposizione tra celle: 4 km. Griglia EPSG:3035. Localita: © OpenStreetMap contributors.'); foot.setFont(QFont('Arial', 9)); layout.addLayoutItem(foot); foot.attemptMove(QgsLayoutPoint(12, 185)); foot.attemptResize(QgsLayoutSize(273, 16))
