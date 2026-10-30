@@ -12,6 +12,11 @@
   const checksumBlock = document.getElementById("checksum-block");
   const copyChecksumButton = document.getElementById("copy-checksum");
   const copyFeedback = document.getElementById("copy-feedback");
+  const placeSearch = document.getElementById("place-search");
+  const placeSearchInput = document.getElementById("place-search-input");
+  const searchMessage = document.getElementById("search-message");
+  const searchResults = document.getElementById("search-results");
+  const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
 
   const fields = {
     title: document.getElementById("details-title"),
@@ -48,6 +53,8 @@
   let selectedLayer = null;
   let selectedCell = null;
   let resizeTimer = null;
+  let lastGeocoderRequest = 0;
+  const geocoderCache = new Map();
   const cellsById = new Map();
   const layersById = new Map();
   const labels = [];
@@ -69,6 +76,129 @@
 
   function displayId(cellId) {
     return cellId.replaceAll("_", " ");
+  }
+
+  function normalizeSearch(value) {
+    return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function matchingCells(query) {
+    const normalized = normalizeSearch(query);
+    if (!normalized) return [];
+    const words = normalized.split(" ");
+    return catalog.cells.map((cell) => {
+      const terms = (cell.search_terms || [cell.id, cell.locality, cell.display_name])
+        .map(normalizeSearch);
+      const score = Math.max(...terms.map((term) => {
+        if (term === normalized) return 100;
+        if (term.startsWith(normalized)) return 80;
+        if (term.includes(normalized)) return 60;
+        return words.every((word) => term.includes(word)) ? 40 : 0;
+      }));
+      return { cell, score };
+    }).filter((result) => result.score > 0)
+      .sort((a, b) => b.score - a.score || a.cell.locality.localeCompare(b.cell.locality));
+  }
+
+  function clearSearchFeedback() {
+    searchMessage.hidden = true;
+    searchMessage.textContent = "";
+    searchResults.replaceChildren();
+    searchResults.hidden = true;
+  }
+
+  function focusSearchResult(cell) {
+    const layer = layersById.get(cell.id);
+    if (!layer) return;
+    clearSearchFeedback();
+    selectCell(cell.id, layer, false);
+    window.setTimeout(() => {
+      const cellZoom = map.getBoundsZoom(layer.getBounds(), false, L.point(26, 26));
+      const targetZoom = Math.max(map.getMinZoom(), Math.min(map.getMaxZoom(), cellZoom - 1));
+      map.setView(layer.getCenter(), targetZoom, { animate: true });
+    }, 250);
+  }
+
+  function cellForCoordinate(lat, lon) {
+    const point = L.latLng(lat, lon);
+    const match = catalog.cells.find((cell) => {
+      const bounds = L.latLngBounds(cell.analysis_bounds);
+      return bounds.contains(point);
+    });
+    return match || null;
+  }
+
+  async function geocodePlace(query) {
+    const normalized = normalizeSearch(query);
+    if (!normalized) return [];
+    if (geocoderCache.has(normalized)) return geocoderCache.get(normalized);
+    const now = Date.now();
+    const wait = Math.max(0, 1000 - (now - lastGeocoderRequest));
+    if (wait) await new Promise((resolve) => window.setTimeout(resolve, wait));
+    lastGeocoderRequest = Date.now();
+    const url = new URL(NOMINATIM_URL);
+    url.searchParams.set("q", query.trim());
+    url.searchParams.set("format", "jsonv2");
+    url.searchParams.set("limit", "5");
+    url.searchParams.set("addressdetails", "0");
+    const response = await fetch(url, {
+      headers: { Accept: "application/json" },
+      credentials: "omit",
+    });
+    if (!response.ok) throw new Error(`Geocoder request failed (${response.status})`);
+    const places = await response.json();
+    const matches = [];
+    for (const place of Array.isArray(places) ? places : []) {
+      const lat = Number(place.lat);
+      const lon = Number(place.lon);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+      const cell = cellForCoordinate(lat, lon);
+      if (cell) matches.push({ cell, label: place.display_name || query.trim() });
+    }
+    const unique = [...new Map(matches.map((match) => [match.cell.id, match])).values()];
+    geocoderCache.set(normalized, unique);
+    return unique;
+  }
+
+  function renderSearchResults(results, query) {
+    clearSearchFeedback();
+    if (!results.length) {
+      searchMessage.textContent = "Not available in this atlas.";
+      searchMessage.hidden = false;
+      return;
+    }
+    if (results.length === 1) {
+      focusSearchResult(results[0].cell);
+      return;
+    }
+    for (const { cell, label } of results.slice(0, 5)) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "search-result";
+      button.setAttribute("role", "option");
+      button.innerHTML = `<strong></strong><span></span>`;
+      button.querySelector("strong").textContent = label;
+      button.querySelector("span").textContent = `${cell.id} · ${cell.locality}`;
+      button.addEventListener("click", () => focusSearchResult(cell));
+      searchResults.append(button);
+    }
+    searchResults.hidden = false;
+  }
+
+  async function showSearchResults(query) {
+    clearSearchFeedback();
+    if (!normalizeSearch(query)) return;
+    searchMessage.textContent = "Searching OpenStreetMap…";
+    searchMessage.hidden = false;
+    try {
+      const results = await geocodePlace(query);
+      renderSearchResults(results, query);
+    } catch (error) {
+      console.error(error);
+      searchMessage.textContent = "Search is temporarily unavailable. Try again later.";
+      searchMessage.hidden = false;
+    }
   }
 
   function wrappedLineCount(text, width) {
@@ -336,6 +466,11 @@
   }
 
   closePanelButton.addEventListener("click", () => closeDetails(true));
+  placeSearch.addEventListener("submit", (event) => {
+    event.preventDefault();
+    void showSearchResults(placeSearchInput.value);
+  });
+  placeSearchInput.addEventListener("input", clearSearchFeedback);
   map.on("click", () => closeDetails(false));
   map.on("zoomend moveend", updateLabels);
   document.addEventListener("keydown", (event) => {

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T21:01:37Z",
+  "generated_at": "2026-10-30T13:31:58Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 94,
@@ -20,6 +20,11 @@
       "id": "ALP_E130_N076",
       "locality": "Ubaye occidentale",
       "display_name": "Ubaye occidentale",
+      "search_terms": [
+        "ALP_E130_N076",
+        "Ubaye occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -40,6 +45,11 @@
       "id": "ALP_E130_N077",
       "locality": "Queyras sud-occidentale",
       "display_name": "Queyras sud-occidentale",
+      "search_terms": [
+        "ALP_E130_N077",
+        "Queyras sud-occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -60,6 +70,11 @@
       "id": "ALP_E130_N078",
       "locality": "Queyras nord-occidentale",
       "display_name": "Queyras nord-occidentale",
+      "search_terms": [
+        "ALP_E130_N078",
+        "Queyras nord-occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -80,6 +95,11 @@
       "id": "ALP_E130_N079",
       "locality": "Vanoise occidentale",
       "display_name": "Vanoise occidentale",
+      "search_terms": [
+        "ALP_E130_N079",
+        "Vanoise occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -100,6 +120,11 @@
       "id": "ALP_E131_N074",
       "locality": "Mercantour meridionale",
       "display_name": "Mercantour meridionale",
+      "search_terms": [
+        "ALP_E131_N074",
+        "Mercantour meridionale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -120,6 +145,11 @@
       "id": "ALP_E131_N075",
       "locality": "Mercantour settentrionale",
       "display_name": "Mercantour settentrionale",
+      "search_terms": [
+        "ALP_E131_N075",
+        "Mercantour settentrionale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -140,6 +170,11 @@
       "id": "ALP_E131_N076",
       "locality": "Ubaye orientale",
       "display_name": "Ubaye orientale",
+      "search_terms": [
+        "ALP_E131_N076",
+        "Ubaye orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -160,6 +195,11 @@
       "id": "ALP_E131_N077",
       "locality": "Queyras sud-orientale",
       "display_name": "Queyras sud-orientale",
+      "search_terms": [
+        "ALP_E131_N077",
+        "Queyras sud-orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -180,6 +220,11 @@
       "id": "ALP_E131_N078",
       "locality": "Queyras nord-orientale",
       "display_name": "Queyras nord-orientale",
+      "search_terms": [
+        "ALP_E131_N078",
+        "Queyras nord-orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -200,6 +245,11 @@
       "id": "ALP_E131_N079",
       "locality": "Haute Maurienne",
       "display_name": "Haute Maurienne",
+      "search_terms": [
+        "ALP_E131_N079",
+        "Haute Maurienne",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -220,6 +270,11 @@
       "id": "ALP_E131_N080",
       "locality": "Vanoise orientale",
       "display_name": "Vanoise orientale",
+      "search_terms": [
+        "ALP_E131_N080",
+        "Vanoise orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -240,6 +295,11 @@
       "id": "ALP_E131_N081",
       "locality": "Monte Bianco – Chamonix",
       "display_name": "Monte Bianco – Chamonix",
+      "search_terms": [
+        "ALP_E131_N081",
+        "Monte Bianco – Chamonix",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -260,6 +320,11 @@
       "id": "ALP_E131_N082",
       "locality": "Vallese occidentale",
       "display_name": "Vallese occidentale",
+      "search_terms": [
+        "ALP_E131_N082",
+        "Vallese occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -280,6 +345,11 @@
       "id": "ALP_E132_N074",
       "locality": "Alpi Liguri sud-occidentali",
       "display_name": "Alpi Liguri sud-occidentali",
+      "search_terms": [
+        "ALP_E132_N074",
+        "Alpi Liguri sud-occidentali",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -300,6 +370,11 @@
       "id": "ALP_E132_N075",
       "locality": "Alpi Marittime",
       "display_name": "Alpi Marittime",
+      "search_terms": [
+        "ALP_E132_N075",
+        "Alpi Marittime",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -320,6 +395,11 @@
       "id": "ALP_E132_N076",
       "locality": "Cuneese occidentale",
       "display_name": "Cuneese occidentale",
+      "search_terms": [
+        "ALP_E132_N076",
+        "Cuneese occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -340,6 +420,11 @@
       "id": "ALP_E132_N077",
       "locality": "Monviso",
       "display_name": "Monviso",
+      "search_terms": [
+        "ALP_E132_N077",
+        "Monviso",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -360,6 +445,11 @@
       "id": "ALP_E132_N078",
       "locality": "Val di Susa meridionale",
       "display_name": "Val di Susa meridionale",
+      "search_terms": [
+        "ALP_E132_N078",
+        "Val di Susa meridionale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -380,6 +470,11 @@
       "id": "ALP_E132_N079",
       "locality": "Val di Susa settentrionale",
       "display_name": "Val di Susa settentrionale",
+      "search_terms": [
+        "ALP_E132_N079",
+        "Val di Susa settentrionale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -400,6 +495,11 @@
       "id": "ALP_E132_N080",
       "locality": "Gran Paradiso occidentale",
       "display_name": "Gran Paradiso occidentale",
+      "search_terms": [
+        "ALP_E132_N080",
+        "Gran Paradiso occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -420,6 +520,11 @@
       "id": "ALP_E132_N081",
       "locality": "Valle d'Aosta occidentale",
       "display_name": "Valle d'Aosta occidentale",
+      "search_terms": [
+        "ALP_E132_N081",
+        "Valle d'Aosta occidentale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -440,6 +545,11 @@
       "id": "ALP_E132_N082",
       "locality": "Vallese centrale",
       "display_name": "Vallese centrale",
+      "search_terms": [
+        "ALP_E132_N082",
+        "Vallese centrale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -460,6 +570,11 @@
       "id": "ALP_E132_N083",
       "locality": "Alpi Bernesi occidentali",
       "display_name": "Alpi Bernesi occidentali",
+      "search_terms": [
+        "ALP_E132_N083",
+        "Alpi Bernesi occidentali",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -480,6 +595,11 @@
       "id": "ALP_E133_N074",
       "locality": "Alpi Liguri meridionali",
       "display_name": "Alpi Liguri meridionali",
+      "search_terms": [
+        "ALP_E133_N074",
+        "Alpi Liguri meridionali",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -500,6 +620,11 @@
       "id": "ALP_E133_N075",
       "locality": "Alpi Liguri centrali",
       "display_name": "Alpi Liguri centrali",
+      "search_terms": [
+        "ALP_E133_N075",
+        "Alpi Liguri centrali",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -520,6 +645,11 @@
       "id": "ALP_E133_N080",
       "locality": "Gran Paradiso orientale",
       "display_name": "Gran Paradiso orientale",
+      "search_terms": [
+        "ALP_E133_N080",
+        "Gran Paradiso orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -540,6 +670,11 @@
       "id": "ALP_E133_N081",
       "locality": "Valle d'Aosta orientale",
       "display_name": "Valle d'Aosta orientale",
+      "search_terms": [
+        "ALP_E133_N081",
+        "Valle d'Aosta orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -560,6 +695,11 @@
       "id": "ALP_E133_N082",
       "locality": "Vallese sud-orientale",
       "display_name": "Vallese sud-orientale",
+      "search_terms": [
+        "ALP_E133_N082",
+        "Vallese sud-orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -580,6 +720,11 @@
       "id": "ALP_E133_N083",
       "locality": "Vallese nord-orientale",
       "display_name": "Vallese nord-orientale",
+      "search_terms": [
+        "ALP_E133_N083",
+        "Vallese nord-orientale",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -600,6 +745,11 @@
       "id": "ALP_E134_N075",
       "locality": "Alpi Liguri orientali",
       "display_name": "Alpi Liguri orientali",
+      "search_terms": [
+        "ALP_E134_N075",
+        "Alpi Liguri orientali",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -620,6 +770,11 @@
       "id": "ALP_E134_N076",
       "locality": "Alpi Liguri settentrionali",
       "display_name": "Alpi Liguri settentrionali",
+      "search_terms": [
+        "ALP_E134_N076",
+        "Alpi Liguri settentrionali",
+        "Western and Maritime Alps"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -640,6 +795,11 @@
       "id": "ALP_E134_N081",
       "locality": "Biellese – Valsesia",
       "display_name": "Biellese – Valsesia",
+      "search_terms": [
+        "ALP_E134_N081",
+        "Biellese – Valsesia",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261029T162344Z",
       "zoom": [
@@ -672,6 +832,11 @@
       "id": "ALP_E134_N082",
       "locality": "Valsesia – Monte Rosa",
       "display_name": "Valsesia – Monte Rosa",
+      "search_terms": [
+        "ALP_E134_N082",
+        "Valsesia – Monte Rosa",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261029T084332Z",
       "zoom": [
@@ -704,6 +869,11 @@
       "id": "ALP_E134_N083",
       "locality": "Monte Rosa – Vallese",
       "display_name": "Monte Rosa – Vallese",
+      "search_terms": [
+        "ALP_E134_N083",
+        "Monte Rosa – Vallese",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261027T194827Z",
       "zoom": [
@@ -736,6 +906,12 @@
       "id": "ALP_E135_N081",
       "locality": "Verbania",
       "display_name": "Verbania · Lago Maggiore – Ossola",
+      "search_terms": [
+        "ALP_E135_N081",
+        "Verbania",
+        "Verbania · Lago Maggiore – Ossola",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261029T163500Z",
       "zoom": [
@@ -768,6 +944,12 @@
       "id": "ALP_E135_N082",
       "locality": "Domodossola",
       "display_name": "Domodossola · Lago Maggiore – Ossola",
+      "search_terms": [
+        "ALP_E135_N082",
+        "Domodossola",
+        "Domodossola · Lago Maggiore – Ossola",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261029T085830Z",
       "zoom": [
@@ -800,6 +982,12 @@
       "id": "ALP_E135_N083",
       "locality": "Premia",
       "display_name": "Premia · Lago Maggiore – Ossola",
+      "search_terms": [
+        "ALP_E135_N083",
+        "Premia",
+        "Premia · Lago Maggiore – Ossola",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261027T201602Z",
       "zoom": [
@@ -832,6 +1020,12 @@
       "id": "ALP_E136_N081",
       "locality": "Varese",
       "display_name": "Varese · Lago Maggiore – Ossola",
+      "search_terms": [
+        "ALP_E136_N081",
+        "Varese",
+        "Varese · Lago Maggiore – Ossola",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261029T164520Z",
       "zoom": [
@@ -864,6 +1058,12 @@
       "id": "ALP_E136_N082",
       "locality": "Luino",
       "display_name": "Luino · Lago Maggiore – Ossola",
+      "search_terms": [
+        "ALP_E136_N082",
+        "Luino",
+        "Luino · Lago Maggiore – Ossola",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261029T091825Z",
       "zoom": [
@@ -896,6 +1096,11 @@
       "id": "ALP_E136_N083",
       "locality": "Ticino – Alpi Lepontine",
       "display_name": "Ticino – Alpi Lepontine",
+      "search_terms": [
+        "ALP_E136_N083",
+        "Ticino – Alpi Lepontine",
+        "Lago Maggiore – Ossola"
+      ],
       "status": "published",
       "edition": "20261027T210103Z",
       "zoom": [
@@ -928,6 +1133,12 @@
       "id": "ALP_E137_N081",
       "locality": "Como",
       "display_name": "Como · Lario – Valchiavenna",
+      "search_terms": [
+        "ALP_E137_N081",
+        "Como",
+        "Como · Lario – Valchiavenna",
+        "Lario – Valchiavenna"
+      ],
       "status": "published",
       "edition": "20261029T165353Z",
       "zoom": [
@@ -960,6 +1171,12 @@
       "id": "ALP_E137_N082",
       "locality": "Colico",
       "display_name": "Colico · Lario – Valchiavenna",
+      "search_terms": [
+        "ALP_E137_N082",
+        "Colico",
+        "Colico · Lario – Valchiavenna",
+        "Lario – Valchiavenna"
+      ],
       "status": "published",
       "edition": "20261029T100244Z",
       "zoom": [
@@ -992,6 +1209,12 @@
       "id": "ALP_E137_N083",
       "locality": "Chiavenna",
       "display_name": "Chiavenna · Lario – Valchiavenna",
+      "search_terms": [
+        "ALP_E137_N083",
+        "Chiavenna",
+        "Chiavenna · Lario – Valchiavenna",
+        "Lario – Valchiavenna"
+      ],
       "status": "published",
       "edition": "20261027T212350Z",
       "zoom": [
@@ -1024,6 +1247,12 @@
       "id": "ALP_E138_N081",
       "locality": "Albino",
       "display_name": "Albino · Valtellina – Orobie",
+      "search_terms": [
+        "ALP_E138_N081",
+        "Albino",
+        "Albino · Valtellina – Orobie",
+        "Valtellina – Orobie"
+      ],
       "status": "published",
       "edition": "20261029T170141Z",
       "zoom": [
@@ -1056,6 +1285,12 @@
       "id": "ALP_E138_N082",
       "locality": "Morbegno",
       "display_name": "Morbegno · Valtellina – Orobie",
+      "search_terms": [
+        "ALP_E138_N082",
+        "Morbegno",
+        "Morbegno · Valtellina – Orobie",
+        "Valtellina – Orobie"
+      ],
       "status": "published",
       "edition": "20261029T101306Z",
       "zoom": [
@@ -1088,6 +1323,12 @@
       "id": "ALP_E138_N083",
       "locality": "Villa di Chiavenna",
       "display_name": "Villa di Chiavenna · Lario – Valchiavenna",
+      "search_terms": [
+        "ALP_E138_N083",
+        "Villa di Chiavenna",
+        "Villa di Chiavenna · Lario – Valchiavenna",
+        "Lario – Valchiavenna"
+      ],
       "status": "published",
       "edition": "20261027T214751Z",
       "zoom": [
@@ -1120,6 +1361,12 @@
       "id": "ALP_E139_N081",
       "locality": "Darfo Boario Terme",
       "display_name": "Darfo Boario Terme · Adamello – Garda",
+      "search_terms": [
+        "ALP_E139_N081",
+        "Darfo Boario Terme",
+        "Darfo Boario Terme · Adamello – Garda",
+        "Adamello – Garda"
+      ],
       "status": "published",
       "edition": "20261029T170958Z",
       "zoom": [
@@ -1152,6 +1399,12 @@
       "id": "ALP_E139_N082",
       "locality": "Sondrio",
       "display_name": "Sondrio · Valtellina – Orobie",
+      "search_terms": [
+        "ALP_E139_N082",
+        "Sondrio",
+        "Sondrio · Valtellina – Orobie",
+        "Valtellina – Orobie"
+      ],
       "status": "published",
       "edition": "20261029T105329Z",
       "zoom": [
@@ -1184,6 +1437,12 @@
       "id": "ALP_E139_N083",
       "locality": "Livigno",
       "display_name": "Livigno · Valtellina – Orobie",
+      "search_terms": [
+        "ALP_E139_N083",
+        "Livigno",
+        "Livigno · Valtellina – Orobie",
+        "Valtellina – Orobie"
+      ],
       "status": "published",
       "edition": "20261028T104811Z",
       "zoom": [
@@ -1216,6 +1475,11 @@
       "id": "ALP_E139_N084",
       "locality": "Engadina – Bernina",
       "display_name": "Engadina – Bernina",
+      "search_terms": [
+        "ALP_E139_N084",
+        "Engadina – Bernina",
+        "Valtellina – Orobie"
+      ],
       "status": "published",
       "edition": "20261023T170917Z",
       "zoom": [
@@ -1248,6 +1512,12 @@
       "id": "ALP_E140_N081",
       "locality": "Borgo Chiese",
       "display_name": "Borgo Chiese · Adamello – Garda",
+      "search_terms": [
+        "ALP_E140_N081",
+        "Borgo Chiese",
+        "Borgo Chiese · Adamello – Garda",
+        "Adamello – Garda"
+      ],
       "status": "published",
       "edition": "20261029T171953Z",
       "zoom": [
@@ -1280,6 +1550,12 @@
       "id": "ALP_E140_N082",
       "locality": "Edolo",
       "display_name": "Edolo · Adamello – Garda",
+      "search_terms": [
+        "ALP_E140_N082",
+        "Edolo",
+        "Edolo · Adamello – Garda",
+        "Adamello – Garda"
+      ],
       "status": "published",
       "edition": "20261029T110532Z",
       "zoom": [
@@ -1312,6 +1588,12 @@
       "id": "ALP_E140_N083",
       "locality": "Bormio",
       "display_name": "Bormio · Adamello – Garda",
+      "search_terms": [
+        "ALP_E140_N083",
+        "Bormio",
+        "Bormio · Adamello – Garda",
+        "Adamello – Garda"
+      ],
       "status": "published",
       "edition": "20261028T110231Z",
       "zoom": [
@@ -1344,6 +1626,12 @@
       "id": "ALP_E140_N084",
       "locality": "Glurns - Glorenza",
       "display_name": "Glurns - Glorenza · Adamello – Garda",
+      "search_terms": [
+        "ALP_E140_N084",
+        "Glurns - Glorenza",
+        "Glurns - Glorenza · Adamello – Garda",
+        "Adamello – Garda"
+      ],
       "status": "published",
       "edition": "20261023T165740Z",
       "zoom": [
@@ -1376,6 +1664,12 @@
       "id": "ALP_E140_N085",
       "locality": "Reschen - Resia",
       "display_name": "Reschen - Resia · Adamello – Garda",
+      "search_terms": [
+        "ALP_E140_N085",
+        "Reschen - Resia",
+        "Reschen - Resia · Adamello – Garda",
+        "Adamello – Garda"
+      ],
       "status": "published",
       "edition": "20261023T164505Z",
       "zoom": [
@@ -1408,6 +1702,12 @@
       "id": "ALP_E141_N081",
       "locality": "Arco",
       "display_name": "Arco · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E141_N081",
+        "Arco",
+        "Arco · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261029T173542Z",
       "zoom": [
@@ -1440,6 +1740,12 @@
       "id": "ALP_E141_N082",
       "locality": "Madonna di Campiglio",
       "display_name": "Madonna di Campiglio · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E141_N082",
+        "Madonna di Campiglio",
+        "Madonna di Campiglio · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261029T112208Z",
       "zoom": [
@@ -1472,6 +1778,12 @@
       "id": "ALP_E141_N083",
       "locality": "Dimaro Folgarida",
       "display_name": "Dimaro Folgarida · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E141_N083",
+        "Dimaro Folgarida",
+        "Dimaro Folgarida · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261028T111418Z",
       "zoom": [
@@ -1504,6 +1816,12 @@
       "id": "ALP_E141_N084",
       "locality": "Schlanders - Silandro",
       "display_name": "Schlanders - Silandro · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E141_N084",
+        "Schlanders - Silandro",
+        "Schlanders - Silandro · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261023T161223Z",
       "zoom": [
@@ -1536,6 +1854,11 @@
       "id": "ALP_E141_N085",
       "locality": "Alpi Venoste – Ötztal",
       "display_name": "Alpi Venoste – Ötztal",
+      "search_terms": [
+        "ALP_E141_N085",
+        "Alpi Venoste – Ötztal",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261023T160250Z",
       "zoom": [
@@ -1568,6 +1891,12 @@
       "id": "ALP_E142_N081",
       "locality": "Rovereto",
       "display_name": "Rovereto · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E142_N081",
+        "Rovereto",
+        "Rovereto · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261029T174245Z",
       "zoom": [
@@ -1600,6 +1929,12 @@
       "id": "ALP_E142_N082",
       "locality": "Trento",
       "display_name": "Trento · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E142_N082",
+        "Trento",
+        "Trento · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261029T143940Z",
       "zoom": [
@@ -1632,6 +1967,12 @@
       "id": "ALP_E142_N083",
       "locality": "Bolzano - Bozen",
       "display_name": "Bolzano - Bozen · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E142_N083",
+        "Bolzano - Bozen",
+        "Bolzano - Bozen · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261028T112653Z",
       "zoom": [
@@ -1664,6 +2005,12 @@
       "id": "ALP_E142_N084",
       "locality": "Merano - Meran",
       "display_name": "Merano - Meran · Trentino occidentale – Dolomiti di Brenta",
+      "search_terms": [
+        "ALP_E142_N084",
+        "Merano - Meran",
+        "Merano - Meran · Trentino occidentale – Dolomiti di Brenta",
+        "Trentino occidentale – Dolomiti di Brenta"
+      ],
       "status": "published",
       "edition": "20261023T145114Z",
       "zoom": [
@@ -1696,6 +2043,12 @@
       "id": "ALP_E142_N085",
       "locality": "Sterzing - Vipiteno",
       "display_name": "Sterzing - Vipiteno · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E142_N085",
+        "Sterzing - Vipiteno",
+        "Sterzing - Vipiteno · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261023T150125Z",
       "zoom": [
@@ -1728,6 +2081,12 @@
       "id": "ALP_E143_N081",
       "locality": "Bassano del Grappa",
       "display_name": "Bassano del Grappa · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E143_N081",
+        "Bassano del Grappa",
+        "Bassano del Grappa · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261029T175133Z",
       "zoom": [
@@ -1760,6 +2119,12 @@
       "id": "ALP_E143_N082",
       "locality": "Borgo Valsugana",
       "display_name": "Borgo Valsugana · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E143_N082",
+        "Borgo Valsugana",
+        "Borgo Valsugana · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261029T145214Z",
       "zoom": [
@@ -1792,6 +2157,12 @@
       "id": "ALP_E143_N083",
       "locality": "Moena",
       "display_name": "Moena · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E143_N083",
+        "Moena",
+        "Moena · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261028T135351Z",
       "zoom": [
@@ -1824,6 +2195,12 @@
       "id": "ALP_E143_N084",
       "locality": "Brixen - Bressanone",
       "display_name": "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E143_N084",
+        "Brixen - Bressanone",
+        "Brixen - Bressanone · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261022T180730Z",
       "zoom": [
@@ -1856,6 +2233,12 @@
       "id": "ALP_E143_N085",
       "locality": "Niedervintl - Vandoies di Sotto",
       "display_name": "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
+      "search_terms": [
+        "ALP_E143_N085",
+        "Niedervintl - Vandoies di Sotto",
+        "Niedervintl - Vandoies di Sotto · Alto Adige – Dolomiti occidentali",
+        "Alto Adige – Dolomiti occidentali"
+      ],
       "status": "published",
       "edition": "20261022T175437Z",
       "zoom": [
@@ -1888,6 +2271,12 @@
       "id": "ALP_E144_N081",
       "locality": "Montebelluna",
       "display_name": "Montebelluna · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E144_N081",
+        "Montebelluna",
+        "Montebelluna · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261029T175827Z",
       "zoom": [
@@ -1920,6 +2309,12 @@
       "id": "ALP_E144_N082",
       "locality": "Belluno",
       "display_name": "Belluno · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E144_N082",
+        "Belluno",
+        "Belluno · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261029T150210Z",
       "zoom": [
@@ -1952,6 +2347,12 @@
       "id": "ALP_E144_N083",
       "locality": "Agordo",
       "display_name": "Agordo · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E144_N083",
+        "Agordo",
+        "Agordo · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261028T142447Z",
       "zoom": [
@@ -1984,6 +2385,14 @@
       "id": "ALP_E144_N084",
       "locality": "Cortina d'Ampezzo",
       "display_name": "Cortina d'Ampezzo · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E144_N084",
+        "Cortina d'Ampezzo",
+        "Cortina d'Ampezzo · Dolomiti – Cadore",
+        "Dolomiti – Cadore",
+        "Tofane",
+        "Tofanes"
+      ],
       "status": "published",
       "edition": "20261023T132827Z",
       "zoom": [
@@ -2016,6 +2425,12 @@
       "id": "ALP_E144_N085",
       "locality": "Sand in Taufers - Campo Tures",
       "display_name": "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E144_N085",
+        "Sand in Taufers - Campo Tures",
+        "Sand in Taufers - Campo Tures · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261023T142703Z",
       "zoom": [
@@ -2048,6 +2463,12 @@
       "id": "ALP_E145_N082",
       "locality": "Vittorio Veneto",
       "display_name": "Vittorio Veneto · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E145_N082",
+        "Vittorio Veneto",
+        "Vittorio Veneto · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261029T151016Z",
       "zoom": [
@@ -2080,6 +2501,12 @@
       "id": "ALP_E145_N083",
       "locality": "Pieve di Cadore",
       "display_name": "Pieve di Cadore · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E145_N083",
+        "Pieve di Cadore",
+        "Pieve di Cadore · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261028T144820Z",
       "zoom": [
@@ -2112,6 +2539,12 @@
       "id": "ALP_E145_N084",
       "locality": "Auronzo di Cadore",
       "display_name": "Auronzo di Cadore · Dolomiti – Cadore",
+      "search_terms": [
+        "ALP_E145_N084",
+        "Auronzo di Cadore",
+        "Auronzo di Cadore · Dolomiti – Cadore",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261023T154943Z",
       "zoom": [
@@ -2144,6 +2577,11 @@
       "id": "ALP_E145_N085",
       "locality": "Alti Tauri – Pusteria",
       "display_name": "Alti Tauri – Pusteria",
+      "search_terms": [
+        "ALP_E145_N085",
+        "Alti Tauri – Pusteria",
+        "Dolomiti – Cadore"
+      ],
       "status": "published",
       "edition": "20261023T154027Z",
       "zoom": [
@@ -2176,6 +2614,12 @@
       "id": "ALP_E146_N083",
       "locality": "Tolmezzo",
       "display_name": "Tolmezzo · Carnia – Dolomiti Friulane",
+      "search_terms": [
+        "ALP_E146_N083",
+        "Tolmezzo",
+        "Tolmezzo · Carnia – Dolomiti Friulane",
+        "Carnia – Dolomiti Friulane"
+      ],
       "status": "published",
       "edition": "20261028T150043Z",
       "zoom": [
@@ -2208,6 +2652,12 @@
       "id": "ALP_E146_N084",
       "locality": "Paluzza",
       "display_name": "Paluzza · Carnia – Dolomiti Friulane",
+      "search_terms": [
+        "ALP_E146_N084",
+        "Paluzza",
+        "Paluzza · Carnia – Dolomiti Friulane",
+        "Carnia – Dolomiti Friulane"
+      ],
       "status": "published",
       "edition": "20261023T175425Z",
       "zoom": [
@@ -2240,6 +2690,12 @@
       "id": "ALP_E147_N083",
       "locality": "Gemona del Friuli",
       "display_name": "Gemona del Friuli · Carnia – Dolomiti Friulane",
+      "search_terms": [
+        "ALP_E147_N083",
+        "Gemona del Friuli",
+        "Gemona del Friuli · Carnia – Dolomiti Friulane",
+        "Carnia – Dolomiti Friulane"
+      ],
       "status": "published",
       "edition": "20261028T210114Z",
       "zoom": [
@@ -2272,6 +2728,12 @@
       "id": "ALP_E147_N084",
       "locality": "Paularo / Paulâr",
       "display_name": "Paularo / Paulâr · Carnia – Dolomiti Friulane",
+      "search_terms": [
+        "ALP_E147_N084",
+        "Paularo / Paulâr",
+        "Paularo / Paulâr · Carnia – Dolomiti Friulane",
+        "Carnia – Dolomiti Friulane"
+      ],
       "status": "published",
       "edition": "20261023T180939Z",
       "zoom": [
@@ -2304,6 +2766,12 @@
       "id": "ALP_E148_N082",
       "locality": "Gorizia",
       "display_name": "Gorizia · Alpi Giulie – Friuli",
+      "search_terms": [
+        "ALP_E148_N082",
+        "Gorizia",
+        "Gorizia · Alpi Giulie – Friuli",
+        "Alpi Giulie – Friuli"
+      ],
       "status": "published",
       "edition": "20261029T161148Z",
       "zoom": [
@@ -2336,6 +2804,12 @@
       "id": "ALP_E148_N083",
       "locality": "Cave del Predil / Raibl / Rabelj / Rabil",
       "display_name": "Cave del Predil / Raibl / Rabelj / Rabil · Alpi Giulie – Friuli",
+      "search_terms": [
+        "ALP_E148_N083",
+        "Cave del Predil / Raibl / Rabelj / Rabil",
+        "Cave del Predil / Raibl / Rabelj / Rabil · Alpi Giulie – Friuli",
+        "Alpi Giulie – Friuli"
+      ],
       "status": "published",
       "edition": "20261028T211305Z",
       "zoom": [
@@ -2368,6 +2842,12 @@
       "id": "ALP_E148_N084",
       "locality": "Tarvisio",
       "display_name": "Tarvisio · Alpi Giulie – Friuli",
+      "search_terms": [
+        "ALP_E148_N084",
+        "Tarvisio",
+        "Tarvisio · Alpi Giulie – Friuli",
+        "Alpi Giulie – Friuli"
+      ],
       "status": "published",
       "edition": "20261027T191020Z",
       "zoom": [
@@ -2400,6 +2880,11 @@
       "id": "APP_E147_N069",
       "locality": "Monti dell'Aquila",
       "display_name": "Monti dell'Aquila",
+      "search_terms": [
+        "APP_E147_N069",
+        "Monti dell'Aquila",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2420,6 +2905,11 @@
       "id": "APP_E148_N068",
       "locality": "Sirente – Velino",
       "display_name": "Sirente – Velino",
+      "search_terms": [
+        "APP_E148_N068",
+        "Sirente – Velino",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2440,6 +2930,11 @@
       "id": "APP_E148_N069",
       "locality": "Gran Sasso",
       "display_name": "Gran Sasso",
+      "search_terms": [
+        "APP_E148_N069",
+        "Gran Sasso",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2460,6 +2955,11 @@
       "id": "APP_E148_N070",
       "locality": "Monti della Laga",
       "display_name": "Monti della Laga",
+      "search_terms": [
+        "APP_E148_N070",
+        "Monti della Laga",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2480,6 +2980,11 @@
       "id": "APP_E149_N067",
       "locality": "Monti Marsicani – Pescasseroli",
       "display_name": "Monti Marsicani – Pescasseroli",
+      "search_terms": [
+        "APP_E149_N067",
+        "Monti Marsicani – Pescasseroli",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2500,6 +3005,11 @@
       "id": "APP_E149_N068",
       "locality": "Monti del Morrone",
       "display_name": "Monti del Morrone",
+      "search_terms": [
+        "APP_E149_N068",
+        "Monti del Morrone",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2520,6 +3030,11 @@
       "id": "APP_E149_N069",
       "locality": "Campo Imperatore",
       "display_name": "Campo Imperatore",
+      "search_terms": [
+        "APP_E149_N069",
+        "Campo Imperatore",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,
@@ -2540,6 +3055,11 @@
       "id": "APP_E150_N068",
       "locality": "Maiella",
       "display_name": "Maiella",
+      "search_terms": [
+        "APP_E150_N068",
+        "Maiella",
+        "Central Apennines"
+      ],
       "status": "planned",
       "edition": null,
       "zoom": null,

@@ -8,7 +8,7 @@
   <title>TracciaBianca Interactive Map</title>
   <link rel="icon" href="./assets/TracciaBianca_LogoCirlce.png" type="image/png">
   <link rel="stylesheet" href="./vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="./app.css?v=20261029-7">
+  <link rel="stylesheet" href="./app.css?v=20261030-5">
 </head>
 <body>
   <a class="skip-link" href="#map">Skip to the map</a>
@@ -25,6 +25,14 @@
       </header>
 
       <div class="atlas-summary" id="atlas-summary" aria-live="polite">Loading atlas…</div>
+
+      <form class="place-search" id="place-search" role="search">
+        <label class="visually-hidden" for="place-search-input">Search a place or map sheet</label>
+        <input id="place-search-input" type="search" autocomplete="off" placeholder="Search a place or map sheet">
+        <button type="submit">Search</button>
+        <p class="search-message" id="search-message" role="status" aria-live="polite" hidden></p>
+        <div class="search-results" id="search-results" role="listbox" hidden></div>
+      </form>
 
       <section class="legend" aria-label="Map legend">
         <h2>Map sheets</h2>
@@ -85,6 +93,6 @@
 
   <noscript>This interactive map requires JavaScript.</noscript>
   <script src="./vendor/leaflet/leaflet.js"></script>
-  <script src="./app.js?v=20261029-6"></script>
+  <script src="./app.js?v=20261030-5"></script>
 </body>
 </html>
