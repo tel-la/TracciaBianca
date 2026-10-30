@@ -525,8 +525,8 @@ a:focus-visible,
   .place-search {
     top: auto;
     right: max(9px, calc(9px + env(safe-area-inset-right)));
-    bottom: max(42px, calc(30px + env(safe-area-inset-bottom)));
-    width: min(300px, calc(100% - 64px));
+    bottom: max(24px, calc(14px + env(safe-area-inset-bottom)));
+    width: clamp(150px, calc(100% - 208px), 240px);
   }
   .legend { bottom: 24px; padding: 8px 9px; }
   .legend h2 { display: none; }
@@ -535,7 +535,7 @@ a:focus-visible,
 @media (max-width: 420px) {
   .brand-subtitle { display: none; }
   .atlas-summary { max-width: calc(100% - 66px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .place-search { width: calc(100% - 66px); }
+  .place-search { width: clamp(150px, calc(100% - 208px), 240px); }
   .legend { font-size: 10px; }
   .legend-swatch { width: 14px; }
 }
