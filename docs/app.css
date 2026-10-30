@@ -522,7 +522,12 @@ a:focus-visible,
   .wordmark { font-size: 15px; }
   .brand-subtitle { font-size: 8px; }
   .atlas-summary { top: max(65px, calc(65px + env(safe-area-inset-top))); left: max(49px, calc(9px + env(safe-area-inset-left))); }
-  .place-search { top: max(9px, calc(9px + env(safe-area-inset-top))); right: max(9px, calc(9px + env(safe-area-inset-right))); width: min(300px, calc(100% - 64px)); }
+  .place-search {
+    top: auto;
+    right: max(9px, calc(9px + env(safe-area-inset-right)));
+    bottom: max(42px, calc(30px + env(safe-area-inset-bottom)));
+    width: min(300px, calc(100% - 64px));
+  }
   .legend { bottom: 24px; padding: 8px 9px; }
   .legend h2 { display: none; }
 }
