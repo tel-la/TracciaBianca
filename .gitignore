@@ -81,6 +81,9 @@ symbology-style.db
 !/##_aree/00_template-area/
 !/##_aree/00_template-area/**
 
+# .DS_Store di nuovo ignorato anche dentro lo scheletro del template (la ri-inclusione sopra lo riattiva)
+.DS_Store
+
 # Configurazioni e registri territoriali mai versionati
 /##_aree/**/area.json
 /##_aree/**/fonti.json
