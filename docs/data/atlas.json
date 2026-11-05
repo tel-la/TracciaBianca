@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T18:24:28Z",
+  "generated_at": "2026-11-05T20:41:01Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 94,
-  "published_count": 68,
+  "published_count": 71,
   "bounds": [
     [
       41.7182365525305,
@@ -611,10 +611,13 @@
         "Alpi Bernesi occidentali",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261105T200148Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 798543872,
       "analysis_bounds": [
         [
           46.210279752727985,
@@ -625,7 +628,16 @@
           7.461977694929769
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.mbtiles",
+          "bytes": 798543872,
+          "sha256": "e7b89fd74cb55df8ba0276948eb8d693f5f106c69647ced4551fd4fae2e90f1e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N074",
@@ -723,10 +735,13 @@
         "Valle d'Aosta orientale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261105T200833Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 754069504,
       "analysis_bounds": [
         [
           45.662615585638584,
@@ -737,7 +752,16 @@
           7.88506572099317
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E133_N081_valle-d-aosta-orientale_20261105T200833Z_01_z12-16.mbtiles",
+          "bytes": 754069504,
+          "sha256": "c499965e5612763b15821b6a29da94c5dd56be38dc10fa992c14ae2ef0864452",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N081_valle-d-aosta-orientale_20261105T200833Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N082",
@@ -748,10 +772,13 @@
         "Vallese sud-orientale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261105T201342Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 822947840,
       "analysis_bounds": [
         [
           45.94171015854813,
@@ -762,7 +789,16 @@
           7.874200544264116
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E133_N082_vallese-sud-orientale_20261105T201342Z_01_z12-16.mbtiles",
+          "bytes": 822947840,
+          "sha256": "ee67695821fa3c579291cd6dab8a22b282e5a866f4e9bcf5e3192e07c062354c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N082_vallese-sud-orientale_20261105T201342Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N083",
