@@ -195,6 +195,6 @@ data, edizione sostituita e necessità di riscaricare la cella interessata.
 
 ## Stato attuale
 
-La Release `v0.1.0-beta.1` è stata aggiornata in-place il 5 novembre 2026 e contiene 71 celle pubblicate.
-Nell'ultimo aggiornamento sono state aggiunte `ALP_E132_N083`, `ALP_E133_N081`, `ALP_E133_N082`.
+La Release `v0.1.0-beta.1` è stata aggiornata in-place il 8 novembre 2026 e contiene 77 celle pubblicate.
+Nell'ultimo aggiornamento sono state aggiunte `ALP_E131_N078`, `ALP_E131_N082`, `ALP_E132_N079`, `ALP_E132_N080`, `ALP_E132_N081`, `ALP_E132_N082`.
 Gli MBTiles invariati sono stati conservati senza ricaricarli. Manifest, checksum, note e mappa interattiva sono stati aggiornati e verificati.

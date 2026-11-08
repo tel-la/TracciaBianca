@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T20:10:23Z",
+  "generated_at": "2026-11-08T22:05:41Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 89,
-  "published_count": 71,
+  "published_count": 77,
   "bounds": [
     [
       41.7182365525305,
@@ -207,10 +207,13 @@
         "Queyras nord-orientale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261108T212807Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 601640960,
       "analysis_bounds": [
         [
           44.80320880203174,
@@ -221,7 +224,16 @@
           7.1346047543531625
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N078_queyras-nord-orientale_20261108T212807Z_01_z12-16.mbtiles",
+          "bytes": 601640960,
+          "sha256": "4fcb27538a8c501f452ef2a96810bb90032908f0ed699e18005af9bd22734cea",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N078_queyras-nord-orientale_20261108T212807Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -311,10 +323,13 @@
         "Vallese occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261108T202609Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 784097280,
       "analysis_bounds": [
         [
           45.91939068587998,
@@ -325,7 +340,16 @@
           7.076030918801039
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N082_vallese-occidentale_20261108T202609Z_01_z12-16.mbtiles",
+          "bytes": 784097280,
+          "sha256": "ebab2fd61f95b4c428911c369090f6899c43356ce4ab4a42adf671baa788357c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N082_vallese-occidentale_20261108T202609Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -477,10 +501,13 @@
         "Val di Susa settentrionale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261108T210620Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 675782656,
       "analysis_bounds": [
         [
           45.09403800198137,
@@ -491,7 +518,16 @@
           7.513249758289026
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E132_N079_val-di-susa-settentrionale_20261108T210620Z_01_z12-16.mbtiles",
+          "bytes": 675782656,
+          "sha256": "40bce02a76a8affdde246940068387480017c0022154bc681f559cbf7f85feda",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N079_val-di-susa-settentrionale_20261108T210620Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -503,10 +539,13 @@
         "Gran Paradiso occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261108T205207Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 719400960,
       "analysis_bounds": [
         [
           45.37317887150201,
@@ -517,7 +556,16 @@
           7.50068559540706
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E132_N080_gran-paradiso-occidentale_20261108T205207Z_01_z12-16.mbtiles",
+          "bytes": 719400960,
+          "sha256": "50a4b0335eb729442d331f7486cbb58bfb493e5602499ab2164bc47106ba0242",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N080_gran-paradiso-occidentale_20261108T205207Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -529,10 +577,13 @@
         "Valle d'Aosta occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261108T203435Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 762454016,
       "analysis_bounds": [
         [
           45.65226503966366,
@@ -543,7 +594,16 @@
           7.487954305213662
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E132_N081_valle-d-aosta-occidentale_20261108T203435Z_01_z12-16.mbtiles",
+          "bytes": 762454016,
+          "sha256": "33998759df05e631db4aa82b02c69dc672c1ef5344ff051638f84068f22503c9",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N081_valle-d-aosta-occidentale_20261108T203435Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -555,7 +615,7 @@
         "Vallese centrale",
         "Western and Maritime Alps"
       ],
-      "status": "release_ready",
+      "status": "published",
       "edition": "20261108T183522Z",
       "zoom": [
         12,
@@ -577,9 +637,9 @@
           "file": "ALP_E132_N082_vallese-centrale_20261108T183522Z_01_z12-16.mbtiles",
           "bytes": 854593536,
           "sha256": "9ce0bb8bf748ac853c39d8facd61ceb348dc34c9cd64afd02a830a7faac316bb",
-          "release_tag": null,
-          "release_url": null,
-          "download_url": null
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N082_vallese-centrale_20261108T183522Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
