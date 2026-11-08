@@ -14,6 +14,7 @@ Struttura DTM originale corrente:
 - Slovenia DMR 1 m ARSO: servizio ImageServer numerico, acquisito su richiesta in tasselli cache da 10 km alla griglia di lavoro di 5 m.
 - Austria ALS-DGM 1 m BEV: COG ufficiali indicizzati dal servizio ATOM; il workflow legge via HTTP Range solo la finestra utile e la conserva in tasselli cache da 10 km alla griglia di lavoro.
 - dtm/originali/swissalti3d_2m/: COG svizzeri da 1 km e 2 m indicizzati dall'API STAC, scaricati solo quando necessari;
+- Francia RGE ALTI 5 m IGN: GeoTIFF numerici Float32 richiesti al WMS-Raster ufficiale soltanto per i tasselli da 10 km necessari alle celle delle Alpi occidentali; NoData -99999 normalizzato nella cache comune.
 
 Le fonti locali fini vengono sovrapposte alla base solo nelle celle valide. Non dedurre qualità, CRS o datum dal nome del file; completare sempre i metadati e la licenza.
-Le sorgenti remote registrate non vengono copiate integralmente: al primo aggiornamento di un riquadro il workflow scarica solo i tasselli necessari e poi li riusa offline. In particolare, i COG BEV da 50 km (circa 5 GB ciascuno) non vengono duplicati per intero; per swissALTI3D si usa la versione 2 m, adeguata alla griglia del progetto, invece della copertura 0,5 m da circa 770 GB.
+Le sorgenti remote registrate non vengono copiate integralmente: al primo aggiornamento di un riquadro il workflow scarica solo i tasselli necessari e poi li riusa offline. In particolare, i COG BEV da 50 km (circa 5 GB ciascuno) non vengono duplicati per intero; per swissALTI3D si usa la versione 2 m, adeguata alla griglia del progetto, invece della copertura 0,5 m da circa 770 GB; per la Francia si usa il RGE ALTI 5 m continuo invece del più fine LiDAR HD ancora incompleto.

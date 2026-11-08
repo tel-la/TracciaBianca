@@ -5,6 +5,7 @@ import math
 import sqlite3
 import datetime as dt
 import shutil
+import zipfile
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageChops
@@ -14,6 +15,8 @@ from qgis.PyQt.QtGui import QColor
 from .engine import load_json, save_json, geometry_in, fingerprint
 
 WORLD = 20037508.342789244
+HGT_SAMPLES = 3601
+HGT_NODATA = -32768
 
 
 def root_rectangle(bounds, zoom):
@@ -139,6 +142,150 @@ def tile_bounds(rect, z):
 def rect_tile(x, y, z):
     span = 2*WORLD/(2**z)
     return QgsRectangle(-WORLD+x*span, WORLD-(y+1)*span, -WORLD+(x+1)*span, WORLD-y*span)
+
+
+def hgt_name(latitude, longitude):
+    """Nome SRTM/HGT del riquadro di un grado con angolo sud-occidentale dato."""
+    return f'{"N" if latitude >= 0 else "S"}{abs(latitude):02d}{"E" if longitude >= 0 else "W"}{abs(longitude):03d}.hgt'
+
+
+def hgt_cells(geometry):
+    """Celle HGT da un grado che intersecano una geometria EPSG:4326."""
+    bounds = geometry.boundingBox()
+    west = math.floor(bounds.xMinimum())
+    east = math.ceil(bounds.xMaximum())
+    south = math.floor(bounds.yMinimum())
+    north = math.ceil(bounds.yMaximum())
+    for latitude in range(south, north):
+        for longitude in range(west, east):
+            cell = QgsGeometry.fromRect(QgsRectangle(longitude, latitude, longitude+1, latitude+1))
+            if geometry.intersects(cell):
+                yield latitude, longitude
+
+
+def export_hgt_archive(dtm_paths, geometry_wgs84, destination, cancel=lambda: None):
+    """Esporta celle SRTM complete come HGT 1 arc-second.
+
+    HGT memorizza 3601 x 3601 campioni Int16 big-endian, da nord a sud. Il
+    mezzo pixel aggiunto ai limiti di Warp allinea i centri dei pixel ai nodi
+    inclusivi del reticolo [grado, grado+1]. Tutti i DTM di area già elaborati
+    vengono usati come mosaico; una cella anche solo parzialmente scoperta
+    blocca l'export, perché un HGT incompleto produrrebbe profili inaffidabili.
+    """
+    import numpy as np
+    from osgeo import gdal
+    destination = Path(destination)
+    partial = Path(str(destination)+'.partial')
+    partial.unlink(missing_ok=True)
+    if isinstance(dtm_paths, (str, Path)):
+        dtm_paths = [dtm_paths]
+    sources = []
+    for path in sorted({Path(path).resolve() for path in dtm_paths}, key=str):
+        source = gdal.Open(str(path))
+        if source is None or source.RasterCount != 1:
+            raise ValueError(f'DTM numerico non leggibile per l’export HGT: {path}')
+        sources.append(str(path))
+        source = None
+    if not sources:
+        raise ValueError(
+            'Nessun DTM di area già elaborato disponibile per generare le celle HGT. '
+            'Preparare o aggiornare le aree necessarie, oppure disattivare “Genera anche DEM HGT”.')
+    members = []
+    try:
+        with zipfile.ZipFile(partial, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
+            for latitude, longitude in hgt_cells(geometry_wgs84):
+                cancel()
+                half = 0.5/(HGT_SAMPLES-1)
+                options = dict(format='MEM', dstSRS='EPSG:4326',
+                               outputBounds=(longitude-half, latitude-half,
+                                             longitude+1+half, latitude+1+half),
+                               width=HGT_SAMPLES, height=HGT_SAMPLES,
+                               resampleAlg=gdal.GRA_Bilinear,
+                               dstNodata=-9999, outputType=gdal.GDT_Float32,
+                               warpMemoryLimit=256, multithread=False)
+                warped = gdal.Warp('', sources, **options)
+                if warped is None:
+                    raise ValueError(f'Riproiezione HGT fallita per {latitude},{longitude}')
+                values = warped.GetRasterBand(1).ReadAsArray()
+                if values is None or values.shape != (HGT_SAMPLES, HGT_SAMPLES):
+                    raise ValueError('Dimensione HGT inattesa')
+                name = hgt_name(latitude, longitude)
+                valid = np.isfinite(values) & (values != -9999)
+                # I GeoTIFF sono raster ad area, mentre HGT usa nodi inclusivi sui
+                # meridiani/paralleli di bordo. GDAL può quindi lasciare vuota la
+                # sola riga/colonna esterna pur con copertura esatta. Estendiamo
+                # soltanto quel singolo nodo dal vicino interno; due bordi mancanti
+                # o qualsiasi vuoto interno restano NoData e bloccano l'export.
+                before_edge_fill = int(values.size-valid.sum())
+                if HGT_SAMPLES > 2:
+                    for target, reference in ((0, 1), (-1, -2)):
+                        missing_edge = ~valid[target, 1:-1]
+                        if missing_edge.any() and valid[reference, 1:-1].all():
+                            values[target, 1:-1][missing_edge] = values[reference, 1:-1][missing_edge]
+                            valid[target, 1:-1][missing_edge] = True
+                    for target, reference in ((0, 1), (-1, -2)):
+                        missing_edge = ~valid[1:-1, target]
+                        if missing_edge.any() and valid[1:-1, reference].all():
+                            values[1:-1, target][missing_edge] = values[1:-1, reference][missing_edge]
+                            valid[1:-1, target][missing_edge] = True
+                    for row, column, neighbours in (
+                            (0, 0, ((0, 1), (1, 0))),
+                            (0, -1, ((0, -2), (1, -1))),
+                            (-1, 0, ((-1, 1), (-2, 0))),
+                            (-1, -1, ((-1, -2), (-2, -1)))):
+                        if not valid[row, column] and all(valid[r, c] for r, c in neighbours):
+                            values[row, column] = sum(float(values[r, c]) for r, c in neighbours)/2
+                            valid[row, column] = True
+                missing = int(values.size-valid.sum())
+                if missing:
+                    percent = 100.0*missing/values.size
+                    raise ValueError(
+                        f'Cella SRTM {name} incompleta: mancano {missing}/{values.size} campioni '
+                        f'({percent:.3f}%). Per generare l’HGT servono DTM già elaborati per tutta '
+                        f'la cella geografica {latitude}..{latitude+1}, {longitude}..{longitude+1}. '
+                        'Preparare o aggiornare le aree mancanti, quindi ripetere l’export; in '
+                        'alternativa disattivare “Genera anche DEM HGT” per esportare solo gli MBTiles.')
+                values = np.rint(values)
+                values = np.clip(values, HGT_NODATA+1, 32767).astype('>i2', copy=False)
+                payload = values.tobytes(order='C')
+                if len(payload) != HGT_SAMPLES*HGT_SAMPLES*2:
+                    raise ValueError('Payload HGT incompleto')
+                archive.writestr(name, payload)
+                members.append({'file': name, 'bytes': len(payload),
+                                'valid_samples': int(valid.sum()), 'complete': True,
+                                'edge_samples_extrapolated': before_edge_fill-missing})
+            if not members:
+                raise ValueError('Il perimetro non interseca alcuna cella SRTM esportabile')
+            archive.writestr('LEGGIMI.txt',
+                'DEM HGT 1 arc-second (3601 x 3601, Int16 big-endian, metri).\n'
+                'Estrarre i file .hgt nella cartella DEM/SRTM prevista dall’applicazione.\n'
+                'Ogni file contiene l’intera cella SRTM indicata dal nome.\n')
+        partial.replace(destination)
+    except Exception:
+        partial.unlink(missing_ok=True)
+        raise
+    return {'file': destination.name, 'bytes': destination.stat().st_size,
+            'format': 'SRTM-HGT', 'resolution_arc_seconds': 1,
+            'samples_per_side': HGT_SAMPLES, 'unit': 'm', 'members': members}
+
+
+def inspect_hgt_archive(path, expected_members):
+    """Verifica struttura, dimensione e ordine dei byte dell’archivio DEM."""
+    expected_size = HGT_SAMPLES*HGT_SAMPLES*2
+    expected = {item['file'] for item in expected_members}
+    with zipfile.ZipFile(path) as archive:
+        actual = {info.filename for info in archive.infolist() if info.filename.lower().endswith('.hgt')}
+        if actual != expected:
+            raise ValueError('Elenco HGT non coerente con il catalogo')
+        for name in actual:
+            info = archive.getinfo(name)
+            if info.file_size != expected_size:
+                raise ValueError(f'Dimensione HGT non valida: {name}')
+            with archive.open(name) as stream:
+                first = stream.read(2)
+                if len(first) != 2:
+                    raise ValueError(f'HGT vuoto: {name}')
+    return True
 
 
 def tile_coverage_mask(geometry, x, y, z):
@@ -280,7 +427,8 @@ def verify_tile_coverage(paths, geometry, minzoom, maxzoom, cancel=lambda:None):
             count+=con.execute('select count(*) from tiles').fetchone()[0]
     return {'expected_coverage_checked':True,'present_tiles':count}
 
-def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=None, warning_bytes=None):
+def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=None,
+                warning_bytes=None, generate_hgt=False):
     import processing
     config_path = Path(area).resolve()
     if config_path.is_dir():
@@ -355,6 +503,18 @@ def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=
     package_id = c['id']
     if 'atlas' in c:
         package_id += '_' + slug(c['atlas']['display_name']) + '_' + edition
+    elevation = None
+    if generate_hgt:
+        workflow.progress(1, 'Verifica copertura e generazione celle SRTM/HGT complete')
+        current_dtm = area/'elaborati/dtm_ritagliato.tif'
+        available_dtms = list(workflow.areas.glob('*/elaborati/dtm_ritagliato.tif'))
+        available_dtms.append(current_dtm)
+        elevation_geometry = geometry_in(geometry, 'EPSG:3857', 'EPSG:4326')
+        elevation = export_hgt_archive(
+            available_dtms, elevation_geometry,
+            output/f'{package_id}_DEM_HGT1.zip', workflow.cancel)
+        inspect_hgt_archive(output/elevation['file'], elevation['members'])
+        elevation['sha256'] = sha256_file(output/elevation['file'])
     samples = area/'elaborati/export_campioni'
     samples.mkdir(exist_ok=True)
     logs = []
@@ -482,7 +642,10 @@ def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=
     partition=verify_disjoint_packages([output/pack['file'] for pack in logs])
     partition.update(verify_tile_coverage([output/pack['file'] for pack in logs], geometry, e['minzoom'], e['maxzoom'], workflow.cancel))
     catalog = {'area': c['id'], 'workflow_version': VERSION, 'project': fingerprint(area/c['project']),
-               'settings': e, 'sources': report['sources'], 'osm': report['osm'], 'packages': logs, 'partition':partition}
+               'settings': e, 'sources': report['sources'], 'osm': report['osm'],
+               'packages': logs, 'partition':partition}
+    if elevation:
+        catalog['elevation_package'] = elevation
     catalog.update(edition=edition, technical_validation='passed', elapsed_seconds=time.monotonic()-started,
                    publication_status='release_ready', atlas=c.get('atlas'))
     for pack in logs:
@@ -508,6 +671,10 @@ def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=
                'Copiare tutti i pacchetti elencati; i file precedenti non elencati sono storici.',
                f"Formato: {tile_format.upper()}, zoom {e['minzoom']}–{e['maxzoom']}.", '']
     listing.extend(f"{pack['file']} — {pack['bytes']/1e6:.2f} MB" for pack in logs)
+    if elevation:
+        listing.extend(['', 'DEM PER PROFILI ALTIMETRICI',
+                        f"{elevation['file']} — {elevation['bytes']/1e6:.2f} MB",
+                        'Estrarre i file HGT nella cartella DEM/SRTM dell’applicazione.'])
     listing.extend(['', 'Contorno: copertura.geojson.', 'Dettagli e attribuzioni: catalogo_mbtiles.json.',
                     'Export tecnicamente validato e pronto per una Release.'])
     (output/'LEGGIMI_PRODUZIONE_CORRENTE.txt').write_text('\n'.join(listing)+'\n', encoding='utf-8')
@@ -521,10 +688,20 @@ def export_area(workflow, area, minzoom=None, maxzoom=None, maxbytes=None, mode=
     output.rename(destination)
     for pack in catalog['packages']:
         pack['file'] = str(Path('edizioni')/edition/pack['file'])
+    if elevation:
+        catalog['elevation_package']['file'] = str(Path('edizioni')/edition/elevation['file'])
     catalog['coverage_file'] = str(Path('edizioni')/edition/'copertura.geojson')
     save_json(base_output/'catalogo_mbtiles.json', catalog)
     save_json(base_output/'copertura.geojson', load_json(destination/'copertura.geojson'))
-    (base_output/'LEGGIMI_PRODUZIONE_CORRENTE.txt').write_text('PRODUZIONE CORRENTE\nCatalogo autorevole: catalogo_mbtiles.json\nEdizione: '+edition+'\n'+ '\n'.join(p['file'] for p in catalog['packages'])+'\nExport tecnicamente validato e pronto per una Release.\n', encoding='utf-8')
+    current_listing = ('PRODUZIONE CORRENTE\nCatalogo autorevole: catalogo_mbtiles.json\nEdizione: '+edition+'\n'+
+                       '\n'.join(p['file'] for p in catalog['packages'])+'\n')
+    if elevation:
+        current_listing += (catalog['elevation_package']['file']+
+                            '\nEstrarre il DEM HGT nella cartella DEM/SRTM dell’applicazione '
+                            'per i profili altimetrici.\n')
+    current_listing += 'Export tecnicamente validato e pronto per una Release.\n'
+    (base_output/'LEGGIMI_PRODUZIONE_CORRENTE.txt').write_text(
+        current_listing, encoding='utf-8')
     if 'atlas' in c:
         from .atlas import record_export
         catalog['atlas_registry'] = record_export(workflow, c['id'], catalog)

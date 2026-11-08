@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T20:41:01Z",
+  "generated_at": "2026-11-08T20:10:23Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
-  "cell_count": 94,
+  "cell_count": 89,
   "published_count": 71,
   "bounds": [
     [
@@ -39,7 +39,8 @@
           6.77567769271627
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E130_N077",
@@ -64,7 +65,8 @@
           6.759789796165375
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E130_N078",
@@ -89,7 +91,8 @@
           6.74369406227224
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E130_N079",
@@ -114,32 +117,8 @@
           6.727386669764927
         ]
       ],
-      "packages": []
-    },
-    {
-      "id": "ALP_E131_N074",
-      "locality": "Mercantour meridionale",
-      "display_name": "Mercantour meridionale",
-      "search_terms": [
-        "ALP_E131_N074",
-        "Mercantour meridionale",
-        "Western and Maritime Alps"
-      ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
-      "analysis_bounds": [
-        [
-          43.686085120789635,
-          6.73962446245985
-        ],
-        [
-          44.01431887591609,
-          7.19019443696203
-        ]
-      ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N075",
@@ -164,7 +143,8 @@
           7.1765650601906135
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N076",
@@ -189,7 +169,8 @@
           7.162759136734377
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N077",
@@ -214,7 +195,8 @@
           7.148773462905477
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N078",
@@ -239,7 +221,8 @@
           7.1346047543531625
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N079",
@@ -264,7 +247,8 @@
           7.120249643542703
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N080",
@@ -289,7 +273,8 @@
           7.105704677138693
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N081",
@@ -314,7 +299,8 @@
           7.090966313288437
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E131_N082",
@@ -339,32 +325,8 @@
           7.076030918801039
         ]
       ],
-      "packages": []
-    },
-    {
-      "id": "ALP_E132_N074",
-      "locality": "Alpi Liguri sud-occidentali",
-      "display_name": "Alpi Liguri sud-occidentali",
-      "search_terms": [
-        "ALP_E132_N074",
-        "Alpi Liguri sud-occidentali",
-        "Western and Maritime Alps"
-      ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
-      "analysis_bounds": [
-        [
-          43.69745620197748,
-          7.12505136295328
-        ],
-        [
-          44.02413935780843,
-          7.573668220799637
-        ]
-      ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N075",
@@ -389,7 +351,8 @@
           7.5618952531028265
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N076",
@@ -426,7 +389,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N076_cuneese-occidentale_20261105T172703Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N077",
@@ -463,7 +427,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N077_monviso_20261105T171401Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N078",
@@ -500,7 +465,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N078_val-di-susa-meridionale_20261105T165840Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N079",
@@ -525,7 +491,8 @@
           7.513249758289026
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N080",
@@ -550,7 +517,8 @@
           7.50068559540706
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N081",
@@ -575,7 +543,8 @@
           7.487954305213662
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N082",
@@ -586,10 +555,13 @@
         "Vallese centrale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "release_ready",
+      "edition": "20261108T183522Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 854593536,
       "analysis_bounds": [
         [
           45.93129812736842,
@@ -600,7 +572,17 @@
           7.475052746111282
         ]
       ],
-      "packages": []
+      "packages": [
+        {
+          "file": "ALP_E132_N082_vallese-centrale_20261108T183522Z_01_z12-16.mbtiles",
+          "bytes": 854593536,
+          "sha256": "9ce0bb8bf748ac853c39d8facd61ceb348dc34c9cd64afd02a830a7faac316bb",
+          "release_tag": null,
+          "release_url": null,
+          "download_url": null
+        }
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E132_N083",
@@ -637,32 +619,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.mbtiles"
         }
-      ]
-    },
-    {
-      "id": "ALP_E133_N074",
-      "locality": "Alpi Liguri meridionali",
-      "display_name": "Alpi Liguri meridionali",
-      "search_terms": [
-        "ALP_E133_N074",
-        "Alpi Liguri meridionali",
-        "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
-      "analysis_bounds": [
-        [
-          43.70739900359831,
-          7.5106074198851145
-        ],
-        [
-          44.032521708780045,
-          7.957249280754783
-        ]
-      ],
-      "packages": []
+      "elevation_package": null
     },
     {
       "id": "ALP_E133_N075",
@@ -687,7 +645,8 @@
           7.947334861610894
         ]
       ],
-      "packages": []
+      "packages": [],
+      "elevation_package": null
     },
     {
       "id": "ALP_E133_N080",
@@ -724,7 +683,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N080_gran-paradiso-orientale_20261105T164001Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E133_N081",
@@ -761,7 +721,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N081_valle-d-aosta-orientale_20261105T200833Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E133_N082",
@@ -798,7 +759,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N082_vallese-sud-orientale_20261105T201342Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E133_N083",
@@ -835,57 +797,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N083_vallese-nord-orientale_20261105T162841Z_01_z12-16.mbtiles"
         }
-      ]
-    },
-    {
-      "id": "ALP_E134_N075",
-      "locality": "Alpi Liguri orientali",
-      "display_name": "Alpi Liguri orientali",
-      "search_terms": [
-        "ALP_E134_N075",
-        "Alpi Liguri orientali",
-        "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
-      "analysis_bounds": [
-        [
-          43.995455443651615,
-          7.885972282882228
-        ],
-        [
-          44.31898379594951,
-          8.332866648203478
-        ]
-      ],
-      "packages": []
-    },
-    {
-      "id": "ALP_E134_N076",
-      "locality": "Alpi Liguri settentrionali",
-      "display_name": "Alpi Liguri settentrionali",
-      "search_terms": [
-        "ALP_E134_N076",
-        "Alpi Liguri settentrionali",
-        "Western and Maritime Alps"
-      ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
-      "analysis_bounds": [
-        [
-          44.27493661261207,
-          7.8755348428354255
-        ],
-        [
-          44.598443299232095,
-          8.324708152569778
-        ]
-      ],
-      "packages": []
+      "elevation_package": null
     },
     {
       "id": "ALP_E134_N081",
@@ -922,7 +835,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N081_biellese-valsesia_20261029T162344Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E134_N082",
@@ -959,7 +873,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N082_valsesia-monte-rosa_20261029T084332Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E134_N083",
@@ -996,7 +911,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E134_N083_monte-rosa-vallese_20261027T194827Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E135_N081",
@@ -1034,7 +950,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E135_N082",
@@ -1072,7 +989,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E135_N083",
@@ -1110,7 +1028,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N083_premia-lago-maggiore-ossola_20261027T201602Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E136_N081",
@@ -1148,7 +1067,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E136_N082",
@@ -1186,7 +1106,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E136_N083",
@@ -1223,7 +1144,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N083_ticino-alpi-lepontine_20261027T210103Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E137_N081",
@@ -1261,7 +1183,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E137_N082",
@@ -1299,7 +1222,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E137_N083",
@@ -1337,7 +1261,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E138_N081",
@@ -1375,7 +1300,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N081_albino-valtellina-orobie_20261029T170141Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E138_N082",
@@ -1413,7 +1339,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N082_morbegno-valtellina-orobie_20261029T101306Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E138_N083",
@@ -1451,7 +1378,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E139_N081",
@@ -1489,7 +1417,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E139_N082",
@@ -1527,7 +1456,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E139_N083",
@@ -1565,7 +1495,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E139_N084",
@@ -1602,7 +1533,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N084_engadina-bernina_20261023T170917Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E140_N081",
@@ -1640,7 +1572,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N081_borgo-chiese-adamello-garda_20261029T171953Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E140_N082",
@@ -1678,7 +1611,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N082_edolo-adamello-garda_20261029T110532Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E140_N083",
@@ -1716,7 +1650,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E140_N084",
@@ -1754,7 +1689,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N084_glurns-glorenza-adamello-garda_20261023T165740Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E140_N085",
@@ -1792,7 +1728,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E141_N081",
@@ -1830,7 +1767,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E141_N082",
@@ -1868,7 +1806,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N082_madonna-di-campiglio-trentino-occidentale-dolomiti-di-brenta_20261029T112208Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E141_N083",
@@ -1906,7 +1845,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E141_N084",
@@ -1944,7 +1884,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E141_N085",
@@ -1981,7 +1922,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E142_N081",
@@ -2019,7 +1961,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N081_rovereto-trentino-occidentale-dolomiti-di-brenta_20261029T174245Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E142_N082",
@@ -2057,7 +2000,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N082_trento-trentino-occidentale-dolomiti-di-brenta_20261029T143940Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E142_N083",
@@ -2095,7 +2039,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N083_bolzano-bozen-alto-adige-dolomiti-occidentali_20261028T112653Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E142_N084",
@@ -2133,7 +2078,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N084_merano-meran-trentino-occidentale-dolomiti-di-brenta_20261023T145114Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E142_N085",
@@ -2171,7 +2117,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E143_N081",
@@ -2209,7 +2156,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E143_N082",
@@ -2247,7 +2195,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N082_borgo-valsugana-alto-adige-dolomiti-occidentali_20261029T145214Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E143_N083",
@@ -2285,7 +2234,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E143_N084",
@@ -2323,7 +2273,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E143_N085",
@@ -2361,7 +2312,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E144_N081",
@@ -2399,7 +2351,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N081_montebelluna-dolomiti-cadore_20261029T175827Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E144_N082",
@@ -2437,7 +2390,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N082_belluno-dolomiti-cadore_20261029T150210Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E144_N083",
@@ -2475,7 +2429,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E144_N084",
@@ -2515,7 +2470,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E144_N085",
@@ -2553,7 +2509,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E145_N082",
@@ -2591,7 +2548,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N082_vittorio-veneto-dolomiti-cadore_20261029T151016Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E145_N083",
@@ -2629,7 +2587,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261028T144820Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E145_N084",
@@ -2667,7 +2626,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261023T154943Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E145_N085",
@@ -2704,7 +2664,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E145_N085_alti-tauri-pusteria_20261023T154027Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E146_N083",
@@ -2742,7 +2703,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E146_N083_tolmezzo-carnia-dolomiti-friulane_20261028T150043Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E146_N084",
@@ -2780,7 +2742,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E146_N084_paluzza-carnia-dolomiti-friulane_20261023T175425Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E147_N083",
@@ -2818,7 +2781,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E147_N083_gemona-del-friuli-carnia-dolomiti-friulane_20261028T210114Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E147_N084",
@@ -2856,7 +2820,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E147_N084_paularo-paular-carnia-dolomiti-friulane_20261023T180939Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E148_N082",
@@ -2894,7 +2859,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N082_gorizia-alpi-giulie-friuli_20261029T161148Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E148_N083",
@@ -2932,7 +2898,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N083_cave-del-predil-raibl-rabelj-rabil-alpi-giulie-friuli_20261028T211305Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "ALP_E148_N084",
@@ -2970,7 +2937,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E147_N069",
@@ -3007,7 +2975,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E147_N069_monti-dell-aquila_20261105T092358Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E148_N068",
@@ -3044,7 +3013,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E148_N068_sirente-velino_20261105T153706Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E148_N069",
@@ -3081,7 +3051,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E148_N069_gran-sasso_20261105T155643Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E148_N070",
@@ -3118,7 +3089,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E148_N070_monti-della-laga_20261105T160156Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E149_N067",
@@ -3155,7 +3127,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E149_N067_monti-marsicani-pescasseroli_20261105T160741Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E149_N068",
@@ -3192,7 +3165,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E149_N068_monti-del-morrone_20261105T161325Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E149_N069",
@@ -3229,7 +3203,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E149_N069_campo-imperatore_20261105T161808Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     },
     {
       "id": "APP_E150_N068",
@@ -3266,7 +3241,8 @@
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
           "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E150_N068_maiella_20261105T162305Z_01_z12-16.mbtiles"
         }
-      ]
+      ],
+      "elevation_package": null
     }
   ]
 }

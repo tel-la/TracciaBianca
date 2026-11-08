@@ -302,7 +302,7 @@ def roads(layer, overview=False):
     layer.setLabeling(QgsVectorLayerSimpleLabeling(settings))
 
 
-def hydro(areas, streams, detail_scale):
+def hydro(areas, streams, detail_scale, pipes=None):
     water = QgsFillSymbol.createSimple({'color': '#bbdeef', 'outline_color': '#3e86ad', 'outline_width': '0.26'})
     glacier = QgsFillSymbol.createSimple({'color': '187,222,239,65', 'outline_color': '#72b4d0', 'outline_width': '0.22'})
     hatch = QgsLinePatternFillSymbolLayer()
@@ -323,6 +323,10 @@ def hydro(areas, streams, detail_scale):
     ], levels=True))
     label(streams, f'CASE WHEN "waterway" = \'river\' OR @map_scale < {detail_scale} THEN "label" END',
           size=10.2, color='#276b97', italic=True, priority=5, line=True)
+    if pipes is not None:
+        pipes.setRenderer(rules_renderer([
+            ('Acquedotti e condotte', 'TRUE', cased_line(0.16, '#b88752', '#fffefa', 0.10, dashed=True)),
+        ], levels=True))
 
 
 def apply_readability(project, area, s1415, s1516, s1314):
@@ -353,7 +357,8 @@ def apply_readability(project, area, s1415, s1516, s1314):
         label='Intermedie 50 m — zoom 14'))
     roads(layers['Strade'])
     roads(layers['Viabilità principale'], overview=True)
-    hydro(layers['Acque e ghiacciai'], layers['Corsi d’acqua'], s1415)
+    hydro(layers['Acque e ghiacciai'], layers['Corsi d’acqua'], s1415,
+          layers['Acquedotti e condotte'])
     path_labels(layers['Percorsi — SAC estiva'])
     forest_symbols(layers['Boschi — tipi ed essenze'])
     visible(layers['Boschi — tipi ed essenze'], 0, s1415)

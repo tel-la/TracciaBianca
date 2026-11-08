@@ -210,7 +210,8 @@ def estimate_dem_coregistration(base, candidate, base_valid, candidate_valid,
 
 
 def seam_fields(base, candidate, base_valid, candidate_valid, pixel_size,
-                worst_native_resolution, vertical_shift=0.0):
+                worst_native_resolution, vertical_shift=0.0,
+                prefer_candidate=False):
     """Crea correzione lenta e pesi della seamline su una griglia di confronto."""
     valid_overlap = base_valid & candidate_valid
     comparison_m = max(DTM_COMPARISON_MIN_M, 2.0 * float(worst_native_resolution))
@@ -224,6 +225,25 @@ def seam_fields(base, candidate, base_valid, candidate_valid, pixel_size,
             'blend_m': 0.0, 'overlap_cells': int(base_valid.sum()),
             'incompatible_cells': 0, 'residual_p95_m': None,
             'action': 'full_coverage',
+        }
+    if prefer_candidate:
+        # Una sorgente nazionale autorevole non va perforata in base alla
+        # differenza con un DTM meno preciso che deborda oltre il proprio Paese.
+        edge_distance = distance_transform_edt(candidate_valid) * float(pixel_size)
+        blend_m = min(DTM_BLEND_MAX_M,
+                      max(DTM_BLEND_MIN_M, 4.0 * float(worst_native_resolution)))
+        low_weight = smoothstep(edge_distance / blend_m).astype(np.float32)
+        low_weight[~candidate_valid] = 0.0
+        low_weight[candidate_valid & ~base_valid] = 1.0
+        high_weight = smoothstep((low_weight - 0.42) / 0.16).astype(np.float32)
+        return np.zeros(candidate.shape, dtype=np.float32), low_weight, high_weight, {
+            'comparison_m': comparison_m,
+            'correction_depth_m': 0.0,
+            'blend_m': blend_m,
+            'overlap_cells': int(valid_overlap.sum()),
+            'incompatible_cells': 0,
+            'residual_p95_m': None,
+            'action': 'authoritative_candidate',
         }
     candidate_low, candidate_support = normalized_gaussian(candidate_shifted, candidate_valid, sigma)
     supported = valid_overlap & base_support & candidate_support
@@ -512,6 +532,8 @@ class Workflow:
 
     def source_available(self, record):
         provider = record.get('provider')
+        if provider == 'wms_geotiff':
+            return bool(record.get('url') and record.get('layer'))
         if provider == 'arcgis_imageserver':
             return bool(record.get('url'))
         if provider == 'bev_atom_cog':
@@ -531,6 +553,9 @@ class Workflow:
                         'swisstopo_stac_cog': 'stac_url'}.get(record['provider'])
             if endpoint:
                 current[endpoint] = record[endpoint]
+            if record['provider'] == 'wms_geotiff':
+                current.update({key: record.get(key) for key in
+                                ('layer', 'style', 'wms_version', 'format')})
             return current
         return fingerprint(self.source_path(record))
 
@@ -760,7 +785,8 @@ class Workflow:
         """Copertura di catalogo; per fonti remote include solo la prima fascia di ricerca."""
         footprint = geometry_in(QgsGeometry.fromWkt(source['coverage_wkt']), 'EPSG:4326', crs)
         if search_remote_edges and source.get('provider') in (
-                'swisstopo_stac_cog', 'bev_atom_cog', 'arcgis_imageserver'):
+                'swisstopo_stac_cog', 'bev_atom_cog', 'arcgis_imageserver',
+                'wms_geotiff'):
             margin = min(1000.0, float(source.get('remote_grid_m', 1000)))
             footprint = footprint.buffer(margin, 8)
         return footprint
@@ -855,6 +881,10 @@ class Workflow:
                     # Il servizio ARSO restituisce -3 (NoData) se interrogato a 5 m:
                     # i tasselli salvati con il vecchio campionamento vanno rigenerati.
                     signature_data['sampling'] = 'native-lerc2-v2'
+                if source.get('provider') == 'wms_geotiff':
+                    # Evita il ricampionamento lato WMS, che sul RGE ALTI produce
+                    # una trama a blocchi molto evidente nelle derivate.
+                    signature_data['sampling'] = 'native-wms-grid-v2'
                 if float(source.get('native_resolution_m') or source['grid_m']) > float(source['grid_m']) * 1.01:
                     signature_data['sampling'] = 'native-prefilter-v1'
                 signature = digest(signature_data)
@@ -869,6 +899,8 @@ class Workflow:
                     remote_origins = None
                     if source.get('provider') == 'arcgis_imageserver':
                         remote_origins = self.download_arcgis_tile(source, rect, crs, resolution, temp)
+                    elif source.get('provider') == 'wms_geotiff':
+                        self.download_wms_geotiff_tile(source, rect, crs, resolution, temp)
                     elif source.get('provider') == 'bev_atom_cog':
                         self.download_bev_cog_tile(source, rect, crs, resolution, temp)
                     elif source.get('provider') == 'swisstopo_stac_cog':
@@ -909,6 +941,83 @@ class Workflow:
         if changed:
             tree.write(vrt, encoding='utf-8', xml_declaration=True)
         return vrt
+
+    def download_wms_geotiff_tile(self, source, rect, crs, resolution, destination):
+        """Scarica sulla griglia nativa del WMS e riproietta localmente il tassello."""
+        source_crs = source['crs']
+        native_resolution = float(source.get('native_resolution_m') or source['grid_m'])
+        native_rect = geometry_in(QgsGeometry.fromRect(rect), crs, source_crs).boundingBox()
+        padding = native_resolution * 2
+        xmin = math.floor((native_rect.xMinimum()-padding)/native_resolution)*native_resolution
+        ymin = math.floor((native_rect.yMinimum()-padding)/native_resolution)*native_resolution
+        xmax = math.ceil((native_rect.xMaximum()+padding)/native_resolution)*native_resolution
+        ymax = math.ceil((native_rect.yMaximum()+padding)/native_resolution)*native_resolution
+        width = int(round((xmax-xmin)/native_resolution))
+        height = int(round((ymax-ymin)/native_resolution))
+        max_pixels = int(source.get('max_image_size', 5010))
+        if width <= 0 or height <= 0 or width > max_pixels or height > max_pixels:
+            raise ValueError(f"{source['id']}: dimensioni WMS non valide o oltre il limite")
+        params = {
+            'SERVICE': 'WMS', 'VERSION': source.get('wms_version', '1.3.0'),
+            'REQUEST': 'GetMap', 'LAYERS': source['layer'],
+            'STYLES': source.get('style', 'normal'), 'CRS': source_crs,
+            'BBOX': ','.join(f'{value:.12g}' for value in
+                             (xmin, ymin, xmax, ymax)),
+            'WIDTH': width, 'HEIGHT': height,
+            'FORMAT': source.get('format', 'image/geotiff'),
+            'TRANSPARENT': 'TRUE',
+        }
+        endpoint = source['url'].rstrip('?&')
+        url = endpoint + ('&' if '?' in endpoint else '?') + urlencode(params)
+        raw = Path(str(destination) + '.download.tif')
+        raw.unlink(missing_ok=True)
+        last_error = None
+        try:
+            for attempt in range(3):
+                self.cancel()
+                if attempt:
+                    time.sleep((1, 3)[attempt-1])
+                raw.unlink(missing_ok=True)
+                request = Request(url, headers={'User-Agent': f'Scialpinismo-QGIS/{VERSION}'})
+                try:
+                    with urlopen(request, timeout=180) as response, raw.open('wb') as stream:
+                        shutil.copyfileobj(response, stream, length=1024*1024)
+                    with raw.open('rb') as stream:
+                        header = stream.read(1024).lstrip().lower()
+                    if header.startswith((b'<html', b'<!doctype html', b'<?xml')):
+                        raise RuntimeError('risposta di servizio al posto del GeoTIFF')
+                    dataset = gdal.Open(str(raw))
+                    if (dataset is None or dataset.RasterCount != 1 or
+                            dataset.GetRasterBand(1).DataType != gdal.GDT_Float32):
+                        raise RuntimeError('risposta non Float32 a banda singola')
+                    source_nodata = dataset.GetRasterBand(1).GetNoDataValue()
+                    if source_nodata is None:
+                        source_nodata = source.get('nodata', -9999)
+                    warped = gdal.Warp(
+                        str(destination), dataset, format='GTiff', dstSRS=crs,
+                        outputBounds=[rect.xMinimum(), rect.yMinimum(),
+                                      rect.xMaximum(), rect.yMaximum()],
+                        xRes=resolution, yRes=resolution, targetAlignedPixels=True,
+                        srcNodata=source_nodata,
+                        dstNodata=-9999, outputType=gdal.GDT_Float32,
+                        resampleAlg='bilinear', warpMemoryLimit=64,
+                        multithread=False,
+                        creationOptions=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3'])
+                    dataset = None
+                    if warped is None:
+                        raise RuntimeError('normalizzazione GeoTIFF WMS fallita')
+                    warped = None
+                    return
+                except (URLError, TimeoutError, ConnectionError, RuntimeError) as exc:
+                    last_error = exc
+                    Path(destination).unlink(missing_ok=True)
+                    self.log(f'{source["id"]}: tentativo WMS {attempt+1}/3 fallito ({exc})')
+            raise RuntimeError(f'WMS temporaneamente non disponibile: {last_error}')
+        except Exception as exc:
+            Path(destination).unlink(missing_ok=True)
+            raise RuntimeError(f"Download DTM remoto {source['id']} fallito: {exc}") from exc
+        finally:
+            raw.unlink(missing_ok=True)
 
     def download_arcgis_tile(self, source, rect, crs, resolution, destination):
         """Legge ARSO al passo nativo, poi ricampiona localmente alla griglia di lavoro.
@@ -1169,7 +1278,20 @@ class Workflow:
         """Scarica una sola volta i piccoli COG 2 m da 1 km e crea il tassello di lavoro."""
         urls = self.swisstopo_cogs_for_rect(source, rect, crs)
         if not urls:
-            raise RuntimeError(f"{source['id']}: nessun tassello swissALTI3D nell'area richiesta")
+            width = int(round(rect.width()/resolution))
+            height = int(round(rect.height()/resolution))
+            dataset = gdal.GetDriverByName('GTiff').Create(
+                str(destination), width, height, 1, gdal.GDT_Float32,
+                options=['TILED=YES', 'COMPRESS=DEFLATE', 'PREDICTOR=3'])
+            dataset.SetGeoTransform((rect.xMinimum(), resolution, 0,
+                                     rect.yMaximum(), 0, -resolution))
+            spatial = osr.SpatialReference(); spatial.SetFromUserInput(crs)
+            dataset.SetProjection(spatial.ExportToWkt())
+            band = dataset.GetRasterBand(1)
+            band.SetNoDataValue(-9999); band.Fill(-9999)
+            band = None; dataset = None
+            self.log(f"{source['id']}: tassello fuori dalla copertura STAC, creato NoData")
+            return
         raw_cache = (self.archive/source.get(
             'original_cache_path', f'dtm/originali/{source["id"]}')).resolve()
         if self.archive.resolve() not in raw_cache.parents:
@@ -1438,7 +1560,8 @@ class Workflow:
                 vertical_shift = coreg['dz_m'] if coreg['accepted'] else 0.0
                 correction, low_weight, high_weight, seam_diagnostics = seam_fields(
                     base_values, candidate_values, base_valid, candidate_valid,
-                    analysis_resolution, worst_native, vertical_shift)
+                    analysis_resolution, worst_native, vertical_shift,
+                    prefer_candidate=source.get('mosaic_priority') == 'authoritative')
                 # dz è una traslazione globale; la griglia contiene la sola correzione locale.
                 correction += float(vertical_shift)
                 self._write_seam_grid(seam_coarse, base_coarse, correction,

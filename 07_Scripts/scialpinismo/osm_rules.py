@@ -1,6 +1,7 @@
 """Classificazione cartografica esplicita; non deduce edifici o nomi assenti in OSM."""
 TAGS = [
     'name', 'name:it', 'ref', 'highway', 'sac_scale', 'natural', 'waterway', 'water',
+    'man_made', 'substance', 'location', 'covered', 'layer',
     'landuse', 'aerialway', 'amenity', 'tourism', 'place', 'ele', 'leaf_type',
     'species', 'species:it', 'genus', 'leaf_cycle', 'surface', 'tracktype', 'building', 'building:part', 'historic', 'ruins',
     'abandoned:building', 'disused:building', 'shelter_type', 'bridge', 'tunnel',
@@ -8,7 +9,7 @@ TAGS = [
 FIELDS = TAGS + ['label', 'categoria', 'source_uid']
 THEMES = [
     ('percorsi', 'MultiLineString'), ('strade', 'MultiLineString'), ('acque', 'MultiPolygon'),
-    ('corsi_acqua', 'MultiLineString'), ('vegetazione', 'MultiPolygon'),
+    ('corsi_acqua', 'MultiLineString'), ('condotte_acqua', 'MultiLineString'), ('vegetazione', 'MultiPolygon'),
     ('insediamenti', 'MultiPolygon'), ('impianti', 'MultiLineString'),
     ('poi', 'MultiPoint'), ('edifici', 'MultiPolygon'),
     ('rifugi', 'MultiPoint'), ('fabbricati_punti', 'MultiPoint'), ('stazioni', 'MultiPoint'),
@@ -28,6 +29,17 @@ def is_hut(t):
               any(word in name for word in ('bivacco', 'rifugio')))))
 
 
+def is_covered_waterway(t):
+    return (t.get('tunnel') not in ('', 'no', None) or
+            t.get('covered') in ('yes', 'true', '1') or
+            t.get('location') in ('underground', 'tunnel') or
+            t.get('layer') == '-1')
+
+
+def is_water_conduit(t):
+    return t.get('man_made') == 'pipeline' or t.get('waterway') in ('pipeline', 'pressurized')
+
+
 def classify(t, kind):
     """kind: points, lines o multipolygons. Un rifugio poligonale produce anche l'icona."""
     targets = []
@@ -40,7 +52,9 @@ def classify(t, kind):
             targets.append('percorsi')
         elif t.get('highway'):
             targets.append('strade')
-        if t.get('waterway'):
+        if is_water_conduit(t):
+            targets.append('condotte_acqua')
+        elif t.get('waterway') and not is_covered_waterway(t):
             targets.append('corsi_acqua')
         if t.get('aerialway') and t['aerialway'] not in ('pylon', 'station', 'no'):
             targets.append('impianti')

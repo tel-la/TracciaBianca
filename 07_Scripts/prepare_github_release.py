@@ -119,6 +119,36 @@ def inspect_cell(root: Path, cell_id: str, verify_hash: bool) -> dict:
             "bytes": actual_bytes,
             "sha256": expected_sha,
         })
+    elevation_package = None
+    raw_elevation = catalog.get("elevation_package")
+    if raw_elevation is not None:
+        relative = raw_elevation.get("file") if isinstance(raw_elevation, dict) else None
+        expected_bytes = raw_elevation.get("bytes") if isinstance(raw_elevation, dict) else None
+        expected_sha = str(raw_elevation.get("sha256") or "").lower() if isinstance(raw_elevation, dict) else ""
+        if not isinstance(relative, str) or Path(relative).suffix.lower() != ".zip":
+            failures.append("elevation package path is malformed")
+        else:
+            file_path = path.parent / relative
+            if not file_path.is_file():
+                failures.append(f"missing elevation package {relative}")
+            else:
+                actual_bytes = file_path.stat().st_size
+                if not isinstance(expected_bytes, int) or expected_bytes != actual_bytes:
+                    failures.append(f"size mismatch for {file_path.name}")
+                if not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
+                    failures.append(f"invalid SHA-256 for {file_path.name}")
+                elif verify_hash and sha256_file(file_path) != expected_sha:
+                    failures.append(f"SHA-256 mismatch for {file_path.name}")
+                elevation_package = {"name": file_path.name, "path": file_path,
+                                     "bytes": actual_bytes, "sha256": expected_sha}
+        unresolved = []
+        for source in catalog.get("sources") or []:
+            license_text = str(source.get("license") or "").strip().lower()
+            if not license_text or any(marker in license_text for marker in
+                                       ("da verificare", "pending", "da confermare")):
+                unresolved.append(str(source.get("id") or source.get("title") or "fonte senza nome"))
+        if unresolved:
+            failures.append("raw DEM redistribution license unresolved: " + ", ".join(unresolved))
     atlas = catalog.get("atlas") or {}
     return {
         "id": cell_id,
@@ -131,8 +161,16 @@ def inspect_cell(root: Path, cell_id: str, verify_hash: bool) -> dict:
         "catalog_path": path,
         "catalog": catalog,
         "packages": packages,
+        "elevation_package": elevation_package,
         "failures": failures,
     }
+
+
+def record_assets(record: dict) -> list[dict]:
+    assets = list(record["packages"])
+    if record.get("elevation_package"):
+        assets.append(record["elevation_package"])
+    return assets
 
 
 def human_bytes(value: int) -> str:
@@ -163,7 +201,7 @@ def release_notes(tag: str, title: str, records: list[dict]) -> str:
         "|---|---|---:|---:|---:|",
     ]
     for record in records:
-        size = sum(package["bytes"] for package in record["packages"])
+        size = sum(package["bytes"] for package in record_assets(record))
         lines.append(
             f"| `{record['id']}` | {record['display_name']} | `{record['edition']}` | "
             f"z{record['zoom'][0]}–{record['zoom'][1]} | {human_bytes(size)} |"
@@ -172,7 +210,7 @@ def release_notes(tag: str, title: str, records: list[dict]) -> str:
         "",
         "## Download and integrity",
         "",
-        "Download the MBTiles asset for the required map sheet and verify it against `SHA256SUMS.txt`. ",
+        "Download the MBTiles asset and, when listed for that edition, its DEM HGT archive for elevation profiles; verify every downloaded asset against `SHA256SUMS.txt`. ",
         "`release-manifest.json` records the exact edition, byte count, checksum and source catalogue for every asset.",
         "",
         "## Map index",
@@ -194,7 +232,7 @@ def prepare_command(args: argparse.Namespace) -> None:
     if failures:
         formatted = "\n".join(f"- {cell}: {failure}" for cell, failure in failures)
         raise ValueError("Release preparation blocked:\n" + formatted)
-    names = [package["name"] for record in records for package in record["packages"]]
+    names = [package["name"] for record in records for package in record_assets(record)]
     if len(names) != len(set(names)):
         raise ValueError("Release assets must have unique filenames")
     output = args.output.expanduser().resolve()
@@ -207,7 +245,7 @@ def prepare_command(args: argparse.Namespace) -> None:
     notes_path.write_text(release_notes(args.tag, args.title, records), encoding="utf-8")
     checksum_lines = [
         f"{package['sha256']}  {package['name']}"
-        for record in records for package in record["packages"]
+        for record in records for package in record_assets(record)
     ]
     checksums_path.write_text("\n".join(checksum_lines) + "\n", encoding="utf-8")
     manifest = {
@@ -224,10 +262,13 @@ def prepare_command(args: argparse.Namespace) -> None:
             "zoom": record["zoom"],
             "packages": [{key: package[key] for key in ("name", "bytes", "sha256")}
                          for package in record["packages"]],
+            "elevation_package": ({key: record["elevation_package"][key]
+                                   for key in ("name", "bytes", "sha256")}
+                                  if record.get("elevation_package") else None),
         } for record in records],
     }
     save_json(manifest_path, manifest)
-    assets = [package["path"] for record in records for package in record["packages"]]
+    assets = [package["path"] for record in records for package in record_assets(record)]
     command = [
         "gh", "release", "create", args.tag,
         "--repo", REPOSITORY,
@@ -269,7 +310,7 @@ def mark_published_command(args: argparse.Namespace) -> None:
         raise ValueError("Publication registration blocked:\n" + formatted)
     for record in records:
         publication_assets = {}
-        for package in record["packages"]:
+        for package in record_assets(record):
             asset = remote_assets.get(package["name"])
             if not asset:
                 raise ValueError(f"Release {args.tag} has no asset {package['name']}")

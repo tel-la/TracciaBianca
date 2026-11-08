@@ -10,16 +10,18 @@ Per installazione, requisiti minimi e primo avvio da un clone GitHub, vedere
 3. Per una zona nuova usa **Prepara area**. Per l’atlante seleziona una cella, oppure al massimo due celle adiacenti, e usa **Prepara celle selezionate**.
 4. Per una zona esistente usa **Aggiorna area** sul relativo `area.json`.
 5. Controlla il progetto agli zoom 12–16, soprattutto edifici, aree abitate, rifugi, nomi e continuità del rilievo.
-6. Usa **Esporta offline** e scegli il range richiesto. Il default proposto è 12–16.
-7. Copia sul dispositivo tutti e soli i file elencati in `output/mbtiles/LEGGIMI_PRODUZIONE_CORRENTE.txt` e collaudali in modalità aereo.
+6. Usa **Esporta offline** e scegli il range richiesto. Il default proposto è 12–16. La casella **Genera anche DEM HGT** è disattivata per default: selezionala solo quando servono anche i profili altimetrici.
+7. Copia sul dispositivo tutti e soli i file elencati in `output/mbtiles/LEGGIMI_PRODUZIONE_CORRENTE.txt`. Importa l'MBTiles come mappa; se hai richiesto il DEM, estrai gli `.hgt` nella cartella DEM/SRTM dell'applicazione. Quindi collauda mappa e, se presente, profilo altimetrico in modalità aereo.
 
 Il workflow è intenzionalmente sequenziale: non esiste un comando che prepari o esporti tutto l’arco alpino. Ogni esecuzione riguarda una zona; due celle adiacenti servono soltanto a verificare la continuità.
 
 L’export crea per impostazione predefinita un solo file MBTiles per area. **Suddividi per peso** è una scelta opzionale; quando viene selezionata, il limite MB deve essere inserito nella finestra. Il vecchio limite automatico di 600 MB non è più applicato.
 
+Quando **Genera anche DEM HGT** è selezionato, ogni area attraversata viene ricondotta alle celle geografiche SRTM da 1° × 1°. L’archivio contiene sempre le celle intere, anche oltre il perimetro dell’MBTiles. Il comando usa come mosaico i `dtm_ritagliato.tif` delle aree già preparate e si interrompe con un messaggio esplicito se ne manca anche solo una porzione; in quel caso preparare o aggiornare le aree necessarie, oppure ripetere l’export lasciando la casella disattivata.
+
 ## DTM: base e integrazioni locali
 
-`hrdtm5m` è la base continua italiana. Le fonti Alto Adige 2,5 m e Veneto 5 m registrate in `fonti.json` vengono sovrapposte automaticamente quando intersecano la zona. Per i riquadri di confine, il DMR 1 m ARSO della Slovenia, l'ALS-DGM 1 m BEV dell'Austria e swissALTI3D 2 m di swisstopo vengono acquisiti automaticamente e conservati nella cache comune; l'OSM resta indipendente e non viene esteso da queste integrazioni. Il motore:
+`hrdtm5m` è la base continua italiana. Le fonti Alto Adige 2,5 m e Veneto 5 m registrate in `fonti.json` vengono sovrapposte automaticamente quando intersecano la zona. Per i riquadri di confine, il DMR 1 m ARSO della Slovenia, l'ALS-DGM 1 m BEV dell'Austria, swissALTI3D 2 m di swisstopo e il RGE ALTI 5 m IGN della Francia vengono acquisiti automaticamente e conservati nella cache comune; l'OSM resta indipendente e usa gli estratti territoriali registrati. Il motore:
 
 - conserva anche il DTM base sotto il dato più fine;
 - riproietta ogni fonte nel CRS metrico dell’area;
@@ -28,6 +30,7 @@ L’export crea per impostazione predefinita un solo file MBTiles per area. **Su
 - per ARSO richiede blocchi numerici LERC2 al passo nativo di 1 m, converte sia `-3` sia `-1e10` in NoData e ricampiona localmente alla griglia dell’area; i tasselli finali da 10 km restano nella cache comune. Il servizio può restituire solo NoData se interrogato direttamente a 2–5 m. Se il portale risponde con HTML invece del raster, il workflow riprova tre volte e passa al DMR1 numerico ufficiale di GeoHub/GURS. Se entrambi i servizi non sono disponibili o non coprono abbastanza area, la preparazione resta bloccata dalla consueta verifica NoData;
 - per BEV individua i COG correnti tramite l'indice ATOM, ne legge via HTTP Range soltanto la finestra richiesta e la conserva in tasselli da 10 km, senza scaricare i file da 50 km completi;
 - per swisstopo interroga l'API STAC, scarica una sola volta i piccoli COG 2 m da 1 km che intersecano l'area e li conserva in `dtm/originali/swissalti3d_2m`; la versione 0,5 m non viene usata perché sovradimensionata rispetto alla griglia del progetto;
+- per la Francia richiede al WMS-Raster IGN il layer numerico RGE ALTI in GeoTIFF Float32 a 5 m, limitatamente ai tasselli da 10 km necessari; il più recente LiDAR HD non viene usato come sorgente unica perché la copertura non è ancora continua;
 - corregge le sole micro-cuciture di riproiezione fra DTM confinanti quando esiste una quota valida entro 20 m; i vuoti altimetrici più ampi restano NoData e continuano a bloccare l’area;
 - se un raster è memorizzato su una griglia più fitta della sua risoluzione reale, lo normalizza prima al passo nativo e soltanto dopo lo interpola sulla griglia comune: questo evita pendenze e curve “a scacchiera” senza scartare i DTM realmente più precisi;
 - chiude automaticamente le sottili fessure di giunzione tra DTM nazionali confinanti fino a 60 m; i vuoti territoriali più estesi restano NoData e continuano a bloccare l'export;

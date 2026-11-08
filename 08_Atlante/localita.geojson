@@ -80,25 +80,6 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": "ALP_E131_N074",
-        "name": "Mercantour meridionale",
-        "area_name": "Mercantour meridionale",
-        "place": "mountain_region",
-        "population": 0,
-        "sector": "Western and Maritime Alps",
-        "source": "manual_region_reference"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.965509207227672,
-          43.85042020546946
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "cell_id": "ALP_E131_N075",
         "name": "Mercantour settentrionale",
         "area_name": "Mercantour settentrionale",
@@ -245,25 +226,6 @@
         "coordinates": [
           6.841665895844429,
           46.08377539004663
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": "ALP_E132_N074",
-        "name": "Alpi Liguri sud-occidentali",
-        "area_name": "Alpi Liguri sud-occidentali",
-        "place": "mountain_region",
-        "population": 0,
-        "sector": "Western and Maritime Alps",
-        "source": "manual_region_reference"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          7.3499592713141455,
-          43.86101853463505
         ]
       }
     },
@@ -441,25 +403,6 @@
     {
       "type": "Feature",
       "properties": {
-        "cell_id": "ALP_E133_N074",
-        "name": "Alpi Liguri meridionali",
-        "area_name": "Alpi Liguri meridionali",
-        "place": "mountain_region",
-        "population": 0,
-        "sector": "Western and Maritime Alps",
-        "source": "manual_region_reference"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          7.734527442801748,
-          43.87018366393148
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "cell_id": "ALP_E133_N075",
         "name": "Alpi Liguri centrali",
         "area_name": "Alpi Liguri centrali",
@@ -549,44 +492,6 @@
         "coordinates": [
           7.629737795046904,
           46.38352336352338
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": "ALP_E134_N075",
-        "name": "Alpi Liguri orientali",
-        "area_name": "Alpi Liguri orientali",
-        "place": "mountain_region",
-        "population": 0,
-        "sector": "Western and Maritime Alps",
-        "source": "manual_region_reference"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          8.110025816490184,
-          44.157446340963176
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "cell_id": "ALP_E134_N076",
-        "name": "Alpi Liguri settentrionali",
-        "area_name": "Alpi Liguri settentrionali",
-        "place": "mountain_region",
-        "population": 0,
-        "sector": "Western and Maritime Alps",
-        "source": "manual_region_reference"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          8.10073574431334,
-          44.436917547394124
         ]
       }
     },

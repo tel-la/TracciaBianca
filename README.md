@@ -117,6 +117,7 @@ The atlas currently plans 94 map sheets: 86 Alpine sheets, including the Western
 ## Requirements
 
 - **Compatible software:** any mobile or desktop application capable of importing and displaying raster MBTiles.
+- **Elevation profiles:** when the optional HGT export is selected, the workflow also provides a matching ZIP archive of complete 1 arc-second SRTM/HGT cells. Extract them to the viewer's DEM/SRTM folder; MBTiles itself has no standard second numerical elevation layer.
 - **QGIS:** a supported QGIS 3.x version for desktop inspection and GIS workflows. QGIS is recommended but not mandatory.
 - **Disk space:** sufficient free storage for the selected map and any application-generated cache.
 - **PDF reader:** required only for the full-resolution map-sheet index.
@@ -159,6 +160,8 @@ Every incremental release also includes `SHA256SUMS.txt` and `release-manifest.j
 ## Compatible-viewer workflow
 
 A typical mobile or desktop viewing session consists of transferring the downloaded `.mbtiles` file to the target device, selecting the application's offline-map import function and opening the file. The displayed coverage corresponds to the map-sheet ID in the filename and release description.
+
+For offline elevation profiles, select the HGT option during export and also download the matching `*_DEM_HGT1.zip`. Extract its `.hgt` files and copy them to the DEM/SRTM directory required by the application. The option is off by default and is accepted only when already prepared area DTMs cover every required SRTM cell in full. The map remains a standard raster MBTiles file, while the companion HGT data provide numerical terrain heights for drawn or imported tracks.
 
 Applications use different menu names and storage locations. Their own documentation defines the exact import procedure. Offline testing before departure confirms that the file, map coverage and required zoom levels remain available without a network connection.
 

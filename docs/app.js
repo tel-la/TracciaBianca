@@ -8,6 +8,7 @@
   const panel = document.getElementById("details-panel");
   const closePanelButton = document.getElementById("close-panel");
   const downloadButton = document.getElementById("download-button");
+  const elevationDownloadButton = document.getElementById("elevation-download-button");
   const unavailableMessage = document.getElementById("unavailable-message");
   const checksumBlock = document.getElementById("checksum-block");
   const copyChecksumButton = document.getElementById("copy-checksum");
@@ -323,7 +324,9 @@
 
   function showDetails(cell) {
     const pack = packageFor(cell);
+    const elevation = cell.elevation_package || null;
     const downloadable = cell.status === "published" && pack && pack.download_url;
+    const elevationDownloadable = cell.status === "published" && elevation && elevation.download_url;
     fields.title.textContent = cell.id;
     fields.locality.textContent = cell.locality;
     fields.status.textContent = statusLabels[cell.status] || "In preparation";
@@ -347,6 +350,15 @@
       downloadButton.removeAttribute("href");
       downloadButton.removeAttribute("aria-label");
       unavailableMessage.textContent = "Download not available yet. This map sheet is still being prepared.";
+    }
+    elevationDownloadButton.hidden = !elevationDownloadable;
+    if (elevationDownloadable) {
+      elevationDownloadButton.href = elevation.download_url;
+      elevationDownloadButton.firstChild.textContent = `Download elevation DEM · ${formatBytes(elevation.bytes)} `;
+      elevationDownloadButton.setAttribute("aria-label", `Download ${cell.id} elevation DEM, ${formatBytes(elevation.bytes)}; opens in a new tab`);
+    } else {
+      elevationDownloadButton.removeAttribute("href");
+      elevationDownloadButton.removeAttribute("aria-label");
     }
   }
 

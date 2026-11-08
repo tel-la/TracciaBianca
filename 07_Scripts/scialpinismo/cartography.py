@@ -260,6 +260,8 @@ def build_project(root, area, config, geometry):
     water.renderer().setSymbol(QgsFillSymbol.createSimple({'color': '172,217,232,175', 'outline_color': '#71aabb', 'outline_width': '0.15'}))
     streams = vector('corsi_acqua', 'Corsi d’acqua')
     streams.renderer().setSymbol(QgsLineSymbol.createSimple({'line_color': '#80b8cd', 'line_width': '0.18'}))
+    pipes = vector('condotte_acqua', 'Acquedotti e condotte')
+    pipes.renderer().setSymbol(QgsLineSymbol.createSimple({'line_color': '#b88752', 'line_width': '0.16', 'line_style': 'dash'}))
     for interval, small, large in [(100, s1415, 1e9), (20, s1516, s1415), (10, 0, s1516)]:
         layer = vector('curve_10m', f'Curve ogni {interval} m')
         rules = QgsRuleBasedRenderer.Rule(None)

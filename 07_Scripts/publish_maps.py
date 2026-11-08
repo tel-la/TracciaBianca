@@ -171,6 +171,9 @@ def record_cell(record: dict) -> dict:
             {key: package[key] for key in ("name", "bytes", "sha256")}
             for package in record["packages"]
         ],
+        "elevation_package": ({key: record["elevation_package"][key]
+                               for key in ("name", "bytes", "sha256")}
+                              if record.get("elevation_package") else None),
     }
 
 
@@ -184,7 +187,17 @@ def comparable_cell(cell: dict) -> dict:
             {key: package.get(key) for key in ("name", "bytes", "sha256")}
             for package in cell.get("packages", [])
         ],
+        "elevation_package": ({key: (cell.get("elevation_package") or {}).get(key)
+                               for key in ("name", "bytes", "sha256")}
+                              if cell.get("elevation_package") else None),
     }
+
+
+def cell_assets(cell: dict) -> list[dict]:
+    assets = list(cell.get("packages", []))
+    if cell.get("elevation_package"):
+        assets.append(cell["elevation_package"])
+    return assets
 
 
 def human_bytes(value: int) -> str:
@@ -225,7 +238,7 @@ def release_notes(
         "|---|---|---:|---:|---:|---|",
     ]
     for cell in cells:
-        size = sum(package["bytes"] for package in cell["packages"])
+        size = sum(package["bytes"] for package in cell_assets(cell))
         if cell["id"] in changed_ids:
             status = "Updated in latest publication" if cell["id"] in old_ids else "Added in latest publication"
         else:
@@ -247,7 +260,7 @@ def release_notes(
         "",
         "## Download and integrity",
         "",
-        "Download the required MBTiles asset and verify it against `SHA256SUMS.txt`. "
+        "Download the required MBTiles asset and, for editions that provide it, the DEM HGT archive for elevation profiles. Verify downloaded assets against `SHA256SUMS.txt`. "
         "`release-manifest.json` records the current edition, byte count and SHA-256 checksum "
         "for every map asset in this release.",
         "",
@@ -369,7 +382,7 @@ def verify_manifest_assets(manifest: dict, assets: dict[str, dict]) -> None:
     if not isinstance(cells, list):
         raise PublishError("Current release-manifest.json has no valid cells list")
     for cell in cells:
-        for package in cell.get("packages", []):
+        for package in cell_assets(cell):
             name = package.get("name")
             asset = assets.get(name)
             if not asset:
@@ -551,9 +564,9 @@ def publish(args: argparse.Namespace) -> None:
             previous = old_cells.get(cell["id"])
             if not previous:
                 continue
-            current_names = {package["name"] for package in cell["packages"]}
+            current_names = {package["name"] for package in cell_assets(cell)}
             superseded += [
-                package["name"] for package in previous.get("packages", [])
+                package["name"] for package in cell_assets(previous)
                 if package["name"] not in current_names
             ]
 
@@ -575,7 +588,7 @@ def publish(args: argparse.Namespace) -> None:
         save_json(manifest_path, final_manifest)
         checksum_lines = [
             f"{package['sha256']}  {package['name']}"
-            for cell in final_cells for package in cell["packages"]
+            for cell in final_cells for package in cell_assets(cell)
         ]
         checksums_path.write_text("\n".join(checksum_lines) + "\n", encoding="utf-8")
         notes_path.write_text(
@@ -588,7 +601,7 @@ def publish(args: argparse.Namespace) -> None:
         to_upload: list[dict] = []
         already_uploaded: list[dict] = []
         for record in effective_records:
-            for package in record["packages"]:
+            for package in helper.record_assets(record):
                 remote = assets.get(package["name"])
                 if remote:
                     verify_asset(remote, package)
@@ -631,7 +644,7 @@ def publish(args: argparse.Namespace) -> None:
         release = github_release(root, args.repository, args.tag)
         assets = remote_assets(release)
         for record in effective_records:
-            for package in record["packages"]:
+            for package in helper.record_assets(record):
                 asset = assets.get(package["name"])
                 if not asset:
                     raise PublishError(f"Uploaded asset is missing: {package['name']}")

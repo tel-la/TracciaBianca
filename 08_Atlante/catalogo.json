@@ -113,33 +113,6 @@
       "packages": []
     },
     {
-      "id": "ALP_E131_N074",
-      "col": 131,
-      "row": 74,
-      "display_name": "Mercantour meridionale",
-      "name_source": "manual",
-      "reference": {
-        "name": "Mercantour meridionale",
-        "place": "mountain_region",
-        "population": 0,
-        "lon": 6.965509207227672,
-        "lat": 43.85042020546946,
-        "source": "manual_region_reference",
-        "sector": "Western and Maritime Alps"
-      },
-      "planning_region": "western_alps",
-      "planning_overlap_percent": 16.7,
-      "edition": null,
-      "zoom": [
-        12,
-        17
-      ],
-      "status": "planned",
-      "reason": "",
-      "bytes": 0,
-      "packages": []
-    },
-    {
       "id": "ALP_E131_N075",
       "col": 131,
       "row": 75,
@@ -356,33 +329,6 @@
       "packages": []
     },
     {
-      "id": "ALP_E132_N074",
-      "col": 132,
-      "row": 74,
-      "display_name": "Alpi Liguri sud-occidentali",
-      "name_source": "manual",
-      "reference": {
-        "name": "Alpi Liguri sud-occidentali",
-        "place": "mountain_region",
-        "population": 0,
-        "lon": 7.3499592713141455,
-        "lat": 43.86101853463505,
-        "source": "manual_region_reference",
-        "sector": "Western and Maritime Alps"
-      },
-      "planning_region": "western_alps",
-      "planning_overlap_percent": 69.7,
-      "edition": null,
-      "zoom": [
-        12,
-        17
-      ],
-      "status": "planned",
-      "reason": "",
-      "bytes": 0,
-      "packages": []
-    },
-    {
       "id": "ALP_E132_N075",
       "col": 132,
       "row": 75,
@@ -426,15 +372,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 100.0,
-      "edition": null,
+      "edition": "20261105T172703Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 578707456,
+      "packages": [
+        {
+          "file": "ALP_E132_N076_cuneese-occidentale_20261105T172703Z_01_z12-16.mbtiles",
+          "bytes": 578707456,
+          "sha256": "641d20fa75f23b97a2da2e775cceccdaab3736849e498b5cba47516cf79d9582",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N076_cuneese-occidentale_20261105T172703Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E132_N077",
@@ -453,15 +408,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 100.0,
-      "edition": null,
+      "edition": "20261105T171401Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 480579584,
+      "packages": [
+        {
+          "file": "ALP_E132_N077_monviso_20261105T171401Z_01_z12-16.mbtiles",
+          "bytes": 480579584,
+          "sha256": "11066733af5db3395b15e089ab34326ef0b69a9163145a253e625a2d6d6d9425",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N077_monviso_20261105T171401Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E132_N078",
@@ -480,15 +444,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 100.0,
-      "edition": null,
+      "edition": "20261105T165840Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 534642688,
+      "packages": [
+        {
+          "file": "ALP_E132_N078_val-di-susa-meridionale_20261105T165840Z_01_z12-16.mbtiles",
+          "bytes": 534642688,
+          "sha256": "ce1ddbef503b33a8f16aeb7711c5bab228101ab09f73321d0e54027d16c082ca",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N078_val-di-susa-meridionale_20261105T165840Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E132_N079",
@@ -615,42 +588,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 14.6,
-      "edition": null,
+      "edition": "20261105T200148Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
-    },
-    {
-      "id": "ALP_E133_N074",
-      "col": 133,
-      "row": 74,
-      "display_name": "Alpi Liguri meridionali",
-      "name_source": "manual",
-      "reference": {
-        "name": "Alpi Liguri meridionali",
-        "place": "mountain_region",
-        "population": 0,
-        "lon": 7.734527442801748,
-        "lat": 43.87018366393148,
-        "source": "manual_region_reference",
-        "sector": "Western and Maritime Alps"
-      },
-      "planning_region": "western_alps",
-      "planning_overlap_percent": 72.7,
-      "edition": null,
-      "zoom": [
-        12,
-        17
-      ],
-      "status": "planned",
-      "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 798543872,
+      "packages": [
+        {
+          "file": "ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.mbtiles",
+          "bytes": 798543872,
+          "sha256": "e7b89fd74cb55df8ba0276948eb8d693f5f106c69647ced4551fd4fae2e90f1e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N075",
@@ -696,15 +651,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 76.0,
-      "edition": null,
+      "edition": "20261105T164001Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 698257408,
+      "packages": [
+        {
+          "file": "ALP_E133_N080_gran-paradiso-orientale_20261105T164001Z_01_z12-16.mbtiles",
+          "bytes": 698257408,
+          "sha256": "cda4bc98d50839be8cba8bebb6864eedcb9dcf2528eaf15a9a0da7d4a5e49f03",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N080_gran-paradiso-orientale_20261105T164001Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N081",
@@ -723,15 +687,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 99.9,
-      "edition": null,
+      "edition": "20261105T200833Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 754069504,
+      "packages": [
+        {
+          "file": "ALP_E133_N081_valle-d-aosta-orientale_20261105T200833Z_01_z12-16.mbtiles",
+          "bytes": 754069504,
+          "sha256": "c499965e5612763b15821b6a29da94c5dd56be38dc10fa992c14ae2ef0864452",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N081_valle-d-aosta-orientale_20261105T200833Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N082",
@@ -750,15 +723,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 100.0,
-      "edition": null,
+      "edition": "20261105T201342Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 822947840,
+      "packages": [
+        {
+          "file": "ALP_E133_N082_vallese-sud-orientale_20261105T201342Z_01_z12-16.mbtiles",
+          "bytes": 822947840,
+          "sha256": "ee67695821fa3c579291cd6dab8a22b282e5a866f4e9bcf5e3192e07c062354c",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N082_vallese-sud-orientale_20261105T201342Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E133_N083",
@@ -777,69 +759,24 @@
       },
       "planning_region": "western_alps",
       "planning_overlap_percent": 64.0,
-      "edition": null,
+      "edition": "20261105T162841Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
-    },
-    {
-      "id": "ALP_E134_N075",
-      "col": 134,
-      "row": 75,
-      "display_name": "Alpi Liguri orientali",
-      "name_source": "manual",
-      "reference": {
-        "name": "Alpi Liguri orientali",
-        "place": "mountain_region",
-        "population": 0,
-        "lon": 8.110025816490184,
-        "lat": 44.157446340963176,
-        "source": "manual_region_reference",
-        "sector": "Western and Maritime Alps"
-      },
-      "planning_region": "western_alps",
-      "planning_overlap_percent": 59.1,
-      "edition": null,
-      "zoom": [
-        12,
-        17
-      ],
-      "status": "planned",
-      "reason": "",
-      "bytes": 0,
-      "packages": []
-    },
-    {
-      "id": "ALP_E134_N076",
-      "col": 134,
-      "row": 76,
-      "display_name": "Alpi Liguri settentrionali",
-      "name_source": "manual",
-      "reference": {
-        "name": "Alpi Liguri settentrionali",
-        "place": "mountain_region",
-        "population": 0,
-        "lon": 8.10073574431334,
-        "lat": 44.436917547394124,
-        "source": "manual_region_reference",
-        "sector": "Western and Maritime Alps"
-      },
-      "planning_region": "western_alps",
-      "planning_overlap_percent": 12.7,
-      "edition": null,
-      "zoom": [
-        12,
-        17
-      ],
-      "status": "planned",
-      "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 818876416,
+      "packages": [
+        {
+          "file": "ALP_E133_N083_vallese-nord-orientale_20261105T162841Z_01_z12-16.mbtiles",
+          "bytes": 818876416,
+          "sha256": "48949372e1ffaa8680685dd2f46fbcdd89a28b7db9dc5ceb04f0d24646f574af",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N083_vallese-nord-orientale_20261105T162841Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "ALP_E134_N081",
@@ -2941,15 +2878,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 11.6,
-      "edition": null,
+      "edition": "20261105T092358Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 519708672,
+      "packages": [
+        {
+          "file": "APP_E147_N069_monti-dell-aquila_20261105T092358Z_01_z12-16.mbtiles",
+          "bytes": 519708672,
+          "sha256": "4bab955b038023939060f1de2edb4fe10e5394d13b3b611ae9abaf1f70a13bc8",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E147_N069_monti-dell-aquila_20261105T092358Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E148_N068",
@@ -2968,15 +2914,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 12.0,
-      "edition": null,
+      "edition": "20261105T153706Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 433631232,
+      "packages": [
+        {
+          "file": "APP_E148_N068_sirente-velino_20261105T153706Z_01_z12-16.mbtiles",
+          "bytes": 433631232,
+          "sha256": "4b99579d7dc94505ec5c5db4aa7ee1a8a6e63c7c3634e72d252072c3d80eece4",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E148_N068_sirente-velino_20261105T153706Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E148_N069",
@@ -2995,15 +2950,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 92.9,
-      "edition": null,
+      "edition": "20261105T155643Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 506900480,
+      "packages": [
+        {
+          "file": "APP_E148_N069_gran-sasso_20261105T155643Z_01_z12-16.mbtiles",
+          "bytes": 506900480,
+          "sha256": "d1b9e141043fe5d0c94261fac3d889061ebf252d4ba771d81e5681113b1f6573",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E148_N069_gran-sasso_20261105T155643Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E148_N070",
@@ -3022,15 +2986,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 67.4,
-      "edition": null,
+      "edition": "20261105T160156Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 584261632,
+      "packages": [
+        {
+          "file": "APP_E148_N070_monti-della-laga_20261105T160156Z_01_z12-16.mbtiles",
+          "bytes": 584261632,
+          "sha256": "b37bfe475da1cd8d10dbb9d698b3df91e75927496f6998a9a3055e130bce9dd7",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E148_N070_monti-della-laga_20261105T160156Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E149_N067",
@@ -3049,15 +3022,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 0.0,
-      "edition": null,
+      "edition": "20261105T160741Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 491769856,
+      "packages": [
+        {
+          "file": "APP_E149_N067_monti-marsicani-pescasseroli_20261105T160741Z_01_z12-16.mbtiles",
+          "bytes": 491769856,
+          "sha256": "bdd05c976d69b58a45ebe64868f5c7b3f4a091250b86803a50f48a05e9c8a873",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E149_N067_monti-marsicani-pescasseroli_20261105T160741Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E149_N068",
@@ -3076,15 +3058,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 83.0,
-      "edition": null,
+      "edition": "20261105T161325Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 461832192,
+      "packages": [
+        {
+          "file": "APP_E149_N068_monti-del-morrone_20261105T161325Z_01_z12-16.mbtiles",
+          "bytes": 461832192,
+          "sha256": "a03fc524ff29b676cad4e22dc00d3784a1b13fbea935d1f8e25fe00909ba961d",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E149_N068_monti-del-morrone_20261105T161325Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E149_N069",
@@ -3103,15 +3094,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 34.5,
-      "edition": null,
+      "edition": "20261105T161808Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 476270592,
+      "packages": [
+        {
+          "file": "APP_E149_N069_campo-imperatore_20261105T161808Z_01_z12-16.mbtiles",
+          "bytes": 476270592,
+          "sha256": "2f65f87aa574b1f2452b7c3d89bc0f2fd59bf8e22cd632f17bfa902f8c34bf15",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E149_N069_campo-imperatore_20261105T161808Z_01_z12-16.mbtiles"
+        }
+      ]
     },
     {
       "id": "APP_E150_N068",
@@ -3130,15 +3130,24 @@
       },
       "planning_region": "central_apennines",
       "planning_overlap_percent": 46.0,
-      "edition": null,
+      "edition": "20261105T162305Z",
       "zoom": [
         12,
-        17
+        16
       ],
-      "status": "planned",
+      "status": "published",
       "reason": "",
-      "bytes": 0,
-      "packages": []
+      "bytes": 500219904,
+      "packages": [
+        {
+          "file": "APP_E150_N068_maiella_20261105T162305Z_01_z12-16.mbtiles",
+          "bytes": 500219904,
+          "sha256": "0bd964c5907bf86655dbf43d7b4f0fc90c34420b8fe1f004fe3a4094fd206e05",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/APP_E150_N068_maiella_20261105T162305Z_01_z12-16.mbtiles"
+        }
+      ]
     }
   ]
 }

@@ -28,11 +28,16 @@ DEFAULT_MIN_MOUNTAIN_PERCENT = 1.0
 # Composizione editoriale dell'atlante: queste eccezioni restano applicate anche
 # quando la griglia viene rigenerata dal DTM.
 EXCLUDED_CELL_IDS = {
+    'ALP_E131_N074',
+    'ALP_E132_N074',
+    'ALP_E133_N074',
     'ALP_E133_N076',
     'ALP_E133_N077',
     'ALP_E133_N078',
     'ALP_E133_N079',
     'ALP_E134_N074',
+    'ALP_E134_N075',
+    'ALP_E134_N076',
     'ALP_E134_N080',
     'ALP_E135_N080',
     'ALP_E139_N080',
@@ -403,6 +408,11 @@ def publish_cell(w, key):
         file = path.parent/pack['file']
         if file.stat().st_size != pack['bytes'] or sha256_file(file) != pack['sha256']:
             raise ValueError('File modificato dopo la validazione')
+    elevation = c.get('elevation_package')
+    if elevation:
+        file = path.parent/elevation['file']
+        if file.stat().st_size != elevation['bytes'] or sha256_file(file) != elevation['sha256']:
+            raise ValueError('Archivio DEM modificato dopo la validazione')
     c['publication_status'] = 'release_ready'; save_json(path, c)
     return c['publication_status']
 

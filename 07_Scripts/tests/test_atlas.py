@@ -43,8 +43,10 @@ class AtlasTests(unittest.TestCase):
         self.assertFalse(atlas.EXCLUDED_CELL_IDS & atlas.FORCED_CELL_IDS)
         self.assertEqual(atlas.FORCED_CELL_IDS, {'ALP_E136_N083'})
         self.assertEqual(atlas.EXCLUDED_CELL_IDS, {
+            'ALP_E131_N074', 'ALP_E132_N074', 'ALP_E133_N074',
             'ALP_E133_N076', 'ALP_E133_N077', 'ALP_E133_N078',
-            'ALP_E133_N079', 'ALP_E134_N074',
+            'ALP_E133_N079', 'ALP_E134_N074', 'ALP_E134_N075',
+            'ALP_E134_N076',
             'ALP_E134_N080', 'ALP_E135_N080', 'ALP_E139_N080',
             'ALP_E140_N080', 'ALP_E141_N080', 'ALP_E142_N080',
             'ALP_E144_N086', 'ALP_E146_N082', 'ALP_E147_N082'})

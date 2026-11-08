@@ -46,6 +46,8 @@ class AreaAlgorithm(QgsProcessingAlgorithm):
                 'La percentuale massima di NoData DTM viene salvata automaticamente: 0 richiede copertura completa; '
                 'in Aggiorna, lasciare vuoto per conservare il valore già configurato. '
                 'Esporta chiede il range di zoom, predefinito 12–16. '
+                'La generazione HGT è opzionale e disattivata per impostazione predefinita; se '
+                'attivata richiede DTM già elaborati per l’intera cella SRTM di ogni file HGT. '
                 'Sorgenti selezionate dal catalogo. '
                 'Il progetto aperto non viene sostituito: aprire il file QGZ restituito dopo la preparazione.')
 
@@ -77,6 +79,9 @@ class AreaAlgorithm(QgsProcessingAlgorithm):
                 'LIMIT', 'Limite suddivisione (MB decimali; obbligatorio solo se si suddivide)',
                 type=QgsProcessingParameterNumber.Double, optional=True, minValue=0.1))
             self.addParameter(QgsProcessingParameterNumber('WARNING', 'Soglia avviso (MB decimali; vuoto = configurazione)', type=QgsProcessingParameterNumber.Double, optional=True, minValue=0.1))
+            self.addParameter(QgsProcessingParameterBoolean(
+                'GENERATE_HGT', 'Genera anche DEM HGT (richiede copertura completa delle celle SRTM)',
+                defaultValue=False))
         self.addOutput(QgsProcessingOutputFile('OUTPUT', 'Progetto QGIS' if self.mode != 'export' else 'Catalogo MBTiles'))
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -119,7 +124,8 @@ class AreaAlgorithm(QgsProcessingAlgorithm):
             mode = ['single', 'split'][self.parameterAsEnum(parameters, 'MODE', context)]
             if mode == 'split' and parameters.get('LIMIT') is None:
                 raise ValueError('Specificare il limite MB quando si sceglie Suddividi per peso')
-            options = {'mode': mode}
+            options = {'mode': mode,
+                       'generate_hgt': self.parameterAsBool(parameters, 'GENERATE_HGT', context)}
             for param, key in [('LIMIT', 'maxbytes'), ('WARNING', 'warning_bytes')]:
                 if parameters.get(param) is not None:
                     options[key] = int(self.parameterAsDouble(parameters, param, context)*1000000)

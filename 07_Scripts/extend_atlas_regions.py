@@ -66,8 +66,10 @@ CENTRAL_NAMES = [
 # Editorial exclusions are permanent: the reference outline can still intersect
 # these cores, but regenerating the atlas must not restore them.
 REMOVED_CELL_IDS = {
-    'ALP_E134_N074', 'ALP_E133_N076', 'ALP_E133_N077',
-    'ALP_E133_N078', 'ALP_E133_N079',
+    'ALP_E131_N074', 'ALP_E132_N074', 'ALP_E133_N074',
+    'ALP_E133_N076', 'ALP_E133_N077', 'ALP_E133_N078',
+    'ALP_E133_N079', 'ALP_E134_N074', 'ALP_E134_N075',
+    'ALP_E134_N076',
 }
 ADDED_CELL_IDS = {'APP_E149_N067'}
 
@@ -78,7 +80,6 @@ WEST_CELL_NAMES = {
     'ALP_E130_N077': 'Queyras sud-occidentale',
     'ALP_E130_N078': 'Queyras nord-occidentale',
     'ALP_E130_N079': 'Vanoise occidentale',
-    'ALP_E131_N074': 'Mercantour meridionale',
     'ALP_E131_N075': 'Mercantour settentrionale',
     'ALP_E131_N076': 'Ubaye orientale',
     'ALP_E131_N077': 'Queyras sud-orientale',
@@ -87,7 +88,6 @@ WEST_CELL_NAMES = {
     'ALP_E131_N080': 'Vanoise orientale',
     'ALP_E131_N081': 'Monte Bianco – Chamonix',
     'ALP_E131_N082': 'Vallese occidentale',
-    'ALP_E132_N074': 'Alpi Liguri sud-occidentali',
     'ALP_E132_N075': 'Alpi Marittime',
     'ALP_E132_N076': 'Cuneese occidentale',
     'ALP_E132_N077': 'Monviso',
@@ -102,8 +102,6 @@ WEST_CELL_NAMES = {
     'ALP_E133_N081': "Valle d'Aosta orientale",
     'ALP_E133_N082': 'Vallese sud-orientale',
     'ALP_E133_N083': 'Vallese nord-orientale',
-    'ALP_E134_N075': 'Alpi Liguri orientali',
-    'ALP_E134_N076': 'Alpi Liguri settentrionali',
 }
 CELL_NAMES = {**WEST_CELL_NAMES, 'APP_E149_N067': 'Monti Marsicani – Pescasseroli'}
 

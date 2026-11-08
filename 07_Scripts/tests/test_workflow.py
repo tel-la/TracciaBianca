@@ -6,11 +6,12 @@ import sqlite3
 import sys
 import tempfile
 import unittest
+import zipfile
 from unittest.mock import patch
 from pathlib import Path
 
 import numpy as np
-from osgeo import gdal
+from osgeo import gdal, osr
 from PIL import Image
 from qgis.core import QgsApplication, QgsGeometry, QgsRectangle
 from qgis.analysis import QgsNativeAlgorithms
@@ -26,7 +27,9 @@ from scialpinismo.engine import (Workflow, save_json, cog_copy, geometry_in,
                                  HILLSHADE_ALTITUDE_DEG,
                                  HILLSHADE_PRIMARY_AZIMUTH_DEG,
                                  HILLSHADE_PRIMARY_WEIGHT)
-from scialpinismo.exporter import inspect_mbtiles, tile_bounds
+from scialpinismo.exporter import (inspect_mbtiles, tile_bounds, hgt_name,
+                                   hgt_cells, export_hgt_archive,
+                                   inspect_hgt_archive)
 
 
 class WorkflowTests(unittest.TestCase):
@@ -128,6 +131,23 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(self.w.source_fingerprint(selected[0]), {
             'provider':'arcgis_imageserver','url':'https://example.test/ImageServer','revision':'test'})
 
+    def test_remote_wms_geotiff_dtm_is_available_without_a_local_source_file(self):
+        coverage = QgsGeometry.fromRect(QgsRectangle(4, 42, 8, 47)).asWkt()
+        save_json(self.w.archive/'fonti.json', {'sources': [{
+            'id':'ign','provider':'wms_geotiff','url':'https://example.test/wms',
+            'layer':'RGEALTI','style':'normal','wms_version':'1.3.0',
+            'format':'image/geotiff','revision':'test','crs':'EPSG:2154',
+            'grid_m':5,'native_resolution_m':5,'verified':True,
+            'vertical_units':'m','coverage_wkt':coverage,
+        }]})
+        self.config.update({'perimeter_wkt':QgsGeometry.fromRect(
+            QgsRectangle(6, 44, 7, 46)).asWkt()})
+        selected,_ = self.w.select_sources(self.config)
+        self.assertEqual([source['id'] for source in selected], ['ign'])
+        fingerprint = self.w.source_fingerprint(selected[0])
+        self.assertEqual(fingerprint['layer'], 'RGEALTI')
+        self.assertEqual(fingerprint['format'], 'image/geotiff')
+
     def test_remote_bev_dtm_is_available_without_a_local_source_file(self):
         coverage = QgsGeometry.fromRect(QgsRectangle(11, 45, 13, 48)).asWkt()
         save_json(self.w.archive/'fonti.json', {'sources': [{
@@ -184,6 +204,19 @@ class WorkflowTests(unittest.TestCase):
                                     'url':'https://example.test/work.tif'}])
         self.assertEqual(next_url, 'https://example.test/page2')
 
+    def test_swisstopo_tile_outside_stac_coverage_is_cached_as_nodata(self):
+        destination = self.root/'swiss_outside.tif'
+        source = {'id':'swiss','original_cache_path':'dtm/originali/swiss',
+                  'nodata':-9999}
+        with patch.object(self.w, 'swisstopo_cogs_for_rect', return_value=[]):
+            self.w.download_swisstopo_cog_tile(
+                source, QgsRectangle(300000, 5100000, 300100, 5100100),
+                'EPSG:32632', 5, destination)
+        raster = gdal.Open(str(destination))
+        self.assertEqual((raster.RasterXSize, raster.RasterYSize), (20, 20))
+        self.assertEqual(raster.GetRasterBand(1).GetNoDataValue(), -9999)
+        self.assertTrue(np.all(raster.ReadAsArray() == -9999))
+
     def test_remote_coverage_search_includes_nearby_common_tile(self):
         coverage = geometry_in(
             QgsGeometry.fromRect(QgsRectangle(600100, 5200100, 601000, 5201000)),
@@ -203,6 +236,54 @@ class WorkflowTests(unittest.TestCase):
         with patch.object(self.w, 'download_swisstopo_cog_tile', side_effect=fake_download):
             self.w.cached_tiles(source, extent, 'EPSG:32632', 5)
         self.assertEqual(created, [(590000.0, 5200000.0)])
+
+    def test_wms_geotiff_tile_keeps_float_elevations_and_normalizes_nodata(self):
+        requested = QgsRectangle(400000, 5100000, 400100, 5100100)
+        native = geometry_in(QgsGeometry.fromRect(requested),
+                             'EPSG:32632', 'EPSG:2154').boundingBox()
+        native_resolution = 5
+        xmin = math.floor((native.xMinimum()-10)/native_resolution)*native_resolution
+        ymin = math.floor((native.yMinimum()-10)/native_resolution)*native_resolution
+        xmax = math.ceil((native.xMaximum()+10)/native_resolution)*native_resolution
+        ymax = math.ceil((native.yMaximum()+10)/native_resolution)*native_resolution
+        width = int((xmax-xmin)/native_resolution)
+        height = int((ymax-ymin)/native_resolution)
+        payload_path = self.root/'wms_payload.tif'
+        dataset = gdal.GetDriverByName('GTiff').Create(
+            str(payload_path), width, height, 1, gdal.GDT_Float32)
+        dataset.SetGeoTransform([xmin, native_resolution, 0, ymax, 0, -native_resolution])
+        srs = osr.SpatialReference(); srs.ImportFromEPSG(2154)
+        dataset.SetProjection(srs.ExportToWkt())
+        values = np.full((height, width), 1850.25, dtype=np.float32)
+        values[:, :width//3] = -99999
+        dataset.GetRasterBand(1).SetNoDataValue(-99999)
+        dataset.GetRasterBand(1).WriteArray(values)
+        dataset = None
+        payload = payload_path.read_bytes()
+        requests = []
+        def fake_urlopen(request, timeout):
+            requests.append(request.full_url)
+            return io.BytesIO(payload)
+        source = {'id':'ign','provider':'wms_geotiff',
+                  'url':'https://example.test/wms','layer':'RGEALTI',
+                  'style':'normal','wms_version':'1.3.0','format':'image/geotiff',
+                  'crs':'EPSG:2154','grid_m':5,'native_resolution_m':5,
+                  'nodata':-99999,'max_image_size':5010}
+        destination = self.root/'wms_tile.tif'
+        with patch('scialpinismo.engine.urlopen', side_effect=fake_urlopen):
+            self.w.download_wms_geotiff_tile(
+                source, requested,
+                'EPSG:32632', 5, destination)
+        from urllib.parse import parse_qs, urlparse
+        params = parse_qs(urlparse(requests[0]).query)
+        self.assertEqual(params['LAYERS'], ['RGEALTI'])
+        self.assertEqual(params['CRS'], ['EPSG:2154'])
+        self.assertEqual(params['WIDTH'], [str(width)])
+        result = gdal.Open(str(destination))
+        self.assertEqual(result.GetRasterBand(1).GetNoDataValue(), -9999)
+        output = result.ReadAsArray()
+        self.assertTrue(np.any(output == -9999))
+        self.assertTrue(np.any(np.isclose(output, 1850.25, atol=0.01)))
 
     def test_arcgis_tile_is_sampled_at_native_resolution_before_downsampling(self):
         from urllib.parse import parse_qs, urlparse
@@ -438,11 +519,19 @@ class WorkflowTests(unittest.TestCase):
         from qgis.core import QgsCoordinateReferenceSystem
         project=QgsProject();project.setCrs(QgsCoordinateReferenceSystem('EPSG:3857'));project.addMapLayer(layer)
         (self.root/'progetto').mkdir()
+        (self.root/'elaborati').mkdir()
         project.write(str(self.root/config['project']))
+        dem = gdal.GetDriverByName('GTiff').Create(
+            str(self.root/'elaborati/dtm_ritagliato.tif'), 100, 100, 1, gdal.GDT_Float32)
+        dem.SetGeoTransform([12.12, 0.0002, 0, 46.54, 0, -0.0002])
+        srs = osr.SpatialReference(); srs.SetFromUserInput('EPSG:4326')
+        dem.SetProjection(srs.ExportToWkt()); dem.GetRasterBand(1).SetNoDataValue(-9999)
+        dem.GetRasterBand(1).Fill(1500); dem = None
         save_json(self.root/'elaborati/stato.json',{'config_signature':digest(config)})
         save_json(self.root/'elaborati/rapporto.json',{'id':'test','source_fingerprints':{'test':fingerprint(self.w.archive/'source.tif')},'sources':[{'title':'test','url':''}],'osm':{}})
         report=self.w.export(self.root)
         self.assertEqual(len(report['packages']),2)
+        self.assertNotIn('elevation_package', report)
         self.assertEqual(report['partition']['duplicate_tile_keys'],0)
         rect=geometry_in(QgsGeometry.fromWkt(config['perimeter_wkt']),'EPSG:4326','EPSG:3857').boundingBox()
         for z in range(12,18):
@@ -595,6 +684,21 @@ class WorkflowTests(unittest.TestCase):
         self.assertGreater(float(high_weight[:, 180:].min()), 0.99)
         self.assertLess(float(np.max(np.abs(correction))), 8.01)
 
+    def test_authoritative_seam_keeps_candidate_continuous_despite_disagreement(self):
+        base = np.full((120, 160), 1400, dtype=np.float32)
+        candidate = np.full((120, 160), 1600, dtype=np.float32)
+        base_valid = np.ones(base.shape, dtype=bool)
+        candidate_valid = np.zeros(candidate.shape, dtype=bool)
+        candidate_valid[:, 30:] = True
+        correction, low_weight, high_weight, diagnostics = seam_fields(
+            base, candidate, base_valid, candidate_valid, 5, 10,
+            prefer_candidate=True)
+        self.assertEqual(diagnostics['action'], 'authoritative_candidate')
+        self.assertEqual(diagnostics['incompatible_cells'], 0)
+        self.assertTrue(np.all(correction == 0))
+        self.assertGreater(float(low_weight[:, 80:].min()), 0.99)
+        self.assertGreater(float(high_weight[:, 80:].min()), 0.99)
+
     def test_disk_mosaic_preserves_fine_detail_away_from_short_seam(self):
         from osgeo import osr
         size = 240
@@ -713,6 +817,70 @@ class WorkflowTests(unittest.TestCase):
         with self.assertRaises(Exception):
             inspect_mbtiles(path, 12, 12)
 
+    def test_hgt_names_and_cells_follow_srtm_convention(self):
+        self.assertEqual(hgt_name(46, 11), 'N46E011.hgt')
+        self.assertEqual(hgt_name(-2, -7), 'S02W007.hgt')
+        geometry = QgsGeometry.fromRect(QgsRectangle(11.8, 46.8, 12.2, 47.2))
+        self.assertEqual(set(hgt_cells(geometry)), {(46, 11), (46, 12), (47, 11), (47, 12)})
+
+    def test_hgt_export_is_big_endian_and_validated(self):
+        from scialpinismo import exporter
+        source = self.root/'dem.tif'
+        ds = gdal.GetDriverByName('GTiff').Create(str(source), 10, 10, 1, gdal.GDT_Float32)
+        ds.SetGeoTransform([11, 0.1, 0, 47, 0, -0.1])
+        srs = osr.SpatialReference(); srs.SetFromUserInput('EPSG:4326')
+        ds.SetProjection(srs.ExportToWkt())
+        ds.GetRasterBand(1).SetNoDataValue(-9999)
+        ds.GetRasterBand(1).Fill(1234)
+        ds = None
+        output = self.root/'dem.zip'
+        geometry = QgsGeometry.fromRect(QgsRectangle(11.1, 46.1, 11.9, 46.9))
+        with patch.object(exporter, 'HGT_SAMPLES', 5):
+            result = export_hgt_archive(source, geometry, output)
+            self.assertTrue(inspect_hgt_archive(output, result['members']))
+            with zipfile.ZipFile(output) as archive:
+                payload = archive.read('N46E011.hgt')
+        values = np.frombuffer(payload, dtype='>i2')
+        self.assertEqual(values.size, 25)
+        self.assertIn(1234, values)
+
+    def test_hgt_export_stops_when_the_full_srtm_cell_is_not_available(self):
+        from scialpinismo import exporter
+        source = self.root/'partial_dem.tif'
+        ds = gdal.GetDriverByName('GTiff').Create(str(source), 5, 10, 1, gdal.GDT_Float32)
+        ds.SetGeoTransform([11, 0.1, 0, 47, 0, -0.1])
+        srs = osr.SpatialReference(); srs.SetFromUserInput('EPSG:4326')
+        ds.SetProjection(srs.ExportToWkt())
+        ds.GetRasterBand(1).SetNoDataValue(-9999)
+        ds.GetRasterBand(1).Fill(1234)
+        ds = None
+        geometry = QgsGeometry.fromRect(QgsRectangle(11.1, 46.1, 11.4, 46.9))
+        with patch.object(exporter, 'HGT_SAMPLES', 5):
+            with self.assertRaisesRegex(ValueError, 'Cella SRTM N46E011.hgt incompleta'):
+                export_hgt_archive([source], geometry, self.root/'partial.zip')
+        self.assertFalse((self.root/'partial.zip').exists())
+
+    def test_hgt_export_mosaics_prepared_dtms_into_one_complete_srtm_cell(self):
+        from scialpinismo import exporter
+        srs = osr.SpatialReference(); srs.SetFromUserInput('EPSG:4326')
+        sources = []
+        for name, west, value in [('west', 11.0, 1200), ('east', 11.5, 1400)]:
+            source = self.root/f'{name}.tif'
+            ds = gdal.GetDriverByName('GTiff').Create(str(source), 5, 10, 1, gdal.GDT_Float32)
+            ds.SetGeoTransform([west, 0.1, 0, 47, 0, -0.1])
+            ds.SetProjection(srs.ExportToWkt())
+            ds.GetRasterBand(1).SetNoDataValue(-9999)
+            ds.GetRasterBand(1).Fill(value)
+            ds = None
+            sources.append(source)
+        geometry = QgsGeometry.fromRect(QgsRectangle(11.1, 46.1, 11.9, 46.9))
+        output = self.root/'mosaic.zip'
+        with patch.object(exporter, 'HGT_SAMPLES', 5):
+            result = export_hgt_archive(sources, geometry, output)
+            self.assertEqual(result['members'][0]['valid_samples'], 25)
+            self.assertTrue(result['members'][0]['complete'])
+            self.assertTrue(inspect_hgt_archive(output, result['members']))
+
     def test_provider_exposes_seven_valid_algorithms(self):
         from scialpinismo.provider import Provider
         provider = Provider()
@@ -728,6 +896,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(algorithm.parameterDefinition('MAXZOOM').defaultValue(), 16)
         self.assertEqual(algorithm.parameterDefinition('MODE').defaultValue(), 0)
         self.assertEqual(algorithm.parameterDefinition('MODE').options()[0], 'File unico (predefinito)')
+        self.assertFalse(algorithm.parameterDefinition('GENERATE_HGT').defaultValue())
 
     def test_single_export_needs_no_size_limit_but_split_does(self):
         self.config['export'].pop('max_bytes', None)
