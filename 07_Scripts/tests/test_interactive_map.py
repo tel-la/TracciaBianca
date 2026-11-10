@@ -14,6 +14,12 @@ builder = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader
 SPEC.loader.exec_module(builder)
 
+SYNC_SCRIPT = ROOT / "07_Scripts" / "sync_pmtiles_manifest.py"
+SYNC_SPEC = importlib.util.spec_from_file_location("sync_pmtiles_manifest", SYNC_SCRIPT)
+syncer = importlib.util.module_from_spec(SYNC_SPEC)
+assert SYNC_SPEC.loader
+SYNC_SPEC.loader.exec_module(syncer)
+
 
 class InteractiveMapTests(unittest.TestCase):
     @classmethod
@@ -95,7 +101,13 @@ class InteractiveMapTests(unittest.TestCase):
             self.assertFalse((docs / "webmap" / "assets").exists())
             self.assertFalse(any((docs / "webmap" / "tiles").glob("*.pmtiles")))
             webmap_html = (docs / "webmap" / "index.html").read_text(encoding="utf-8")
-            self.assertIn("../data/atlas.json", (docs / "webmap" / "app.js").read_text(encoding="utf-8"))
+            webmap_app = (docs / "webmap" / "app.js").read_text(encoding="utf-8")
+            self.assertIn("../data/atlas.json", webmap_app)
+            self.assertIn('map.on("moveend", syncRasterToMap)', webmap_app)
+            self.assertIn("rasterCellsForViewport", webmap_app)
+            self.assertIn("activeRasters", webmap_app)
+            self.assertIn('url.searchParams.set("bounded", "1")', webmap_app)
+            self.assertIn("SEARCH_BOUNDS_BUFFER_KM = 20", webmap_app)
             manifest = json.loads(
                 (docs / "webmap" / "pmtiles-manifest.json").read_text(encoding="utf-8"))
             self.assertEqual(manifest["schema_version"], 1)
@@ -109,6 +121,39 @@ class InteractiveMapTests(unittest.TestCase):
             local_pmtiles.write_bytes(b"local development archive")
             builder.copy_site(ROOT, repository, self.catalog, self.cores)
             self.assertEqual(local_pmtiles.read_bytes(), b"local development archive")
+
+    def test_manifest_sync_uses_r2_and_selects_latest_edition(self):
+        objects = [
+            {
+                "Path": "ALP_E143_N084_brixen_20261020T120000Z_01_z12-16.pmtiles",
+                "Size": 100,
+            },
+            {
+                "Path": "ALP_E143_N084_brixen_20261022T180730Z_01_z12-16.pmtiles",
+                "Size": 200,
+            },
+            {
+                "Path": "ALP_E144_N084_cortina_20261023T132827Z_01_z12-16.pmtiles",
+                "Size": 300,
+            },
+        ]
+        sheets, ignored = syncer.build_sheets(
+            objects, {"ALP_E143_N084", "ALP_E144_N084"})
+        self.assertEqual(set(sheets), {"ALP_E143_N084", "ALP_E144_N084"})
+        self.assertEqual(sheets["ALP_E143_N084"]["bytes"], 200)
+        self.assertEqual(sheets["ALP_E143_N084"]["minzoom"], 12)
+        self.assertEqual(
+            ignored,
+            ["ALP_E143_N084_brixen_20261020T120000Z_01_z12-16.pmtiles"],
+        )
+
+    def test_manifest_sync_rejects_unknown_cells(self):
+        objects = [{
+            "Path": "ALP_E999_N999_nowhere_20261020T120000Z_01_z12-16.pmtiles",
+            "Size": 100,
+        }]
+        with self.assertRaisesRegex(ValueError, "assente dal catalogo"):
+            syncer.build_sheets(objects, {"ALP_E143_N084"})
 
 
 if __name__ == "__main__":

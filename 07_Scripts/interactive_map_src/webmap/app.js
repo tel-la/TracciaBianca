@@ -6,8 +6,9 @@
    *
    * Mirrors the Leaflet docs/app.js visual language and UX (search, details
    * panel, checksum / download, status labels) but renders cell polygons as a
-   * MapLibre GeoJSON overlay and, on demand, the published sheet's converted
-   * PMTiles as a raster source via the pmtiles `Protocol` API.
+   * MapLibre GeoJSON overlay and, when the viewport enters a published sheet
+   * at its minimum zoom, the converted PMTiles as a raster source via the
+   * pmtiles `Protocol` API.
    *
    * Tile source is config-driven (window.TB_CONFIG) and degrades gracefully:
    * when no .pmtiles exists yet (the current 0-byte placeholder phase) the OSM
@@ -33,6 +34,13 @@
   const searchMessage = document.getElementById("search-message");
   const searchResults = document.getElementById("search-results");
   const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
+  const SEARCH_BOUNDS_BUFFER_KM = 20;
+  const RASTER_TILE_SIZE = 256;
+  const RASTER_PREVIEW_TILE_SIZE = 128;
+  const MAPLIBRE_CANONICAL_TILE_SIZE = 512;
+  const RASTER_STANDARD_ZOOM_OFFSET = Math.log2(
+    MAPLIBRE_CANONICAL_TILE_SIZE / RASTER_TILE_SIZE);
+  const RASTER_PREVIEW_ZOOM_OFFSET = 1.8;
 
   const fields = {
     title: document.getElementById("details-title"),
@@ -46,8 +54,6 @@
   };
 
   const config = window.TB_CONFIG || {};
-  const pmtilesManifestUrl = typeof config.pmtilesManifest === "string"
-    ? config.pmtilesManifest : "./pmtiles-manifest.json";
 
   function resolveEnvironment() {
     if (config.env === "dev" || config.env === "publish") return config.env;
@@ -56,6 +62,11 @@
   }
 
   const environment = resolveEnvironment();
+  const pmtilesManifests = config.pmtilesManifests || {};
+  const pmtilesManifestUrl = typeof pmtilesManifests[environment] === "string"
+    ? pmtilesManifests[environment].trim()
+    : (typeof config.pmtilesManifest === "string"
+      ? config.pmtilesManifest : "./pmtiles-manifest.json");
   const pmtilesBases = config.pmtilesBases || {};
   const pmtilesBase = typeof pmtilesBases[environment] === "string"
     ? pmtilesBases[environment].trim() : "";
@@ -92,6 +103,7 @@
   let resizeTimer = null;
   let labelRaf = 0;
   let lastGeocoderRequest = 0;
+  let searchBounds = null;
   const geocoderCache = new Map();
   const cellsById = new Map();
   const availablePmtiles = new Map();
@@ -99,10 +111,10 @@
   let protocolRegistered = false;
   let pmtilesProtocol = null;
   let rasterRequestId = 0;
-  let activeRaster = null;
-
-  const ACTIVE_RASTER_SOURCE = "active-pmtiles";
-  const ACTIVE_RASTER_LAYER = "active-pmtiles-layer";
+  let desiredRasters = new Map();
+  const activeRasters = new Map();
+  const rasterLoads = new Map();
+  const rasterFailures = new Set();
 
   const statusLabels = {
     published: "Available",
@@ -152,9 +164,15 @@
     searchResults.hidden = true;
   }
 
-  function focusSearchResult(cell) {
+  function focusCellSearchResult(cell) {
     clearSearchFeedback();
     selectCell(cell.id, false);
+  }
+
+  function focusPlaceSearchResult(result) {
+    clearSearchFeedback();
+    closeDetails(false);
+    map.flyTo({ center: [result.lon, result.lat], zoom: 13, duration: 700 });
   }
 
   // analysis_bounds is [[south, west], [north, east]] in [lat, lon].
@@ -172,6 +190,38 @@
     return [(west + east) / 2, (south + north) / 2]; // [lng, lat]
   }
 
+  function bufferedBoundsForCells(cells, bufferKm = SEARCH_BOUNDS_BUFFER_KM) {
+    let west = Infinity;
+    let south = Infinity;
+    let east = -Infinity;
+    let north = -Infinity;
+    for (const cell of cells) {
+      const bbox = analysisBBox(cell);
+      if (!bbox) continue;
+      west = Math.min(west, bbox[0][0]);
+      south = Math.min(south, bbox[0][1]);
+      east = Math.max(east, bbox[1][0]);
+      north = Math.max(north, bbox[1][1]);
+    }
+    if (![west, south, east, north].every(Number.isFinite)) return null;
+
+    const earthRadiusKm = 6371.0088;
+    const latitudePadding = (bufferKm / earthRadiusKm) * (180 / Math.PI);
+    const outerLatitude = Math.min(89, Math.max(Math.abs(south), Math.abs(north)) + latitudePadding);
+    const longitudePadding = latitudePadding / Math.max(Math.cos(outerLatitude * Math.PI / 180), 0.01);
+    return {
+      west: Math.max(-180, west - longitudePadding),
+      south: Math.max(-90, south - latitudePadding),
+      east: Math.min(180, east + longitudePadding),
+      north: Math.min(90, north + latitudePadding),
+    };
+  }
+
+  function coordinateInSearchBounds(lat, lon) {
+    return Boolean(searchBounds && lat >= searchBounds.south && lat <= searchBounds.north
+      && lon >= searchBounds.west && lon <= searchBounds.east);
+  }
+
   function cellForCoordinate(lat, lon) {
     if (!catalog) return null;
     return catalog.cells.find((cell) => {
@@ -185,7 +235,7 @@
 
   async function geocodePlace(query) {
     const normalized = normalizeSearch(query);
-    if (!normalized) return [];
+    if (!normalized || !searchBounds) return [];
     if (geocoderCache.has(normalized)) return geocoderCache.get(normalized);
     const now = Date.now();
     const wait = Math.max(0, 1000 - (now - lastGeocoderRequest));
@@ -196,6 +246,9 @@
     url.searchParams.set("format", "jsonv2");
     url.searchParams.set("limit", "5");
     url.searchParams.set("addressdetails", "0");
+    url.searchParams.set("viewbox",
+      `${searchBounds.west},${searchBounds.north},${searchBounds.east},${searchBounds.south}`);
+    url.searchParams.set("bounded", "1");
     const response = await fetch(url, {
       headers: { Accept: "application/json" },
       credentials: "omit",
@@ -206,35 +259,47 @@
     for (const place of Array.isArray(places) ? places : []) {
       const lat = Number(place.lat);
       const lon = Number(place.lon);
-      if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
-      const cell = cellForCoordinate(lat, lon);
-      if (cell) matches.push({ cell, label: place.display_name || query.trim() });
+      if (!Number.isFinite(lat) || !Number.isFinite(lon) || !coordinateInSearchBounds(lat, lon)) continue;
+      matches.push({
+        kind: "place",
+        lat,
+        lon,
+        label: place.display_name || query.trim(),
+      });
     }
-    const unique = [...new Map(matches.map((match) => [match.cell.id, match])).values()];
+    const unique = [...new Map(matches.map((match) =>
+      [`${match.lat.toFixed(5)},${match.lon.toFixed(5)}`, match])).values()];
     geocoderCache.set(normalized, unique);
     return unique;
   }
 
-  function renderSearchResults(results, query) {
+  function activateSearchResult(result) {
+    if (result.kind === "cell") focusCellSearchResult(result.cell);
+    else focusPlaceSearchResult(result);
+  }
+
+  function renderSearchResults(results) {
     clearSearchFeedback();
     if (!results.length) {
-      searchMessage.textContent = "Not available in this atlas.";
+      searchMessage.textContent = "No places found within the map area.";
       searchMessage.hidden = false;
       return;
     }
     if (results.length === 1) {
-      focusSearchResult(results[0].cell);
+      activateSearchResult(results[0]);
       return;
     }
-    for (const { cell, label } of results.slice(0, 5)) {
+    for (const result of results.slice(0, 5)) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "search-result";
       button.setAttribute("role", "option");
       button.innerHTML = "<strong></strong><span></span>";
-      button.querySelector("strong").textContent = label;
-      button.querySelector("span").textContent = `${cell.id} · ${cell.locality}`;
-      button.addEventListener("click", () => focusSearchResult(cell));
+      button.querySelector("strong").textContent = result.label;
+      button.querySelector("span").textContent = result.kind === "cell"
+        ? `${result.cell.id} · ${result.cell.locality}`
+        : "OpenStreetMap · within the map area";
+      button.addEventListener("click", () => activateSearchResult(result));
       searchResults.append(button);
     }
     searchResults.hidden = false;
@@ -246,7 +311,11 @@
     // Local, offline-capable catalog match first.
     const local = matchingCells(query);
     if (local.length) {
-      renderSearchResults(local.map((r) => ({ cell: r.cell, label: r.cell.display_name })), query);
+      renderSearchResults(local.map((r) => ({
+        kind: "cell",
+        cell: r.cell,
+        label: r.cell.display_name,
+      })));
       return;
     }
     // Fall back to Nominatim (needs network).
@@ -254,7 +323,7 @@
     searchMessage.hidden = false;
     try {
       const results = await geocodePlace(query);
-      renderSearchResults(results, query);
+      renderSearchResults(results);
     } catch (error) {
       console.error(error);
       searchMessage.textContent = "Search is temporarily unavailable. Try again later.";
@@ -297,6 +366,10 @@
     if (state === "ready") tilesNote.classList.add("is-ready");
     if (state === "error") tilesNote.classList.add("is-error");
     tilesNote.hidden = false;
+  }
+
+  function setTilesNoteForCell(cell, state, text) {
+    if (selectedCell && selectedCell.id === cell.id) setTilesNote(state, text);
   }
 
   function derivedPmtilesFileFor(cell) {
@@ -345,43 +418,126 @@
     }
   }
 
-  function removeActiveRaster() {
-    if (map.getLayer(ACTIVE_RASTER_LAYER)) map.removeLayer(ACTIVE_RASTER_LAYER);
-    if (map.getSource(ACTIVE_RASTER_SOURCE)) map.removeSource(ACTIVE_RASTER_SOURCE);
-    activeRaster = null;
+  function rasterIdsFor(cellId) {
+    return {
+      source: `pmtiles-source-${cellId}`,
+      layer: `pmtiles-layer-${cellId}`,
+    };
   }
 
-  function cancelRasterLoad({ remove = false } = {}) {
-    rasterRequestId += 1;
-    if (remove && mapLoaded) removeActiveRaster();
+  function removeCellRaster(cellId) {
+    if (!mapLoaded) return;
+    const ids = rasterIdsFor(cellId);
+    if (map.getLayer(ids.layer)) map.removeLayer(ids.layer);
+    if (map.getSource(ids.source)) map.removeSource(ids.source);
+    activeRasters.delete(cellId);
   }
 
-  async function loadCellRaster(cell) {
+  function rasterArchiveMinZoomFor(cell) {
+    const entry = availablePmtiles.get(cell.id);
+    const manifestMinZoom = Number(entry && entry.minzoom);
+    if (Number.isFinite(manifestMinZoom)) return manifestMinZoom;
+    if (Array.isArray(cell.zoom) && Number.isFinite(cell.zoom[0])) return cell.zoom[0];
+    return 12;
+  }
+
+  // A short 128 px preview displays archive z12 at about map zoom 10.2. At
+  // zoom 11 the source returns to its normal 256 px scale.
+  function rasterActivationZoomFor(cell) {
+    return Math.max(0, rasterArchiveMinZoomFor(cell) - RASTER_PREVIEW_ZOOM_OFFSET);
+  }
+
+  function rasterTileSizeForViewport(cell) {
+    const standardZoom = rasterArchiveMinZoomFor(cell) - RASTER_STANDARD_ZOOM_OFFSET;
+    return map.getZoom() + 1e-6 < standardZoom
+      ? RASTER_PREVIEW_TILE_SIZE : RASTER_TILE_SIZE;
+  }
+
+  function bboxIntersectsViewport(bbox, bounds) {
+    return bbox[0][0] <= bounds.getEast() && bbox[1][0] >= bounds.getWest()
+      && bbox[0][1] <= bounds.getNorth() && bbox[1][1] >= bounds.getSouth();
+  }
+
+  function rasterCellsForViewport() {
+    if (!catalog || !mapLoaded) return [];
+    const bounds = map.getBounds();
+    return catalog.cells.filter((cell) => {
+      const bbox = analysisBBox(cell);
+      return bbox && map.getZoom() + 1e-6 >= rasterActivationZoomFor(cell)
+        && bboxIntersectsViewport(bbox, bounds);
+    });
+  }
+
+  function syncRasterToMap() {
+    const nextDesired = new Map(rasterCellsForViewport().map((cell) => [cell.id, {
+      cell,
+      tileSize: rasterTileSizeForViewport(cell),
+    }]));
+
+    for (const cellId of rasterLoads.keys()) {
+      const next = nextDesired.get(cellId);
+      const loading = rasterLoads.get(cellId);
+      if (!next || !loading || next.tileSize !== loading.tileSize) rasterLoads.delete(cellId);
+    }
+    for (const cellId of activeRasters.keys()) {
+      if (!nextDesired.has(cellId)) removeCellRaster(cellId);
+    }
+    for (const cellId of rasterFailures) {
+      if (!nextDesired.has(cellId)) rasterFailures.delete(cellId);
+    }
+
+    desiredRasters = nextDesired;
+    if (selectedCell && !desiredRasters.has(selectedCell.id)) setTilesNote("hidden");
+
+    for (const { cell, tileSize } of desiredRasters.values()) {
+      const active = activeRasters.get(cell.id);
+      const loading = rasterLoads.get(cell.id);
+      if (active && active.tileSize === tileSize) {
+        setTilesNoteForCell(cell, "ready", `PMTiles loaded for ${cell.id}.`);
+        continue;
+      }
+      if ((loading && loading.tileSize === tileSize) || rasterFailures.has(cell.id)) continue;
+      void loadCellRaster(cell, tileSize);
+    }
+  }
+
+  async function loadCellRaster(cell, tileSize) {
     const requestId = ++rasterRequestId;
+    const loadState = { requestId, tileSize };
+    rasterLoads.set(cell.id, loadState);
+    const isCurrent = () => {
+      const loading = rasterLoads.get(cell.id);
+      const desired = desiredRasters.get(cell.id);
+      return loading && loading.requestId === requestId
+        && desired && desired.tileSize === tileSize;
+    };
     if (!cell || cell.status !== "published") {
-      if (mapLoaded) removeActiveRaster();
-      setTilesNote("hidden");
+      removeCellRaster(cell.id);
+      if (cell) setTilesNoteForCell(cell, "hidden");
+      rasterLoads.delete(cell.id);
       return;
     }
     const hasEngine = typeof window.pmtiles !== "undefined" && window.pmtiles.PMTiles;
     const resource = availablePmtiles.get(cell.id);
     const absUrl = pmtilesUrlFor(cell);
     if (!resource || !absUrl || !hasEngine || !ensureProtocol()) {
-      if (mapLoaded) removeActiveRaster();
-      setTilesNote("unavailable",
+      removeCellRaster(cell.id);
+      rasterFailures.add(cell.id);
+      setTilesNoteForCell(cell, "unavailable",
         environment === "publish" && !pmtilesBase
           ? `PMTiles publishing is not configured yet for ${cell.id}. The base map and details remain available.`
           : `PMTiles not available yet for ${cell.id}. Add the converted archive to the configured tile directory; the base map and details remain available.`);
+      if (rasterLoads.get(cell.id) === loadState) rasterLoads.delete(cell.id);
       return;
     }
     try {
-      if (activeRaster && activeRaster.url === absUrl) {
-        setTilesNote("ready", `PMTiles loaded for ${cell.id}.`);
+      const active = activeRasters.get(cell.id);
+      if (active && active.url === absUrl && active.tileSize === tileSize) {
+        setTilesNoteForCell(cell, "ready", `PMTiles loaded for ${cell.id}.`);
         return;
       }
 
-      if (mapLoaded) removeActiveRaster();
-      setTilesNote("loading", `Loading PMTiles for ${cell.id}…`);
+      setTilesNoteForCell(cell, "loading", `Loading PMTiles for ${cell.id}…`);
       let header = resource.header;
       if (!header || resource.url !== absUrl) {
         const archive = new window.pmtiles.PMTiles(absUrl);
@@ -393,36 +549,42 @@
         resource.header = header;
         resource.url = absUrl;
       }
-      if (requestId !== rasterRequestId || !selectedCell || selectedCell.id !== cell.id) return;
+      if (!isCurrent()) return;
 
       const catalogZoom = Array.isArray(cell.zoom) && cell.zoom.every(Number.isFinite)
         ? cell.zoom : [12, 16];
       const minzoom = Number.isFinite(header.minZoom) ? header.minZoom : catalogZoom[0];
       const maxzoom = Number.isFinite(header.maxZoom) ? header.maxZoom : catalogZoom[1];
-      removeActiveRaster();
-      map.addSource(ACTIVE_RASTER_SOURCE, {
+      removeCellRaster(cell.id);
+      const ids = rasterIdsFor(cell.id);
+      map.addSource(ids.source, {
         type: "raster",
         tiles: [`pmtiles://${absUrl}/{z}/{x}/{y}`],
-        tileSize: 256,
+        tileSize,
         minzoom,
         maxzoom,
       });
       const before = map.getLayer("cells-line") ? "cells-line" : undefined;
       map.addLayer({
-        id: ACTIVE_RASTER_LAYER,
+        id: ids.layer,
         type: "raster",
-        source: ACTIVE_RASTER_SOURCE,
+        source: ids.source,
       }, before);
-      activeRaster = { cellId: cell.id, url: absUrl };
-      console.info(`PMTiles ready for ${cell.id} (z${minzoom}–${maxzoom}).`);
-      setTilesNote("ready", `PMTiles loaded for ${cell.id}.`);
+      activeRasters.set(cell.id, { url: absUrl, tileSize });
+      rasterFailures.delete(cell.id);
+      const preview = tileSize === RASTER_PREVIEW_TILE_SIZE ? " preview" : "";
+      console.info(`PMTiles${preview} ready for ${cell.id} (z${minzoom}–${maxzoom}).`);
+      setTilesNoteForCell(cell, "ready", `PMTiles loaded for ${cell.id}.`);
     } catch (error) {
-      if (requestId !== rasterRequestId || !selectedCell || selectedCell.id !== cell.id) return;
-      if (mapLoaded) removeActiveRaster();
+      if (!isCurrent()) return;
+      removeCellRaster(cell.id);
+      rasterFailures.add(cell.id);
       console.info(`PMTiles unavailable for ${cell.id}:`, error);
-      setTilesNote("error",
+      setTilesNoteForCell(cell, "error",
         `PMTiles not available yet for ${cell.id}. The base map and details still work; ` +
-        `add or verify the converted archive and select the cell again to retry.`);
+        `add or verify the converted archive, then move away and back or select the cell to retry.`);
+    } finally {
+      if (rasterLoads.get(cell.id) === loadState) rasterLoads.delete(cell.id);
     }
   }
 
@@ -559,7 +721,10 @@
   function openPanel() {
     app.classList.add("panel-open");
     panel.setAttribute("aria-hidden", "false");
-    window.requestAnimationFrame(() => map.resize());
+    window.requestAnimationFrame(() => {
+      map.resize();
+      syncRasterToMap();
+    });
   }
 
   function closePanel() {
@@ -569,6 +734,7 @@
     window.setTimeout(() => {
       map.resize();
       updateLabels();
+      syncRasterToMap();
     }, 240);
   }
 
@@ -577,6 +743,7 @@
     if (!cell) return;
     if (selectedCell && selectedCell.id !== cell.id) setFeatureSelected(selectedCell.id, false);
     selectedCell = cell;
+    rasterFailures.delete(cell.id);
     setFeatureSelected(cell.id, true);
     showDetails(cell);
     setTilesNote("hidden");
@@ -590,14 +757,13 @@
         map.fitBounds(bbox, { padding: 40, maxZoom: 13, duration: 700 });
       }, 240);
     }
-    void loadCellRaster(cell);
+    syncRasterToMap();
     if (moveFocus) window.setTimeout(() => closePanelButton.focus(), 60);
   }
 
   function closeDetails(returnFocus = true) {
     if (!app.classList.contains("panel-open")) return;
     if (selectedCell) setFeatureSelected(selectedCell.id, false);
-    cancelRasterLoad({ remove: true });
     closePanel();
     setTilesNote("hidden");
     const focusTarget = selectedCell;
@@ -620,6 +786,7 @@
     if (catalog) installCellLayer();
     createLabels();
     updateLabels();
+    syncRasterToMap();
   });
 
   map.on("mousemove", (event) => {
@@ -634,6 +801,7 @@
     else closeDetails(false);
   });
   map.on("move", scheduleLabels);
+  map.on("moveend", syncRasterToMap);
   map.on("zoom", scheduleLabels);
 
   async function loadAtlas() {
@@ -673,6 +841,7 @@
         validIds.add(cell.id);
       }
       const validCells = fullCatalog.cells.filter((cell) => validIds.has(cell.id));
+      searchBounds = bufferedBoundsForCells(validCells);
 
       catalog = {
         ...fullCatalog,
@@ -688,6 +857,7 @@
       for (const cell of validCells) cellsById.set(cell.id, cell);
       if (mapLoaded) installCellLayer();
       createLabels();
+      syncRasterToMap();
       summary.textContent = validCells.length === 1
         ? "1 PMTiles map sheet available"
         : `${validCells.length} PMTiles map sheets available`;
@@ -725,6 +895,7 @@
     resizeTimer = window.setTimeout(() => {
       map.resize();
       updateLabels();
+      syncRasterToMap();
     }, 120);
   });
 

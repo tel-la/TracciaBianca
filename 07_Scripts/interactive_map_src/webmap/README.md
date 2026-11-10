@@ -48,8 +48,15 @@ visibile una cella, aggiungerla anche a `pmtiles-manifest.json`.
 `pmtiles-manifest.json` è il piccolo indice delle celle che dispongono davvero
 di un archivio. Il viewer lo carica una sola volta insieme al catalogo e mostra
 soltanto le celle elencate. Non esegue richieste preventive verso tutti gli
-archivi: header, directory e tile vengono letti solamente dopo il clic sulla
-cella selezionata.
+archivi: header, directory e tile vengono letti solamente quando il centro
+della mappa entra in una cella circa 1,8 livelli prima del suo `minzoom`. Un
+archivio che parte da z12 mostra così una breve anteprima sottocampionata da
+zoom mappa 10,2; a zoom 11 torna automaticamente alla scala raster standard.
+Tutte le celle disponibili che intersecano il viewport vengono mantenute
+visibili insieme, ciascuna con source e layer indipendenti. Quando una cella
+esce dalla vista il relativo raster viene rimosso; tornando alla vista generale
+vengono rimossi tutti. Il clic sulla cella resta dedicato all'apertura della
+scheda e al download degli MBTiles.
 
 Ogni voce può indicare esplicitamente file, dimensione e intervallo zoom:
 
@@ -88,8 +95,17 @@ sheetFiles: {
 
 Le celle non pubblicate o non presenti nel manifest non vengono visualizzate e
 non producono richieste PMTiles. Un errore di caricamento non blocca basemap,
-griglia, ricerca o pannello; riselezionando la cella il viewer ritenta la
-lettura.
+griglia, ricerca o pannello; rientrando nella cella o riselezionandola il viewer
+ritenta la lettura.
+
+## Ricerca geografica
+
+La ricerca prova prima i nomi e gli identificativi delle celle disponibili. Se
+non trova corrispondenze interroga Nominatim/OpenStreetMap e può quindi
+raggiungere anche località non coperte da PMTiles. Le richieste OSM sono
+vincolate al rettangolo complessivo delle celle presenti nel manifest,
+allargato di 20 km in ogni direzione; lo stesso controllo viene ripetuto nel
+browser prima di mostrare i risultati.
 
 ## Configurazione dev e publish
 
@@ -102,7 +118,10 @@ window.TB_CONFIG = {
     dev: "./tiles/",
     publish: "",
   },
-  pmtilesManifest: "./pmtiles-manifest.json",
+  pmtilesManifests: {
+    dev: "./pmtiles-manifest.json",
+    publish: "https://tiles.example/pmtiles-manifest.json",
+  },
   sheetFiles: {},
 };
 ```
@@ -111,8 +130,31 @@ Con `env: "auto"`, `localhost`, `127.0.0.1` e `::1` usano `dev`; ogni altro
 host usa `publish`. Prima della pubblicazione impostare `publish` sull’URL
 pubblico del bucket o del dominio R2, terminato da `/`.
 
-GitHub Pages continua a servire HTML, JavaScript, manifest, catalogo e GeoJSON.
-Soltanto gli archivi PMTiles devono risiedere sul servizio esterno.
+GitHub Pages continua a servire HTML, JavaScript, catalogo e GeoJSON. In
+sviluppo usa il manifest locale; la pagina pubblicata legge invece il manifest
+R2, così aggiunte e rimozioni diventano visibili senza un nuovo commit GitHub.
+
+## Upload e sincronizzazione R2
+
+Il comando seguente carica uno o più file, verifica Range/CORS, ricostruisce le
+due copie locali del manifest dall'elenco reale del bucket e pubblica su R2 il
+manifest usato dalla webmap online:
+
+```bash
+07_Scripts/upload_pmtiles_r2.sh prima.pmtiles seconda.pmtiles
+```
+
+Senza file esegue soltanto la riconciliazione. È il comando da usare dopo aver
+cancellato manualmente oggetti da R2:
+
+```bash
+07_Scripts/upload_pmtiles_r2.sh
+```
+
+R2 è la fonte autorevole: una cella senza più PMTiles viene rimossa dal
+manifest; se esistono più edizioni della stessa cella viene scelta quella con
+il timestamp più recente nel nome. Il manifest R2 usa `no-cache`, mentre i
+PMTiles versionati conservano la cache immutabile di un anno.
 
 ## Requisiti R2, Range e CORS
 
@@ -173,7 +215,9 @@ Checklist prima della pubblicazione:
 1. ricostruire `docs/` con il builder;
 2. aprire `/webmap/` tramite il server locale;
 3. verificare che siano mostrate soltanto le celle elencate nel manifest;
-4. verificare che l’avvio non generi richieste verso gli archivi PMTiles;
-5. selezionare una cella e verificare header e tile Range in locale;
-6. provare lo stesso archivio su R2 dall’origine GitHub Pages;
-7. controllare console, layout desktop/mobile, tastiera ed `Esc`.
+4. verificare che l’avvio e la vista generale non generino richieste verso gli archivi PMTiles;
+5. senza cliccare, portare il centro della mappa dentro una cella a zoom 10,2 e verificare anteprima e tile Range z12;
+6. inquadrare due o più celle contigue e verificare che i rispettivi raster siano visibili insieme;
+7. cercare una località esterna alle celle ma interna al margine di 20 km;
+8. provare lo stesso archivio su R2 dall’origine GitHub Pages;
+9. controllare console, layout desktop/mobile, tastiera ed `Esc`.
