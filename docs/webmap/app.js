@@ -222,17 +222,6 @@
       && lon >= searchBounds.west && lon <= searchBounds.east);
   }
 
-  function cellForCoordinate(lat, lon) {
-    if (!catalog) return null;
-    return catalog.cells.find((cell) => {
-      const b = cell.analysis_bounds;
-      if (!Array.isArray(b) || b.length < 2) return false;
-      const [south, west] = b[0];
-      const [north, east] = b[1];
-      return lat >= south && lat <= north && lon >= west && lon <= east;
-    }) || null;
-  }
-
   async function geocodePlace(query) {
     const normalized = normalizeSearch(query);
     if (!normalized || !searchBounds) return [];
@@ -643,9 +632,15 @@
     for (const cell of catalog.cells) {
       const bbox = analysisBBox(cell);
       if (!bbox) continue;
-      const el = document.createElement("div");
+      const el = document.createElement("button");
+      el.type = "button";
       el.className = "cell-label";
-      el.setAttribute("aria-hidden", "true");
+      el.setAttribute("aria-label", `Open details for ${cell.id}, ${cell.locality}`);
+      el.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        selectCell(cell.id, true);
+      });
       const compact = document.createElement("span");
       compact.className = "compact";
       compact.textContent = compactId(cell.id);
@@ -789,17 +784,7 @@
     syncRasterToMap();
   });
 
-  map.on("mousemove", (event) => {
-    map.getCanvas().style.cursor = cellForCoordinate(event.lngLat.lat, event.lngLat.lng)
-      ? "pointer" : "";
-  });
-  map.on("mouseout", () => { map.getCanvas().style.cursor = ""; });
-  map.on("click", (event) => {
-    if (!installedCells) return;
-    const cell = cellForCoordinate(event.lngLat.lat, event.lngLat.lng);
-    if (cell) selectCell(cell.id, false);
-    else closeDetails(false);
-  });
+  map.on("click", () => closeDetails(false));
   map.on("move", scheduleLabels);
   map.on("moveend", syncRasterToMap);
   map.on("zoom", scheduleLabels);

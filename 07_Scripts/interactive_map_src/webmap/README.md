@@ -55,8 +55,9 @@ zoom mappa 10,2; a zoom 11 torna automaticamente alla scala raster standard.
 Tutte le celle disponibili che intersecano il viewport vengono mantenute
 visibili insieme, ciascuna con source e layer indipendenti. Quando una cella
 esce dalla vista il relativo raster viene rimosso; tornando alla vista generale
-vengono rimossi tutti. Il clic sulla cella resta dedicato all'apertura della
-scheda e al download degli MBTiles.
+vengono rimossi tutti. La scheda informativa e il download MBTiles si aprono
+soltanto cliccando il riquadro con il codice della cella; il resto della
+superficie resta dedicato alla navigazione della mappa.
 
 Ogni voce può indicare esplicitamente file, dimensione e intervallo zoom:
 

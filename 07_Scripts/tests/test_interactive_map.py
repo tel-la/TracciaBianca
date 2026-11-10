@@ -106,12 +106,19 @@ class InteractiveMapTests(unittest.TestCase):
             self.assertIn('map.on("moveend", syncRasterToMap)', webmap_app)
             self.assertIn("rasterCellsForViewport", webmap_app)
             self.assertIn("activeRasters", webmap_app)
+            self.assertIn('document.createElement("button")', webmap_app)
+            self.assertIn('map.on("click", () => closeDetails(false))', webmap_app)
             self.assertIn('url.searchParams.set("bounded", "1")', webmap_app)
             self.assertIn("SEARCH_BOUNDS_BUFFER_KM = 20", webmap_app)
             manifest = json.loads(
                 (docs / "webmap" / "pmtiles-manifest.json").read_text(encoding="utf-8"))
             self.assertEqual(manifest["schema_version"], 1)
-            self.assertIn("ALP_E131_N078", manifest["sheets"])
+            self.assertTrue(manifest["sheets"])
+            self.assertTrue(all(
+                isinstance(entry, (str, dict)) and
+                (entry if isinstance(entry, str) else entry.get("file", "")).endswith(".pmtiles")
+                for entry in manifest["sheets"].values()
+            ))
             self.assertIn("./vendor/maplibre-gl/maplibre-gl.js", webmap_html)
             generated = json.loads((docs / "data" / "atlas.json").read_text(encoding="utf-8"))
             self.assertEqual(generated["cell_count"], self.catalog["cell_count"])

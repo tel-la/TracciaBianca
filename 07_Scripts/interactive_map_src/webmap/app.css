@@ -473,6 +473,7 @@ a:focus-visible {
 
 /* ---- Cell labels (DOM overlay, mirrors the Leaflet visual language) ------ */
 .cell-label {
+  appearance: none;
   position: absolute;
   z-index: 50;
   transform: translate(-50%, -50%);
@@ -483,6 +484,7 @@ a:focus-visible {
   color: var(--deep-navy);
   background: rgb(248 250 252 / 88%);
   box-shadow: 0 2px 7px rgb(6 42 67 / 16%);
+  font-family: inherit;
   font-weight: 850;
   font-size: 11px;
   line-height: 1.05;
@@ -490,8 +492,12 @@ a:focus-visible {
   text-align: center;
   white-space: pre-line;
   text-shadow: 0 1px 1px #fff;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
 }
+
+.cell-label:hover { background: #fff; box-shadow: 0 3px 10px rgb(6 42 67 / 24%); }
+.cell-label:focus-visible { outline: 3px solid var(--sky-blue); outline-offset: 2px; }
 
 /* Symbol / label rendering for the cell overlay */
 .maplibregl-canvas:focus { outline: 3px solid var(--sky-blue); outline-offset: -3px; }
