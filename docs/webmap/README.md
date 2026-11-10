@@ -49,15 +49,30 @@ visibile una cella, aggiungerla anche a `pmtiles-manifest.json`.
 di un archivio. Il viewer lo carica una sola volta insieme al catalogo e mostra
 soltanto le celle elencate. Non esegue richieste preventive verso tutti gli
 archivi: header, directory e tile vengono letti solamente quando il centro
-della mappa entra in una cella circa 1,8 livelli prima del suo `minzoom`. Un
-archivio che parte da z12 mostra così una breve anteprima sottocampionata da
-zoom mappa 10,2; a zoom 11 torna automaticamente alla scala raster standard.
+della mappa entra in una cella circa 2,25 livelli prima del suo `minzoom`. Un
+archivio che parte da z12 mostra così un'anteprima progressiva da zoom mappa
+9,75, passa a una scala intermedia a z10 e torna alla scala raster standard a
+z11.
 Tutte le celle disponibili che intersecano il viewport vengono mantenute
 visibili insieme, ciascuna con source e layer indipendenti. Quando una cella
 esce dalla vista il relativo raster viene rimosso; tornando alla vista generale
 vengono rimossi tutti. La scheda informativa e il download MBTiles si aprono
 soltanto cliccando il riquadro con il codice della cella; il resto della
 superficie resta dedicato alla navigazione della mappa.
+
+## Scala, misurazione e coordinate
+
+La barra metrica in basso a sinistra si aggiorna automaticamente durante zoom
+e spostamenti, passando tra metri e chilometri. Il pulsante `Measure` consente
+di selezionare due punti: dopo il primo clic, linea ed etichetta della distanza
+seguono dinamicamente il puntatore; il secondo clic fissa la misura geodetica
+diretta. `Clear` elimina la misurazione. Un clic destro sulla mappa apre un menu
+con latitudine, longitudine e il collegamento diretto al punto su Google Maps.
+Lo stesso menu consente di nascondere in modo persistente tutti i raster
+PMTiles e lavorare sulla sola basemap OSM, oppure di riattivarli. In alternativa,
+tenendo premuto il pulsante sinistro sulla mappa per 1,2 secondi i PMTiles
+scompaiono temporaneamente e ricompaiono al rilascio; un trascinamento normale
+non attiva questa anteprima.
 
 Ogni voce può indicare esplicitamente file, dimensione e intervallo zoom:
 
@@ -217,8 +232,10 @@ Checklist prima della pubblicazione:
 2. aprire `/webmap/` tramite il server locale;
 3. verificare che siano mostrate soltanto le celle elencate nel manifest;
 4. verificare che l’avvio e la vista generale non generino richieste verso gli archivi PMTiles;
-5. senza cliccare, portare il centro della mappa dentro una cella a zoom 10,2 e verificare anteprima e tile Range z12;
+5. senza cliccare, portare il centro della mappa dentro una cella a zoom 9,75 e verificare anteprima e tile Range z12;
 6. inquadrare due o più celle contigue e verificare che i rispettivi raster siano visibili insieme;
 7. cercare una località esterna alle celle ma interna al margine di 20 km;
-8. provare lo stesso archivio su R2 dall’origine GitHub Pages;
-9. controllare console, layout desktop/mobile, tastiera ed `Esc`.
+8. verificare scala metrica, misurazione a due punti, cancellazione e menu coordinate con clic destro;
+9. verificare pressione lunga di 1,2 secondi e attivazione/disattivazione persistente dei PMTiles;
+10. provare lo stesso archivio su R2 dall’origine GitHub Pages;
+11. controllare console, layout desktop/mobile, tastiera ed `Esc`.

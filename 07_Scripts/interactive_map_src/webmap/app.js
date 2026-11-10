@@ -33,14 +33,29 @@
   const placeSearchInput = document.getElementById("place-search-input");
   const searchMessage = document.getElementById("search-message");
   const searchResults = document.getElementById("search-results");
+  const measureToggle = document.getElementById("measure-toggle");
+  const measureReadout = document.getElementById("measure-readout");
+  const measureText = document.getElementById("measure-text");
+  const measureClear = document.getElementById("measure-clear");
+  const measurementLabel = document.getElementById("measurement-label");
+  const coordinateMenu = document.getElementById("coordinate-menu");
+  const coordinateValues = document.getElementById("coordinate-values");
+  const coordinateLink = document.getElementById("coordinate-link");
+  const pmtilesVisibilityToggle = document.getElementById("pmtiles-visibility-toggle");
   const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
   const SEARCH_BOUNDS_BUFFER_KM = 20;
   const RASTER_TILE_SIZE = 256;
   const RASTER_PREVIEW_TILE_SIZE = 128;
+  const RASTER_EARLY_PREVIEW_TILE_SIZE = 64;
   const MAPLIBRE_CANONICAL_TILE_SIZE = 512;
   const RASTER_STANDARD_ZOOM_OFFSET = Math.log2(
     MAPLIBRE_CANONICAL_TILE_SIZE / RASTER_TILE_SIZE);
-  const RASTER_PREVIEW_ZOOM_OFFSET = 1.8;
+  const RASTER_PREVIEW_ZOOM_OFFSET = 2.25;
+  const MEASUREMENT_SOURCE = "distance-measurement";
+  const MEASUREMENT_LINE_LAYER = "distance-measurement-line";
+  const MEASUREMENT_POINT_LAYER = "distance-measurement-points";
+  const PMTILES_HOLD_DELAY_MS = 1200;
+  const PMTILES_HOLD_MOVE_TOLERANCE = 10;
 
   const fields = {
     title: document.getElementById("details-title"),
@@ -93,6 +108,7 @@
       layers: [{ id: "osm-base", type: "raster", source: "osm" }],
     },
   });
+  map.addControl(new maplibregl.ScaleControl({ maxWidth: 140, unit: "metric" }), "bottom-left");
 
   let catalog;
   let coresData;
@@ -115,6 +131,14 @@
   const activeRasters = new Map();
   const rasterLoads = new Map();
   const rasterFailures = new Set();
+  let measurementActive = false;
+  let measurementPoints = [];
+  let measurementPreviewPoint = null;
+  let pmtilesEnabled = true;
+  let pmtilesPeekHidden = false;
+  let pmtilesHoldTimer = null;
+  let pmtilesHoldPointerId = null;
+  let pmtilesHoldStart = null;
 
   const statusLabels = {
     published: "Available",
@@ -422,6 +446,32 @@
     activeRasters.delete(cellId);
   }
 
+  function pmtilesLayersAreVisible() {
+    return pmtilesEnabled && !pmtilesPeekHidden;
+  }
+
+  function applyPmtilesVisibility() {
+    const visibility = pmtilesLayersAreVisible() ? "visible" : "none";
+    for (const cellId of activeRasters.keys()) {
+      const layerId = rasterIdsFor(cellId).layer;
+      if (map.getLayer(layerId)) map.setLayoutProperty(layerId, "visibility", visibility);
+    }
+  }
+
+  function updatePmtilesVisibilityToggle() {
+    pmtilesVisibilityToggle.textContent = pmtilesEnabled ? "Hide PMTiles" : "Show PMTiles";
+    pmtilesVisibilityToggle.setAttribute("aria-pressed", String(pmtilesEnabled));
+  }
+
+  function setPmtilesEnabled(enabled) {
+    pmtilesEnabled = Boolean(enabled);
+    pmtilesPeekHidden = false;
+    cancelPmtilesHold();
+    updatePmtilesVisibilityToggle();
+    applyPmtilesVisibility();
+    if (pmtilesEnabled) syncRasterToMap();
+  }
+
   function rasterArchiveMinZoomFor(cell) {
     const entry = availablePmtiles.get(cell.id);
     const manifestMinZoom = Number(entry && entry.minzoom);
@@ -430,16 +480,19 @@
     return 12;
   }
 
-  // A short 128 px preview displays archive z12 at about map zoom 10.2. At
-  // zoom 11 the source returns to its normal 256 px scale.
+  // Progressive downsampling makes archive z12 visible from map zoom 9.75:
+  // 64 px below z10, 128 px from z10 and the normal 256 px from z11.
   function rasterActivationZoomFor(cell) {
     return Math.max(0, rasterArchiveMinZoomFor(cell) - RASTER_PREVIEW_ZOOM_OFFSET);
   }
 
   function rasterTileSizeForViewport(cell) {
+    const archiveMinZoom = rasterArchiveMinZoomFor(cell);
     const standardZoom = rasterArchiveMinZoomFor(cell) - RASTER_STANDARD_ZOOM_OFFSET;
-    return map.getZoom() + 1e-6 < standardZoom
-      ? RASTER_PREVIEW_TILE_SIZE : RASTER_TILE_SIZE;
+    const regularPreviewZoom = archiveMinZoom - 2;
+    if (map.getZoom() + 1e-6 < regularPreviewZoom) return RASTER_EARLY_PREVIEW_TILE_SIZE;
+    if (map.getZoom() + 1e-6 < standardZoom) return RASTER_PREVIEW_TILE_SIZE;
+    return RASTER_TILE_SIZE;
   }
 
   function bboxIntersectsViewport(bbox, bounds) {
@@ -477,6 +530,7 @@
 
     desiredRasters = nextDesired;
     if (selectedCell && !desiredRasters.has(selectedCell.id)) setTilesNote("hidden");
+    if (!pmtilesEnabled) return;
 
     for (const { cell, tileSize } of desiredRasters.values()) {
       const active = activeRasters.get(cell.id);
@@ -558,10 +612,12 @@
         id: ids.layer,
         type: "raster",
         source: ids.source,
+        layout: { visibility: pmtilesLayersAreVisible() ? "visible" : "none" },
       }, before);
       activeRasters.set(cell.id, { url: absUrl, tileSize });
       rasterFailures.delete(cell.id);
-      const preview = tileSize === RASTER_PREVIEW_TILE_SIZE ? " preview" : "";
+      const preview = tileSize === RASTER_EARLY_PREVIEW_TILE_SIZE
+        ? " early preview" : (tileSize === RASTER_PREVIEW_TILE_SIZE ? " preview" : "");
       console.info(`PMTiles${preview} ready for ${cell.id} (z${minzoom}–${maxzoom}).`);
       setTilesNoteForCell(cell, "ready", `PMTiles loaded for ${cell.id}.`);
     } catch (error) {
@@ -622,6 +678,7 @@
       },
     });
     installedCells = true;
+    raiseMeasurementLayers();
   }
 
   /* ---- DOM labels (mirrors the Leaflet visual language, offline-safe) ----- */
@@ -681,6 +738,233 @@
     });
   }
 
+  /* ---- Scale, straight-line measurement and coordinate menu ------------- */
+
+  function measurementEndpoints() {
+    if (measurementPoints.length === 2) return measurementPoints;
+    if (measurementPoints.length === 1 && measurementPreviewPoint) {
+      return [measurementPoints[0], measurementPreviewPoint];
+    }
+    return null;
+  }
+
+  function measurementData() {
+    const displayedPoints = [...measurementPoints];
+    if (measurementPoints.length === 1 && measurementPreviewPoint) {
+      displayedPoints.push(measurementPreviewPoint);
+    }
+    const coordinates = displayedPoints.map((point) => [point.lng, point.lat]);
+    const features = coordinates.map((coordinate, index) => ({
+      type: "Feature",
+      properties: { index, preview: index >= measurementPoints.length },
+      geometry: { type: "Point", coordinates: coordinate },
+    }));
+    if (coordinates.length === 2) {
+      features.unshift({
+        type: "Feature",
+        properties: {},
+        geometry: { type: "LineString", coordinates },
+      });
+    }
+    return { type: "FeatureCollection", features };
+  }
+
+  function raiseMeasurementLayers() {
+    if (map.getLayer(MEASUREMENT_LINE_LAYER)) map.moveLayer(MEASUREMENT_LINE_LAYER);
+    if (map.getLayer(MEASUREMENT_POINT_LAYER)) map.moveLayer(MEASUREMENT_POINT_LAYER);
+  }
+
+  function installMeasurementLayers() {
+    if (!mapLoaded || map.getSource(MEASUREMENT_SOURCE)) return;
+    map.addSource(MEASUREMENT_SOURCE, { type: "geojson", data: measurementData() });
+    map.addLayer({
+      id: MEASUREMENT_LINE_LAYER,
+      type: "line",
+      source: MEASUREMENT_SOURCE,
+      filter: ["==", ["geometry-type"], "LineString"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": "#d14f2a",
+        "line-width": 3,
+        "line-opacity": 0.95,
+      },
+    });
+    map.addLayer({
+      id: MEASUREMENT_POINT_LAYER,
+      type: "circle",
+      source: MEASUREMENT_SOURCE,
+      filter: ["==", ["geometry-type"], "Point"],
+      paint: {
+        "circle-radius": 6,
+        "circle-color": "#f8fafc",
+        "circle-stroke-color": "#d14f2a",
+        "circle-stroke-width": 3,
+      },
+    });
+  }
+
+  function updateMeasurementData() {
+    installMeasurementLayers();
+    const source = map.getSource(MEASUREMENT_SOURCE);
+    if (source) source.setData(measurementData());
+    updateMeasurementLabel();
+  }
+
+  function haversineDistanceMeters(start, end) {
+    const toRadians = (degrees) => degrees * Math.PI / 180;
+    const earthRadiusMeters = 6371008.8;
+    const latitudeDelta = toRadians(end.lat - start.lat);
+    const longitudeDelta = toRadians(end.lng - start.lng);
+    const startLatitude = toRadians(start.lat);
+    const endLatitude = toRadians(end.lat);
+    const a = Math.sin(latitudeDelta / 2) ** 2
+      + Math.cos(startLatitude) * Math.cos(endLatitude)
+      * Math.sin(longitudeDelta / 2) ** 2;
+    return earthRadiusMeters * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  function formatDistance(meters) {
+    if (meters < 1000) return `${Math.round(meters)} m`;
+    const kilometres = meters / 1000;
+    return `${kilometres.toLocaleString("en", {
+      minimumFractionDigits: kilometres < 10 ? 2 : 1,
+      maximumFractionDigits: kilometres < 10 ? 2 : 1,
+    })} km`;
+  }
+
+  function updateMeasurementLabel() {
+    const endpoints = measurementEndpoints();
+    if (!endpoints || !mapLoaded) {
+      measurementLabel.hidden = true;
+      return;
+    }
+    const distanceText = formatDistance(haversineDistanceMeters(endpoints[0], endpoints[1]));
+    const midpoint = {
+      lng: (endpoints[0].lng + endpoints[1].lng) / 2,
+      lat: (endpoints[0].lat + endpoints[1].lat) / 2,
+    };
+    const point = map.project(midpoint);
+    const container = map.getContainer();
+    const visible = point.x >= 0 && point.x <= container.clientWidth
+      && point.y >= 0 && point.y <= container.clientHeight;
+    measurementLabel.hidden = !visible;
+    if (!visible) return;
+    measurementLabel.textContent = distanceText;
+    measurementLabel.style.left = `${point.x}px`;
+    measurementLabel.style.top = `${point.y}px`;
+  }
+
+  function setMeasurementMode(active) {
+    measurementActive = active;
+    measureToggle.setAttribute("aria-pressed", String(active));
+    map.getCanvas().classList.toggle("is-measuring", active);
+  }
+
+  function clearMeasurement() {
+    measurementPoints = [];
+    measurementPreviewPoint = null;
+    setMeasurementMode(false);
+    updateMeasurementData();
+    measureReadout.hidden = true;
+    measureText.textContent = "";
+  }
+
+  function startMeasurement() {
+    closeDetails(false);
+    closeCoordinateMenu();
+    measurementPoints = [];
+    measurementPreviewPoint = null;
+    updateMeasurementData();
+    setMeasurementMode(true);
+    measureText.textContent = "Click the starting point.";
+    measureReadout.hidden = false;
+  }
+
+  function addMeasurementPoint(lngLat) {
+    measurementPoints.push({ lng: lngLat.lng, lat: lngLat.lat });
+    measurementPreviewPoint = null;
+    updateMeasurementData();
+    if (measurementPoints.length === 1) {
+      measureText.textContent = "Move the pointer, then click the end point.";
+      return;
+    }
+    const distance = haversineDistanceMeters(measurementPoints[0], measurementPoints[1]);
+    measureText.textContent = `${formatDistance(distance)} straight line`;
+    setMeasurementMode(false);
+  }
+
+  function updateMeasurementPreview(event) {
+    if (!measurementActive || measurementPoints.length !== 1) return;
+    measurementPreviewPoint = { lng: event.lngLat.lng, lat: event.lngLat.lat };
+    const distance = haversineDistanceMeters(measurementPoints[0], measurementPreviewPoint);
+    measureText.textContent = `${formatDistance(distance)} straight line`;
+    updateMeasurementData();
+  }
+
+  function cancelPmtilesHold() {
+    if (pmtilesHoldTimer !== null) {
+      window.clearTimeout(pmtilesHoldTimer);
+      pmtilesHoldTimer = null;
+    }
+    pmtilesHoldPointerId = null;
+    pmtilesHoldStart = null;
+    if (pmtilesPeekHidden) {
+      pmtilesPeekHidden = false;
+      applyPmtilesVisibility();
+    }
+  }
+
+  function startPmtilesHold(event) {
+    if (event.button !== 0 || measurementActive || !pmtilesEnabled || !activeRasters.size) return;
+    cancelPmtilesHold();
+    pmtilesHoldPointerId = event.pointerId;
+    pmtilesHoldStart = { x: event.clientX, y: event.clientY };
+    pmtilesHoldTimer = window.setTimeout(() => {
+      pmtilesHoldTimer = null;
+      if (pmtilesHoldPointerId === null || !pmtilesEnabled) return;
+      pmtilesPeekHidden = true;
+      closeCoordinateMenu();
+      applyPmtilesVisibility();
+    }, PMTILES_HOLD_DELAY_MS);
+  }
+
+  function movePmtilesHold(event) {
+    if (event.pointerId !== pmtilesHoldPointerId || pmtilesHoldTimer === null || !pmtilesHoldStart) return;
+    const distance = Math.hypot(
+      event.clientX - pmtilesHoldStart.x,
+      event.clientY - pmtilesHoldStart.y);
+    if (distance > PMTILES_HOLD_MOVE_TOLERANCE) cancelPmtilesHold();
+  }
+
+  function endPmtilesHold(event) {
+    if (event.pointerId === pmtilesHoldPointerId) cancelPmtilesHold();
+  }
+
+  function closeCoordinateMenu() {
+    coordinateMenu.hidden = true;
+  }
+
+  function openCoordinateMenu(event) {
+    event.originalEvent.preventDefault();
+    updatePmtilesVisibilityToggle();
+    const latitude = event.lngLat.lat;
+    const longitude = event.lngLat.lng;
+    const coordinateText = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+    coordinateValues.textContent = coordinateText;
+    coordinateLink.href = `https://www.google.com/maps?q=${latitude.toFixed(6)},${longitude.toFixed(6)}`;
+    coordinateLink.setAttribute("aria-label", `Open ${coordinateText} in Google Maps`);
+    coordinateMenu.hidden = false;
+    coordinateMenu.style.left = `${event.point.x + 8}px`;
+    coordinateMenu.style.top = `${event.point.y + 8}px`;
+    window.requestAnimationFrame(() => {
+      const maxLeft = Math.max(8, mapShell.clientWidth - coordinateMenu.offsetWidth - 8);
+      const maxTop = Math.max(8, mapShell.clientHeight - coordinateMenu.offsetHeight - 8);
+      coordinateMenu.style.left = `${Math.max(8, Math.min(event.point.x + 8, maxLeft))}px`;
+      coordinateMenu.style.top = `${Math.max(8, Math.min(event.point.y + 8, maxTop))}px`;
+      coordinateLink.focus({ preventScroll: true });
+    });
+  }
+
   /* ---- Selection / panel -------------------------------------------------- */
 
   function showDetails(cell) {
@@ -719,6 +1003,7 @@
     window.requestAnimationFrame(() => {
       map.resize();
       syncRasterToMap();
+      updateMeasurementLabel();
     });
   }
 
@@ -729,6 +1014,7 @@
     window.setTimeout(() => {
       map.resize();
       updateLabels();
+      updateMeasurementLabel();
       syncRasterToMap();
     }, 240);
   }
@@ -778,16 +1064,39 @@
 
   map.on("load", () => {
     mapLoaded = true;
+    measureToggle.disabled = false;
     if (catalog) installCellLayer();
     createLabels();
     updateLabels();
     syncRasterToMap();
   });
 
-  map.on("click", () => closeDetails(false));
-  map.on("move", scheduleLabels);
+  map.on("click", (event) => {
+    closeCoordinateMenu();
+    if (measurementActive) addMeasurementPoint(event.lngLat);
+    else closeDetails(false);
+  });
+  map.on("contextmenu", openCoordinateMenu);
+  map.on("movestart", closeCoordinateMenu);
+  map.on("mousemove", updateMeasurementPreview);
+  map.on("move", () => {
+    scheduleLabels();
+    updateMeasurementLabel();
+  });
   map.on("moveend", syncRasterToMap);
-  map.on("zoom", scheduleLabels);
+  map.on("zoom", () => {
+    scheduleLabels();
+    updateMeasurementLabel();
+  });
+  const mapCanvas = map.getCanvas();
+  mapCanvas.addEventListener("pointerdown", startPmtilesHold);
+  mapCanvas.addEventListener("pointermove", movePmtilesHold);
+  mapCanvas.addEventListener("pointerleave", () => {
+    if (pmtilesHoldTimer !== null) cancelPmtilesHold();
+  });
+  window.addEventListener("pointerup", endPmtilesHold, true);
+  window.addEventListener("pointercancel", endPmtilesHold, true);
+  window.addEventListener("blur", cancelPmtilesHold);
 
   async function loadAtlas() {
     try {
@@ -861,8 +1170,24 @@
     void showSearchResults(placeSearchInput.value);
   });
   placeSearchInput.addEventListener("input", clearSearchFeedback);
+  measureToggle.addEventListener("click", () => {
+    if (measurementActive) clearMeasurement();
+    else startMeasurement();
+  });
+  measureClear.addEventListener("click", clearMeasurement);
+  pmtilesVisibilityToggle.addEventListener("click", () => {
+    setPmtilesEnabled(!pmtilesEnabled);
+    closeCoordinateMenu();
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (!coordinateMenu.hidden && !coordinateMenu.contains(event.target)) closeCoordinateMenu();
+  });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeDetails(true);
+    if (event.key !== "Escape") return;
+    cancelPmtilesHold();
+    closeCoordinateMenu();
+    if (measurementActive) clearMeasurement();
+    closeDetails(true);
   });
 
   copyChecksumButton.addEventListener("click", async () => {
@@ -880,6 +1205,7 @@
     resizeTimer = window.setTimeout(() => {
       map.resize();
       updateLabels();
+      updateMeasurementLabel();
       syncRasterToMap();
     }, 120);
   });

@@ -471,6 +471,131 @@ a:focus-visible {
 
 .maplibregl-ctrl-logo { display: none; }
 
+.maplibregl-ctrl-scale {
+  margin: 0 0 max(12px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)) !important;
+  padding: 2px 5px 1px;
+  border-color: var(--deep-navy) !important;
+  color: var(--deep-navy);
+  background: rgb(248 250 252 / 90%);
+  box-shadow: 0 3px 12px rgb(6 42 67 / 16%);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+/* ---- Distance measurement and coordinate tools ------------------------- */
+.measurement-tools {
+  position: absolute;
+  z-index: 820;
+  bottom: max(47px, calc(37px + env(safe-area-inset-bottom)));
+  left: max(10px, env(safe-area-inset-left));
+  display: flex;
+  align-items: stretch;
+  gap: 7px;
+  max-width: calc(100% - 20px);
+}
+
+.measure-toggle,
+.measure-readout {
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 10px;
+  color: var(--deep-navy);
+  background: rgb(248 250 252 / 95%);
+  box-shadow: 0 7px 22px rgb(6 42 67 / 19%);
+  backdrop-filter: blur(8px);
+}
+
+.measure-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 7px 11px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.measure-toggle:hover { background: #fff; }
+.measure-toggle:disabled { opacity: .55; cursor: wait; }
+.measure-toggle[aria-pressed="true"] { color: #fff; background: var(--mountain-blue); }
+.measure-toggle:focus-visible,
+.measure-readout button:focus-visible,
+.coordinate-menu a:focus-visible { outline: 3px solid var(--sky-blue); outline-offset: 2px; }
+.measure-icon { font-size: 17px; line-height: 1; }
+
+.measure-readout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 5px 6px 5px 11px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.measure-readout button {
+  padding: 4px 7px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--mountain-blue);
+  background: var(--ice-blue);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.maplibregl-canvas.is-measuring { cursor: crosshair; }
+
+.measurement-label {
+  position: absolute;
+  z-index: 825;
+  transform: translate(-50%, -145%);
+  padding: 4px 7px;
+  border: 2px solid #d14f2a;
+  border-radius: 7px;
+  color: var(--deep-navy);
+  background: rgb(248 250 252 / 96%);
+  box-shadow: 0 3px 12px rgb(6 42 67 / 20%);
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.coordinate-menu {
+  position: absolute;
+  z-index: 1200;
+  display: grid;
+  gap: 7px;
+  width: min(235px, calc(100% - 16px));
+  padding: 12px;
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 12px;
+  color: var(--dark-text);
+  background: rgb(248 250 252 / 97%);
+  box-shadow: 0 12px 32px rgb(6 42 67 / 25%);
+  backdrop-filter: blur(10px);
+}
+
+.coordinate-menu strong { color: var(--deep-navy); font-size: 12px; }
+.coordinate-menu code { color: var(--mountain-blue); font-size: 12px; }
+.coordinate-menu button {
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--deep-navy);
+  background: var(--ice-blue);
+  font-size: 11px;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+.coordinate-menu button:hover { background: #fff; }
+.coordinate-menu button:focus-visible { outline: 3px solid var(--sky-blue); outline-offset: 2px; }
+.coordinate-menu a { color: var(--alpine-blue); font-size: 11px; font-weight: 800; text-decoration: none; }
+.coordinate-menu a:hover { text-decoration: underline; }
+
 /* ---- Cell labels (DOM overlay, mirrors the Leaflet visual language) ------ */
 .cell-label {
   appearance: none;
@@ -555,6 +680,8 @@ a:focus-visible {
     bottom: max(24px, calc(14px + env(safe-area-inset-bottom)));
     width: clamp(150px, calc(100% - 208px), 240px);
   }
+
+  .measurement-tools { bottom: max(75px, calc(65px + env(safe-area-inset-bottom))); }
 }
 
 @media (max-width: 420px) {

@@ -35,7 +35,7 @@ Use the **[interactive map-sheet index](https://tel-la.github.io/TracciaBianca/)
 The image is an earlier preview; the interactive map shows the current atlas extent.
 
 <p align="center">
-  <a href="https://tel-la.github.io/TracciaBianca/">
+  <a href="https://tel-la.github.io/TracciaBianca/webmap/">
     <strong>Explore the interactive map →</strong>
   </a>
 </p>

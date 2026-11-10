@@ -8,7 +8,7 @@
   <title>TracciaBianca Webmap · PMTiles</title>
   <link rel="icon" href="../assets/TracciaBianca_LogoCirlce.png" type="image/png">
   <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css">
-  <link rel="stylesheet" href="./app.css?v=20261110-3">
+  <link rel="stylesheet" href="./app.css?v=20261110-6">
 </head>
 <body>
   <a class="skip-link" href="#map">Skip to the map</a>
@@ -20,7 +20,7 @@
         <img src="../assets/TracciaBianca_LogoCirlce.png" alt="" width="42" height="42">
         <div>
           <p class="wordmark"><span>Traccia</span>Bianca</p>
-          <p class="brand-subtitle">PMTiles Webmap</p>
+          <p class="brand-subtitle">Map inspector</p>
         </div>
       </header>
 
@@ -33,6 +33,25 @@
         <p class="search-message" id="search-message" role="status" aria-live="polite" hidden></p>
         <div class="search-results" id="search-results" role="listbox" hidden></div>
       </form>
+
+      <div class="measurement-tools" id="measurement-tools">
+        <button class="measure-toggle" id="measure-toggle" type="button" aria-pressed="false" disabled>
+          <span class="measure-icon" aria-hidden="true">↔</span>
+          <span>Measure</span>
+        </button>
+        <div class="measure-readout" id="measure-readout" hidden>
+          <span id="measure-text" role="status" aria-live="polite"></span>
+          <button id="measure-clear" type="button">Clear</button>
+        </div>
+      </div>
+      <output class="measurement-label" id="measurement-label" aria-live="off" hidden></output>
+
+      <div class="coordinate-menu" id="coordinate-menu" role="dialog" aria-label="Map coordinates" hidden>
+        <strong>Coordinates</strong>
+        <code id="coordinate-values"></code>
+        <button id="pmtiles-visibility-toggle" type="button" aria-pressed="true">Hide PMTiles</button>
+        <a id="coordinate-link" target="_blank" rel="noopener">Open in Google Maps <span aria-hidden="true">↗</span></a>
+      </div>
 
       <div class="loading-state" id="loading-state" role="status">
         <span class="spinner" aria-hidden="true"></span>
@@ -91,6 +110,6 @@
   <script src="./vendor/maplibre-gl/maplibre-gl.js"></script>
   <script src="./vendor/pmtiles/pmtiles.js"></script>
   <script src="./config.js?v=20261110-2"></script>
-  <script src="./app.js?v=20261110-7"></script>
+  <script src="./app.js?v=20261110-10"></script>
 </body>
 </html>

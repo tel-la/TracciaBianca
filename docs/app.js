@@ -30,17 +30,102 @@
     checksum: document.getElementById("details-checksum"),
   };
 
+  function installSmoothWheelZoom(targetMap) {
+    const container = targetMap.getContainer();
+    const smoothingTime = 40;
+    const wheelDeltaPerZoom = 40;
+    let targetZoom = targetMap.getZoom();
+    let anchorPoint = null;
+    let anchorLatLng = null;
+    let animationFrame = null;
+    let previousFrameTime = null;
+    let moving = false;
+
+    function clampZoom(zoom) {
+      return Math.max(targetMap.getMinZoom(), Math.min(targetMap.getMaxZoom(), zoom));
+    }
+
+    function moveAroundAnchor(zoom) {
+      const halfSize = targetMap.getSize().divideBy(2);
+      const centerPoint = targetMap.project(anchorLatLng, zoom)
+        .subtract(anchorPoint.subtract(halfSize));
+      let center = targetMap.unproject(centerPoint, zoom);
+      if (targetMap.options.maxBounds) {
+        center = targetMap._limitCenter(center, zoom, targetMap.options.maxBounds);
+      }
+      targetMap._move(center, zoom, { pinch: true, wheel: true, round: false });
+    }
+
+    function finishZoom() {
+      moveAroundAnchor(targetZoom);
+      animationFrame = null;
+      previousFrameTime = null;
+      if (moving) {
+        moving = false;
+        targetMap._moveEnd(true);
+      }
+    }
+
+    function animateZoom(frameTime) {
+      animationFrame = null;
+      const currentZoom = targetMap.getZoom();
+      const remaining = targetZoom - currentZoom;
+      if (Math.abs(remaining) < 0.001) {
+        finishZoom();
+        return;
+      }
+
+      const elapsed = previousFrameTime === null
+        ? 16
+        : Math.min(32, frameTime - previousFrameTime);
+      previousFrameTime = frameTime;
+      const progress = 1 - Math.exp(-elapsed / smoothingTime);
+      moveAroundAnchor(currentZoom + remaining * progress);
+      animationFrame = window.requestAnimationFrame(animateZoom);
+    }
+
+    function onWheel(event) {
+      const wheelDelta = L.DomEvent.getWheelDelta(event);
+      if (!wheelDelta) return;
+      L.DomEvent.stop(event);
+
+      const currentZoom = targetMap.getZoom();
+      const baseZoom = moving ? targetZoom : currentZoom;
+      const requestedDelta = Math.max(-1.5, Math.min(1.5, wheelDelta / wheelDeltaPerZoom));
+      const requestedZoom = clampZoom(baseZoom + requestedDelta);
+      if (!moving && requestedZoom === currentZoom) return;
+
+      anchorPoint = targetMap.mouseEventToContainerPoint(event);
+      anchorLatLng = targetMap.containerPointToLatLng(anchorPoint);
+      targetZoom = clampZoom(Math.max(currentZoom - 2, Math.min(currentZoom + 2, requestedZoom)));
+
+      if (!moving) {
+        targetMap._stop();
+        targetMap._moveStart(true, false);
+        moving = true;
+      }
+      if (animationFrame === null) {
+        previousFrameTime = null;
+        animationFrame = window.requestAnimationFrame(animateZoom);
+      }
+    }
+
+    L.DomEvent.on(container, "wheel", onWheel);
+  }
+
   const map = L.map("map", {
     zoomControl: true,
     attributionControl: true,
     keyboard: true,
-    scrollWheelZoom: true,
+    scrollWheelZoom: false,
     touchZoom: true,
     bounceAtZoomLimits: false,
     maxBoundsViscosity: 1,
-    zoomSnap: 0.25,
+    zoomSnap: 0,
     zoomDelta: 0.5,
   }).setView([46.25, 10.8], 7);
+
+  installSmoothWheelZoom(map);
 
   map.attributionControl.setPosition("bottomright");
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
