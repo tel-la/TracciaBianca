@@ -12,10 +12,11 @@ STRUTTURA OPERATIVA
   _archivio_comune/
     catalogo.gpkg    Coperture DTM e perimetri delle aree.
     fonti.json       Registro autorevole, provenienza e qualità delle fonti.
-    dtm/originali/   Sorgenti conservate una sola volta.
+    dtm/coperture/   Maschere leggere condivise, con provenienza e licenze.
+    dtm/originali/   Sorgenti locali conservate una sola volta.
     dtm/tasselli/    Cache COG condivisa da 10 km.
     mosaici/        VRT con percorsi relativi.
-    osm/            PBF territoriale comune ed estratti condivisi per bounding box.
+    osm/            Configurazione condivisa; PBF ed estratti restano locali.
     logs/           Log delle operazioni recenti.
   00_template-area/  Struttura duplicata da Prepara area.
   <area>/
@@ -28,3 +29,9 @@ STRUTTURA OPERATIVA
 
 Copiare tutta la cartella principale per rigenerare il lavoro su un altro computer.
 Copiare la sola area per lavorare sulla carta preparata; solo MBTiles per il telefono.
+
+POLITICA GIT
+============
+Sono versionati il template, le maschere leggere in dtm/coperture, la configurazione
+OSM, il quadro dell'atlante e i sorgenti del workflow. Restano locali fonti.json,
+catalogo.gpkg, DTM originali, tasselli, mosaici, PBF, log, aree operative e output.

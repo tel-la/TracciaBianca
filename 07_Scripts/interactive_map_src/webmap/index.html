@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#062A43">
+  <meta name="description" content="Explore and download TracciaBianca offline ski touring maps across Italy (MapLibre + PMTiles viewer).">
+  <title>TracciaBianca Webmap · PMTiles</title>
+  <link rel="icon" href="../assets/TracciaBianca_LogoCirlce.png" type="image/png">
+  <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css">
+  <link rel="stylesheet" href="./app.css?v=20261110-2">
+</head>
+<body>
+  <a class="skip-link" href="#map">Skip to the map</a>
+  <main class="app" id="app">
+    <section class="map-shell" aria-label="TracciaBianca atlas map">
+      <div id="map" tabindex="0" aria-label="Interactive map of TracciaBianca map sheets"></div>
+
+      <header class="brand-panel" aria-label="TracciaBianca">
+        <img src="../assets/TracciaBianca_LogoCirlce.png" alt="" width="42" height="42">
+        <div>
+          <p class="wordmark"><span>Traccia</span>Bianca</p>
+          <p class="brand-subtitle">PMTiles Webmap</p>
+        </div>
+      </header>
+
+      <div class="atlas-summary" id="atlas-summary" aria-live="polite">Loading atlas…</div>
+
+      <form class="place-search" id="place-search" role="search">
+        <label class="visually-hidden" for="place-search-input">Search a place or map sheet</label>
+        <input id="place-search-input" type="search" autocomplete="off" placeholder="Search a place or map sheet">
+        <button type="submit">Search</button>
+        <p class="search-message" id="search-message" role="status" aria-live="polite" hidden></p>
+        <div class="search-results" id="search-results" role="listbox" hidden></div>
+      </form>
+
+      <div class="loading-state" id="loading-state" role="status">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Loading the map atlas…</span>
+      </div>
+
+      <div class="error-state" id="error-state" role="alert" hidden>
+        <strong>The atlas could not be loaded.</strong>
+        <span>Please refresh the page or try again later.</span>
+      </div>
+    </section>
+
+    <aside class="details-panel" id="details-panel" aria-labelledby="details-title" aria-hidden="true">
+      <div class="panel-handle" aria-hidden="true"></div>
+      <button class="close-button" id="close-panel" type="button" aria-label="Close map-sheet details">
+        <span aria-hidden="true">×</span>
+      </button>
+
+      <div class="details-content">
+        <p class="eyebrow">Selected map sheet</p>
+        <h1 id="details-title">Map-sheet details</h1>
+        <p class="locality" id="details-locality"></p>
+        <span class="status-badge" id="details-status"></span>
+
+        <dl class="metadata-list">
+          <div><dt>MBTiles coverage</dt><dd>35 × 35 km</dd></div>
+          <div><dt>Edition</dt><dd id="details-edition">—</dd></div>
+          <div><dt>Zoom range</dt><dd id="details-zoom">—</dd></div>
+          <div><dt>File</dt><dd id="details-file">—</dd></div>
+          <div><dt>Download size</dt><dd id="details-size">—</dd></div>
+        </dl>
+
+        <p class="tiles-note" id="tiles-note" role="status" aria-live="polite" hidden></p>
+
+        <section class="checksum-block" id="checksum-block" hidden>
+          <div class="checksum-heading">
+            <h2>SHA-256</h2>
+            <button id="copy-checksum" type="button">Copy</button>
+          </div>
+          <code id="details-checksum"></code>
+          <p class="copy-feedback" id="copy-feedback" aria-live="polite"></p>
+        </section>
+
+        <a class="download-button" id="download-button" target="_blank" rel="noopener" hidden>
+          Download MBTiles
+          <span aria-hidden="true">↗</span>
+        </a>
+        <p class="unavailable-message" id="unavailable-message" hidden>
+          Download not available yet. This map sheet is still being prepared.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <noscript>This interactive map requires JavaScript.</noscript>
+  <script src="./vendor/maplibre-gl/maplibre-gl.js"></script>
+  <script src="./vendor/pmtiles/pmtiles.js"></script>
+  <script src="./config.js?v=20261110-2"></script>
+  <script src="./app.js?v=20261110-2"></script>
+</body>
+</html>

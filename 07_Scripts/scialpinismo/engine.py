@@ -21,7 +21,7 @@ from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 import numpy as np
-from scipy.ndimage import binary_dilation, distance_transform_edt, gaussian_filter
+from scipy.ndimage import binary_dilation, binary_erosion, distance_transform_edt, gaussian_filter
 from osgeo import gdal, ogr, osr
 from qgis.core import (
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsFeature, QgsField,
@@ -35,7 +35,7 @@ ogr.UseExceptions()
 gdal.SetCacheMax(256 * 1024 * 1024)
 gdal.SetConfigOption('GDAL_NUM_THREADS', '2')
 gdal.SetConfigOption('OSM_MAX_TMPFILE_SIZE', '128')
-VERSION = '1.4.1'
+VERSION = '1.4.3'
 OSM_EXTRACTOR_VERSION = 'osm-interleaved-v2'
 COG_OPTIONS = ['COMPRESS=DEFLATE', 'PREDICTOR=YES', 'BLOCKSIZE=512', 'NUM_THREADS=2', 'BIGTIFF=IF_SAFER', 'RESAMPLING=AVERAGE']
 DTM_COMPARISON_MIN_M = 20.0
@@ -211,7 +211,7 @@ def estimate_dem_coregistration(base, candidate, base_valid, candidate_valid,
 
 def seam_fields(base, candidate, base_valid, candidate_valid, pixel_size,
                 worst_native_resolution, vertical_shift=0.0,
-                prefer_candidate=False):
+                prefer_candidate=False, blend_override_m=None):
     """Crea correzione lenta e pesi della seamline su una griglia di confronto."""
     valid_overlap = base_valid & candidate_valid
     comparison_m = max(DTM_COMPARISON_MIN_M, 2.0 * float(worst_native_resolution))
@@ -228,21 +228,36 @@ def seam_fields(base, candidate, base_valid, candidate_valid, pixel_size,
         }
     if prefer_candidate:
         # Una sorgente nazionale autorevole non va perforata in base alla
-        # differenza con un DTM meno preciso che deborda oltre il proprio Paese.
+        # differenza con un DTM meno preciso. Nella fascia esterna, pero, una
+        # correzione altimetrica lenta evita gradini tra datum e acquisizioni.
+        candidate_low, candidate_support = normalized_gaussian(
+            candidate_shifted, candidate_valid, sigma)
+        supported = valid_overlap & base_support & candidate_support
+        residual = np.where(supported, base_low-candidate_low, np.nan).astype(np.float32)
+        residual_smooth, residual_support = normalized_gaussian(
+            np.where(np.isfinite(residual), residual, 0.0), np.isfinite(residual),
+            max(1.0, 100.0/float(pixel_size)))
         edge_distance = distance_transform_edt(candidate_valid) * float(pixel_size)
-        blend_m = min(DTM_BLEND_MAX_M,
-                      max(DTM_BLEND_MIN_M, 4.0 * float(worst_native_resolution)))
+        edge_influence = 1.0-smoothstep(edge_distance/DTM_CORRECTION_DEPTH_M)
+        correction = np.where(residual_support, residual_smooth, 0.0)*edge_influence
+        correction = np.clip(
+            correction, -DTM_MAX_RESIDUAL_M, DTM_MAX_RESIDUAL_M).astype(np.float32)
+        blend_m = (float(blend_override_m) if blend_override_m is not None else
+                   min(DTM_BLEND_MAX_M,
+                       max(DTM_BLEND_MIN_M, 4.0*float(worst_native_resolution))))
         low_weight = smoothstep(edge_distance / blend_m).astype(np.float32)
         low_weight[~candidate_valid] = 0.0
         low_weight[candidate_valid & ~base_valid] = 1.0
         high_weight = smoothstep((low_weight - 0.42) / 0.16).astype(np.float32)
-        return np.zeros(candidate.shape, dtype=np.float32), low_weight, high_weight, {
+        corrected_residual = np.abs(base_low-(candidate_low+correction))
+        return correction, low_weight, high_weight, {
             'comparison_m': comparison_m,
-            'correction_depth_m': 0.0,
+            'correction_depth_m': DTM_CORRECTION_DEPTH_M,
             'blend_m': blend_m,
             'overlap_cells': int(valid_overlap.sum()),
             'incompatible_cells': 0,
-            'residual_p95_m': None,
+            'residual_p95_m': (round(float(np.nanpercentile(
+                corrected_residual[supported], 95)), 4) if np.any(supported) else None),
             'action': 'authoritative_candidate',
         }
     candidate_low, candidate_support = normalized_gaussian(candidate_shifted, candidate_valid, sigma)
@@ -781,9 +796,26 @@ class Workflow:
         # Le sorgenti più dettagliate devono essere le ultime nel mosaico.
         return list(reversed(selected)), target
 
+    def source_coverage_geometry(self, source):
+        """Copertura WGS84, eventualmente letta dalla maschera nazionale."""
+        mask_path = source.get('coverage_mask_path')
+        if not mask_path:
+            return QgsGeometry.fromWkt(source['coverage_wkt'])
+        vector = QgsVectorLayer(str((self.archive/mask_path).resolve()), 'coverage', 'ogr')
+        if not vector.isValid():
+            raise RuntimeError(f"Copertura nazionale non leggibile: {mask_path}")
+        geometries = [feature.geometry() for feature in vector.getFeatures()]
+        if not geometries:
+            raise RuntimeError(f"Copertura nazionale vuota: {mask_path}")
+        return geometry_in(QgsGeometry.unaryUnion(geometries),
+                           vector.crs().authid(), 'EPSG:4326')
+
     def source_coverage(self, source, crs, search_remote_edges=False):
         """Copertura di catalogo; per fonti remote include solo la prima fascia di ricerca."""
-        footprint = geometry_in(QgsGeometry.fromWkt(source['coverage_wkt']), 'EPSG:4326', crs)
+        footprint = geometry_in(self.source_coverage_geometry(source), 'EPSG:4326', crs)
+        configured_margin = float(source.get('coverage_mask_buffer_m', 0.0))
+        if configured_margin:
+            footprint = footprint.buffer(configured_margin, 12)
         if search_remote_edges and source.get('provider') in (
                 'swisstopo_stac_cog', 'bev_atom_cog', 'arcgis_imageserver',
                 'wms_geotiff'):
@@ -885,6 +917,13 @@ class Workflow:
                     # Evita il ricampionamento lato WMS, che sul RGE ALTI produce
                     # una trama a blocchi molto evidente nelle derivate.
                     signature_data['sampling'] = 'native-wms-grid-v2'
+                if source.get('mask_to_coverage'):
+                    mask_path = source.get('coverage_mask_path')
+                    signature_data['coverage_mask'] = (
+                        fingerprint((self.archive/mask_path).resolve()) if mask_path
+                        else digest(source['coverage_wkt']))
+                    signature_data['coverage_mask_buffer_m'] = float(
+                        source.get('coverage_mask_buffer_m', 0.0))
                 if float(source.get('native_resolution_m') or source['grid_m']) > float(source['grid_m']) * 1.01:
                     signature_data['sampling'] = 'native-prefilter-v1'
                 signature = digest(signature_data)
@@ -907,6 +946,8 @@ class Workflow:
                         self.download_swisstopo_cog_tile(source, rect, crs, resolution, temp)
                     else:
                         self.warp_local_dtm_tile(source, rect, crs, resolution, temp)
+                    if source.get('mask_to_coverage'):
+                        self.mask_dtm_tile_to_coverage(source, temp, crs)
                     cog_copy(temp, tile)
                     temp.unlink()
                     details = {'signature': signature, 'source_id': source['id'],
@@ -941,6 +982,41 @@ class Workflow:
         if changed:
             tree.write(vrt, encoding='utf-8', xml_declaration=True)
         return vrt
+
+    def mask_dtm_tile_to_coverage(self, source, path, crs):
+        """Imposta NoData fuori dalla copertura nazionale dichiarata della sorgente."""
+        dataset = gdal.Open(str(path), gdal.GA_Update)
+        if dataset is None:
+            raise RuntimeError(f"Raster da mascherare non apribile: {path}")
+        coverage = geometry_in(self.source_coverage_geometry(source), 'EPSG:4326', crs)
+        buffer_m = float(source.get('coverage_mask_buffer_m', 0.0))
+        if buffer_m:
+            coverage = coverage.buffer(buffer_m, 12)
+        mask = gdal.GetDriverByName('MEM').Create(
+            '', dataset.RasterXSize, dataset.RasterYSize, 1, gdal.GDT_Byte)
+        mask.SetGeoTransform(dataset.GetGeoTransform())
+        mask.SetProjection(dataset.GetProjection())
+        mask.GetRasterBand(1).Fill(0)
+        memory = ogr.GetDriverByName('MEM').CreateDataSource('coverage')
+        spatial = osr.SpatialReference(); spatial.SetFromUserInput(crs)
+        layer = memory.CreateLayer('coverage', spatial, ogr.wkbMultiPolygon)
+        feature = ogr.Feature(layer.GetLayerDefn())
+        feature.SetGeometry(ogr.CreateGeometryFromWkt(coverage.asWkt()))
+        layer.CreateFeature(feature); feature = None
+        if gdal.RasterizeLayer(mask, [1], layer, burn_values=[1],
+                               options=['ALL_TOUCHED=TRUE']) != gdal.CE_None:
+            raise RuntimeError(f"Maschera di copertura non creata per {source['id']}")
+        band = dataset.GetRasterBand(1)
+        for y in range(0, dataset.RasterYSize, 512):
+            height = min(512, dataset.RasterYSize-y)
+            for x in range(0, dataset.RasterXSize, 512):
+                width = min(512, dataset.RasterXSize-x)
+                values = band.ReadAsArray(x, y, width, height)
+                inside = mask.GetRasterBand(1).ReadAsArray(x, y, width, height) != 0
+                values[~inside] = -9999
+                band.WriteArray(values, x, y)
+        band.SetNoDataValue(-9999)
+        band = None; memory = None; mask = None; dataset = None
 
     def download_wms_geotiff_tile(self, source, rect, crs, resolution, destination):
         """Scarica sulla griglia nativa del WMS e riproietta localmente il tassello."""
@@ -1397,7 +1473,8 @@ class Workflow:
         dataset = None
 
     def _compose_pair_blocks(self, base_path, candidate_path, seam_path, provenance_path,
-                             output_path, source_index, resolution, worst_native):
+                             output_path, source_index, resolution, worst_native,
+                             prefer_candidate=False):
         """Fonde due DTM a piena risoluzione per blocchi, preservando le alte frequenze."""
         base = gdal.Open(str(base_path))
         candidate = gdal.Open(str(candidate_path))
@@ -1454,15 +1531,24 @@ class Workflow:
                     slope_base = slope(safe_base)
                     slope_candidate = slope(safe_candidate)
                     slope_merged = slope(merged)
-                    invalid_slope = overlap & (
+                    interior = binary_erosion(base_valid & candidate_valid,
+                                              iterations=2) & overlap
+                    invalid_slope = interior & (
                         (slope_merged > np.maximum(slope_base, slope_candidate) + 5.0) |
+                        (slope_merged < np.minimum(slope_base, slope_candidate) - 5.0) |
                         ((slope_merged >= 30.0) & (slope_base < 25.0) &
-                         (slope_candidate < 25.0)))
+                         (slope_candidate < 25.0)) |
+                        ((slope_merged < 10.0) & (slope_base > 20.0) &
+                         (slope_candidate > 20.0)))
                     if np.any(invalid_slope):
-                        invalid_slope = binary_dilation(invalid_slope, iterations=1) & overlap
-                        qa_rejected += int(invalid_slope.sum())
-                        merged[invalid_slope] = base_values[invalid_slope]
-                        high_weight[invalid_slope] = 0.0
+                        qa_rejected += int(invalid_slope[y-y0:y-y0+height,
+                                                         x-x0:x-x0+width].sum())
+                        if prefer_candidate:
+                            merged[invalid_slope] = corrected[invalid_slope]
+                            high_weight[invalid_slope] = 1.0
+                        else:
+                            merged[invalid_slope] = base_values[invalid_slope]
+                            high_weight[invalid_slope] = 0.0
 
                 crop_y = y-y0; crop_x = x-x0
                 cropped = merged[crop_y:crop_y+height, crop_x:crop_x+width]
@@ -1561,7 +1647,8 @@ class Workflow:
                 correction, low_weight, high_weight, seam_diagnostics = seam_fields(
                     base_values, candidate_values, base_valid, candidate_valid,
                     analysis_resolution, worst_native, vertical_shift,
-                    prefer_candidate=source.get('mosaic_priority') == 'authoritative')
+                    prefer_candidate=source.get('mosaic_priority') == 'authoritative',
+                    blend_override_m=source.get('authoritative_blend_m'))
                 # dz è una traslazione globale; la griglia contiene la sola correzione locale.
                 correction += float(vertical_shift)
                 self._write_seam_grid(seam_coarse, base_coarse, correction,
@@ -1579,7 +1666,8 @@ class Workflow:
                 following.unlink(missing_ok=True)
                 qa_rejected = self._compose_pair_blocks(
                     current, active_candidate, seam_fine, provenance_path, following,
-                    source_index, resolution, worst_native)
+                    source_index, resolution, worst_native,
+                    prefer_candidate=source.get('mosaic_priority') == 'authoritative')
                 current.unlink()
                 following.replace(current)
                 diagnostics.append({

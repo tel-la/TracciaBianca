@@ -1,0 +1,27 @@
+PROVENIENZA E LICENZE DEI DATI OSM
+
+Tutti i pacchetti OpenStreetMap presenti in questa cartella, inclusi:
+
+- Austria
+- Switzerland (Svizzera)
+- Slovenia
+- Italia Nord Est
+- Italia Nord Ovest
+- Italia Centro
+- Italia Sud
+- Provence-Alpes-Cote d'Azur
+- Rhone-Alpes
+
+sono stati scaricati dagli estratti Geofabrik:
+https://download.geofabrik.de/index.html
+
+Come riportato nei "Technical details" del sito Geofabrik, si applicano:
+
+- Map tiles: Creative Commons Attribution-ShareAlike 2.0 (CC BY-SA 2.0)
+  http://creativecommons.org/licenses/by-sa/2.0/
+
+- Data: Open Data Commons Open Database License 1.0 (ODbL 1.0)
+  http://opendatacommons.org/licenses/odbl/
+
+I file .osm.pbf contengono dati OpenStreetMap. Attribuzione:
+© OpenStreetMap contributors; estratti distribuiti da Geofabrik.

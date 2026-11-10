@@ -46,11 +46,16 @@ symbology-style.db
 *.sqlite-shm
 *.sqlite-wal
 
-# Componente HTML non pubblicato da questa importazione
+# HTML generato o locale; il sorgente della mappa interattiva e' riattivato sotto
 *.html
-/07_Scripts/build_interactive_map.py
-/07_Scripts/interactive_map_src/
-/07_Scripts/tests/test_interactive_map.py
+
+# Sorgenti riproducibili della mappa GitHub Pages
+!/07_Scripts/build_interactive_map.py
+!/07_Scripts/interactive_map_src/
+!/07_Scripts/interactive_map_src/**
+!/07_Scripts/tests/test_interactive_map.py
+!/07_Scripts/tests/test_webmap_server.js
+!/docs/webmap/index.html
 
 # Dataset e prodotti cartografici pesanti
 *.mbtiles
@@ -68,25 +73,46 @@ symbology-style.db
 *.asc
 *.zip
 
-# Il GeoPackage leggero dell'atlante viene condiviso
+# I GeoPackage leggeri richiesti dal progetto dell'atlante vengono condivisi
 !/08_Atlante/griglia.gpkg
+!/08_Atlante/griglia_srtm_hgt.gpkg
 
 # Riferimenti locali
 /§§_REF/
 
-# Aree operative, dati condivisi e cache
+# Aree operative, dati condivisi e cache: esclusi per default
 /##_aree/*
 
-# Conservare lo scheletro documentale del template
+# Indice e configurazione portabile del template
+!/##_aree/README.txt
 !/##_aree/00_template-area/
-!/##_aree/00_template-area/**
+/##_aree/00_template-area/*
+!/##_aree/00_template-area/area.json
 
-# .DS_Store di nuovo ignorato anche dentro lo scheletro del template (la ri-inclusione sopra lo riattiva)
-.DS_Store
+# Piccola allowlist dell'archivio comune; tutto il resto rimane locale
+!/##_aree/_archivio_comune/
+/##_aree/_archivio_comune/*
+
+!/##_aree/_archivio_comune/dtm/
+/##_aree/_archivio_comune/dtm/*
+!/##_aree/_archivio_comune/dtm/coperture/
+!/##_aree/_archivio_comune/dtm/coperture/*.geojson
+!/##_aree/_archivio_comune/dtm/coperture/README.md
+
+!/##_aree/_archivio_comune/osm/
+/##_aree/_archivio_comune/osm/*
+!/##_aree/_archivio_comune/osm/osmconf_scialpinismo.ini
+!/##_aree/_archivio_comune/osm/LEGGIMI_PROVENIENZA_E_LICENZE.txt
 
 # Configurazioni e registri territoriali mai versionati
 /##_aree/**/area.json
 /##_aree/**/fonti.json
+!/##_aree/00_template-area/area.json
 
 # Materiale preparatorio per future release di mappe
 /release_staging/
+
+# Le allowlist di directory non devono riattivare spazzatura locale o cache
+.DS_Store
+__pycache__/
+*.py[cod]

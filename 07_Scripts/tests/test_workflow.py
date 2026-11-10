@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 from osgeo import gdal, osr
 from PIL import Image
-from qgis.core import QgsApplication, QgsGeometry, QgsRectangle
+from qgis.core import QgsApplication, QgsGeometry, QgsRectangle, QgsVectorLayer
 from qgis.analysis import QgsNativeAlgorithms
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,6 +23,7 @@ from scialpinismo.engine import (Workflow, save_json, cog_copy, geometry_in,
                                  parse_bev_atom_tif, parse_swisstopo_stac_page,
                                  osm_records, estimate_dem_coregistration,
                                  seam_fields, DTM_BLEND_MAX_M,
+                                 DTM_MAX_RESIDUAL_M,
                                  multidirectional_hillshade,
                                  HILLSHADE_ALTITUDE_DEG,
                                  HILLSHADE_PRIMARY_AZIMUTH_DEG,
@@ -284,6 +285,96 @@ class WorkflowTests(unittest.TestCase):
         output = result.ReadAsArray()
         self.assertTrue(np.any(output == -9999))
         self.assertTrue(np.any(np.isclose(output, 1850.25, atol=0.01)))
+
+    def test_remote_dtm_is_masked_outside_declared_national_coverage(self):
+        path = self.root/'masked_remote.tif'
+        dataset = gdal.GetDriverByName('GTiff').Create(
+            str(path), 10, 10, 1, gdal.GDT_Float32)
+        dataset.SetGeoTransform([0, 10, 0, 100, 0, -10])
+        spatial = osr.SpatialReference(); spatial.ImportFromEPSG(4326)
+        dataset.SetProjection(spatial.ExportToWkt())
+        dataset.GetRasterBand(1).Fill(1200); dataset = None
+        source = {
+            'id': 'national',
+            'coverage_wkt': 'MULTIPOLYGON (((0 0, 50 0, 50 100, 0 100, 0 0)))',
+        }
+        self.w.mask_dtm_tile_to_coverage(source, path, 'EPSG:4326')
+        result = gdal.Open(str(path))
+        values = result.ReadAsArray()
+        self.assertTrue(np.all(values[:, :5] == 1200))
+        self.assertTrue(np.all(values[:, 6:] == -9999))
+        self.assertEqual(result.GetRasterBand(1).GetNoDataValue(), -9999)
+
+    def test_national_mask_overrides_rectangular_remote_catalog_coverage(self):
+        mask = self.w.archive/'national.geojson'
+        mask.write_text(json.dumps({
+            'type': 'FeatureCollection',
+            'features': [{'type': 'Feature', 'properties': {}, 'geometry': {
+                'type': 'Polygon',
+                'coordinates': [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]],
+            }}],
+        }))
+        source = {
+            'coverage_wkt': 'POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0))',
+            'coverage_mask_path': 'national.geojson',
+        }
+        coverage = self.w.source_coverage(source, 'EPSG:4326')
+        self.assertTrue(coverage.intersects(QgsGeometry.fromRect(QgsRectangle(0, 0, 1, 1))))
+        self.assertFalse(coverage.intersects(QgsGeometry.fromRect(QgsRectangle(5, 5, 6, 6))))
+
+    def test_cross_border_national_dtms_have_precise_masks_and_priority(self):
+        archive = ROOT/'##_aree/_archivio_comune'
+        catalog = json.loads((archive/'fonti.json').read_text())
+        sources = {source['id']: source for source in catalog['sources']}
+        expected = {
+            'francia_ign_rgealti_5m': 'FR',
+            'svizzera_swisstopo_swissalti3d_2m': 'CH',
+            'austria_bev_als_dgm1': 'AT',
+            'slovenia_arso_dmr1': 'SI',
+        }
+        for source_id, country in expected.items():
+            source = sources[source_id]
+            self.assertTrue(source['mask_to_coverage'])
+            mask = archive/source['coverage_mask_path']
+            self.assertTrue(mask.exists())
+            layer = QgsVectorLayer(str(mask), country, 'ogr')
+            self.assertTrue(layer.isValid())
+            self.assertGreater(layer.featureCount(), 0)
+        for source_id in expected.keys() - {'francia_ign_rgealti_5m'}:
+            self.assertEqual(sources[source_id]['mosaic_priority'], 'authoritative')
+        swiss = sources['svizzera_swisstopo_swissalti3d_2m']
+        self.assertIn('swissBOUNDARIES3D-2026', swiss['coverage_mask_path'])
+        self.assertEqual(swiss['coverage_mask_buffer_m'], 150)
+        self.assertEqual(swiss['authoritative_blend_m'], 120)
+        swiss_layer = QgsVectorLayer(
+            str(archive/swiss['coverage_mask_path']), 'CH precise', 'ogr')
+        swiss_geometry = QgsGeometry.unaryUnion(
+            [feature.geometry() for feature in swiss_layer.getFeatures()])
+        vertex_count = swiss_geometry.constGet().nCoordinates()
+        self.assertGreater(vertex_count, 50000)
+        austria = sources['austria_bev_als_dgm1']
+        self.assertIn('BEV-VGD-gst-20251001', austria['coverage_mask_path'])
+        self.assertEqual(austria['coverage_mask_buffer_m'], 150)
+        self.assertEqual(austria['authoritative_blend_m'], 120)
+        france = sources['francia_ign_rgealti_5m']
+        self.assertIn('IGN-ADMIN-EXPRESS-20261015', france['coverage_mask_path'])
+        self.assertEqual(france['coverage_mask_buffer_m'], 150)
+        slovenia = sources['slovenia_arso_dmr1']
+        self.assertIn('OSM-20261019-BEV-20251001', slovenia['coverage_mask_path'])
+        self.assertEqual(slovenia['coverage_mask_buffer_m'], 150)
+        si_layer = QgsVectorLayer(
+            str(archive/slovenia['coverage_mask_path']), 'SI precise', 'ogr')
+        si_geometry = QgsGeometry.unaryUnion(
+            [feature.geometry() for feature in si_layer.getFeatures()])
+        self.assertGreater(si_geometry.constGet().nCoordinates(), 20000)
+        at_layer = QgsVectorLayer(
+            str(archive/austria['coverage_mask_path']), 'AT precise', 'ogr')
+        at_geometry = QgsGeometry.unaryUnion(
+            [feature.geometry() for feature in at_layer.getFeatures()])
+        self.assertLess(si_geometry.intersection(at_geometry).area(), 1e-9)
+        for source_id in expected:
+            self.assertEqual(sources[source_id]['mosaic_priority'], 'authoritative')
+            self.assertEqual(sources[source_id]['authoritative_blend_m'], 120)
 
     def test_arcgis_tile_is_sampled_at_native_resolution_before_downsampling(self):
         from urllib.parse import parse_qs, urlparse
@@ -692,12 +783,44 @@ class WorkflowTests(unittest.TestCase):
         candidate_valid[:, 30:] = True
         correction, low_weight, high_weight, diagnostics = seam_fields(
             base, candidate, base_valid, candidate_valid, 5, 10,
-            prefer_candidate=True)
+            prefer_candidate=True, blend_override_m=120)
         self.assertEqual(diagnostics['action'], 'authoritative_candidate')
         self.assertEqual(diagnostics['incompatible_cells'], 0)
-        self.assertTrue(np.all(correction == 0))
-        self.assertGreater(float(low_weight[:, 80:].min()), 0.99)
-        self.assertGreater(float(high_weight[:, 80:].min()), 0.99)
+        self.assertEqual(diagnostics['blend_m'], 120)
+        self.assertLessEqual(float(np.max(np.abs(correction))), DTM_MAX_RESIDUAL_M)
+        self.assertTrue(np.all(correction[:, -5:] == 0))
+        self.assertGreater(float(low_weight[:, 60:].min()), 0.99)
+        self.assertGreater(float(high_weight[:, 60:].min()), 0.99)
+
+    def test_mosaic_rejects_artificial_flat_on_authoritative_border(self):
+        size = 80
+        x = np.arange(size, dtype=np.float32)[None, :]
+        base_values = np.broadcast_to(1000 + 3*x, (size, size)).copy()
+        candidate_values = np.broadcast_to(1240 - 3*x, (size, size)).copy()
+        srs = osr.SpatialReference(); srs.ImportFromEPSG(32632)
+        def raster(path, bands, kind):
+            ds = gdal.GetDriverByName('GTiff').Create(str(path), size, size, bands, kind)
+            ds.SetGeoTransform([0, 5, 0, size*5, 0, -5])
+            ds.SetProjection(srs.ExportToWkt())
+            return ds
+        base = self.root/'base.tif'; candidate = self.root/'candidate.tif'
+        seam = self.root/'seam.tif'; provenance = self.root/'provenance.tif'
+        output = self.root/'merged.tif'
+        for path, values in ((base, base_values), (candidate, candidate_values)):
+            ds = raster(path, 1, gdal.GDT_Float32)
+            ds.GetRasterBand(1).SetNoDataValue(-9999)
+            ds.GetRasterBand(1).WriteArray(values)
+            ds = None
+        ds = raster(seam, 3, gdal.GDT_Float32)
+        for band, value in ((1, 0), (2, .5), (3, .5)):
+            ds.GetRasterBand(band).Fill(value)
+        ds = None
+        ds = raster(provenance, 1, gdal.GDT_Byte); ds.GetRasterBand(1).Fill(1); ds = None
+        rejected = self.w._compose_pair_blocks(base, candidate, seam, provenance,
+                                                output, 2, 5, 5, prefer_candidate=True)
+        self.assertGreater(rejected, 100)
+        result = gdal.Open(str(output)).ReadAsArray()
+        np.testing.assert_allclose(result[10:-10, 10:-10], candidate_values[10:-10, 10:-10])
 
     def test_disk_mosaic_preserves_fine_detail_away_from_short_seam(self):
         from osgeo import osr

@@ -1,0 +1,4 @@
+# Dropped tile archives are large binaries, user-provided locally; keep the
+# directory tracked via .gitkeep but ignore the archives themselves.
+*.pmtiles
+*.mbtiles

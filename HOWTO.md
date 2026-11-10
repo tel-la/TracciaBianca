@@ -36,9 +36,11 @@ git clone https://github.com/tel-la/TracciaBianca.git
 cd TracciaBianca
 ```
 
-Il repository contiene codice, stili, template, documentazione e il quadro
-dell'atlante. Non contiene i grandi dataset territoriali, le cache di lavoro, i
-file `area.json` e `fonti.json` locali né gli MBTiles prodotti.
+Il repository contiene codice, stili, template, documentazione, il quadro
+dell'atlante e alcune risorse geografiche leggere necessarie a riprodurre il
+workflow. Non contiene i grandi dataset territoriali, le cache di lavoro, i
+file `area.json` delle aree operative, il registro locale `fonti.json` né gli
+MBTiles prodotti. Fa eccezione il solo `area.json` vuoto del template.
 
 ## Preparare i dati locali
 
@@ -51,9 +53,13 @@ Il sistema completo richiede sorgenti con licenza e copertura adeguate all'area:
 
 Conservare le sorgenti comuni sotto `##_aree/_archivio_comune/`, seguendo
 [`SCHEMA_STRUTTURA_QGIS_SCIALPINISMO.txt`](SCHEMA_STRUTTURA_QGIS_SCIALPINISMO.txt).
-Questi dati sono deliberatamente esclusi da Git. Non copiare o rinominare alla
-cieca configurazioni provenienti da un altro computer: i percorsi, le licenze e
-la copertura devono essere verificati localmente.
+Le sorgenti territoriali, le cache e il registro operativo sono deliberatamente
+esclusi da Git. Sono invece condivise le piccole maschere in
+`dtm/coperture/`, la configurazione di importazione OSM e la relativa nota di
+provenienza: servono a documentare e riprodurre le elaborazioni, ma non
+sostituiscono i DTM e i PBF locali. Non copiare o rinominare alla cieca
+configurazioni provenienti da un altro computer: i percorsi, le licenze e la
+copertura devono essere verificati localmente.
 
 ## Primo avvio
 

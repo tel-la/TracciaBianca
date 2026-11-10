@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "nuova_area",
+  "perimeter_wkt": "POLYGON EMPTY",
+  "perimeter_crs": "EPSG:4326",
+  "processing_crs": "EPSG:32633",
+  "source_ids": [],
+  "buffer_m": 100,
+  "contour_interval_m": 10,
+  "dtm_nodata_policy": {
+    "mode": "strict"
+  },
+  "project": "progetto/nuova_area.qgz",
+  "osm_required": true,
+  "export": {
+    "minzoom": 12,
+    "maxzoom": 16,
+    "mode": "single",
+    "jpeg_quality": 90,
+    "dpi": 96,
+    "metatile": 4,
+    "clip_to_perimeter": true,
+    "tile_format": "png"
+  }
+}

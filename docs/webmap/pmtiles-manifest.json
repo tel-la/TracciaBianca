@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "sheets": {
+    "ALP_E131_N078": {
+      "file": "ALP_E131_N078_queyras-nord-orientale_20261108T212807Z_01_z12-16.pmtiles",
+      "bytes": 622675695,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E143_N081": {
+      "file": "ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.pmtiles",
+      "bytes": 579592273,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E143_N083": {
+      "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.pmtiles",
+      "bytes": 705541429,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E143_N084": {
+      "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.pmtiles",
+      "bytes": 776368647,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E143_N085": {
+      "file": "ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.pmtiles",
+      "bytes": 751856874,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E144_N083": {
+      "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.pmtiles",
+      "bytes": 771395351,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E144_N084": {
+      "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.pmtiles",
+      "bytes": 804927693,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E144_N085": {
+      "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.pmtiles",
+      "bytes": 742203214,
+      "minzoom": 12,
+      "maxzoom": 16
+    }
+  }
+}

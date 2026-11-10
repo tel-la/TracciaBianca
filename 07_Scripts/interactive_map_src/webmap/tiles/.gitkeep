@@ -1,0 +1,3 @@
+# This file keeps the (otherwise empty) tiles/ directory tracked in git.
+# Drop converted .pmtiles archives here for the dev tile source (env: "dev").
+# The dropped .pmtiles / .mbtiles files themselves are git-ignored (see .gitignore).

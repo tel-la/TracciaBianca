@@ -715,6 +715,10 @@ def publish(args: argparse.Namespace) -> None:
         print("\n== Tests ==")
         run_interactive_map_tests(root)
         execute(["node", "--check", "docs/app.js"], root)
+        execute(["node", "--check", "docs/webmap/app.js"], root)
+        execute(["node", "--check", "docs/webmap/config.js"], root)
+        execute(["node", "--check", "docs/webmap/dev-server.js"], root)
+        execute(["node", "--test", "07_Scripts/tests/test_webmap_server.js"], root)
         execute(["git", "diff", "--check"], root)
 
         changed_paths = git_paths(root)
