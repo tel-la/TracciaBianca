@@ -1,15 +1,39 @@
 {
   "schema_version": 1,
   "sheets": {
-    "ALP_E131_N078": {
-      "file": "ALP_E131_N078_queyras-nord-orientale_20261108T212807Z_01_z12-16.pmtiles",
-      "bytes": 622675695,
+    "ALP_E137_N083": {
+      "file": "ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.pmtiles",
+      "bytes": 792207597,
       "minzoom": 12,
       "maxzoom": 16
     },
-    "ALP_E143_N081": {
-      "file": "ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.pmtiles",
-      "bytes": 579592273,
+    "ALP_E138_N083": {
+      "file": "ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.pmtiles",
+      "bytes": 749363283,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E139_N083": {
+      "file": "ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.pmtiles",
+      "bytes": 710444563,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E140_N083": {
+      "file": "ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.pmtiles",
+      "bytes": 695876835,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E141_N084": {
+      "file": "ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.pmtiles",
+      "bytes": 671978964,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E142_N085": {
+      "file": "ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.pmtiles",
+      "bytes": 775395047,
       "minzoom": 12,
       "maxzoom": 16
     },
