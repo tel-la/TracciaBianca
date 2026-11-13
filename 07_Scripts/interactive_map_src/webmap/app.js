@@ -37,6 +37,22 @@
   const measureReadout = document.getElementById("measure-readout");
   const measureText = document.getElementById("measure-text");
   const measureClear = document.getElementById("measure-clear");
+  const routeToggle = document.getElementById("route-toggle");
+  const routeReadout = document.getElementById("route-readout");
+  const routeText = document.getElementById("route-text");
+  const routeUndo = document.getElementById("route-undo");
+  const routeClear = document.getElementById("route-clear");
+  const routeDownload = document.getElementById("route-download");
+  const routeProfile = document.getElementById("route-profile");
+  const routeElevationStatus = document.getElementById("route-elevation-status");
+  const routeProfileChart = document.getElementById("route-profile-chart");
+  const routeProfileExpand = document.getElementById("route-profile-expand");
+  const routeProfileDialog = document.getElementById("route-profile-dialog");
+  const routeProfileClose = document.getElementById("route-profile-close");
+  const routeElevationStatusExpanded = document.getElementById("route-elevation-status-expanded");
+  const routeProfileChartExpanded = document.getElementById("route-profile-chart-expanded");
+  const routeProfileCharts = [routeProfileChart, routeProfileChartExpanded];
+  const routeStatValues = document.querySelectorAll("[data-route-stat]");
   const measurementLabel = document.getElementById("measurement-label");
   const coordinateMenu = document.getElementById("coordinate-menu");
   const coordinateValues = document.getElementById("coordinate-values");
@@ -48,9 +64,20 @@
   const DESKTOP_RASTER_ZOOM_SHIFT = 2.5;
   const MOBILE_CELL_SPAN_THRESHOLD = 0.6;
   const MOBILE_MEDIA_QUERY = "(max-width: 720px)";
+  const CELL_LABEL_HIDE_ARCHIVE_ZOOM = 14;
   const MEASUREMENT_SOURCE = "distance-measurement";
   const MEASUREMENT_LINE_LAYER = "distance-measurement-line";
   const MEASUREMENT_POINT_LAYER = "distance-measurement-points";
+  const ROUTE_SOURCE = "planned-route";
+  const ROUTE_LINE_LAYER = "planned-route-line";
+  const ROUTE_POINT_LAYER = "planned-route-points";
+  const ROUTE_HOVER_HALO_LAYER = "planned-route-profile-position-halo";
+  const ROUTE_HOVER_LAYER = "planned-route-profile-position";
+  const ELEVATION_API = "https://api.open-meteo.com/v1/elevation";
+  const PROFILE_PLOTS = {
+    compact: { left: 38, right: 310, top: 8, bottom: 72, axisY: 86 },
+    expanded: { left: 38, right: 310, top: 8, bottom: 130, axisY: 145 },
+  };
   const PMTILES_HOLD_DELAY_MS = 1200;
   const PMTILES_HOLD_MOVE_TOLERANCE = 10;
 
@@ -131,6 +158,11 @@
   let measurementActive = false;
   let measurementPoints = [];
   let measurementPreviewPoint = null;
+  let routeActive = false;
+  let routePoints = [];
+  let routeProfilePoints = [];
+  let routeHoverPoint = null;
+  let routeElevationRequestId = 0;
   let pmtilesEnabled = true;
   let pmtilesPeekHidden = false;
   let pmtilesHoldTimer = null;
@@ -138,6 +170,14 @@
   let pmtilesHoldStart = null;
   let suppressNextMapClick = false;
   let suppressNextMapClickTimer = null;
+  let routeProfileResizeRaf = 0;
+
+  const routeProfileResizeObserver = new ResizeObserver(() => {
+    if (!routeProfileDialog.open || routeProfilePoints.length < 2) return;
+    window.cancelAnimationFrame(routeProfileResizeRaf);
+    routeProfileResizeRaf = window.requestAnimationFrame(() => drawElevationProfile(routeProfilePoints));
+  });
+  routeProfileResizeObserver.observe(routeProfileChartExpanded);
 
   const statusLabels = {
     published: "Available",
@@ -516,6 +556,12 @@
     return { activationZoom, tileSize };
   }
 
+  function displayedPmtilesZoomFor(cell) {
+    const profile = rasterDisplayProfileFor(cell);
+    const zoomShift = Math.log2(MAPLIBRE_CANONICAL_TILE_SIZE / profile.tileSize);
+    return map.getZoom() + zoomShift;
+  }
+
   function bboxIntersectsViewport(bbox, bounds) {
     return bbox[0][0] <= bounds.getEast() && bbox[1][0] >= bounds.getWest()
       && bbox[0][1] <= bounds.getNorth() && bbox[1][1] >= bounds.getSouth();
@@ -738,9 +784,10 @@
     if (!labelEls.size || !mapLoaded) return;
     const container = map.getContainer();
     const size = { x: container.clientWidth, y: container.clientHeight };
-    const show = map.getZoom() <= 12;
-    for (const { el, bbox } of labelEls.values()) {
+    for (const { el, cell, bbox } of labelEls.values()) {
+      const show = displayedPmtilesZoomFor(cell) + 1e-6 < CELL_LABEL_HIDE_ARCHIVE_ZOOM;
       if (!show) {
+        if (document.activeElement === el) map.getCanvas().focus();
         el.style.display = "none";
         continue;
       }
@@ -799,6 +846,10 @@
   function raiseMeasurementLayers() {
     if (map.getLayer(MEASUREMENT_LINE_LAYER)) map.moveLayer(MEASUREMENT_LINE_LAYER);
     if (map.getLayer(MEASUREMENT_POINT_LAYER)) map.moveLayer(MEASUREMENT_POINT_LAYER);
+    if (map.getLayer(ROUTE_LINE_LAYER)) map.moveLayer(ROUTE_LINE_LAYER);
+    if (map.getLayer(ROUTE_POINT_LAYER)) map.moveLayer(ROUTE_POINT_LAYER);
+    if (map.getLayer(ROUTE_HOVER_HALO_LAYER)) map.moveLayer(ROUTE_HOVER_HALO_LAYER);
+    if (map.getLayer(ROUTE_HOVER_LAYER)) map.moveLayer(ROUTE_HOVER_LAYER);
   }
 
   function installMeasurementLayers() {
@@ -850,6 +901,282 @@
     return earthRadiusMeters * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
+  function routeData() {
+    const coordinates = routePoints.map((point) => [point.lng, point.lat]);
+    const features = coordinates.map((coordinate) => ({ type: "Feature", properties: { role: "waypoint" }, geometry: { type: "Point", coordinates: coordinate } }));
+    if (coordinates.length > 1) features.unshift({ type: "Feature", properties: { role: "route" }, geometry: { type: "LineString", coordinates } });
+    if (routeHoverPoint) features.push({
+      type: "Feature",
+      properties: { role: "profile-position" },
+      geometry: { type: "Point", coordinates: [routeHoverPoint.lng, routeHoverPoint.lat] },
+    });
+    return { type: "FeatureCollection", features };
+  }
+
+  function installRouteLayers() {
+    if (!mapLoaded || map.getSource(ROUTE_SOURCE)) return;
+    map.addSource(ROUTE_SOURCE, { type: "geojson", data: routeData() });
+    map.addLayer({ id: ROUTE_LINE_LAYER, type: "line", source: ROUTE_SOURCE, filter: ["==", ["geometry-type"], "LineString"], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#d14f2a", "line-width": 4 } });
+    map.addLayer({ id: ROUTE_POINT_LAYER, type: "circle", source: ROUTE_SOURCE, filter: ["==", ["get", "role"], "waypoint"], paint: { "circle-radius": 6, "circle-color": "#fff", "circle-stroke-color": "#d14f2a", "circle-stroke-width": 3 } });
+    map.addLayer({ id: ROUTE_HOVER_HALO_LAYER, type: "circle", source: ROUTE_SOURCE, filter: ["==", ["get", "role"], "profile-position"], paint: { "circle-radius": 14, "circle-color": "#d14f2a", "circle-opacity": 0.3, "circle-blur": 0.25 } });
+    map.addLayer({ id: ROUTE_HOVER_LAYER, type: "circle", source: ROUTE_SOURCE, filter: ["==", ["get", "role"], "profile-position"], paint: { "circle-radius": 8, "circle-color": "#d14f2a", "circle-stroke-color": "#fff", "circle-stroke-width": 3 } });
+  }
+
+  function updateRouteSource() {
+    installRouteLayers();
+    const source = map.getSource(ROUTE_SOURCE);
+    if (source) source.setData(routeData());
+  }
+
+  function routeDistance(points = routePoints) {
+    return points.slice(1).reduce((total, point, index) => total + haversineDistanceMeters(points[index], point), 0);
+  }
+
+  function sampleRoute(points, maximum = 100) {
+    if (points.length < 2) return points.map((point) => ({ ...point }));
+    const lengths = points.slice(1).map((point, index) => haversineDistanceMeters(points[index], point));
+    const total = lengths.reduce((sum, value) => sum + value, 0);
+    const count = Math.min(maximum, Math.max(points.length, Math.ceil(total / 250) + 1));
+    const samples = [];
+    for (let index = 0; index < count; index += 1) {
+      const target = total * index / (count - 1);
+      let travelled = 0;
+      let segment = 0;
+      while (segment < lengths.length - 1 && travelled + lengths[segment] < target) travelled += lengths[segment++];
+      const ratio = lengths[segment] ? (target - travelled) / lengths[segment] : 0;
+      samples.push({ lng: points[segment].lng + (points[segment + 1].lng - points[segment].lng) * ratio, lat: points[segment].lat + (points[segment + 1].lat - points[segment].lat) * ratio });
+    }
+    return samples;
+  }
+
+  function setRouteElevationStatus(message) {
+    routeElevationStatus.textContent = message;
+    routeElevationStatusExpanded.textContent = message;
+  }
+
+  function routeElevationStats(points) {
+    if (!points.some((point) => Number.isFinite(point.ele))) {
+      return { start: "—", finish: "—", gain: "—", loss: "—" };
+    }
+    let gain = 0;
+    let loss = 0;
+    for (let index = 1; index < points.length; index += 1) {
+      if (!Number.isFinite(points[index - 1].ele) || !Number.isFinite(points[index].ele)) continue;
+      const change = points[index].ele - points[index - 1].ele;
+      if (change > 0) gain += change;
+      else loss -= change;
+    }
+    return {
+      start: Number.isFinite(points[0]?.ele) ? `${Math.round(points[0].ele)} m` : "—",
+      finish: Number.isFinite(points.at(-1)?.ele) ? `${Math.round(points.at(-1).ele)} m` : "—",
+      gain: `${Math.round(gain)} m`,
+      loss: `${Math.round(loss)} m`,
+    };
+  }
+
+  function renderRouteStats(points) {
+    const stats = routeElevationStats(points);
+    for (const value of routeStatValues) value.textContent = stats[value.dataset.routeStat];
+  }
+
+  function cumulativeGainAt(points, lowerIndex, segmentRatio) {
+    let gain = 0;
+    for (let index = 1; index <= lowerIndex; index += 1) {
+      const change = points[index].ele - points[index - 1].ele;
+      if (Number.isFinite(change) && change > 0) gain += change;
+    }
+    if (lowerIndex < points.length - 1 && segmentRatio > 0) {
+      const partialChange = points[lowerIndex + 1].ele - points[lowerIndex].ele;
+      if (Number.isFinite(partialChange) && partialChange > 0) gain += partialChange * segmentRatio;
+    }
+    return gain;
+  }
+
+  function niceProfileStep(value) {
+    const magnitude = 10 ** Math.floor(Math.log10(Math.max(1, value)));
+    const normalized = value / magnitude;
+    const factor = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
+    return factor * magnitude;
+  }
+
+  function profilePlotFor(chart) {
+    if (chart !== routeProfileChartExpanded || !chart.clientWidth || !chart.clientHeight) {
+      return chart === routeProfileChartExpanded ? PROFILE_PLOTS.expanded : PROFILE_PLOTS.compact;
+    }
+    const viewHeight = Math.max(115, Math.min(240, 320 * chart.clientHeight / chart.clientWidth));
+    chart.setAttribute("viewBox", `0 0 320 ${viewHeight}`);
+    return { left: 38, right: 310, top: 8, bottom: viewHeight - 20, axisY: viewHeight - 5 };
+  }
+
+  function profileScale(points, plot) {
+    const elevations = points.map((point) => point.ele).filter(Number.isFinite);
+    if (elevations.length < 2) return null;
+    const rawMin = Math.min(...elevations);
+    const rawMax = Math.max(...elevations);
+    const step = niceProfileStep((rawMax - rawMin) / 4);
+    const min = Math.floor(rawMin / step) * step;
+    const max = Math.max(min + step, Math.ceil(rawMax / step) * step);
+    return {
+      min,
+      max,
+      step,
+      x: (fraction) => plot.left + fraction * (plot.right - plot.left),
+      y: (elevation) => plot.bottom - (elevation - min) * (plot.bottom - plot.top) / (max - min),
+    };
+  }
+
+  function formatProfileDistance(distance, total) {
+    if (total < 1000) return `${Math.round(distance)} m`;
+    if (distance === 0) return "0";
+    const decimals = total < 10000 ? 1 : 0;
+    return `${(distance / 1000).toFixed(decimals)} km`;
+  }
+
+  function drawElevationProfile(points) {
+    if (!profileScale(points, PROFILE_PLOTS.compact)) {
+      for (const chart of routeProfileCharts) chart.replaceChildren();
+      return;
+    }
+    const totalDistance = routeDistance();
+    for (const chart of routeProfileCharts) {
+      const plot = profilePlotFor(chart);
+      const scale = profileScale(points, plot);
+      const coordinates = points.map((point, index) => `${scale.x(index / (points.length - 1))},${scale.y(point.ele)}`).join(" ");
+      const horizontalGrid = [];
+      for (let elevation = scale.min; elevation <= scale.max + scale.step / 2; elevation += scale.step) {
+        const y = scale.y(elevation);
+        horizontalGrid.push(`<line x1="${plot.left}" x2="${plot.right}" y1="${y}" y2="${y}"/><text class="profile-axis-label" x="34" y="${y + 2.5}" text-anchor="end">${Math.round(elevation)} m</text>`);
+      }
+      const verticalGrid = [];
+      for (let index = 0; index <= 4; index += 1) {
+        const fraction = index / 4;
+        const x = scale.x(fraction);
+        const anchor = index === 0 ? "start" : index === 4 ? "end" : "middle";
+        verticalGrid.push(`<line x1="${x}" x2="${x}" y1="${plot.top}" y2="${plot.bottom}"/><text class="profile-axis-label" x="${x}" y="${plot.axisY}" text-anchor="${anchor}">${formatProfileDistance(totalDistance * fraction, totalDistance)}</text>`);
+      }
+      chart.innerHTML = `<g class="profile-grid">${horizontalGrid.join("")}${verticalGrid.join("")}</g><polyline points="${plot.left},${plot.bottom} ${coordinates} ${plot.right},${plot.bottom}"/><g class="profile-inspector" hidden><line class="profile-inspector-horizontal" x1="${plot.left}" x2="${plot.right}"/><line class="profile-inspector-vertical" y1="${plot.top}" y2="${plot.bottom}"/><circle r="4"/><text class="profile-inspector-summary"></text><text class="profile-inspector-altitude" x="34" text-anchor="end"></text></g>`;
+    }
+    renderRouteStats(points);
+  }
+
+  function inspectRouteProfile(chart, event) {
+    if (routeProfilePoints.length < 2) return;
+    const plot = profilePlotFor(chart);
+    const bounds = chart.getBoundingClientRect();
+    const chartX = (event.clientX - bounds.left) * 320 / bounds.width;
+    const fraction = Math.max(0, Math.min(1, (chartX - plot.left) / (plot.right - plot.left)));
+    const scaledIndex = fraction * (routeProfilePoints.length - 1);
+    const lowerIndex = Math.floor(scaledIndex);
+    const upperIndex = Math.min(routeProfilePoints.length - 1, lowerIndex + 1);
+    const ratio = scaledIndex - lowerIndex;
+    const lower = routeProfilePoints[lowerIndex];
+    const upper = routeProfilePoints[upperIndex];
+    const cumulativeGain = cumulativeGainAt(routeProfilePoints, lowerIndex, ratio);
+    routeHoverPoint = {
+      lng: lower.lng + (upper.lng - lower.lng) * ratio,
+      lat: lower.lat + (upper.lat - lower.lat) * ratio,
+      ele: lower.ele + (upper.ele - lower.ele) * ratio,
+    };
+    if (!profileScale(routeProfilePoints, plot)) return;
+    for (const profileChart of routeProfileCharts) {
+      const profilePlot = profilePlotFor(profileChart);
+      const profileChartScale = profileScale(routeProfilePoints, profilePlot);
+      const inspector = profileChart.querySelector(".profile-inspector");
+      if (!inspector || !profileChartScale) continue;
+      inspector.removeAttribute("hidden");
+      const verticalLine = inspector.querySelector(".profile-inspector-vertical");
+      const horizontalLine = inspector.querySelector(".profile-inspector-horizontal");
+      const circle = inspector.querySelector("circle");
+      const label = inspector.querySelector(".profile-inspector-summary");
+      const altitudeLabel = inspector.querySelector(".profile-inspector-altitude");
+      const profileX = profileChartScale.x(fraction);
+      const profileY = profileChartScale.y(routeHoverPoint.ele);
+      verticalLine.setAttribute("x1", profileX); verticalLine.setAttribute("x2", profileX);
+      horizontalLine.setAttribute("y1", profileY); horizontalLine.setAttribute("y2", profileY);
+      circle.setAttribute("cx", profileX); circle.setAttribute("cy", profileY);
+      label.setAttribute("x", profileX + (fraction > 0.68 ? -5 : 5));
+      label.setAttribute("y", profileY < 20 ? profileY + 12 : profileY - 5);
+      label.setAttribute("text-anchor", fraction > 0.68 ? "end" : "start");
+      label.textContent = `${formatDistance(routeDistance() * fraction)} · D+ ${Math.round(cumulativeGain)} m`;
+      altitudeLabel.setAttribute("y", profileY + 2.5);
+      altitudeLabel.textContent = `${Math.round(routeHoverPoint.ele)} m`;
+    }
+    updateRouteSource();
+  }
+
+  function clearRouteProfileInspection() {
+    routeHoverPoint = null;
+    for (const chart of routeProfileCharts) {
+      const inspector = chart.querySelector(".profile-inspector");
+      if (inspector) inspector.setAttribute("hidden", "");
+    }
+    updateRouteSource();
+  }
+
+  async function updateRouteElevation() {
+    const requestId = ++routeElevationRequestId;
+    if (routePoints.length < 2) return;
+    routeProfile.hidden = false;
+    setRouteElevationStatus("Loading elevation…");
+    const samples = sampleRoute(routePoints);
+    const url = new URL(ELEVATION_API);
+    url.searchParams.set("latitude", samples.map((point) => point.lat.toFixed(6)).join(","));
+    url.searchParams.set("longitude", samples.map((point) => point.lng.toFixed(6)).join(","));
+    try {
+      const response = await fetch(url, { credentials: "omit" });
+      if (!response.ok) throw new Error(`Elevation request failed (${response.status})`);
+      const data = await response.json();
+      if (requestId !== routeElevationRequestId || !Array.isArray(data.elevation)) return;
+      routeProfilePoints = samples.map((point, index) => {
+        const rawElevation = data.elevation[index];
+        const elevation = rawElevation === null || rawElevation === undefined ? NaN : Number(rawElevation);
+        return { ...point, ele: Number.isFinite(elevation) ? elevation : NaN };
+      });
+      const validElevations = routeProfilePoints.map((point) => point.ele).filter(Number.isFinite);
+      if (validElevations.length < 2) throw new Error("Elevation response did not contain enough values");
+      drawElevationProfile(routeProfilePoints);
+      setRouteElevationStatus(`${formatDistance(routeDistance())} · ${Math.round(Math.min(...validElevations))}–${Math.round(Math.max(...validElevations))} m`);
+      routeDownload.disabled = false;
+    } catch (error) {
+      console.warn(error);
+      routeProfilePoints = samples;
+      drawElevationProfile(routeProfilePoints);
+      setRouteElevationStatus("Elevation temporarily unavailable; GPX remains downloadable.");
+      routeDownload.disabled = false;
+    }
+  }
+
+  function updateRoute() {
+    routeHoverPoint = null;
+    updateRouteSource();
+    routeText.textContent = routePoints.length ? `${routePoints.length} points · ${formatDistance(routeDistance())}` : "Click to add points.";
+    routeUndo.disabled = !routePoints.length; routeDownload.disabled = routePoints.length < 2;
+    routeProfilePoints = [];
+    drawElevationProfile(routeProfilePoints);
+    renderRouteStats(routeProfilePoints);
+    if (routePoints.length < 2) {
+      routeProfile.hidden = true;
+      routeElevationRequestId += 1;
+      if (routeProfileDialog.open) routeProfileDialog.close();
+    }
+    else void updateRouteElevation();
+  }
+
+  function setRouteMode(active) {
+    routeActive = active; routeToggle.setAttribute("aria-pressed", String(active));
+    routeReadout.hidden = !active && !routePoints.length;
+    map.getCanvas().classList.toggle("is-routing", active);
+    if (active) { setMeasurementMode(false); closeCoordinateMenu(); closeDetails(false); }
+  }
+
+  function downloadRouteGpx() {
+    const points = routeProfilePoints.length ? routeProfilePoints : routePoints;
+    if (points.length < 2) return;
+    const trackPoints = points.map((point) => `      <trkpt lat="${point.lat.toFixed(7)}" lon="${point.lng.toFixed(7)}">${Number.isFinite(point.ele) ? `<ele>${Math.round(point.ele)}</ele>` : ""}</trkpt>`).join("\n");
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="TracciaBianca Map inspector" xmlns="http://www.topografix.com/GPX/1/1"><metadata><name>TracciaBianca planned route</name></metadata><trk><name>Planned route</name><trkseg>\n${trackPoints}\n</trkseg></trk></gpx>`;
+    const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([xml], { type: "application/gpx+xml" })); link.download = "tracciabianca-route.gpx"; link.click(); URL.revokeObjectURL(link.href);
+  }
+
   function formatDistance(meters) {
     if (meters < 1000) return `${Math.round(meters)} m`;
     const kilometres = meters / 1000;
@@ -897,6 +1224,7 @@
   }
 
   function startMeasurement() {
+    setRouteMode(false);
     closeDetails(false);
     closeCoordinateMenu();
     measurementPoints = [];
@@ -953,7 +1281,7 @@
   }
 
   function startPmtilesHold(event) {
-    if (event.button !== 0 || measurementActive) return;
+    if (event.button !== 0 || measurementActive || routeActive) return;
     if (!pmtilesEnabled || !activeRasters.size) return;
     cancelPmtilesHold();
     pmtilesHoldPointerId = event.pointerId;
@@ -1120,6 +1448,7 @@
   map.on("load", () => {
     mapLoaded = true;
     measureToggle.disabled = false;
+    routeToggle.disabled = false;
     if (catalog) installCellLayer();
     createLabels();
     updateLabels();
@@ -1132,6 +1461,13 @@
       if (suppressNextMapClickTimer !== null) {
         window.clearTimeout(suppressNextMapClickTimer);
         suppressNextMapClickTimer = null;
+      }
+      return;
+    }
+    if (routeActive) {
+      if (!event.originalEvent || event.originalEvent.detail < 2) {
+        routePoints.push({ lng: event.lngLat.lng, lat: event.lngLat.lat });
+        updateRoute();
       }
       return;
     }
@@ -1242,6 +1578,26 @@
     else startMeasurement();
   });
   measureClear.addEventListener("click", clearMeasurement);
+  routeToggle.addEventListener("click", () => setRouteMode(!routeActive));
+  routeUndo.addEventListener("click", () => { routePoints.pop(); updateRoute(); });
+  routeClear.addEventListener("click", () => { routePoints = []; routeProfilePoints = []; updateRoute(); setRouteMode(false); });
+  routeDownload.addEventListener("click", downloadRouteGpx);
+  routeProfileExpand.addEventListener("click", () => {
+    routeProfileDialog.show();
+    routeProfile.classList.add("is-expanded");
+    drawElevationProfile(routeProfilePoints);
+  });
+  routeProfileClose.addEventListener("click", () => routeProfileDialog.close());
+  routeProfileDialog.addEventListener("close", () => {
+    routeProfile.classList.remove("is-expanded");
+    clearRouteProfileInspection();
+  });
+  for (const chart of routeProfileCharts) {
+    chart.addEventListener("pointermove", (event) => inspectRouteProfile(chart, event));
+    chart.addEventListener("pointerdown", (event) => inspectRouteProfile(chart, event));
+    chart.addEventListener("click", (event) => inspectRouteProfile(chart, event));
+    chart.addEventListener("pointerleave", clearRouteProfileInspection);
+  }
   pmtilesVisibilityToggle.addEventListener("click", () => {
     setPmtilesEnabled(!pmtilesEnabled);
     closeCoordinateMenu();
@@ -1253,6 +1609,7 @@
     if (event.key !== "Escape") return;
     cancelPmtilesHold();
     closeCoordinateMenu();
+    if (routeProfileDialog.open) routeProfileDialog.close();
     if (measurementActive) clearMeasurement();
     closeDetails(true);
   });
@@ -1273,6 +1630,7 @@
       map.resize();
       updateLabels();
       updateMeasurementLabel();
+      if (routeProfileDialog.open && routeProfilePoints.length > 1) drawElevationProfile(routeProfilePoints);
       syncRasterToMap();
     }, 120);
   });

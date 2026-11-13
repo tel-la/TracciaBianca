@@ -78,6 +78,27 @@ non attiva questa anteprima. Su mobile un tocco singolo apre invece il menu
 con coordinate, Google Maps e comando Hide/Show PMTiles; la pressione lunga
 mantiene l'anteprima temporanea della basemap OSM.
 
+## Pianificazione percorso e profilo altimetrico
+
+Il pulsante `Route` attiva il disegno punto per punto: ogni clic aggiunge un
+waypoint e aggiorna la polilinea e la distanza totale. `Undo` rimuove l'ultimo
+punto, `Clear` termina e cancella il percorso, mentre `GPX` scarica una traccia
+GPX 1.1 pronta per l'uso.
+
+Con almeno due punti, il viewer campiona il percorso (massimo 100 coordinate
+per richiesta) e interroga l'API Elevation di Open-Meteo, basata sul DEM
+Copernicus GLO-90 a 90 metri. Il profilo altimetrico viene mostrato direttamente
+nella mappa insieme a quota iniziale, quota finale, dislivello positivo D+ e
+dislivello negativo D−. Il grafico può essere aperto in una finestra più grande;
+la finestra non è modale e permette di continuare a spostare e ingrandire la
+mappa. Passando il puntatore sul profilo viene evidenziata sulla traccia la
+posizione corrispondente. Una griglia sottile riporta le quote sull'asse Y e la
+distanza progressiva sull'asse X, automaticamente in metri o chilometri. Le
+quote disponibili vengono incluse negli elementi `<ele>` del GPX. Nessun raster
+altimetrico viene incorporato nel sito, mantenendo leggero il pacchetto
+pubblicato. Se il servizio altimetrico non è disponibile, il GPX resta
+scaricabile senza quote.
+
 Ogni voce può indicare esplicitamente file, dimensione e intervallo zoom:
 
 ```json

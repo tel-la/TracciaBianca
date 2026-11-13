@@ -8,7 +8,7 @@
   <title>TracciaBianca Webmap · PMTiles</title>
   <link rel="icon" href="../assets/TracciaBianca_LogoCirlce.png" type="image/png">
   <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css">
-  <link rel="stylesheet" href="./app.css?v=20261111-1">
+  <link rel="stylesheet" href="./app.css?v=20261113-9">
 </head>
 <body>
   <a class="skip-link" href="#map">Skip to the map</a>
@@ -39,11 +39,54 @@
           <span class="measure-icon" aria-hidden="true">↔</span>
           <span>Measure</span>
         </button>
+        <button class="measure-toggle" id="route-toggle" type="button" aria-pressed="false" disabled>
+          <span class="measure-icon" aria-hidden="true">⌁</span><span>Route</span>
+        </button>
         <div class="measure-readout" id="measure-readout" hidden>
           <span id="measure-text" role="status" aria-live="polite"></span>
           <button id="measure-clear" type="button">Clear</button>
         </div>
+        <div class="measure-readout" id="route-readout" hidden>
+          <span id="route-text" role="status" aria-live="polite">Click to add points.</span>
+          <button id="route-undo" type="button">Undo</button>
+          <button id="route-clear" type="button">Clear</button>
+          <button id="route-download" type="button" disabled>GPX</button>
+        </div>
       </div>
+      <section class="route-profile" id="route-profile" aria-label="Elevation profile" hidden>
+        <div class="route-profile-heading">
+          <strong>Elevation profile</strong>
+          <button id="route-profile-expand" type="button" aria-haspopup="dialog">Expand</button>
+        </div>
+        <span id="route-elevation-status">Add at least two points.</span>
+        <dl class="route-stats" aria-label="Route elevation summary">
+          <div><dt>Start</dt><dd data-route-stat="start">—</dd></div>
+          <div><dt>Finish</dt><dd data-route-stat="finish">—</dd></div>
+          <div><dt>D+</dt><dd data-route-stat="gain">—</dd></div>
+          <div><dt>D−</dt><dd data-route-stat="loss">—</dd></div>
+        </dl>
+        <svg id="route-profile-chart" viewBox="0 0 320 92" role="img" aria-label="Track elevation profile with altitude and distance axes"></svg>
+        <span class="route-profile-hint">Hover over the graph to inspect the corresponding point on the route.</span>
+        <small>Elevation: <a href="https://open-meteo.com/en/docs/elevation-api" target="_blank" rel="noopener">Open-Meteo / Copernicus DEM GLO-90</a></small>
+      </section>
+
+      <dialog class="route-profile-dialog" id="route-profile-dialog" aria-labelledby="route-profile-dialog-title">
+        <div class="route-profile-dialog-heading">
+          <div>
+            <strong id="route-profile-dialog-title">Elevation profile</strong>
+            <span id="route-elevation-status-expanded">Add at least two points.</span>
+          </div>
+          <button id="route-profile-close" type="button" aria-label="Close elevation profile">×</button>
+        </div>
+        <dl class="route-stats route-stats-expanded" aria-label="Route elevation summary">
+          <div><dt>Start</dt><dd data-route-stat="start">—</dd></div>
+          <div><dt>Finish</dt><dd data-route-stat="finish">—</dd></div>
+          <div><dt>D+</dt><dd data-route-stat="gain">—</dd></div>
+          <div><dt>D−</dt><dd data-route-stat="loss">—</dd></div>
+        </dl>
+        <svg id="route-profile-chart-expanded" viewBox="0 0 320 150" role="img" aria-label="Expanded track elevation profile with altitude and distance axes"></svg>
+        <p>Move the pointer over the profile to locate that position on the route. The map remains fully interactive.</p>
+      </dialog>
       <output class="measurement-label" id="measurement-label" aria-live="off" hidden></output>
 
       <div class="coordinate-menu" id="coordinate-menu" role="dialog" aria-label="Map coordinates" hidden>
@@ -110,6 +153,6 @@
   <script src="./vendor/maplibre-gl/maplibre-gl.js"></script>
   <script src="./vendor/pmtiles/pmtiles.js"></script>
   <script src="./config.js?v=20261110-2"></script>
-  <script src="./app.js?v=20261113-2"></script>
+  <script src="./app.js?v=20261113-13"></script>
 </body>
 </html>
