@@ -49,10 +49,12 @@ visibile una cella, aggiungerla anche a `pmtiles-manifest.json`.
 di un archivio. Il viewer lo carica una sola volta insieme al catalogo e mostra
 soltanto le celle elencate. Non esegue richieste preventive verso tutti gli
 archivi: header, directory e tile vengono letti solamente quando il centro
-della mappa entra in una cella circa 2,25 livelli prima del suo `minzoom`. Un
-archivio che parte da z12 mostra così un'anteprima progressiva da zoom mappa
-9,75, passa a una scala intermedia a z10 e torna alla scala raster standard a
-z11.
+della mappa raggiunge la soglia di visualizzazione. Su desktop la piramide
+raster viene anticipata di 2,5 livelli: z12–16 dell'archivio corrispondono a
+z9,5–13,5 della mappa. Su schermi fino a 720 px la soglia è adattiva: il primo
+livello viene mostrato quando l'estensione proiettata della cella raggiunge il
+60% della dimensione utile dello schermo, mantenendo poi la progressione di un
+livello raster per ogni livello della mappa.
 Tutte le celle disponibili che intersecano il viewport vengono mantenute
 visibili insieme, ciascuna con source e layer indipendenti. Quando una cella
 esce dalla vista il relativo raster viene rimosso; tornando alla vista generale
@@ -69,10 +71,12 @@ seguono dinamicamente il puntatore; il secondo clic fissa la misura geodetica
 diretta. `Clear` elimina la misurazione. Un clic destro sulla mappa apre un menu
 con latitudine, longitudine e il collegamento diretto al punto su Google Maps.
 Lo stesso menu consente di nascondere in modo persistente tutti i raster
-PMTiles e lavorare sulla sola basemap OSM, oppure di riattivarli. In alternativa,
+PMTiles e lavorare sulla sola basemap OSM, oppure di riattivarli. Su desktop,
 tenendo premuto il pulsante sinistro sulla mappa per 1,2 secondi i PMTiles
 scompaiono temporaneamente e ricompaiono al rilascio; un trascinamento normale
-non attiva questa anteprima.
+non attiva questa anteprima. Su mobile un tocco singolo apre invece il menu
+con coordinate, Google Maps e comando Hide/Show PMTiles; la pressione lunga
+mantiene l'anteprima temporanea della basemap OSM.
 
 Ogni voce può indicare esplicitamente file, dimensione e intervallo zoom:
 
@@ -232,10 +236,11 @@ Checklist prima della pubblicazione:
 2. aprire `/webmap/` tramite il server locale;
 3. verificare che siano mostrate soltanto le celle elencate nel manifest;
 4. verificare che l’avvio e la vista generale non generino richieste verso gli archivi PMTiles;
-5. senza cliccare, portare il centro della mappa dentro una cella a zoom 9,75 e verificare anteprima e tile Range z12;
+5. su desktop verificare che z12–16 dell'archivio siano mostrati a zoom mappa 9,5–13,5;
 6. inquadrare due o più celle contigue e verificare che i rispettivi raster siano visibili insieme;
 7. cercare una località esterna alle celle ma interna al margine di 20 km;
 8. verificare scala metrica, misurazione a due punti, cancellazione e menu coordinate con clic destro;
-9. verificare pressione lunga di 1,2 secondi e attivazione/disattivazione persistente dei PMTiles;
-10. provare lo stesso archivio su R2 dall’origine GitHub Pages;
-11. controllare console, layout desktop/mobile, tastiera ed `Esc`.
+9. su mobile verificare il caricamento al 60% dello schermo e il menu coordinate tramite pressione lunga;
+10. su desktop verificare la temporanea scomparsa dei PMTiles con pressione lunga di 1,2 secondi;
+11. provare lo stesso archivio su R2 dall’origine GitHub Pages;
+12. controllare console, layout desktop/mobile, tastiera ed `Esc`.

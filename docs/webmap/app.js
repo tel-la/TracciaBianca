@@ -44,13 +44,10 @@
   const pmtilesVisibilityToggle = document.getElementById("pmtiles-visibility-toggle");
   const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
   const SEARCH_BOUNDS_BUFFER_KM = 20;
-  const RASTER_TILE_SIZE = 256;
-  const RASTER_PREVIEW_TILE_SIZE = 128;
-  const RASTER_EARLY_PREVIEW_TILE_SIZE = 64;
   const MAPLIBRE_CANONICAL_TILE_SIZE = 512;
-  const RASTER_STANDARD_ZOOM_OFFSET = Math.log2(
-    MAPLIBRE_CANONICAL_TILE_SIZE / RASTER_TILE_SIZE);
-  const RASTER_PREVIEW_ZOOM_OFFSET = 2.25;
+  const DESKTOP_RASTER_ZOOM_SHIFT = 2.5;
+  const MOBILE_CELL_SPAN_THRESHOLD = 0.6;
+  const MOBILE_MEDIA_QUERY = "(max-width: 720px)";
   const MEASUREMENT_SOURCE = "distance-measurement";
   const MEASUREMENT_LINE_LAYER = "distance-measurement-line";
   const MEASUREMENT_POINT_LAYER = "distance-measurement-points";
@@ -139,6 +136,8 @@
   let pmtilesHoldTimer = null;
   let pmtilesHoldPointerId = null;
   let pmtilesHoldStart = null;
+  let suppressNextMapClick = false;
+  let suppressNextMapClickTimer = null;
 
   const statusLabels = {
     published: "Available",
@@ -480,19 +479,41 @@
     return 12;
   }
 
-  // Progressive downsampling makes archive z12 visible from map zoom 9.75:
-  // 64 px below z10, 128 px from z10 and the normal 256 px from z11.
-  function rasterActivationZoomFor(cell) {
-    return Math.max(0, rasterArchiveMinZoomFor(cell) - RASTER_PREVIEW_ZOOM_OFFSET);
+  function isMobileViewport() {
+    return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
   }
 
-  function rasterTileSizeForViewport(cell) {
+  function mobileCellSpanRatio(cell) {
+    const bbox = analysisBBox(cell);
+    const container = map.getContainer();
+    if (!bbox || !container.clientWidth || !container.clientHeight) return 0;
+    const southWest = map.project(bbox[0]);
+    const northEast = map.project(bbox[1]);
+    const widthRatio = Math.abs(northEast.x - southWest.x) / container.clientWidth;
+    const heightRatio = Math.abs(southWest.y - northEast.y) / container.clientHeight;
+    return Math.max(widthRatio, heightRatio);
+  }
+
+  function rasterDisplayProfileFor(cell) {
     const archiveMinZoom = rasterArchiveMinZoomFor(cell);
-    const standardZoom = rasterArchiveMinZoomFor(cell) - RASTER_STANDARD_ZOOM_OFFSET;
-    const regularPreviewZoom = archiveMinZoom - 2;
-    if (map.getZoom() + 1e-6 < regularPreviewZoom) return RASTER_EARLY_PREVIEW_TILE_SIZE;
-    if (map.getZoom() + 1e-6 < standardZoom) return RASTER_PREVIEW_TILE_SIZE;
-    return RASTER_TILE_SIZE;
+    let activationZoom = archiveMinZoom - DESKTOP_RASTER_ZOOM_SHIFT;
+    if (isMobileViewport()) {
+      const spanRatio = mobileCellSpanRatio(cell);
+      if (spanRatio > 0) {
+        activationZoom = map.getZoom()
+          + Math.log2(MOBILE_CELL_SPAN_THRESHOLD / spanRatio);
+      }
+    }
+    activationZoom = Math.max(0, Math.round(activationZoom * 1000) / 1000);
+    const earlyZoomShift = archiveMinZoom - activationZoom;
+    const regularZoomShift = archiveMinZoom - (activationZoom + 0.5);
+    const earlyTileSize = Math.round(
+      (MAPLIBRE_CANONICAL_TILE_SIZE / Math.pow(2, earlyZoomShift)) * 1000) / 1000;
+    const regularTileSize = Math.round(
+      (MAPLIBRE_CANONICAL_TILE_SIZE / Math.pow(2, regularZoomShift)) * 1000) / 1000;
+    const tileSize = map.getZoom() + 1e-6 < activationZoom + 0.5
+      ? earlyTileSize : regularTileSize;
+    return { activationZoom, tileSize };
   }
 
   function bboxIntersectsViewport(bbox, bounds) {
@@ -503,18 +524,21 @@
   function rasterCellsForViewport() {
     if (!catalog || !mapLoaded) return [];
     const bounds = map.getBounds();
-    return catalog.cells.filter((cell) => {
+    const matches = [];
+    for (const cell of catalog.cells) {
       const bbox = analysisBBox(cell);
-      return bbox && map.getZoom() + 1e-6 >= rasterActivationZoomFor(cell)
-        && bboxIntersectsViewport(bbox, bounds);
-    });
+      if (!bbox || !bboxIntersectsViewport(bbox, bounds)) continue;
+      const profile = rasterDisplayProfileFor(cell);
+      if (map.getZoom() + 1e-6 >= profile.activationZoom) {
+        matches.push({ cell, ...profile });
+      }
+    }
+    return matches;
   }
 
   function syncRasterToMap() {
-    const nextDesired = new Map(rasterCellsForViewport().map((cell) => [cell.id, {
-      cell,
-      tileSize: rasterTileSizeForViewport(cell),
-    }]));
+    const nextDesired = new Map(rasterCellsForViewport().map((entry) =>
+      [entry.cell.id, entry]));
 
     for (const cellId of rasterLoads.keys()) {
       const next = nextDesired.get(cellId);
@@ -616,9 +640,12 @@
       }, before);
       activeRasters.set(cell.id, { url: absUrl, tileSize });
       rasterFailures.delete(cell.id);
-      const preview = tileSize === RASTER_EARLY_PREVIEW_TILE_SIZE
-        ? " early preview" : (tileSize === RASTER_PREVIEW_TILE_SIZE ? " preview" : "");
-      console.info(`PMTiles${preview} ready for ${cell.id} (z${minzoom}–${maxzoom}).`);
+      const zoomShift = Math.log2(MAPLIBRE_CANONICAL_TILE_SIZE / tileSize);
+      const displayMinZoom = minzoom - zoomShift;
+      const displayMaxZoom = maxzoom - zoomShift;
+      console.info(
+        `PMTiles ready for ${cell.id}: archive z${minzoom}–${maxzoom} `
+        + `displayed at map z${displayMinZoom.toFixed(2)}–${displayMaxZoom.toFixed(2)}.`);
       setTilesNoteForCell(cell, "ready", `PMTiles loaded for ${cell.id}.`);
     } catch (error) {
       if (!isCurrent()) return;
@@ -914,14 +941,37 @@
     }
   }
 
+  function suppressMapClickBriefly() {
+    suppressNextMapClick = true;
+    if (suppressNextMapClickTimer !== null) {
+      window.clearTimeout(suppressNextMapClickTimer);
+    }
+    suppressNextMapClickTimer = window.setTimeout(() => {
+      suppressNextMapClick = false;
+      suppressNextMapClickTimer = null;
+    }, 800);
+  }
+
   function startPmtilesHold(event) {
-    if (event.button !== 0 || measurementActive || !pmtilesEnabled || !activeRasters.size) return;
+    if (event.button !== 0 || measurementActive) return;
+    if (!pmtilesEnabled || !activeRasters.size) return;
     cancelPmtilesHold();
     pmtilesHoldPointerId = event.pointerId;
-    pmtilesHoldStart = { x: event.clientX, y: event.clientY };
+    const canvasRect = map.getCanvas().getBoundingClientRect();
+    const point = {
+      x: event.clientX - canvasRect.left,
+      y: event.clientY - canvasRect.top,
+    };
+    pmtilesHoldStart = {
+      x: event.clientX,
+      y: event.clientY,
+      point,
+      lngLat: map.unproject([point.x, point.y]),
+    };
     pmtilesHoldTimer = window.setTimeout(() => {
       pmtilesHoldTimer = null;
-      if (pmtilesHoldPointerId === null || !pmtilesEnabled) return;
+      if (pmtilesHoldPointerId === null) return;
+      if (!pmtilesEnabled) return;
       pmtilesPeekHidden = true;
       closeCoordinateMenu();
       applyPmtilesVisibility();
@@ -944,25 +994,30 @@
     coordinateMenu.hidden = true;
   }
 
-  function openCoordinateMenu(event) {
-    event.originalEvent.preventDefault();
+  function openCoordinateMenuAt(point, lngLat) {
     updatePmtilesVisibilityToggle();
-    const latitude = event.lngLat.lat;
-    const longitude = event.lngLat.lng;
+    const latitude = lngLat.lat;
+    const longitude = lngLat.lng;
     const coordinateText = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
     coordinateValues.textContent = coordinateText;
     coordinateLink.href = `https://www.google.com/maps?q=${latitude.toFixed(6)},${longitude.toFixed(6)}`;
     coordinateLink.setAttribute("aria-label", `Open ${coordinateText} in Google Maps`);
     coordinateMenu.hidden = false;
-    coordinateMenu.style.left = `${event.point.x + 8}px`;
-    coordinateMenu.style.top = `${event.point.y + 8}px`;
+    coordinateMenu.style.left = `${point.x + 8}px`;
+    coordinateMenu.style.top = `${point.y + 8}px`;
     window.requestAnimationFrame(() => {
       const maxLeft = Math.max(8, mapShell.clientWidth - coordinateMenu.offsetWidth - 8);
       const maxTop = Math.max(8, mapShell.clientHeight - coordinateMenu.offsetHeight - 8);
-      coordinateMenu.style.left = `${Math.max(8, Math.min(event.point.x + 8, maxLeft))}px`;
-      coordinateMenu.style.top = `${Math.max(8, Math.min(event.point.y + 8, maxTop))}px`;
+      coordinateMenu.style.left = `${Math.max(8, Math.min(point.x + 8, maxLeft))}px`;
+      coordinateMenu.style.top = `${Math.max(8, Math.min(point.y + 8, maxTop))}px`;
       coordinateLink.focus({ preventScroll: true });
     });
+  }
+
+  function openCoordinateMenu(event) {
+    event.originalEvent.preventDefault();
+    if (isMobileViewport()) suppressMapClickBriefly();
+    openCoordinateMenuAt(event.point, event.lngLat);
   }
 
   /* ---- Selection / panel -------------------------------------------------- */
@@ -1072,6 +1127,18 @@
   });
 
   map.on("click", (event) => {
+    if (suppressNextMapClick) {
+      suppressNextMapClick = false;
+      if (suppressNextMapClickTimer !== null) {
+        window.clearTimeout(suppressNextMapClickTimer);
+        suppressNextMapClickTimer = null;
+      }
+      return;
+    }
+    if (isMobileViewport()) {
+      openCoordinateMenuAt(event.point, event.lngLat);
+      return;
+    }
     closeCoordinateMenu();
     if (measurementActive) addMeasurementPoint(event.lngLat);
     else closeDetails(false);

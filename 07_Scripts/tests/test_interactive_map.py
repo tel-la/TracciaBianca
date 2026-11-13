@@ -115,7 +115,10 @@ class InteractiveMapTests(unittest.TestCase):
             self.assertIn("applyPmtilesVisibility", webmap_app)
             self.assertIn('id="pmtiles-visibility-toggle"', webmap_html)
             self.assertIn('map.on("contextmenu", openCoordinateMenu)', webmap_app)
-            self.assertIn("RASTER_PREVIEW_ZOOM_OFFSET = 2.25", webmap_app)
+            self.assertIn("DESKTOP_RASTER_ZOOM_SHIFT = 2.5", webmap_app)
+            self.assertIn("MOBILE_CELL_SPAN_THRESHOLD = 0.6", webmap_app)
+            self.assertIn("rasterDisplayProfileFor", webmap_app)
+            self.assertIn("openCoordinateMenuAt", webmap_app)
             self.assertIn('url.searchParams.set("bounded", "1")', webmap_app)
             self.assertIn("SEARCH_BOUNDS_BUFFER_KM = 20", webmap_app)
             manifest = json.loads(
