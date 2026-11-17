@@ -243,6 +243,54 @@ a { font: inherit; }
 .search-result strong { font-size: 12px; line-height: 1.4; }
 .search-result span { color: var(--muted-text); font-size: 11px; line-height: 1.4; }
 
+.terrain-tools {
+  position: absolute;
+  z-index: 825;
+  top: max(64px, calc(64px + env(safe-area-inset-top)));
+  right: max(14px, calc(14px + env(safe-area-inset-right)));
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.terrain-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 10px;
+  color: var(--deep-navy);
+  background: rgb(248 250 252 / 94%);
+  box-shadow: 0 7px 22px rgb(6 42 67 / 19%);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.terrain-tools button:hover { background: #fff; }
+.terrain-tools button:disabled { opacity: .55; cursor: wait; }
+.terrain-tools button[aria-pressed="true"] { color: #fff; background: var(--mountain-blue); }
+.terrain-tools button:focus-visible { outline: 3px solid var(--sky-blue); outline-offset: 2px; }
+.terrain-tools button span:first-child { font-size: 15px; line-height: 1; }
+
+.terrain-status {
+  max-width: 230px;
+  padding: 6px 8px;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 8px;
+  color: var(--mountain-blue);
+  background: rgb(248 250 252 / 96%);
+  box-shadow: 0 5px 16px rgb(6 42 67 / 16%);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.terrain-status.is-error { color: #7e3522; background: #fff5f1; }
+
 .legend {
   position: absolute;
   z-index: 800;
@@ -558,6 +606,12 @@ a:focus-visible,
     max-height: min(52dvh, calc(100dvh - 150px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
   }
   .search-result { min-height: 62px; }
+  .terrain-tools {
+    top: max(62px, calc(62px + env(safe-area-inset-top)));
+    right: max(9px, calc(9px + env(safe-area-inset-right)));
+  }
+  .terrain-tools button { min-height: 35px; padding: 6px 8px; }
+  .terrain-status { max-width: min(220px, calc(100vw - 18px)); }
   .legend { bottom: 24px; padding: 8px 9px; }
   .legend h2 { display: none; }
 }

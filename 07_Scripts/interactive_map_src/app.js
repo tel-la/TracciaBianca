@@ -17,7 +17,10 @@
   const placeSearchInput = document.getElementById("place-search-input");
   const searchMessage = document.getElementById("search-message");
   const searchResults = document.getElementById("search-results");
+  const hillshadeToggle = document.getElementById("hillshade-toggle");
+  const terrainStatus = document.getElementById("terrain-status");
   const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
+  const MAPTERHORN_TILEJSON = "https://tiles.mapterhorn.com/tilejson.json";
 
   const fields = {
     title: document.getElementById("details-title"),
@@ -133,6 +136,9 @@
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
   }).addTo(map);
+  map.createPane("hillshadePane");
+  map.getPane("hillshadePane").style.zIndex = "250";
+  map.getPane("hillshadePane").style.pointerEvents = "none";
 
   let catalog;
   let atlasBounds;
@@ -140,6 +146,10 @@
   let selectedCell = null;
   let resizeTimer = null;
   let lastGeocoderRequest = 0;
+  let hillshadeLayer = null;
+  let hillshadeLayerPromise = null;
+  let hillshadeEnabled = false;
+  let hillshadeLoadCycle = { loaded: 0, failed: 0 };
   const geocoderCache = new Map();
   const cellsById = new Map();
   const layersById = new Map();
@@ -154,6 +164,231 @@
     blocked: "Temporarily unavailable",
     planned: "Planned",
   };
+
+  function setTerrainStatus(message = "", isError = false) {
+    terrainStatus.textContent = message;
+    terrainStatus.hidden = !message;
+    terrainStatus.classList.toggle("is-error", isError);
+  }
+
+  function setHillshadeBusy(busy) {
+    hillshadeToggle.disabled = busy;
+    hillshadeToggle.setAttribute("aria-busy", String(busy));
+  }
+
+  function updateHillshadeToggle() {
+    hillshadeToggle.setAttribute("aria-pressed", String(hillshadeEnabled));
+  }
+
+  function terrainTileTemplates(tilejson) {
+    if (!Array.isArray(tilejson.tiles) || !tilejson.tiles.length) {
+      throw new Error("Mapterhorn TileJSON has no tile endpoints");
+    }
+    return tilejson.tiles.map((template) => new URL(template, MAPTERHORN_TILEJSON).href
+      .replace(/%7B([a-z0-9_-]+)%7D/gi, "{$1}"));
+  }
+
+  function terrainTileUrl(template, coords, scheme) {
+    const y = scheme === "tms" ? (2 ** coords.z) - coords.y - 1 : coords.y;
+    return template.replace("{z}", coords.z).replace("{x}", coords.x).replace("{y}", y);
+  }
+
+  function renderHillshadeTile(tile, image, coords) {
+    const sourceWidth = image.naturalWidth || image.width;
+    const sourceHeight = image.naturalHeight || image.height;
+    if (!sourceWidth || !sourceHeight) throw new Error("Empty Mapterhorn terrain tile");
+
+    const sourceCanvas = document.createElement("canvas");
+    sourceCanvas.width = sourceWidth;
+    sourceCanvas.height = sourceHeight;
+    const sourceContext = sourceCanvas.getContext("2d", { willReadFrequently: true });
+    sourceContext.drawImage(image, 0, 0);
+    const source = sourceContext.getImageData(0, 0, sourceWidth, sourceHeight).data;
+
+    const outputSize = 256;
+    tile.width = outputSize;
+    tile.height = outputSize;
+    const outputContext = tile.getContext("2d");
+    const outputImage = outputContext.createImageData(outputSize, outputSize);
+    const output = outputImage.data;
+    const sampleStepX = Math.max(1, Math.round(sourceWidth / outputSize));
+    const sampleStepY = Math.max(1, Math.round(sourceHeight / outputSize));
+    const worldTiles = 2 ** coords.z;
+    const tileCenterY = (coords.y + 0.5) / worldTiles;
+    const latitude = Math.atan(Math.sinh(Math.PI * (1 - 2 * tileCenterY)));
+    const metersPerSourcePixel = (2 * Math.PI * 6378137 * Math.cos(latitude))
+      / (worldTiles * sourceWidth);
+    const lightAzimuth = 315 * Math.PI / 180;
+    const lightAltitude = 45 * Math.PI / 180;
+    const lightHorizontal = Math.cos(lightAltitude);
+    const lightEast = Math.sin(lightAzimuth) * lightHorizontal;
+    const lightSouth = -Math.cos(lightAzimuth) * lightHorizontal;
+    const lightUp = Math.sin(lightAltitude);
+    const contrastBoost = 1.885;
+
+    function elevationAt(x, y) {
+      const index = (y * sourceWidth + x) * 4;
+      if (source[index + 3] === 0) return null;
+      return source[index] * 256 + source[index + 1] + source[index + 2] / 256 - 32768;
+    }
+
+    for (let y = 0; y < outputSize; y += 1) {
+      const sourceY = Math.min(sourceHeight - 1, Math.floor((y + 0.5) * sourceHeight / outputSize));
+      const northY = Math.max(0, sourceY - sampleStepY);
+      const southY = Math.min(sourceHeight - 1, sourceY + sampleStepY);
+      for (let x = 0; x < outputSize; x += 1) {
+        const sourceX = Math.min(sourceWidth - 1, Math.floor((x + 0.5) * sourceWidth / outputSize));
+        const westX = Math.max(0, sourceX - sampleStepX);
+        const eastX = Math.min(sourceWidth - 1, sourceX + sampleStepX);
+        const west = elevationAt(westX, sourceY);
+        const east = elevationAt(eastX, sourceY);
+        const north = elevationAt(sourceX, northY);
+        const south = elevationAt(sourceX, southY);
+        if (west === null || east === null || north === null || south === null) continue;
+
+        const dzdx = (east - west) / ((eastX - westX) * metersPerSourcePixel);
+        const dzdy = (south - north) / ((southY - northY) * metersPerSourcePixel);
+        const normalLength = Math.sqrt(dzdx * dzdx + dzdy * dzdy + 1);
+        const illumination = ((-dzdx * lightEast) + (-dzdy * lightSouth) + lightUp)
+          / normalLength;
+        const contrast = illumination - lightUp;
+        const outputIndex = (y * outputSize + x) * 4;
+        if (contrast < 0) {
+          output[outputIndex] = 63;
+          output[outputIndex + 1] = 57;
+          output[outputIndex + 2] = 45;
+          output[outputIndex + 3] = Math.min(255, Math.round(-contrast * 210 * contrastBoost));
+        } else {
+          output[outputIndex] = 255;
+          output[outputIndex + 1] = 255;
+          output[outputIndex + 2] = 255;
+          output[outputIndex + 3] = Math.min(136, Math.round(contrast * 120 * contrastBoost));
+        }
+      }
+    }
+    outputContext.putImageData(outputImage, 0, 0);
+  }
+
+  function createHillshadeLayer(tilejson) {
+    const templates = terrainTileTemplates(tilejson);
+    const scheme = tilejson.scheme === "tms" ? "tms" : "xyz";
+    const attribution = typeof tilejson.attribution === "string" && tilejson.attribution.trim()
+      ? tilejson.attribution
+      : '<a href="https://mapterhorn.com/attribution" target="_blank" rel="noopener">© Mapterhorn</a>';
+    const options = {
+      attribution,
+      pane: "hillshadePane",
+      tileSize: 256,
+      opacity: 1,
+      updateWhenZooming: false,
+      keepBuffer: 1,
+    };
+    if (Number.isFinite(Number(tilejson.minzoom))) options.minNativeZoom = Number(tilejson.minzoom);
+    if (Number.isFinite(Number(tilejson.maxzoom))) options.maxNativeZoom = Number(tilejson.maxzoom);
+    if (Array.isArray(tilejson.bounds) && tilejson.bounds.length === 4) {
+      options.bounds = L.latLngBounds(
+        [Number(tilejson.bounds[1]), Number(tilejson.bounds[0])],
+        [Number(tilejson.bounds[3]), Number(tilejson.bounds[2])],
+      );
+    }
+
+    const HillshadeGrid = L.GridLayer.extend({
+      createTile(coords, done) {
+        const tile = document.createElement("canvas");
+        const template = templates[Math.abs(coords.x + coords.y) % templates.length];
+        const image = new Image();
+        image.crossOrigin = "anonymous";
+        image.decoding = "async";
+        image.onload = () => {
+          window.setTimeout(() => {
+            try {
+              renderHillshadeTile(tile, image, coords);
+              done(null, tile);
+            } catch (error) {
+              done(error, tile);
+            }
+          }, 0);
+        };
+        image.onerror = () => done(new Error("Mapterhorn terrain tile failed to load"), tile);
+        image.src = terrainTileUrl(template, coords, scheme);
+        tile._hillshadeImage = image;
+        return tile;
+      },
+    });
+    return new HillshadeGrid(options);
+  }
+
+  function watchHillshadeAvailability(layer) {
+    layer.on("loading", () => {
+      hillshadeLoadCycle = { loaded: 0, failed: 0 };
+    });
+    layer.on("tileload", () => {
+      hillshadeLoadCycle.loaded += 1;
+    });
+    layer.on("tileerror", () => {
+      hillshadeLoadCycle.failed += 1;
+    });
+    layer.on("load", () => {
+      if (!hillshadeEnabled || !hillshadeLoadCycle.failed) {
+        if (hillshadeEnabled) setTerrainStatus();
+        return;
+      }
+      if (hillshadeLoadCycle.loaded) {
+        setTerrainStatus("Some terrain tiles are unavailable; OSM remains visible.", true);
+        return;
+      }
+      map.removeLayer(layer);
+      hillshadeEnabled = false;
+      updateHillshadeToggle();
+      setTerrainStatus("Mapterhorn is temporarily unavailable; OSM remains active.", true);
+    });
+  }
+
+  async function ensureHillshadeLayer() {
+    if (hillshadeLayer) return hillshadeLayer;
+    if (hillshadeLayerPromise) return hillshadeLayerPromise;
+    hillshadeLayerPromise = (async () => {
+      setHillshadeBusy(true);
+      setTerrainStatus("Loading Mapterhorn hillshade…");
+      const response = await fetch(MAPTERHORN_TILEJSON, {
+        cache: "force-cache",
+        credentials: "omit",
+      });
+      if (!response.ok) throw new Error(`Mapterhorn TileJSON request failed (${response.status})`);
+      const tilejson = await response.json();
+      if (tilejson.encoding && tilejson.encoding !== "terrarium") {
+        throw new Error(`Unsupported Mapterhorn encoding: ${tilejson.encoding}`);
+      }
+      hillshadeLayer = createHillshadeLayer(tilejson || {});
+      watchHillshadeAvailability(hillshadeLayer);
+      return hillshadeLayer;
+    })().catch((error) => {
+      console.warn(error);
+      hillshadeLayerPromise = null;
+      setTerrainStatus("Mapterhorn is temporarily unavailable; OSM remains active.", true);
+      return null;
+    }).finally(() => {
+      setHillshadeBusy(false);
+    });
+    return hillshadeLayerPromise;
+  }
+
+  async function setHillshadeEnabled(enabled) {
+    const next = Boolean(enabled);
+    if (next) {
+      const layer = await ensureHillshadeLayer();
+      if (!layer) return false;
+      hillshadeEnabled = true;
+      updateHillshadeToggle();
+      if (!map.hasLayer(layer)) layer.addTo(map);
+      return true;
+    }
+    if (hillshadeLayer && map.hasLayer(hillshadeLayer)) map.removeLayer(hillshadeLayer);
+    hillshadeEnabled = false;
+    updateHillshadeToggle();
+    setTerrainStatus();
+    return true;
+  }
 
   function compactId(cellId) {
     const match = /^([A-Z]{3})_(E\d+)_(N\d+)$/.exec(cellId);
@@ -568,6 +803,9 @@
     void showSearchResults(placeSearchInput.value);
   });
   placeSearchInput.addEventListener("input", clearSearchFeedback);
+  hillshadeToggle.addEventListener("click", () => {
+    void setHillshadeEnabled(!hillshadeEnabled);
+  });
   map.on("click", () => closeDetails(false));
   map.on("zoomend moveend", updateLabels);
   document.addEventListener("keydown", (event) => {
@@ -594,5 +832,6 @@
     }, 120);
   });
 
+  void setHillshadeEnabled(true);
   loadAtlas();
 })();

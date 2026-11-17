@@ -8,7 +8,7 @@
   <title>TracciaBianca Interactive Map</title>
   <link rel="icon" href="./assets/TracciaBianca_LogoCirlce.png" type="image/png">
   <link rel="stylesheet" href="./vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="./app.css?v=20261111-1">
+  <link rel="stylesheet" href="./app.css?v=20261117-1">
 </head>
 <body>
   <a class="skip-link" href="#map">Skip to the map</a>
@@ -33,6 +33,13 @@
         <p class="search-message" id="search-message" role="status" aria-live="polite" hidden></p>
         <div class="search-results" id="search-results" role="listbox" hidden></div>
       </form>
+
+      <div class="terrain-tools" aria-label="Terrain display controls">
+        <button id="hillshade-toggle" type="button" aria-pressed="false">
+          <span aria-hidden="true">◒</span><span>Hillshade</span>
+        </button>
+        <output class="terrain-status" id="terrain-status" role="status" aria-live="polite" hidden></output>
+      </div>
 
       <section class="legend" aria-label="Map legend">
         <h2>Map sheets</h2>
@@ -97,6 +104,6 @@
 
   <noscript>This interactive map requires JavaScript.</noscript>
   <script src="./vendor/leaflet/leaflet.js"></script>
-  <script src="./app.js?v=20261110-1"></script>
+  <script src="./app.js?v=20261117-3"></script>
 </body>
 </html>
