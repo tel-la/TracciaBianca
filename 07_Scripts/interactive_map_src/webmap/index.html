@@ -7,8 +7,10 @@
   <meta name="description" content="Explore and download TracciaBianca offline ski touring maps across Italy (MapLibre + PMTiles viewer).">
   <title>TracciaBianca Webmap · PMTiles</title>
   <link rel="icon" href="../assets/TracciaBianca_LogoCirlce.png" type="image/png">
-  <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css">
-  <link rel="stylesheet" href="./app.css?v=20261113-9">
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+  <link rel="dns-prefetch" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css?v=5.24.1">
+  <link rel="stylesheet" href="./app.css?v=20261116-3">
 </head>
 <body>
   <a class="skip-link" href="#map">Skip to the map</a>
@@ -33,6 +35,26 @@
         <p class="search-message" id="search-message" role="status" aria-live="polite" hidden></p>
         <div class="search-results" id="search-results" role="listbox" hidden></div>
       </form>
+
+      <div class="terrain-tools" id="terrain-tools" aria-label="Terrain display controls">
+        <div class="cardinal-compass" id="cardinal-compass" role="img" aria-label="Map heading: North">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle class="compass-face" cx="32" cy="32" r="29"></circle>
+            <g class="compass-dial" id="compass-dial">
+              <path class="compass-ticks" d="M32 5v7M32 52v7M5 32h7M52 32h7M12.9 12.9l5 5M46.1 46.1l5 5M51.1 12.9l-5 5M17.9 46.1l-5 5"></path>
+              <path class="compass-north" d="M32 4l-4.5 10h9z"></path>
+            </g>
+          </svg>
+          <span id="compass-direction" aria-hidden="true">N</span>
+        </div>
+        <button id="hillshade-toggle" type="button" aria-pressed="false" disabled>
+          <span aria-hidden="true">◒</span><span>Hillshade</span>
+        </button>
+        <button id="terrain-3d-toggle" type="button" aria-pressed="false" disabled>
+          <span aria-hidden="true">▰</span><span>3D</span>
+        </button>
+        <output class="terrain-status" id="terrain-status" role="status" aria-live="polite" hidden></output>
+      </div>
 
       <div class="measurement-tools" id="measurement-tools">
         <button class="measure-toggle" id="measure-toggle" type="button" aria-pressed="false" disabled>
@@ -150,9 +172,9 @@
   </main>
 
   <noscript>This interactive map requires JavaScript.</noscript>
-  <script src="./vendor/maplibre-gl/maplibre-gl.js"></script>
+  <script src="./vendor/maplibre-gl/maplibre-gl.js?v=5.24.1"></script>
   <script src="./vendor/pmtiles/pmtiles.js"></script>
-  <script src="./config.js?v=20261110-2"></script>
-  <script src="./app.js?v=20261113-13"></script>
+  <script src="./config.js?v=20261116-1"></script>
+  <script src="./app.js?v=20261117-5"></script>
 </body>
 </html>

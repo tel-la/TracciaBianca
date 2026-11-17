@@ -246,6 +246,93 @@ a { font: inherit; }
 .search-result strong { font-size: 12px; line-height: 1.4; }
 .search-result span { color: var(--muted-text); font-size: 11px; line-height: 1.4; }
 
+.terrain-tools {
+  position: absolute;
+  z-index: 825;
+  top: max(64px, calc(64px + env(safe-area-inset-top)));
+  right: max(14px, calc(14px + env(safe-area-inset-right)));
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: start;
+  gap: 6px;
+  max-width: min(280px, calc(100% - 28px));
+}
+
+.cardinal-compass {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgb(255 255 255 / 82%);
+  border-radius: 50%;
+  color: #46535c;
+  background: rgb(248 250 252 / 96%);
+  box-shadow: 0 7px 22px rgb(6 42 67 / 19%);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.terrain-tools #hillshade-toggle { grid-column: 1; grid-row: 1; }
+.terrain-tools #terrain-3d-toggle { grid-column: 2; grid-row: 1; }
+.cardinal-compass { grid-column: 2; grid-row: 2; justify-self: end; }
+
+.cardinal-compass svg { display: block; width: 100%; height: 100%; }
+.compass-face { fill: rgb(248 250 252 / 98%); stroke: #d8e0e5; stroke-width: 1; }
+.compass-dial { transform-origin: 32px 32px; will-change: transform; }
+.compass-ticks { fill: none; stroke: currentColor; stroke-linecap: square; stroke-width: 2.5; }
+.compass-north { fill: #e2232e; }
+.cardinal-compass span {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  min-width: 28px;
+  color: #172319;
+  font-size: 16px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -.06em;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.terrain-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 10px;
+  color: var(--deep-navy);
+  background: rgb(248 250 252 / 95%);
+  box-shadow: 0 7px 22px rgb(6 42 67 / 19%);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.terrain-tools button:hover { background: #fff; }
+.terrain-tools button:disabled { opacity: .55; cursor: wait; }
+.terrain-tools button[aria-pressed="true"] { color: #fff; background: var(--mountain-blue); }
+.terrain-tools button:focus-visible { outline: 3px solid var(--sky-blue); outline-offset: 2px; }
+.terrain-tools button span:first-child { font-size: 15px; line-height: 1; }
+
+.terrain-status {
+  grid-column: 1 / -1;
+  max-width: 230px;
+  justify-self: end;
+  padding: 6px 8px;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 8px;
+  color: var(--mountain-blue);
+  background: rgb(248 250 252 / 96%);
+  box-shadow: 0 5px 16px rgb(6 42 67 / 16%);
+  font-size: 10px;
+  line-height: 1.3;
+}
+.terrain-status.is-error { color: #7e3522; background: #fff5f1; }
+
 .loading-state,
 .error-state {
   position: absolute;
@@ -827,6 +914,15 @@ a:focus-visible {
     max-height: min(52dvh, calc(100dvh - 150px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
   }
   .search-result { min-height: 62px; }
+
+  .terrain-tools {
+    top: max(9px, env(safe-area-inset-top));
+    right: max(9px, calc(9px + env(safe-area-inset-right)));
+    gap: 5px;
+  }
+  .cardinal-compass { width: 43px; height: 43px; }
+  .terrain-tools button { min-height: 35px; padding: 6px 8px; }
+  .terrain-status { max-width: min(220px, calc(100vw - 18px)); }
 
   .measurement-tools { bottom: max(75px, calc(65px + env(safe-area-inset-bottom))); }
   .measurement-tools { flex-wrap: wrap; }

@@ -21,7 +21,7 @@ successiva ricostruzione del sito la sostituirebbe.
 
 Le librerie sono vendorizzate e non richiedono npm:
 
-- MapLibre GL JS 4.7.1, licenza BSD-3-Clause;
+- MapLibre GL JS 5.24.1, licenza BSD-3-Clause;
 - PMTiles 4.5.0 UMD, licenza BSD-3-Clause.
 
 ## Sviluppo locale
@@ -77,6 +77,32 @@ scompaiono temporaneamente e ricompaiono al rilascio; un trascinamento normale
 non attiva questa anteprima. Su mobile un tocco singolo apre invece il menu
 con coordinate, Google Maps e comando Hide/Show PMTiles; la pressione lunga
 mantiene l'anteprima temporanea della basemap OSM.
+
+## Hillshade e terreno 3D
+
+I pulsanti `Hillshade` e `3D` caricano su richiesta i DEM pubblici di
+[Mapterhorn](https://mapterhorn.com/). `Hillshade` sovrappone l'ombreggiatura
+orografica alla basemap OSM; `3D` attiva il terreno MapLibre, inclina la camera
+e abilita anche l'hillshade. Disattivando `3D` la vista torna zenitale, mentre
+l'hillshade può restare attivo indipendentemente. Un'inclinazione manuale della
+mappa attiva automaticamente il terreno. La bussola mostra la direzione della
+vista al centro e mantiene il triangolo rosso orientato verso il nord geografico.
+Considerando 0° parallelo all'orizzonte e 90° come vista zenitale, sotto i 45°
+il viewer mantiene attivi soltanto i PMTiles entro 2,5 km dal centro della vista.
+Sopra i 45° il comportamento resta invariato. Ogni sorgente è inoltre limitata
+ai confini della propria cella, evitando richieste raster lontane. Durante pan e
+rotazione sotto i 45° restano visibili le ultime tile PMTiles già renderizzate,
+mentre le nuove richieste vengono sospese per la durata del gesto: basemap e
+terreno restano fluidi e, a camera ferma, le parti mancanti riprendono il
+caricamento in modo asincrono. Il
+livello raster dipende esclusivamente dallo zoom del viewer, non da inclinazione,
+rotazione o numero di tile visibili.
+
+Il browser legge direttamente il TileJSON e i tile Terrarium WebP dal servizio
+esterno: non vengono scaricati, copiati nel repository o ripubblicati su R2.
+L'attribuzione Mapterhorn e quella dei dati sorgente sono esposte nel controllo
+attribuzioni della mappa. In assenza di rete o del servizio esterno la webmap,
+i PMTiles e la basemap OSM continuano a funzionare senza rilievo.
 
 ## Pianificazione percorso e profilo altimetrico
 
@@ -162,6 +188,11 @@ window.TB_CONFIG = {
   pmtilesManifests: {
     dev: "./pmtiles-manifest.json",
     publish: "https://tiles.example/pmtiles-manifest.json",
+  },
+  terrain: {
+    tilejson: "https://tiles.mapterhorn.com/tilejson.json",
+    tile: "https://tiles.mapterhorn.com/{z}/{x}/{y}.webp",
+    attribution: '<a href="https://mapterhorn.com/attribution">© Mapterhorn terrain</a>',
   },
   sheetFiles: {},
 };

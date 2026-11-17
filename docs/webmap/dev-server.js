@@ -172,7 +172,13 @@ function createServer(root = ROOT) {
     fs.stat(target, (err, stat) => {
       if (err) return notFound(req, res);
       if (stat.isDirectory()) {
-        return serveFile(path.join(target, "index.html"), req, res);
+        const queryIndex = req.url.indexOf("?");
+        const query = queryIndex >= 0 ? req.url.slice(queryIndex) : "";
+        return send(req, res, 308, "", {
+          location: `${requestPath}/${query}`,
+          "cache-control": "no-cache",
+          "content-length": "0",
+        });
       }
       return serveFile(target, req, res);
     });

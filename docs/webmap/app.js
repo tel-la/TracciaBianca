@@ -58,6 +58,12 @@
   const coordinateValues = document.getElementById("coordinate-values");
   const coordinateLink = document.getElementById("coordinate-link");
   const pmtilesVisibilityToggle = document.getElementById("pmtiles-visibility-toggle");
+  const hillshadeToggle = document.getElementById("hillshade-toggle");
+  const terrain3dToggle = document.getElementById("terrain-3d-toggle");
+  const terrainStatus = document.getElementById("terrain-status");
+  const cardinalCompass = document.getElementById("cardinal-compass");
+  const compassDial = document.getElementById("compass-dial");
+  const compassDirection = document.getElementById("compass-direction");
   const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
   const SEARCH_BOUNDS_BUFFER_KM = 20;
   const MAPLIBRE_CANONICAL_TILE_SIZE = 512;
@@ -65,6 +71,11 @@
   const MOBILE_CELL_SPAN_THRESHOLD = 0.6;
   const MOBILE_MEDIA_QUERY = "(max-width: 720px)";
   const CELL_LABEL_HIDE_ARCHIVE_ZOOM = 14;
+  const HORIZON_VIEW_RASTER_LIMIT_DEGREES = 45;
+  const HORIZON_VIEW_RASTER_RADIUS_KM = 2.5;
+  const TERRAIN_SOURCE = "mapterhorn-terrain";
+  const HILLSHADE_SOURCE = "mapterhorn-hillshade-source";
+  const HILLSHADE_LAYER = "mapterhorn-hillshade";
   const MEASUREMENT_SOURCE = "distance-measurement";
   const MEASUREMENT_LINE_LAYER = "distance-measurement-line";
   const MEASUREMENT_POINT_LAYER = "distance-measurement-points";
@@ -109,6 +120,14 @@
   const pmtilesBases = config.pmtilesBases || {};
   const pmtilesBase = typeof pmtilesBases[environment] === "string"
     ? pmtilesBases[environment].trim() : "";
+  const terrainConfig = config.terrain || {};
+  const mapterhornTilejson = typeof terrainConfig.tilejson === "string" && terrainConfig.tilejson.trim()
+    ? terrainConfig.tilejson.trim() : "https://tiles.mapterhorn.com/tilejson.json";
+  const mapterhornTile = typeof terrainConfig.tile === "string" && terrainConfig.tile.trim()
+    ? terrainConfig.tile.trim() : "https://tiles.mapterhorn.com/{z}/{x}/{y}.webp";
+  const mapterhornAttribution = typeof terrainConfig.attribution === "string" && terrainConfig.attribution.trim()
+    ? terrainConfig.attribution
+    : '<a href="https://mapterhorn.com/attribution" target="_blank" rel="noopener">© Mapterhorn terrain</a>';
 
   // MapLibre centre is [lng, lat]; the Leaflet app used [lat, lng] = [46.25, 10.8].
   const map = new maplibregl.Map({
@@ -117,6 +136,9 @@
     zoom: 7,
     minZoom: 0,
     maxZoom: 19,
+    maxPitch: 85,
+    aroundCenter: true,
+    fadeDuration: 0,
     attributionControl: { compact: true },
     style: {
       version: 8,
@@ -129,7 +151,14 @@
             '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
         },
       },
-      layers: [{ id: "osm-base", type: "raster", source: "osm" }],
+      layers: [
+        {
+          id: "map-background",
+          type: "background",
+          paint: { "background-color": "#e8eeec" },
+        },
+        { id: "osm-base", type: "raster", source: "osm" },
+      ],
     },
   });
   map.addControl(new maplibregl.ScaleControl({ maxWidth: 140, unit: "metric" }), "bottom-left");
@@ -137,6 +166,7 @@
   let catalog;
   let coresData;
   let mapLoaded = false;
+  let mapReadyHandled = false;
   let installedCells = false;
   let labelsCreated = false;
   let selectedCell = null;
@@ -155,6 +185,7 @@
   const activeRasters = new Map();
   const rasterLoads = new Map();
   const rasterFailures = new Set();
+  const pmtilesMotionWaiters = new Set();
   let measurementActive = false;
   let measurementPoints = [];
   let measurementPreviewPoint = null;
@@ -164,7 +195,12 @@
   let routeHoverPoint = null;
   let routeElevationRequestId = 0;
   let pmtilesEnabled = true;
+  let hillshadeEnabled = false;
+  let terrain3dEnabled = false;
+  let terrainSourcesPromise = null;
+  let atlasLoadStarted = false;
   let pmtilesPeekHidden = false;
+  let pmtilesMotionPaused = false;
   let pmtilesHoldTimer = null;
   let pmtilesHoldPointerId = null;
   let pmtilesHoldStart = null;
@@ -461,7 +497,10 @@
       // protocol handler (the "v3compat" shim adapts the promise handler to
       // MapLibre's callback convention).
       pmtilesProtocol = new window.pmtiles.Protocol();
-      maplibregl.addProtocol("pmtiles", pmtilesProtocol.tile);
+      maplibregl.addProtocol("pmtiles", async (request, abortController) => {
+        await waitForPmtilesMotion(abortController.signal);
+        return pmtilesProtocol.tile(request, abortController);
+      });
       protocolRegistered = true;
       return true;
     } catch (error) {
@@ -511,6 +550,198 @@
     if (pmtilesEnabled) syncRasterToMap();
   }
 
+  function updateTerrainControls() {
+    hillshadeToggle.setAttribute("aria-pressed", String(hillshadeEnabled));
+    terrain3dToggle.setAttribute("aria-pressed", String(terrain3dEnabled));
+  }
+
+  function updateCardinalCompass() {
+    const bearing = map.getBearing();
+    const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    const normalizedBearing = ((bearing % 360) + 360) % 360;
+    const direction = directions[Math.round(normalizedBearing / 45) % directions.length];
+    compassDial.style.transform = `rotate(${-bearing}deg)`;
+    compassDirection.textContent = direction;
+    cardinalCompass.setAttribute("aria-label", `Map heading: ${direction}`);
+  }
+
+  function setTerrainControlsBusy(busy) {
+    hillshadeToggle.disabled = busy || !mapLoaded;
+    terrain3dToggle.disabled = busy || !mapLoaded;
+    hillshadeToggle.setAttribute("aria-busy", String(busy));
+    terrain3dToggle.setAttribute("aria-busy", String(busy));
+  }
+
+  function setTerrainStatus(message = "", isError = false) {
+    terrainStatus.textContent = message;
+    terrainStatus.hidden = !message;
+    terrainStatus.classList.toggle("is-error", isError);
+  }
+
+  function terrainLayerInsertionPoint() {
+    for (const cellId of activeRasters.keys()) {
+      const layerId = rasterIdsFor(cellId).layer;
+      if (map.getLayer(layerId)) return layerId;
+    }
+    return map.getLayer("cells-line") ? "cells-line" : undefined;
+  }
+
+  function terrainSourceSpec(tilejson) {
+    const tiles = Array.isArray(tilejson.tiles) && tilejson.tiles.length
+      ? tilejson.tiles.map((tile) => new URL(tile, mapterhornTilejson).href
+        .replace(/%7B([a-z0-9_-]+)%7D/gi, "{$1}"))
+      : [mapterhornTile];
+    const spec = {
+      type: "raster-dem",
+      tiles,
+      encoding: tilejson.encoding === "mapbox" ? "mapbox" : "terrarium",
+      tileSize: Number.isFinite(Number(tilejson.tileSize)) ? Number(tilejson.tileSize) : 512,
+      attribution: mapterhornAttribution,
+    };
+    if (Number.isFinite(Number(tilejson.minzoom))) spec.minzoom = Number(tilejson.minzoom);
+    if (Number.isFinite(Number(tilejson.maxzoom))) spec.maxzoom = Number(tilejson.maxzoom);
+    if (Array.isArray(tilejson.bounds) && tilejson.bounds.length === 4) spec.bounds = tilejson.bounds;
+    return spec;
+  }
+
+  async function ensureTerrainSources() {
+    if (map.getSource(TERRAIN_SOURCE) && map.getSource(HILLSHADE_SOURCE) && map.getLayer(HILLSHADE_LAYER)) {
+      return true;
+    }
+    if (terrainSourcesPromise) return terrainSourcesPromise;
+    terrainSourcesPromise = (async () => {
+      setTerrainControlsBusy(true);
+      setTerrainStatus("Loading Mapterhorn terrain…");
+      const response = await fetch(mapterhornTilejson, { cache: "force-cache", credentials: "omit" });
+      if (!response.ok) throw new Error(`Mapterhorn TileJSON request failed (${response.status})`);
+      const tilejson = await response.json();
+      const sourceSpec = terrainSourceSpec(tilejson || {});
+      if (!map.getSource(TERRAIN_SOURCE)) map.addSource(TERRAIN_SOURCE, { ...sourceSpec });
+      if (!map.getSource(HILLSHADE_SOURCE)) map.addSource(HILLSHADE_SOURCE, { ...sourceSpec });
+      if (!map.getLayer(HILLSHADE_LAYER)) {
+        map.addLayer({
+          id: HILLSHADE_LAYER,
+          type: "hillshade",
+          source: HILLSHADE_SOURCE,
+          layout: { visibility: "none" },
+          paint: {
+            "hillshade-exaggeration": 0.42,
+            "hillshade-shadow-color": "#3f392d",
+            "hillshade-highlight-color": "#ffffff",
+            "hillshade-accent-color": "#756b56",
+            "hillshade-illumination-direction": 315,
+          },
+        }, terrainLayerInsertionPoint());
+      }
+      setTerrainStatus();
+      return true;
+    })().catch((error) => {
+      console.warn(error);
+      terrainSourcesPromise = null;
+      setTerrainStatus("Terrain service temporarily unavailable.", true);
+      return false;
+    }).finally(() => {
+      setTerrainControlsBusy(false);
+    });
+    return terrainSourcesPromise;
+  }
+
+  async function setHillshadeEnabled(enabled) {
+    const next = Boolean(enabled);
+    if (next && !(await ensureTerrainSources())) return false;
+    if (map.getLayer(HILLSHADE_LAYER)) {
+      map.setLayoutProperty(HILLSHADE_LAYER, "visibility", next ? "visible" : "none");
+    }
+    hillshadeEnabled = next;
+    updateTerrainControls();
+    return true;
+  }
+
+  function waitForSourceReady(sourceId, timeoutMs = 5000) {
+    return new Promise((resolve) => {
+      let settled = false;
+      let timer = null;
+      const finish = (ready) => {
+        if (settled) return;
+        settled = true;
+        map.off("sourcedata", check);
+        if (timer !== null) window.clearTimeout(timer);
+        resolve(ready);
+      };
+      const check = (event) => {
+        if (event && event.sourceId && event.sourceId !== sourceId) return;
+        try {
+          if (map.getSource(sourceId) && map.isSourceLoaded(sourceId)) finish(true);
+        } catch (_error) { /* source is still being attached */ }
+      };
+      map.on("sourcedata", check);
+      timer = window.setTimeout(() => finish(false), timeoutMs);
+      window.requestAnimationFrame(() => check());
+    });
+  }
+
+  function terrainCameraTarget(center, zoom) {
+    let zoomBoost = 0.35;
+    let pitch = 56;
+    if (zoom < 8.5) {
+      zoomBoost = 1.5;
+      pitch = 45;
+    } else if (zoom < 10) {
+      zoomBoost = 0.8;
+      pitch = 50;
+    }
+    return {
+      center: [center.lng, center.lat],
+      zoom: Math.min(map.getMaxZoom(), zoom + zoomBoost),
+      pitch,
+      bearing: Math.abs(map.getBearing()) > 1 ? map.getBearing() : -18,
+      duration: 850,
+      essential: true,
+    };
+  }
+
+  async function setTerrain3dEnabled(enabled, adjustCamera = true) {
+    const next = Boolean(enabled);
+    if (next && !(await ensureTerrainSources())) return false;
+    const viewCenter = map.getCenter();
+    const viewZoom = map.getZoom();
+    map.stop();
+    setTerrainControlsBusy(true);
+    try {
+      map.setTerrain(next ? { source: TERRAIN_SOURCE, exaggeration: 1 } : null);
+      terrain3dEnabled = next;
+      updateTerrainControls();
+      if (next) {
+        setTerrainStatus("Preparing 3D terrain…");
+        await setHillshadeEnabled(true);
+        await waitForSourceReady(TERRAIN_SOURCE);
+        if (!terrain3dEnabled) return false;
+        // Terrain changes the centre elevation. Reapply the geographic centre
+        // before tilting so the visible area remains the camera pivot.
+        map.jumpTo({ center: [viewCenter.lng, viewCenter.lat] });
+        if (adjustCamera) map.easeTo(terrainCameraTarget(viewCenter, viewZoom));
+      } else if (adjustCamera) {
+        map.easeTo({
+          center: [viewCenter.lng, viewCenter.lat],
+          pitch: 0,
+          bearing: 0,
+          duration: 650,
+          essential: true,
+        });
+      }
+      setTerrainStatus();
+      return true;
+    } catch (error) {
+      console.warn(error);
+      terrain3dEnabled = false;
+      updateTerrainControls();
+      setTerrainStatus("3D terrain could not be enabled.", true);
+      return false;
+    } finally {
+      setTerrainControlsBusy(false);
+    }
+  }
+
   function rasterArchiveMinZoomFor(cell) {
     const entry = availablePmtiles.get(cell.id);
     const manifestMinZoom = Number(entry && entry.minzoom);
@@ -523,26 +754,27 @@
     return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
   }
 
-  function mobileCellSpanRatio(cell) {
+  function mobileRasterActivationZoomFor(cell) {
     const bbox = analysisBBox(cell);
     const container = map.getContainer();
-    if (!bbox || !container.clientWidth || !container.clientHeight) return 0;
-    const southWest = map.project(bbox[0]);
-    const northEast = map.project(bbox[1]);
-    const widthRatio = Math.abs(northEast.x - southWest.x) / container.clientWidth;
-    const heightRatio = Math.abs(southWest.y - northEast.y) / container.clientHeight;
-    return Math.max(widthRatio, heightRatio);
+    if (!bbox || !container.clientWidth || !container.clientHeight) return null;
+    const southWest = maplibregl.MercatorCoordinate.fromLngLat(bbox[0]);
+    const northEast = maplibregl.MercatorCoordinate.fromLngLat(bbox[1]);
+    const widthRatioAtZoomZero = Math.abs(northEast.x - southWest.x)
+      * MAPLIBRE_CANONICAL_TILE_SIZE / container.clientWidth;
+    const heightRatioAtZoomZero = Math.abs(southWest.y - northEast.y)
+      * MAPLIBRE_CANONICAL_TILE_SIZE / container.clientHeight;
+    const spanRatioAtZoomZero = Math.max(widthRatioAtZoomZero, heightRatioAtZoomZero);
+    if (!(spanRatioAtZoomZero > 0)) return null;
+    return Math.log2(MOBILE_CELL_SPAN_THRESHOLD / spanRatioAtZoomZero);
   }
 
   function rasterDisplayProfileFor(cell) {
     const archiveMinZoom = rasterArchiveMinZoomFor(cell);
     let activationZoom = archiveMinZoom - DESKTOP_RASTER_ZOOM_SHIFT;
     if (isMobileViewport()) {
-      const spanRatio = mobileCellSpanRatio(cell);
-      if (spanRatio > 0) {
-        activationZoom = map.getZoom()
-          + Math.log2(MOBILE_CELL_SPAN_THRESHOLD / spanRatio);
-      }
+      const mobileActivationZoom = mobileRasterActivationZoomFor(cell);
+      if (mobileActivationZoom !== null) activationZoom = mobileActivationZoom;
     }
     activationZoom = Math.max(0, Math.round(activationZoom * 1000) / 1000);
     const earlyZoomShift = archiveMinZoom - activationZoom;
@@ -562,18 +794,81 @@
     return map.getZoom() + zoomShift;
   }
 
+  function lockRasterLodToMapZoom(sourceId) {
+    const source = map.getSource(sourceId);
+    if (!source) return;
+    try {
+      // Keep the archive tile zoom tied only to the viewer zoom. MapLibre's
+      // default variable LOD also considers camera distance and orientation.
+      source.calculateTileZoom = (requestedCenterZoom) => requestedCenterZoom;
+      map.triggerRepaint();
+    } catch (error) {
+      console.warn(`Could not lock PMTiles LOD for ${sourceId}:`, error);
+    }
+  }
+
+  function viewAngleFromHorizon() {
+    // User-facing convention: 0° is parallel to the horizon, 90° is top-down.
+    return 90 - map.getPitch();
+  }
+
+  function waitForPmtilesMotion(signal) {
+    if (!pmtilesMotionPaused || signal.aborted) return Promise.resolve();
+    return new Promise((resolve) => {
+      const resume = () => {
+        pmtilesMotionWaiters.delete(resume);
+        signal.removeEventListener("abort", resume);
+        resolve();
+      };
+      pmtilesMotionWaiters.add(resume);
+      signal.addEventListener("abort", resume, { once: true });
+    });
+  }
+
+  function resumePmtilesRequests() {
+    pmtilesMotionPaused = false;
+    for (const resume of [...pmtilesMotionWaiters]) resume();
+  }
+
+  function suspendPmtilesForCameraMotion() {
+    if (pmtilesMotionPaused
+      || viewAngleFromHorizon() >= HORIZON_VIEW_RASTER_LIMIT_DEGREES) return;
+    pmtilesMotionPaused = true;
+  }
+
+  function finishCameraMotion() {
+    resumePmtilesRequests();
+    // Let MapLibre paint the settled camera before reconciling visible cells.
+    window.requestAnimationFrame(syncRasterToMap);
+  }
+
   function bboxIntersectsViewport(bbox, bounds) {
     return bbox[0][0] <= bounds.getEast() && bbox[1][0] >= bounds.getWest()
       && bbox[0][1] <= bounds.getNorth() && bbox[1][1] >= bounds.getSouth();
   }
 
+  function bboxIsWithinDistanceKm(bbox, center, maxDistanceKm) {
+    const closestLng = Math.max(bbox[0][0], Math.min(center.lng, bbox[1][0]));
+    const closestLat = Math.max(bbox[0][1], Math.min(center.lat, bbox[1][1]));
+    const latitudeKm = (center.lat - closestLat) * 110.574;
+    const longitudeKm = (center.lng - closestLng) * 111.32
+      * Math.cos(center.lat * Math.PI / 180);
+    return longitudeKm * longitudeKm + latitudeKm * latitudeKm
+      <= maxDistanceKm * maxDistanceKm;
+  }
+
   function rasterCellsForViewport() {
     if (!catalog || !mapLoaded) return [];
     const bounds = map.getBounds();
+    const limitDistantCells = viewAngleFromHorizon() < HORIZON_VIEW_RASTER_LIMIT_DEGREES;
+    const center = limitDistantCells ? map.getCenter() : null;
     const matches = [];
     for (const cell of catalog.cells) {
       const bbox = analysisBBox(cell);
-      if (!bbox || !bboxIntersectsViewport(bbox, bounds)) continue;
+      if (!bbox) continue;
+      if (limitDistantCells
+        && !bboxIsWithinDistanceKm(bbox, center, HORIZON_VIEW_RASTER_RADIUS_KM)) continue;
+      if (!bboxIntersectsViewport(bbox, bounds)) continue;
       const profile = rasterDisplayProfileFor(cell);
       if (map.getZoom() + 1e-6 >= profile.activationZoom) {
         matches.push({ cell, ...profile });
@@ -670,19 +965,29 @@
       const maxzoom = Number.isFinite(header.maxZoom) ? header.maxZoom : catalogZoom[1];
       removeCellRaster(cell.id);
       const ids = rasterIdsFor(cell.id);
-      map.addSource(ids.source, {
+      const sourceSpec = {
         type: "raster",
         tiles: [`pmtiles://${absUrl}/{z}/{x}/{y}`],
         tileSize,
         minzoom,
         maxzoom,
-      });
+      };
+      const cellBounds = analysisBBox(cell);
+      if (cellBounds) {
+        sourceSpec.bounds = [
+          cellBounds[0][0], cellBounds[0][1],
+          cellBounds[1][0], cellBounds[1][1],
+        ];
+      }
+      map.addSource(ids.source, sourceSpec);
+      lockRasterLodToMapZoom(ids.source);
       const before = map.getLayer("cells-line") ? "cells-line" : undefined;
       map.addLayer({
         id: ids.layer,
         type: "raster",
         source: ids.source,
         layout: { visibility: pmtilesLayersAreVisible() ? "visible" : "none" },
+        paint: { "raster-fade-duration": 1 },
       }, before);
       activeRasters.set(cell.id, { url: absUrl, tileSize });
       rasterFailures.delete(cell.id);
@@ -1445,15 +1750,38 @@
 
   /* ---- Boot --------------------------------------------------------------- */
 
-  map.on("load", () => {
+  function handleMapReady() {
+    if (mapReadyHandled) return;
+    mapReadyHandled = true;
     mapLoaded = true;
     measureToggle.disabled = false;
     routeToggle.disabled = false;
+    setTerrainControlsBusy(false);
+    updateTerrainControls();
+    updateCardinalCompass();
     if (catalog) installCellLayer();
     createLabels();
     updateLabels();
     syncRasterToMap();
-  });
+  }
+
+  function scheduleAtlasLoad() {
+    const startAtlasLoad = () => {
+      if (atlasLoadStarted) return;
+      atlasLoadStarted = true;
+      void loadAtlas();
+    };
+    const fallbackTimer = window.setTimeout(startAtlasLoad, 500);
+    window.requestAnimationFrame(() => {
+      window.clearTimeout(fallbackTimer);
+      window.setTimeout(startAtlasLoad, 0);
+    });
+  }
+
+  map.on("load", handleMapReady);
+  // A cached local style may finish before this late listener is registered.
+  if (map.isStyleLoaded()) handleMapReady();
+  scheduleAtlasLoad();
 
   map.on("click", (event) => {
     if (suppressNextMapClick) {
@@ -1481,15 +1809,24 @@
   });
   map.on("contextmenu", openCoordinateMenu);
   map.on("movestart", closeCoordinateMenu);
+  map.on("dragstart", suspendPmtilesForCameraMotion);
+  map.on("rotatestart", suspendPmtilesForCameraMotion);
+  map.on("rotate", updateCardinalCompass);
   map.on("mousemove", updateMeasurementPreview);
   map.on("move", () => {
     scheduleLabels();
     updateMeasurementLabel();
   });
-  map.on("moveend", syncRasterToMap);
+  map.on("moveend", finishCameraMotion);
   map.on("zoom", () => {
     scheduleLabels();
     updateMeasurementLabel();
+  });
+  map.on("pitch", (event) => {
+    if (map.isMoving()) suspendPmtilesForCameraMotion();
+    if (event.originalEvent && map.getPitch() > 2 && !terrain3dEnabled) {
+      void setTerrain3dEnabled(true, false);
+    }
   });
   const mapCanvas = map.getCanvas();
   mapCanvas.addEventListener("pointerdown", startPmtilesHold);
@@ -1554,6 +1891,7 @@
       for (const cell of validCells) cellsById.set(cell.id, cell);
       if (mapLoaded) installCellLayer();
       createLabels();
+      updateLabels();
       syncRasterToMap();
       summary.textContent = validCells.length === 1
         ? "1 PMTiles map sheet available"
@@ -1582,6 +1920,12 @@
   routeUndo.addEventListener("click", () => { routePoints.pop(); updateRoute(); });
   routeClear.addEventListener("click", () => { routePoints = []; routeProfilePoints = []; updateRoute(); setRouteMode(false); });
   routeDownload.addEventListener("click", downloadRouteGpx);
+  hillshadeToggle.addEventListener("click", () => {
+    void setHillshadeEnabled(!hillshadeEnabled);
+  });
+  terrain3dToggle.addEventListener("click", () => {
+    void setTerrain3dEnabled(!terrain3dEnabled);
+  });
   routeProfileExpand.addEventListener("click", () => {
     routeProfileDialog.show();
     routeProfile.classList.add("is-expanded");
@@ -1635,5 +1979,4 @@
     }, 120);
   });
 
-  loadAtlas();
 })();

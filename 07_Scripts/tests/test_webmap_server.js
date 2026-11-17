@@ -57,6 +57,8 @@ test("server supports GET, HEAD, byte ranges and HTTP errors", async (t) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "tracciabianca-webmap-"));
   fs.writeFileSync(path.join(root, "index.html"), "webmap", "utf8");
   fs.writeFileSync(path.join(root, "sample.bin"), Buffer.from("0123456789"));
+  fs.mkdirSync(path.join(root, "webmap"));
+  fs.writeFileSync(path.join(root, "webmap", "index.html"), "viewer", "utf8");
 
   const server = createServer(root);
   await new Promise((resolve, reject) => {
@@ -87,6 +89,15 @@ test("server supports GET, HEAD, byte ranges and HTTP errors", async (t) => {
   assert.equal(head.status, 200);
   assert.equal(head.headers["content-length"], "10");
   assert.equal(head.body.length, 0);
+
+  const directory = await request(port, "/webmap?mode=dev");
+  assert.equal(directory.status, 308);
+  assert.equal(directory.headers.location, "/webmap/?mode=dev");
+  assert.equal(directory.body.length, 0);
+
+  const directoryIndex = await request(port, "/webmap/");
+  assert.equal(directoryIndex.status, 200);
+  assert.equal(directoryIndex.body.toString(), "viewer");
 
   const invalid = await request(port, "/sample.bin", { headers: { Range: "bytes=50-" } });
   assert.equal(invalid.status, 416);

@@ -22,5 +22,10 @@ window.TB_CONFIG = {
     dev: "./pmtiles-manifest.json",
     publish: "https://pub-3e95fc6969fb409e83c7226568f91a90.r2.dev/pmtiles-manifest.json",
   },
+  terrain: {
+    tilejson: "https://tiles.mapterhorn.com/tilejson.json",
+    tile: "https://tiles.mapterhorn.com/{z}/{x}/{y}.webp",
+    attribution: '<a href="https://mapterhorn.com/attribution" target="_blank" rel="noopener">© Mapterhorn terrain</a>',
+  },
   sheetFiles: {},
 };
