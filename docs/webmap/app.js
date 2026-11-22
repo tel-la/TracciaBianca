@@ -167,6 +167,7 @@
   let coresData;
   let mapLoaded = false;
   let mapReadyHandled = false;
+  let initialAtlasViewSet = false;
   let installedCells = false;
   let labelsCreated = false;
   let selectedCell = null;
@@ -314,6 +315,17 @@
       east: Math.min(180, east + longitudePadding),
       north: Math.min(90, north + latitudePadding),
     };
+  }
+
+  function fitInitialAtlasView() {
+    if (initialAtlasViewSet || !mapLoaded || !catalog || !catalog.cells.length) return;
+    const bounds = bufferedBoundsForCells(catalog.cells, 0);
+    if (!bounds) return;
+    initialAtlasViewSet = true;
+    map.fitBounds(
+      [[bounds.west, bounds.south], [bounds.east, bounds.north]],
+      { padding: isMobileViewport() ? 18 : 28, duration: 0 },
+    );
   }
 
   function coordinateInSearchBounds(lat, lon) {
@@ -1765,6 +1777,7 @@
     updateTerrainControls();
     updateCardinalCompass();
     if (catalog) installCellLayer();
+    fitInitialAtlasView();
     createLabels();
     updateLabels();
     syncRasterToMap();
@@ -1895,6 +1908,7 @@
       };
       for (const cell of validCells) cellsById.set(cell.id, cell);
       if (mapLoaded) installCellLayer();
+      fitInitialAtlasView();
       createLabels();
       updateLabels();
       syncRasterToMap();
