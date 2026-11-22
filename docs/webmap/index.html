@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
   <link rel="dns-prefetch" href="https://tile.openstreetmap.org">
   <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css?v=5.24.1">
-  <link rel="stylesheet" href="./app.css?v=20261116-3">
+  <link rel="stylesheet" href="./app.css?v=20261122-2">
 </head>
 <body>
   <a class="skip-link" href="#map">Skip to the map</a>
@@ -37,7 +37,8 @@
       </form>
 
       <div class="terrain-tools" id="terrain-tools" aria-label="Terrain display controls">
-        <div class="cardinal-compass" id="cardinal-compass" role="img" aria-label="Map heading: North">
+        <button class="cardinal-compass" id="cardinal-compass" type="button"
+                aria-label="Map heading: N. Reset north" title="Reset map to north">
           <svg viewBox="0 0 64 64" aria-hidden="true">
             <circle class="compass-face" cx="32" cy="32" r="29"></circle>
             <g class="compass-dial" id="compass-dial">
@@ -46,7 +47,7 @@
             </g>
           </svg>
           <span id="compass-direction" aria-hidden="true">N</span>
-        </div>
+        </button>
         <button id="hillshade-toggle" type="button" aria-pressed="false" disabled>
           <span aria-hidden="true">◒</span><span>Hillshade</span>
         </button>
@@ -175,6 +176,6 @@
   <script src="./vendor/maplibre-gl/maplibre-gl.js?v=5.24.1"></script>
   <script src="./vendor/pmtiles/pmtiles.js"></script>
   <script src="./config.js?v=20261116-1"></script>
-  <script src="./app.js?v=20261117-5"></script>
+  <script src="./app.js?v=20261122-1"></script>
 </body>
 </html>

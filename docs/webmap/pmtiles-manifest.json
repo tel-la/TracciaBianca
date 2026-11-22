@@ -1,75 +1,105 @@
 {
   "schema_version": 1,
   "sheets": {
-    "ALP_E137_N083": {
-      "file": "ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.pmtiles",
-      "bytes": 792207597,
-      "minzoom": 12,
-      "maxzoom": 16
-    },
-    "ALP_E138_N083": {
-      "file": "ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.pmtiles",
-      "bytes": 749363283,
-      "minzoom": 12,
-      "maxzoom": 16
-    },
-    "ALP_E139_N083": {
-      "file": "ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.pmtiles",
-      "bytes": 710444563,
+    "ALP_E131_N078": {
+      "file": "ALP_E131_N078_queyras-nord-orientale_20261108T212807Z_01_z12-16.pmtiles",
+      "bytes": 74797204,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E140_N083": {
       "file": "ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.pmtiles",
-      "bytes": 695876835,
+      "bytes": 48620316,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E140_N084": {
+      "file": "ALP_E140_N084_glurns-glorenza-adamello-garda_20261023T165740Z_01_z12-16.pmtiles",
+      "bytes": 50318559,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E140_N085": {
+      "file": "ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.pmtiles",
+      "bytes": 59286467,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E141_N083": {
+      "file": "ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.pmtiles",
+      "bytes": 47661763,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E141_N084": {
       "file": "ALP_E141_N084_schlanders-silandro-trentino-occidentale-dolomiti-di-brenta_20261023T161223Z_01_z12-16.pmtiles",
-      "bytes": 671978964,
+      "bytes": 46352877,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E141_N085": {
+      "file": "ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.pmtiles",
+      "bytes": 60919810,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E142_N083": {
+      "file": "ALP_E142_N083_bolzano-bozen-alto-adige-dolomiti-occidentali_20261028T112653Z_01_z12-16.pmtiles",
+      "bytes": 45946583,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E142_N084": {
+      "file": "ALP_E142_N084_merano-meran-trentino-occidentale-dolomiti-di-brenta_20261023T145114Z_01_z12-16.pmtiles",
+      "bytes": 45954957,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E142_N085": {
       "file": "ALP_E142_N085_sterzing-vipiteno-alto-adige-dolomiti-occidentali_20261023T150125Z_01_z12-16.pmtiles",
-      "bytes": 775395047,
+      "bytes": 55362171,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E143_N081": {
+      "file": "ALP_E143_N081_bassano-del-grappa-alto-adige-dolomiti-occidentali_20261029T175133Z_01_z12-16.pmtiles",
+      "bytes": 70729230,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E143_N083": {
       "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.pmtiles",
-      "bytes": 705541429,
+      "bytes": 84076341,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E143_N084": {
       "file": "ALP_E143_N084_brixen-bressanone-alto-adige-dolomiti-occidentali_20261022T180730Z_01_z12-16.pmtiles",
-      "bytes": 776368647,
+      "bytes": 85431913,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E143_N085": {
       "file": "ALP_E143_N085_niedervintl-vandoies-di-sotto-alto-adige-dolomiti-occidentali_20261022T175437Z_01_z12-16.pmtiles",
-      "bytes": 751856874,
+      "bytes": 91474274,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E144_N083": {
       "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.pmtiles",
-      "bytes": 771395351,
+      "bytes": 88387888,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E144_N084": {
       "file": "ALP_E144_N084_cortina-d-ampezzo-dolomiti-cadore_20261023T132827Z_01_z12-16.pmtiles",
-      "bytes": 804927693,
+      "bytes": 67398559,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E144_N085": {
       "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.pmtiles",
-      "bytes": 742203214,
+      "bytes": 61087881,
       "minzoom": 12,
       "maxzoom": 16
     }

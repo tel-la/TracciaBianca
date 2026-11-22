@@ -562,7 +562,12 @@
     const direction = directions[Math.round(normalizedBearing / 45) % directions.length];
     compassDial.style.transform = `rotate(${-bearing}deg)`;
     compassDirection.textContent = direction;
-    cardinalCompass.setAttribute("aria-label", `Map heading: ${direction}`);
+    cardinalCompass.setAttribute("aria-label", `Map heading: ${direction}. Reset north`);
+  }
+
+  function resetMapNorth() {
+    closeCoordinateMenu();
+    map.easeTo({ bearing: 0, duration: 450, essential: true });
   }
 
   function setTerrainControlsBusy(busy) {
@@ -1920,6 +1925,7 @@
   routeUndo.addEventListener("click", () => { routePoints.pop(); updateRoute(); });
   routeClear.addEventListener("click", () => { routePoints = []; routeProfilePoints = []; updateRoute(); setRouteMode(false); });
   routeDownload.addEventListener("click", downloadRouteGpx);
+  cardinalCompass.addEventListener("click", resetMapNorth);
   hillshadeToggle.addEventListener("click", () => {
     void setHillshadeEnabled(!hillshadeEnabled);
   });

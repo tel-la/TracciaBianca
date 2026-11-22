@@ -96,7 +96,7 @@ a { font: inherit; }
   position: absolute;
   z-index: 800;
   top: max(14px, env(safe-area-inset-top));
-  left: max(56px, calc(14px + env(safe-area-inset-left)));
+  left: max(10px, env(safe-area-inset-left));
   display: flex;
   align-items: center;
   gap: 10px;
@@ -136,7 +136,7 @@ a { font: inherit; }
   position: absolute;
   z-index: 800;
   top: max(80px, calc(80px + env(safe-area-inset-top)));
-  left: max(56px, calc(14px + env(safe-area-inset-left)));
+  left: max(10px, env(safe-area-inset-left));
   padding: 6px 10px;
   border: 1px solid rgb(255 255 255 / 70%);
   border-radius: 999px;
@@ -268,7 +268,7 @@ a { font: inherit; }
   background: rgb(248 250 252 / 96%);
   box-shadow: 0 7px 22px rgb(6 42 67 / 19%);
   backdrop-filter: blur(8px);
-  pointer-events: none;
+  pointer-events: auto;
   user-select: none;
 }
 
@@ -309,6 +309,13 @@ a { font: inherit; }
   backdrop-filter: blur(8px);
   font-size: 11px;
   font-weight: 800;
+  cursor: pointer;
+}
+
+.terrain-tools button.cardinal-compass {
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -890,7 +897,7 @@ a:focus-visible {
 
   .brand-panel {
     top: max(9px, env(safe-area-inset-top));
-    left: max(49px, calc(9px + env(safe-area-inset-left)));
+    left: max(10px, env(safe-area-inset-left));
     min-width: 0;
     padding: 6px 10px 6px 7px;
     border-radius: 14px;
@@ -899,7 +906,7 @@ a:focus-visible {
   .brand-panel img { width: 35px; height: 35px; }
   .wordmark { font-size: 15px; }
   .brand-subtitle { font-size: 8px; }
-  .atlas-summary { top: max(65px, calc(65px + env(safe-area-inset-top))); left: max(49px, calc(9px + env(safe-area-inset-left))); }
+  .atlas-summary { top: max(65px, calc(65px + env(safe-area-inset-top))); left: max(10px, env(safe-area-inset-left)); }
   .place-search {
     top: auto;
     right: max(9px, calc(9px + env(safe-area-inset-right)));
