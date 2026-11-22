@@ -2,3 +2,5 @@
 # directory tracked via .gitkeep but ignore the archives themselves.
 *.pmtiles
 *.mbtiles
+
+*.sh
