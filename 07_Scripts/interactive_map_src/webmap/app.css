@@ -857,6 +857,19 @@ a:focus-visible {
 .cell-label:hover { background: #fff; box-shadow: 0 3px 10px rgb(6 42 67 / 24%); }
 .cell-label:focus-visible { outline: 3px solid var(--sky-blue); outline-offset: 2px; }
 
+.cell-label.is-compact {
+  padding: 0;
+  border-color: transparent;
+  color: var(--deep-navy);
+  background: transparent;
+  box-shadow: none;
+  font-size: var(--cell-label-compact-size, 8px);
+  line-height: .96;
+  text-shadow: 0 0 2px #fff, 0 1px 1px #fff;
+}
+
+.cell-label.is-compact:hover { background: transparent; box-shadow: none; }
+
 /* Symbol / label rendering for the cell overlay */
 .maplibregl-canvas:focus { outline: 3px solid var(--sky-blue); outline-offset: -3px; }
 

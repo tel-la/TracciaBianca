@@ -71,6 +71,8 @@
   const MOBILE_CELL_SPAN_THRESHOLD = 0.6;
   const MOBILE_MEDIA_QUERY = "(max-width: 720px)";
   const CELL_LABEL_HIDE_ARCHIVE_ZOOM = 14;
+  const CELL_LABEL_FULL_MAX_CELL_RATIO = 0.8;
+  const CELL_LABEL_FULL_SIZE_PX = { width: 44, height: 46 };
   const HORIZON_VIEW_RASTER_LIMIT_DEGREES = 45;
   const HORIZON_VIEW_RASTER_RADIUS_KM = 2.5;
   const TERRAIN_SOURCE = "mapterhorn-terrain";
@@ -168,6 +170,7 @@
   let mapLoaded = false;
   let mapReadyHandled = false;
   let initialAtlasViewSet = false;
+  let initialAtlasZoom = null;
   let installedCells = false;
   let labelsCreated = false;
   let selectedCell = null;
@@ -326,6 +329,7 @@
       [[bounds.west, bounds.south], [bounds.east, bounds.north]],
       { padding: isMobileViewport() ? 18 : 28, duration: 0 },
     );
+    initialAtlasZoom = map.getZoom();
   }
 
   function coordinateInSearchBounds(lat, lon) {
@@ -1086,13 +1090,34 @@
       if (!bbox) continue;
       const el = document.createElement("button");
       el.type = "button";
-      el.className = "cell-label";
+      el.className = "cell-label is-compact";
       el.setAttribute("aria-label", `Open details for ${cell.id}, ${cell.locality}`);
       el.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
         selectCell(cell.id, true);
       });
+      el.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        map.getCanvasContainer().dispatchEvent(new WheelEvent("wheel", {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          deltaX: event.deltaX,
+          deltaY: event.deltaY,
+          deltaZ: event.deltaZ,
+          deltaMode: event.deltaMode,
+          clientX: event.clientX,
+          clientY: event.clientY,
+          screenX: event.screenX,
+          screenY: event.screenY,
+          ctrlKey: event.ctrlKey,
+          shiftKey: event.shiftKey,
+          altKey: event.altKey,
+          metaKey: event.metaKey,
+        }));
+      }, { passive: false });
       const compact = document.createElement("span");
       compact.className = "compact";
       compact.textContent = compactId(cell.id);
@@ -1112,6 +1137,27 @@
         if (document.activeElement === el) map.getCanvas().focus();
         el.style.display = "none";
         continue;
+      }
+      const [[west, south], [east, north]] = bbox;
+      const corners = [
+        map.project([west, south]),
+        map.project([west, north]),
+        map.project([east, south]),
+        map.project([east, north]),
+      ];
+      const cellWidth = Math.max(...corners.map((corner) => corner.x))
+        - Math.min(...corners.map((corner) => corner.x));
+      const cellHeight = Math.max(...corners.map((corner) => corner.y))
+        - Math.min(...corners.map((corner) => corner.y));
+      const zoomedBeyondInitialView = initialAtlasZoom === null
+        || map.getZoom() > initialAtlasZoom + 1e-3;
+      const useFullLabel = zoomedBeyondInitialView
+        && CELL_LABEL_FULL_SIZE_PX.width <= cellWidth * CELL_LABEL_FULL_MAX_CELL_RATIO
+        && CELL_LABEL_FULL_SIZE_PX.height <= cellHeight * CELL_LABEL_FULL_MAX_CELL_RATIO;
+      el.classList.toggle("is-compact", !useFullLabel);
+      if (!useFullLabel) {
+        const compactFontSize = Math.max(4, Math.min(9, cellWidth / 4.8, cellHeight / 4));
+        el.style.setProperty("--cell-label-compact-size", `${compactFontSize.toFixed(2)}px`);
       }
       const point = map.project(centerOf(bbox));
       const inView = point.x >= -24 && point.x <= size.x + 24
