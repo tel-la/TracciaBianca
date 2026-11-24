@@ -1,15 +1,81 @@
 {
   "schema_version": 1,
   "sheets": {
+    "ALP_E130_N076": {
+      "file": "ALP_E130_N076_ubaye-occidentale_20261124T144658Z_01_z12-16.pmtiles",
+      "bytes": 41990708,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E130_N077": {
+      "file": "ALP_E130_N077_queyras-sud-occidentale_20261124T142720Z_01_z12-16.pmtiles",
+      "bytes": 43663374,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E130_N078": {
+      "file": "ALP_E130_N078_queyras-nord-occidentale_20261124T134550Z_01_z12-16.pmtiles",
+      "bytes": 47083883,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E130_N079": {
+      "file": "ALP_E130_N079_vanoise-occidentale_20261124T112607Z_01_z12-16.pmtiles",
+      "bytes": 58581968,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E131_N075": {
+      "file": "ALP_E131_N075_mercantour-settentrionale_20261124T110349Z_01_z12-16.pmtiles",
+      "bytes": 45175531,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E131_N076": {
+      "file": "ALP_E131_N076_ubaye-orientale_20261124T103710Z_01_z12-16.pmtiles",
+      "bytes": 44151743,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E131_N077": {
+      "file": "ALP_E131_N077_queyras-sud-orientale_20261124T101355Z_01_z12-16.pmtiles",
+      "bytes": 44177910,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
     "ALP_E131_N078": {
       "file": "ALP_E131_N078_queyras-nord-orientale_20261108T212807Z_01_z12-16.pmtiles",
       "bytes": 74797204,
       "minzoom": 12,
       "maxzoom": 16
     },
+    "ALP_E131_N079": {
+      "file": "ALP_E131_N079_haute-maurienne_20261124T091642Z_01_z12-16.pmtiles",
+      "bytes": 54224370,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E131_N080": {
+      "file": "ALP_E131_N080_vanoise-orientale_20261124T090036Z_01_z12-16.pmtiles",
+      "bytes": 57660638,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E131_N081": {
+      "file": "ALP_E131_N081_monte-bianco-chamonix_20261124T084026Z_01_z12-16.pmtiles",
+      "bytes": 52866894,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
     "ALP_E131_N082": {
       "file": "ALP_E131_N082_vallese-occidentale_20261108T202609Z_01_z12-16.pmtiles",
       "bytes": 58141489,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N075": {
+      "file": "ALP_E132_N075_alpi-marittime_20261124T151422Z_01_z12-16.pmtiles",
+      "bytes": 45910292,
       "minzoom": 12,
       "maxzoom": 16
     },
@@ -58,6 +124,12 @@
     "ALP_E132_N083": {
       "file": "ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.pmtiles",
       "bytes": 60365949,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E133_N075": {
+      "file": "ALP_E133_N075_alpi-liguri-centrali_20261124T153009Z_01_z12-16.pmtiles",
+      "bytes": 46837705,
       "minzoom": 12,
       "maxzoom": 16
     },
