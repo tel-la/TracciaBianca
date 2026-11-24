@@ -116,3 +116,4 @@ symbology-style.db
 .DS_Store
 __pycache__/
 *.py[cod]
+docs/webmap/tiles/.conversion-script/Script conversione MBTiles to PMtiles compressed webp.sh

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08T22:05:41Z",
+  "generated_at": "2026-11-24T16:12:23Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 89,
-  "published_count": 77,
+  "published_count": 89,
   "bounds": [
     [
       41.7182365525305,
@@ -25,10 +25,13 @@
         "Ubaye occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T144658Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 599891968,
       "analysis_bounds": [
         [
           44.23182779010189,
@@ -39,7 +42,16 @@
           6.77567769271627
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E130_N076_ubaye-occidentale_20261124T144658Z_01_z12-16.mbtiles",
+          "bytes": 599891968,
+          "sha256": "0712c7b4cef251e3f17132cc0c60f5aaa0a3c8a86f1dbeeeaf1878e4b690862e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N076_ubaye-occidentale_20261124T144658Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -51,10 +63,13 @@
         "Queyras sud-occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T142720Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 635097088,
       "analysis_bounds": [
         [
           44.5110029969167,
@@ -65,7 +80,16 @@
           6.759789796165375
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E130_N077_queyras-sud-occidentale_20261124T142720Z_01_z12-16.mbtiles",
+          "bytes": 635097088,
+          "sha256": "abb27e165ef611aa72dd2b6b95072d8084ec0f264225b0c29635315849a24ef8",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N077_queyras-sud-occidentale_20261124T142720Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -77,10 +101,13 @@
         "Queyras nord-occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T134550Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 691101696,
       "analysis_bounds": [
         [
           44.7901167323621,
@@ -91,7 +118,16 @@
           6.74369406227224
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E130_N078_queyras-nord-occidentale_20261124T134550Z_01_z12-16.mbtiles",
+          "bytes": 691101696,
+          "sha256": "f6243dfed2a662ce7217a6604e70fa9cbc08dc21ec126cd63b2f701f18fbd8d3",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N078_queyras-nord-occidentale_20261124T134550Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -103,10 +139,13 @@
         "Vanoise occidentale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T112607Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 769175552,
       "analysis_bounds": [
         [
           45.06917059067615,
@@ -117,7 +156,16 @@
           6.727386669764927
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E130_N079_vanoise-occidentale_20261124T112607Z_01_z12-16.mbtiles",
+          "bytes": 769175552,
+          "sha256": "39d8a0411d966ffd3a5e361158c7dbed2b6287b508dc58544946a808864a2d87",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N079_vanoise-occidentale_20261124T112607Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -129,10 +177,13 @@
         "Mercantour settentrionale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T110349Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 661409792,
       "analysis_bounds": [
         [
           43.96545998278672,
@@ -143,7 +194,16 @@
           7.1765650601906135
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N075_mercantour-settentrionale_20261124T110349Z_01_z12-16.mbtiles",
+          "bytes": 661409792,
+          "sha256": "e7dfaec064458534b3816d5afcf8272d982de0c33d47c2e406144bafd16b3bd7",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N075_mercantour-settentrionale_20261124T110349Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -155,10 +215,13 @@
         "Ubaye orientale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T103710Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 656392192,
       "analysis_bounds": [
         [
           44.24477113777766,
@@ -169,7 +232,16 @@
           7.162759136734377
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N076_ubaye-orientale_20261124T103710Z_01_z12-16.mbtiles",
+          "bytes": 656392192,
+          "sha256": "675ab5cacb4731bc6f910d6bd5334743ede64fbe5fc128c16d50c4ae627de0ff",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N076_ubaye-orientale_20261124T103710Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -181,10 +253,13 @@
         "Queyras sud-orientale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T101355Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 641081344,
       "analysis_bounds": [
         [
           44.524020205436365,
@@ -195,7 +270,16 @@
           7.148773462905477
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N077_queyras-sud-orientale_20261124T101355Z_01_z12-16.mbtiles",
+          "bytes": 641081344,
+          "sha256": "ba426a1bc81ff14e2dcc866408649ea9a1b5f47ef837f3c51252850324f8d694",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N077_queyras-sud-orientale_20261124T101355Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -245,10 +329,13 @@
         "Haute Maurienne",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T091642Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 727363584,
       "analysis_bounds": [
         [
           45.08233854046277,
@@ -259,7 +346,16 @@
           7.120249643542703
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N079_haute-maurienne_20261124T091642Z_01_z12-16.mbtiles",
+          "bytes": 727363584,
+          "sha256": "9e0df736c24afa38fe3d8f3e29cc10e78bd09251265038848b95b59c29a9395e",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N079_haute-maurienne_20261124T091642Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -271,10 +367,13 @@
         "Vanoise orientale",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T090036Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 759635968,
       "analysis_bounds": [
         [
           45.36141103029127,
@@ -285,7 +384,16 @@
           7.105704677138693
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N080_vanoise-orientale_20261124T090036Z_01_z12-16.mbtiles",
+          "bytes": 759635968,
+          "sha256": "07794bc6bb4825599631421fce0b2e1332c169c9df77e2db27e62b42efac4265",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N080_vanoise-orientale_20261124T090036Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -297,10 +405,13 @@
         "Monte Bianco – Chamonix",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T084026Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 749023232,
       "analysis_bounds": [
         [
           45.64042787777196,
@@ -311,7 +422,16 @@
           7.090966313288437
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E131_N081_monte-bianco-chamonix_20261124T084026Z_01_z12-16.mbtiles",
+          "bytes": 749023232,
+          "sha256": "0cb93496680771923b833110b3a0d1cc91b9985b736271481df1bf6113f31f58",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E131_N081_monte-bianco-chamonix_20261124T084026Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -361,10 +481,13 @@
         "Alpi Marittime",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T151422Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 695832576,
       "analysis_bounds": [
         [
           43.97689499235,
@@ -375,7 +498,16 @@
           7.5618952531028265
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E132_N075_alpi-marittime_20261124T151422Z_01_z12-16.mbtiles",
+          "bytes": 695832576,
+          "sha256": "bccf5494a7ed311b2117988142ff07757d19e561a07baeb0ca88eeb327802e43",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E132_N075_alpi-marittime_20261124T151422Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
@@ -691,10 +823,13 @@
         "Alpi Liguri centrali",
         "Western and Maritime Alps"
       ],
-      "status": "planned",
-      "edition": null,
-      "zoom": null,
-      "bytes": 0,
+      "status": "published",
+      "edition": "20261124T153009Z",
+      "zoom": [
+        12,
+        16
+      ],
+      "bytes": 660848640,
       "analysis_bounds": [
         [
           43.986893719455715,
@@ -705,7 +840,16 @@
           7.947334861610894
         ]
       ],
-      "packages": [],
+      "packages": [
+        {
+          "file": "ALP_E133_N075_alpi-liguri-centrali_20261124T153009Z_01_z12-16.mbtiles",
+          "bytes": 660848640,
+          "sha256": "a9b1ab978c494218b4ca1e64369acb1a0e33d2fd0d2d827903fbec8ce78305eb",
+          "release_tag": "v0.1.0-beta.1",
+          "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E133_N075_alpi-liguri-centrali_20261124T153009Z_01_z12-16.mbtiles"
+        }
+      ],
       "elevation_package": null
     },
     {
