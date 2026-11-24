@@ -7,6 +7,210 @@
       "minzoom": 12,
       "maxzoom": 16
     },
+    "ALP_E131_N082": {
+      "file": "ALP_E131_N082_vallese-occidentale_20261108T202609Z_01_z12-16.pmtiles",
+      "bytes": 58141489,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N076": {
+      "file": "ALP_E132_N076_cuneese-occidentale_20261105T172703Z_01_z12-16.pmtiles",
+      "bytes": 41356016,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N077": {
+      "file": "ALP_E132_N077_monviso_20261105T171401Z_01_z12-16.pmtiles",
+      "bytes": 35245120,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N078": {
+      "file": "ALP_E132_N078_val-di-susa-meridionale_20261105T165840Z_01_z12-16.pmtiles",
+      "bytes": 39951121,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N079": {
+      "file": "ALP_E132_N079_val-di-susa-settentrionale_20261108T210620Z_01_z12-16.pmtiles",
+      "bytes": 47480111,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N080": {
+      "file": "ALP_E132_N080_gran-paradiso-occidentale_20261108T205207Z_01_z12-16.pmtiles",
+      "bytes": 49232815,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N081": {
+      "file": "ALP_E132_N081_valle-d-aosta-occidentale_20261108T203435Z_01_z12-16.pmtiles",
+      "bytes": 55518349,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N082": {
+      "file": "ALP_E132_N082_vallese-centrale_20261108T183522Z_01_z12-16.pmtiles",
+      "bytes": 64778273,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E132_N083": {
+      "file": "ALP_E132_N083_alpi-bernesi-occidentali_20261105T200148Z_01_z12-16.pmtiles",
+      "bytes": 60365949,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E133_N080": {
+      "file": "ALP_E133_N080_gran-paradiso-orientale_20261105T164001Z_01_z12-16.pmtiles",
+      "bytes": 49485695,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E133_N081": {
+      "file": "ALP_E133_N081_valle-d-aosta-orientale_20261105T200833Z_01_z12-16.pmtiles",
+      "bytes": 53240442,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E133_N082": {
+      "file": "ALP_E133_N082_vallese-sud-orientale_20261105T201342Z_01_z12-16.pmtiles",
+      "bytes": 61602670,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E133_N083": {
+      "file": "ALP_E133_N083_vallese-nord-orientale_20261105T162841Z_01_z12-16.pmtiles",
+      "bytes": 62980274,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E134_N081": {
+      "file": "ALP_E134_N081_biellese-valsesia_20261029T162344Z_01_z12-16.pmtiles",
+      "bytes": 54445990,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E134_N082": {
+      "file": "ALP_E134_N082_valsesia-monte-rosa_20261029T084332Z_01_z12-16.pmtiles",
+      "bytes": 57187010,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E134_N083": {
+      "file": "ALP_E134_N083_monte-rosa-vallese_20261027T194827Z_01_z12-16.pmtiles",
+      "bytes": 60802358,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E135_N081": {
+      "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.pmtiles",
+      "bytes": 44623024,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E135_N082": {
+      "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.pmtiles",
+      "bytes": 54079841,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E135_N083": {
+      "file": "ALP_E135_N083_premia-lago-maggiore-ossola_20261027T201602Z_01_z12-16.pmtiles",
+      "bytes": 60009064,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E136_N081": {
+      "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.pmtiles",
+      "bytes": 47123466,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E136_N082": {
+      "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.pmtiles",
+      "bytes": 59508351,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E136_N083": {
+      "file": "ALP_E136_N083_ticino-alpi-lepontine_20261027T210103Z_01_z12-16.pmtiles",
+      "bytes": 67283188,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E137_N081": {
+      "file": "ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.pmtiles",
+      "bytes": 50081449,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E137_N082": {
+      "file": "ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.pmtiles",
+      "bytes": 53608783,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E137_N083": {
+      "file": "ALP_E137_N083_chiavenna-lario-valchiavenna_20261027T212350Z_01_z12-16.pmtiles",
+      "bytes": 60798028,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E138_N081": {
+      "file": "ALP_E138_N081_albino-valtellina-orobie_20261029T170141Z_01_z12-16.pmtiles",
+      "bytes": 56332269,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E138_N082": {
+      "file": "ALP_E138_N082_morbegno-valtellina-orobie_20261029T101306Z_01_z12-16.pmtiles",
+      "bytes": 51388265,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E138_N083": {
+      "file": "ALP_E138_N083_villa-di-chiavenna-lario-valchiavenna_20261027T214751Z_01_z12-16.pmtiles",
+      "bytes": 57747419,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E139_N081": {
+      "file": "ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.pmtiles",
+      "bytes": 51503902,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E139_N082": {
+      "file": "ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.pmtiles",
+      "bytes": 51199345,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E139_N083": {
+      "file": "ALP_E139_N083_livigno-valtellina-orobie_20261028T104811Z_01_z12-16.pmtiles",
+      "bytes": 51770839,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E139_N084": {
+      "file": "ALP_E139_N084_engadina-bernina_20261023T170917Z_01_z12-16.pmtiles",
+      "bytes": 56488894,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E140_N081": {
+      "file": "ALP_E140_N081_borgo-chiese-adamello-garda_20261029T171953Z_01_z12-16.pmtiles",
+      "bytes": 53206041,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E140_N082": {
+      "file": "ALP_E140_N082_edolo-adamello-garda_20261029T110532Z_01_z12-16.pmtiles",
+      "bytes": 49508763,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
     "ALP_E140_N083": {
       "file": "ALP_E140_N083_bormio-adamello-garda_20261028T110231Z_01_z12-16.pmtiles",
       "bytes": 48620316,
@@ -25,6 +229,18 @@
       "minzoom": 12,
       "maxzoom": 16
     },
+    "ALP_E141_N081": {
+      "file": "ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.pmtiles",
+      "bytes": 50778997,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E141_N082": {
+      "file": "ALP_E141_N082_madonna-di-campiglio-trentino-occidentale-dolomiti-di-brenta_20261029T112208Z_01_z12-16.pmtiles",
+      "bytes": 50567336,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
     "ALP_E141_N083": {
       "file": "ALP_E141_N083_dimaro-folgarida-trentino-occidentale-dolomiti-di-brenta_20261028T111418Z_01_z12-16.pmtiles",
       "bytes": 47661763,
@@ -40,6 +256,18 @@
     "ALP_E141_N085": {
       "file": "ALP_E141_N085_alpi-venoste-otztal_20261023T160250Z_01_z12-16.pmtiles",
       "bytes": 60919810,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E142_N081": {
+      "file": "ALP_E142_N081_rovereto-trentino-occidentale-dolomiti-di-brenta_20261029T174245Z_01_z12-16.pmtiles",
+      "bytes": 51924260,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E142_N082": {
+      "file": "ALP_E142_N082_trento-trentino-occidentale-dolomiti-di-brenta_20261029T143940Z_01_z12-16.pmtiles",
+      "bytes": 53015544,
       "minzoom": 12,
       "maxzoom": 16
     },
@@ -67,6 +295,12 @@
       "minzoom": 12,
       "maxzoom": 16
     },
+    "ALP_E143_N082": {
+      "file": "ALP_E143_N082_borgo-valsugana-alto-adige-dolomiti-occidentali_20261029T145214Z_01_z12-16.pmtiles",
+      "bytes": 52668299,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
     "ALP_E143_N083": {
       "file": "ALP_E143_N083_moena-alto-adige-dolomiti-occidentali_20261028T135351Z_01_z12-16.pmtiles",
       "bytes": 84076341,
@@ -85,6 +319,18 @@
       "minzoom": 12,
       "maxzoom": 16
     },
+    "ALP_E144_N081": {
+      "file": "ALP_E144_N081_montebelluna-dolomiti-cadore_20261029T175827Z_01_z12-16.pmtiles",
+      "bytes": 37115217,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E144_N082": {
+      "file": "ALP_E144_N082_belluno-dolomiti-cadore_20261029T150210Z_01_z12-16.pmtiles",
+      "bytes": 48195376,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
     "ALP_E144_N083": {
       "file": "ALP_E144_N083_agordo-dolomiti-cadore_20261028T142447Z_01_z12-16.pmtiles",
       "bytes": 88387888,
@@ -100,6 +346,120 @@
     "ALP_E144_N085": {
       "file": "ALP_E144_N085_sand-in-taufers-campo-tures-dolomiti-cadore_20261023T142703Z_01_z12-16.pmtiles",
       "bytes": 61087881,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E145_N082": {
+      "file": "ALP_E145_N082_vittorio-veneto-dolomiti-cadore_20261029T151016Z_01_z12-16.pmtiles",
+      "bytes": 42355268,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E145_N083": {
+      "file": "ALP_E145_N083_pieve-di-cadore-dolomiti-cadore_20261028T144820Z_01_z12-16.pmtiles",
+      "bytes": 54261039,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E145_N084": {
+      "file": "ALP_E145_N084_auronzo-di-cadore-dolomiti-cadore_20261023T154943Z_01_z12-16.pmtiles",
+      "bytes": 53908860,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E145_N085": {
+      "file": "ALP_E145_N085_alti-tauri-pusteria_20261023T154027Z_01_z12-16.pmtiles",
+      "bytes": 61393934,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E146_N083": {
+      "file": "ALP_E146_N083_tolmezzo-carnia-dolomiti-friulane_20261028T150043Z_01_z12-16.pmtiles",
+      "bytes": 52710040,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E146_N084": {
+      "file": "ALP_E146_N084_paluzza-carnia-dolomiti-friulane_20261023T175425Z_01_z12-16.pmtiles",
+      "bytes": 58365645,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E147_N083": {
+      "file": "ALP_E147_N083_gemona-del-friuli-carnia-dolomiti-friulane_20261028T210114Z_01_z12-16.pmtiles",
+      "bytes": 55735168,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E147_N084": {
+      "file": "ALP_E147_N084_paularo-paular-carnia-dolomiti-friulane_20261023T180939Z_01_z12-16.pmtiles",
+      "bytes": 56299159,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E148_N082": {
+      "file": "ALP_E148_N082_gorizia-alpi-giulie-friuli_20261029T161148Z_01_z12-16.pmtiles",
+      "bytes": 49749405,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E148_N083": {
+      "file": "ALP_E148_N083_cave-del-predil-raibl-rabelj-rabil-alpi-giulie-friuli_20261028T211305Z_01_z12-16.pmtiles",
+      "bytes": 61379688,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "ALP_E148_N084": {
+      "file": "ALP_E148_N084_tarvisio-alpi-giulie-friuli_20261027T191020Z_01_z12-16.pmtiles",
+      "bytes": 53866079,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E147_N069": {
+      "file": "APP_E147_N069_monti-dell-aquila_20261105T092358Z_01_z12-16.pmtiles",
+      "bytes": 35744777,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E148_N068": {
+      "file": "APP_E148_N068_sirente-velino_20261105T153706Z_01_z12-16.pmtiles",
+      "bytes": 29602728,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E148_N069": {
+      "file": "APP_E148_N069_gran-sasso_20261105T155643Z_01_z12-16.pmtiles",
+      "bytes": 35322078,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E148_N070": {
+      "file": "APP_E148_N070_monti-della-laga_20261105T160156Z_01_z12-16.pmtiles",
+      "bytes": 41711858,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E149_N067": {
+      "file": "APP_E149_N067_monti-marsicani-pescasseroli_20261105T160741Z_01_z12-16.pmtiles",
+      "bytes": 33450561,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E149_N068": {
+      "file": "APP_E149_N068_monti-del-morrone_20261105T161325Z_01_z12-16.pmtiles",
+      "bytes": 31249912,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E149_N069": {
+      "file": "APP_E149_N069_campo-imperatore_20261105T161808Z_01_z12-16.pmtiles",
+      "bytes": 33169959,
+      "minzoom": 12,
+      "maxzoom": 16
+    },
+    "APP_E150_N068": {
+      "file": "APP_E150_N068_maiella_20261105T162305Z_01_z12-16.pmtiles",
+      "bytes": 33808006,
       "minzoom": 12,
       "maxzoom": 16
     }
