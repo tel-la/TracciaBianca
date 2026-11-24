@@ -16,11 +16,11 @@ window.TB_CONFIG = {
   env: "auto", // "auto" | "dev" | "publish"
   pmtilesBases: {
     dev: "./tiles/",
-    publish: "https://pub-3e95fc6969fb409e83c7226568f91a90.r2.dev/",
+    publish: "https://tiles.tracciabianca.fyi/",
   },
   pmtilesManifests: {
     dev: "./pmtiles-manifest.json",
-    publish: "https://pub-3e95fc6969fb409e83c7226568f91a90.r2.dev/pmtiles-manifest.json",
+    publish: "https://tiles.tracciabianca.fyi/pmtiles-manifest.json",
   },
   terrain: {
     tilejson: "https://tiles.mapterhorn.com/tilejson.json",

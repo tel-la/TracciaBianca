@@ -16,7 +16,7 @@ SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 RCLONE_REMOTE="${RCLONE_REMOTE:-tracciabianca-r2}"
 R2_BUCKET="${R2_BUCKET:-tracciabianca-pmtiles}"
-R2_PUBLIC_BASE="${R2_PUBLIC_BASE:-https://pub-3e95fc6969fb409e83c7226568f91a90.r2.dev}"
+R2_PUBLIC_BASE="${R2_PUBLIC_BASE:-https://tiles.tracciabianca.fyi}"
 R2_CORS_ORIGIN="${R2_CORS_ORIGIN:-https://tel-la.github.io}"
 
 SOURCE_MANIFEST="$SCRIPT_DIR/interactive_map_src/webmap/pmtiles-manifest.json"
