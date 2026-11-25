@@ -121,8 +121,10 @@ upload_and_verify() {
     echo "Errore: risposta HTTP $http_status invece di 206." >&2
     exit 1
   }
+  # Una risposta 206 con Content-Range esatto prova gia' che il server ha
+  # accettato la richiesta Range. Accept-Ranges e' soltanto informativo e
+  # Cloudflare puo' ometterlo, soprattutto quando il file passa dalla CDN.
   require_header "$headers" "Content-Range: bytes 0-$range_end/$file_size"
-  require_header "$headers" "Accept-Ranges: bytes"
   require_header "$headers" "Access-Control-Allow-Origin: $R2_CORS_ORIGIN"
   require_header "$headers" "Cache-Control: $PMTILES_CACHE"
   echo "Verifica PMTiles completata: $public_url"
