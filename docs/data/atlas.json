@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-24T16:12:23Z",
+  "generated_at": "2026-11-25T16:21:13Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 89,
@@ -1596,12 +1596,12 @@
         "Adamello – Garda"
       ],
       "status": "published",
-      "edition": "20261029T170958Z",
+      "edition": "20261125T154345Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 703934464,
+      "bytes": 703692800,
       "analysis_bounds": [
         [
           45.69327242522861,
@@ -1614,12 +1614,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles",
-          "bytes": 703934464,
-          "sha256": "3209df5ca3be2790347dbdfb07997e088442d39666404bf08e5737941094315f",
+          "file": "ALP_E139_N081_darfo-boario-terme-adamello-garda_20261125T154345Z_01_z12-16.mbtiles",
+          "bytes": 703692800,
+          "sha256": "bde1c2e178607aff89613f51c9e44bc1b49f746eb34cd8a242e37ed378aec322",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E139_N081_darfo-boario-terme-adamello-garda_20261125T154345Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1946,12 +1946,12 @@
         "Trentino occidentale – Dolomiti di Brenta"
       ],
       "status": "published",
-      "edition": "20261029T173542Z",
+      "edition": "20261125T155140Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 720625664,
+      "bytes": 720969728,
       "analysis_bounds": [
         [
           45.68827431441009,
@@ -1964,12 +1964,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles",
-          "bytes": 720625664,
-          "sha256": "8f17e88b372792f63eddb3f31fa6eb6e854f0a823269746c850b8807aba19eec",
+          "file": "ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261125T155140Z_01_z12-16.mbtiles",
+          "bytes": 720969728,
+          "sha256": "e9a31b60726e2ef450ec363e6ca3b839ba4e1b04c5abdff4c6acb20e268762f4",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261125T155140Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
