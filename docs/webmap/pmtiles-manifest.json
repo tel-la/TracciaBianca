@@ -247,12 +247,6 @@
       "minzoom": 12,
       "maxzoom": 16
     },
-    "ALP_E139_N081": {
-      "file": "ALP_E139_N081_darfo-boario-terme-adamello-garda_20261029T170958Z_01_z12-16.pmtiles",
-      "bytes": 51503902,
-      "minzoom": 12,
-      "maxzoom": 16
-    },
     "ALP_E139_N082": {
       "file": "ALP_E139_N082_sondrio-valtellina-orobie_20261029T105329Z_01_z12-16.pmtiles",
       "bytes": 51199345,
@@ -298,12 +292,6 @@
     "ALP_E140_N085": {
       "file": "ALP_E140_N085_reschen-resia-adamello-garda_20261023T164505Z_01_z12-16.pmtiles",
       "bytes": 59286467,
-      "minzoom": 12,
-      "maxzoom": 16
-    },
-    "ALP_E141_N081": {
-      "file": "ALP_E141_N081_arco-trentino-occidentale-dolomiti-di-brenta_20261029T173542Z_01_z12-16.pmtiles",
-      "bytes": 50778997,
       "minzoom": 12,
       "maxzoom": 16
     },
