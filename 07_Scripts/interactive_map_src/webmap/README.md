@@ -33,6 +33,20 @@ node docs/webmap/dev-server.js
 # http://127.0.0.1:8080/webmap/
 ```
 
+Per usare invece gli archivi e il manifest pubblicati su R2, avviare:
+
+```bash
+node docs/webmap/dev-server.js --pmtiles=r2
+```
+
+Senza flag (oppure con `--pmtiles=local`) il server usa `./tiles/` e il
+manifest locale. Con `--pmtiles=r2` usa gli URL `publish` già presenti in
+`config.js`. Il server inoltra manifest e richieste Range a R2 attraverso
+`/webmap/r2/`, così la pagina su `localhost` funziona anche se la policy CORS
+del bucket ammette soltanto l'origine pubblicata. Non scarica gli archivi
+completi e non modifica i file locali. La scelta vale per l'intera sessione del
+server: riavviarlo con l'altro flag per cambiare sorgente.
+
 È possibile scegliere un’altra porta:
 
 ```bash
@@ -88,7 +102,7 @@ l'hillshade può restare attivo indipendentemente. Un'inclinazione manuale della
 mappa attiva automaticamente il terreno. La bussola mostra la direzione della
 vista al centro e mantiene il triangolo rosso orientato verso il nord geografico.
 Considerando 0° parallelo all'orizzonte e 90° come vista zenitale, sotto i 45°
-il viewer mantiene attivi soltanto i PMTiles entro 2,5 km dal centro della vista.
+il viewer mantiene attivi soltanto i PMTiles entro 1,5 km dal centro della vista.
 Sopra i 45° il comportamento resta invariato. Ogni sorgente è inoltre limitata
 ai confini della propria cella, evitando richieste raster lontane. Durante pan e
 rotazione sotto i 45° restano visibili le ultime tile PMTiles già renderizzate,

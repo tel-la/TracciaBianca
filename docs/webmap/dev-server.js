@@ -14,8 +14,9 @@
  *
  * Usage:
  *   node docs/webmap/dev-server.js
+ *   node docs/webmap/dev-server.js --pmtiles=r2
+ *   node docs/webmap/dev-server.js --pmtiles=local
  *   PORT=9000 node docs/webmap/dev-server.js
- *   node docs/webmap/dev-server.js 9000
  *
  * Then open http://localhost:8080/webmap/  (drop converted .pmtiles into
  * docs/webmap/tiles/ for the dev tile source).
@@ -24,12 +25,43 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const { Readable } = require("stream");
+const vm = require("vm");
 
 // Root = the docs/ directory (the parent of this webmap/ folder) so that
 // /webmap/ and /data/ are both reachable.
 const ROOT = path.resolve(__dirname, "..");
-const PORT = Number(process.env.PORT) || Number(process.argv[2]) || 8080;
 const HOST = process.env.HOST || "127.0.0.1";
+
+function parseServerArgs(args, envPort = process.env.PORT) {
+  let pmtiles = "local";
+  let port = envPort ? Number(envPort) : 8080;
+  for (const arg of args) {
+    if (arg === "--pmtiles=r2" || arg === "--pmtiles=local") {
+      pmtiles = arg.slice("--pmtiles=".length);
+    } else if (/^\d+$/.test(arg) && !envPort) {
+      port = Number(arg);
+    } else {
+      throw new Error(`Unknown server option: ${arg}. Use --pmtiles=local or --pmtiles=r2.`);
+    }
+  }
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    throw new Error(`Invalid port: ${envPort || port}`);
+  }
+  return { port, pmtiles };
+}
+
+function r2Config(root) {
+  const sandbox = { window: {} };
+  vm.runInNewContext(fs.readFileSync(path.join(root, "webmap", "config.js"), "utf8"), sandbox);
+  const config = sandbox.window.TB_CONFIG;
+  const base = new URL(config.pmtilesBases.publish);
+  const manifest = new URL(config.pmtilesManifests.publish);
+  if (base.protocol !== "https:" || manifest.protocol !== "https:") {
+    throw new Error("R2 URLs in webmap/config.js must use HTTPS");
+  }
+  return { base, manifest };
+}
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -149,7 +181,11 @@ function serveFile(filePath, req, res) {
   });
 }
 
-function createServer(root = ROOT) {
+function createServer(root = ROOT, options = {}) {
+  const pmtiles = options.pmtiles || "local";
+  if (pmtiles !== "local" && pmtiles !== "r2") throw new Error(`Invalid PMTiles source: ${pmtiles}`);
+  const upstream = pmtiles === "r2" ? r2Config(root) : null;
+  const fetchUpstream = options.fetchUpstream || fetch;
   return http.createServer((req, res) => {
     if (req.method !== "GET" && req.method !== "HEAD") {
       return send(req, res, 405, "Method not allowed", {
@@ -165,6 +201,52 @@ function createServer(root = ROOT) {
       requestPath = "/";
     }
     if (requestPath.endsWith("/")) requestPath += "index.html";
+
+    if (upstream && requestPath === "/webmap/config.js") {
+      fs.readFile(path.join(root, "webmap", "config.js"), "utf8", (error, configJs) => {
+        if (error) return notFound(req, res);
+        const script = configJs + "\nwindow.TB_CONFIG.pmtilesBases.dev = './r2/';"
+          + "\nwindow.TB_CONFIG.pmtilesManifests.dev = './r2/pmtiles-manifest.json';\n";
+        return send(req, res, 200, script, {
+          "content-type": MIME[".js"],
+          "content-length": String(Buffer.byteLength(script)),
+          "cache-control": "no-store",
+        });
+      });
+      return;
+    }
+
+    if (upstream && requestPath.startsWith("/webmap/r2/")) {
+      const filename = requestPath.slice("/webmap/r2/".length);
+      if (!/^[A-Za-z0-9][A-Za-z0-9_.-]*$/.test(filename)) return notFound(req, res);
+      const url = filename === "pmtiles-manifest.json"
+        ? upstream.manifest : new URL(filename, upstream.base);
+      const headers = {};
+      if (req.headers.range) headers.Range = req.headers.range;
+      if (req.headers["if-range"]) headers["If-Range"] = req.headers["if-range"];
+      const controller = new AbortController();
+      res.on("close", () => { if (!res.writableEnded) controller.abort(); });
+      void fetchUpstream(url, { method: req.method, headers, signal: controller.signal })
+        .then((response) => {
+          const forwarded = {};
+          for (const name of ["content-type", "content-length", "content-range",
+            "accept-ranges", "cache-control", "etag", "expires", "last-modified",
+            "cf-cache-status", "age"]) {
+            const value = response.headers.get(name);
+            if (value !== null) forwarded[name] = value;
+          }
+          res.writeHead(response.status, forwarded);
+          if (req.method === "HEAD" || !response.body) return res.end();
+          Readable.fromWeb(response.body).on("error", () => res.destroy()).pipe(res);
+        }).catch((error) => {
+          if (!controller.signal.aborted && !res.headersSent) {
+            send(req, res, 502, `R2 request failed: ${error.message}`, {
+              "content-type": "text/plain; charset=utf-8", "cache-control": "no-store",
+            });
+          }
+        });
+      return;
+    }
 
     const target = safePath(requestPath, root);
     if (!target) return notFound(req, res);
@@ -185,22 +267,24 @@ function createServer(root = ROOT) {
   });
 }
 
-const server = createServer();
-
-if (require.main === module) server.listen(PORT, HOST, () => {
-  const url = `http://${HOST}:${PORT}`;
+if (require.main === module) {
+  const { port, pmtiles } = parseServerArgs(process.argv.slice(2));
+  const server = createServer(ROOT, { pmtiles });
+  server.listen(port, HOST, () => {
+  const url = `http://${HOST}:${port}`;
   process.stdout.write(
     [
       "TracciaBianca webmap dev server",
       `  root : ${ROOT}`,
       `  url  : ${url}/webmap/   (open this)`,
       `  data : ${url}/data/     (atlas.json, cores.geojson)`,
-      `  tiles: ${url}/webmap/tiles/  (drop converted .pmtiles here)`,
+      `  tiles: ${pmtiles === "r2" ? "R2 via local proxy" : `${url}/webmap/tiles/`}`,
       `  range: enabled (PMTiles partial reads)`,
       "  stop : press Ctrl+C",
       "",
     ].join("\n")
   );
-});
+  });
+}
 
-module.exports = { createServer, parseRange, safePath };
+module.exports = { createServer, parseRange, safePath, parseServerArgs };

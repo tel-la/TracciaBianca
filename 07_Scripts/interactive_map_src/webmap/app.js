@@ -30,6 +30,7 @@
   const copyChecksumButton = document.getElementById("copy-checksum");
   const copyFeedback = document.getElementById("copy-feedback");
   const placeSearch = document.getElementById("place-search");
+  const measurementTools = document.getElementById("measurement-tools");
   const placeSearchInput = document.getElementById("place-search-input");
   const searchMessage = document.getElementById("search-message");
   const searchResults = document.getElementById("search-results");
@@ -74,7 +75,8 @@
   const CELL_LABEL_FULL_MAX_CELL_RATIO = 0.8;
   const CELL_LABEL_FULL_SIZE_PX = { width: 44, height: 46 };
   const HORIZON_VIEW_RASTER_LIMIT_DEGREES = 45;
-  const HORIZON_VIEW_RASTER_RADIUS_KM = 2.5;
+  const HORIZON_VIEW_RASTER_RADIUS_KM = 1.5;
+  const MIN_TERRAIN_CAMERA_CLEARANCE_METERS = 30;
   const TERRAIN_SOURCE = "mapterhorn-terrain";
   const HILLSHADE_SOURCE = "mapterhorn-hillshade-source";
   const HILLSHADE_LAYER = "mapterhorn-hillshade";
@@ -189,7 +191,13 @@
   const activeRasters = new Map();
   const rasterLoads = new Map();
   const rasterFailures = new Set();
-  const pmtilesMotionWaiters = new Set();
+  const inactiveRasters = new Map();
+  const INACTIVE_RASTER_TTL_MS = 20000;
+  let inactiveRasterTimer = null;
+  // A transparent pixel completes MapLibre's image queue for absent raster tiles.
+  const EMPTY_RASTER_TILE = Uint8Array.from(atob(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII="
+  ), (character) => character.charCodeAt(0));
   let measurementActive = false;
   let measurementPoints = [];
   let measurementPreviewPoint = null;
@@ -205,6 +213,13 @@
   let atlasLoadStarted = false;
   let pmtilesPeekHidden = false;
   let pmtilesMotionPaused = false;
+  let pmtilesBackgroundPaused = false;
+  let backgroundPreparationCount = 0;
+  let backgroundReadyRaf = 0;
+  let rasterPriorityGeneration = 0;
+  let terrainClearanceRaf = 0;
+  let terrainClearanceCorrecting = false;
+  let terrainClearanceCorrections = 0;
   let pmtilesHoldTimer = null;
   let pmtilesHoldPointerId = null;
   let pmtilesHoldStart = null;
@@ -218,6 +233,17 @@
     routeProfileResizeRaf = window.requestAnimationFrame(() => drawElevationProfile(routeProfilePoints));
   });
   routeProfileResizeObserver.observe(routeProfileChartExpanded);
+
+  // The mobile search can grow when it shows results, and measurement buttons
+  // can wrap. Keep the bottom controls stacked using their rendered heights.
+  const mobileControlsResizeObserver = new ResizeObserver(() => {
+    mapShell.style.setProperty("--mobile-search-height",
+      `${Math.ceil(placeSearch.getBoundingClientRect().height)}px`);
+    mapShell.style.setProperty("--mobile-measure-height",
+      `${Math.ceil(measurementTools.getBoundingClientRect().height)}px`);
+  });
+  mobileControlsResizeObserver.observe(placeSearch);
+  mobileControlsResizeObserver.observe(measurementTools);
 
   const statusLabels = {
     published: "Available",
@@ -513,9 +539,11 @@
       // protocol handler (the "v3compat" shim adapts the promise handler to
       // MapLibre's callback convention).
       pmtilesProtocol = new window.pmtiles.Protocol();
+      // waitForPmtilesMotion used to block here and occupy MapLibre's shared
+      // image queue. Source updates are paused before reaching this handler.
       maplibregl.addProtocol("pmtiles", async (request, abortController) => {
-        await waitForPmtilesMotion(abortController.signal);
-        return pmtilesProtocol.tile(request, abortController);
+        const result = await pmtilesProtocol.tile(request, abortController);
+        return result && result.data === null ? { ...result, data: EMPTY_RASTER_TILE } : result;
       });
       protocolRegistered = true;
       return true;
@@ -538,6 +566,134 @@
     if (map.getLayer(ids.layer)) map.removeLayer(ids.layer);
     if (map.getSource(ids.source)) map.removeSource(ids.source);
     activeRasters.delete(cellId);
+    inactiveRasters.delete(cellId);
+  }
+
+  function tileManagerFor(cellId) {
+    // MapLibre 5.24.1 has no public per-source pause or cache-size API.
+    return map.style && map.style.tileManagers && map.style.tileManagers[rasterIdsFor(cellId).source];
+  }
+
+  function pauseCellRaster(cellId) {
+    const manager = tileManagerFor(cellId);
+    if (manager && typeof manager.pause === "function") manager.pause();
+  }
+
+  function resumeCellRaster(cellId) {
+    const manager = tileManagerFor(cellId);
+    if (manager && typeof manager.resume === "function") manager.resume();
+  }
+
+  function tileMayCoverBounds(tile, bounds) {
+    const canonical = tile.tileID && tile.tileID.canonical;
+    if (!canonical) return true;
+    const scale = 2 ** canonical.z;
+    const wrap = Number.isFinite(tile.tileID.wrap) ? tile.tileID.wrap : 0;
+    const tileWest = (canonical.x / scale * 360 - 180) + 360 * wrap;
+    const tileEast = ((canonical.x + 1) / scale * 360 - 180) + 360 * wrap;
+    const tileNorth = Math.atan(Math.sinh(Math.PI * (1 - 2 * canonical.y / scale))) * 180 / Math.PI;
+    const tileSouth = Math.atan(Math.sinh(Math.PI * (1 - 2 * (canonical.y + 1) / scale))) * 180 / Math.PI;
+    // Retain one tile of margin so tiles at a pitched viewport edge are not
+    // aborted and requested again on the next small camera adjustment.
+    const tileHeight = tileNorth - tileSouth;
+    if (tileSouth - tileHeight > bounds.getNorth()
+      || tileNorth + tileHeight < bounds.getSouth()) return false;
+    const tileWidth = 360 / scale;
+    return tileEast + tileWidth >= bounds.getWest()
+      && tileWest - tileWidth <= bounds.getEast();
+  }
+
+  function cancelObsoletePmtilesTiles(nextDesired) {
+    const bounds = map.getBounds();
+    for (const cellId of activeRasters.keys()) {
+      const manager = tileManagerFor(cellId);
+      const inView = manager && manager._inViewTiles;
+      if (!inView || typeof inView.getAllIds !== "function"
+        || typeof inView.getTileById !== "function"
+        || typeof manager._removeTile !== "function") continue;
+      const stillDesired = nextDesired.has(cellId);
+      for (const id of inView.getAllIds()) {
+        const tile = inView.getTileById(id);
+        if (!tile || tile.state !== "loading"
+          || typeof tile.hasData !== "function" || tile.hasData()) continue;
+        if (!stillDesired || !tileMayCoverBounds(tile, bounds)) {
+          // MapLibre removes the tile from its manager and aborts the fetch.
+          // Calling abortTile alone would leave a stuck "loading" tile.
+          manager._removeTile(id);
+        }
+      }
+    }
+  }
+
+  function backgroundSourcesReady() {
+    if (!mapLoaded || map.isMoving() || backgroundPreparationCount) return false;
+    const sources = ["osm"];
+    if (terrain3dEnabled) sources.push(TERRAIN_SOURCE);
+    if (hillshadeEnabled) sources.push(HILLSHADE_SOURCE);
+    return sources.every((sourceId) => map.getSource(sourceId) && map.isSourceLoaded(sourceId));
+  }
+
+  function pausePmtilesForBackground() {
+    if (pmtilesBackgroundPaused) return;
+    pmtilesBackgroundPaused = true;
+    for (const cellId of activeRasters.keys()) pauseCellRaster(cellId);
+  }
+
+  function scheduleBackgroundReadyCheck() {
+    if (backgroundReadyRaf) return;
+    backgroundReadyRaf = window.requestAnimationFrame(() => {
+      backgroundReadyRaf = 0;
+      if (pmtilesBackgroundPaused && backgroundSourcesReady()) syncRasterToMap();
+    });
+  }
+
+  function beginBackgroundPreparation() {
+    backgroundPreparationCount += 1;
+    pausePmtilesForBackground();
+  }
+
+  function endBackgroundPreparation() {
+    backgroundPreparationCount -= 1;
+    scheduleBackgroundReadyCheck();
+  }
+
+  function cacheInactiveRaster(cellId) {
+    const active = activeRasters.get(cellId);
+    if (!active) return;
+    const layerId = rasterIdsFor(cellId).layer;
+    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, "visibility", "none");
+    // Hidden sources stop requesting tiles; cap only their out-of-view cache.
+    const manager = tileManagerFor(cellId);
+    const cache = manager && manager._outOfViewCache;
+    if (manager) manager._maxTileCacheSize = isMobileViewport() ? 32 : 64;
+    if (cache && typeof cache.setMaxSize === "function") {
+      cache.setMaxSize(isMobileViewport() ? 32 : 64);
+    }
+    inactiveRasters.delete(cellId);
+    inactiveRasters.set(cellId, Date.now());
+    pruneInactiveRasters();
+    scheduleInactiveRasterExpiry();
+  }
+
+  function scheduleInactiveRasterExpiry() {
+    if (inactiveRasterTimer !== null) window.clearTimeout(inactiveRasterTimer);
+    if (!inactiveRasters.size) return;
+    const firstExpiry = Math.min(...inactiveRasters.values()) + INACTIVE_RASTER_TTL_MS;
+    inactiveRasterTimer = window.setTimeout(() => {
+      inactiveRasterTimer = null;
+      pruneInactiveRasters();
+      scheduleInactiveRasterExpiry();
+    }, Math.max(1, firstExpiry - Date.now() + 1));
+  }
+
+  function pruneInactiveRasters() {
+    const limit = isMobileViewport() ? 1 : 2;
+    const now = Date.now();
+    for (const [cellId, since] of [...inactiveRasters]) {
+      if (now - since >= INACTIVE_RASTER_TTL_MS || inactiveRasters.size > limit) {
+        removeCellRaster(cellId);
+      }
+    }
   }
 
   function pmtilesLayersAreVisible() {
@@ -548,7 +704,8 @@
     const visibility = pmtilesLayersAreVisible() ? "visible" : "none";
     for (const cellId of activeRasters.keys()) {
       const layerId = rasterIdsFor(cellId).layer;
-      if (map.getLayer(layerId)) map.setLayoutProperty(layerId, "visibility", visibility);
+      if (map.getLayer(layerId)) map.setLayoutProperty(layerId, "visibility",
+        inactiveRasters.has(cellId) ? "none" : visibility);
     }
   }
 
@@ -669,13 +826,19 @@
 
   async function setHillshadeEnabled(enabled) {
     const next = Boolean(enabled);
-    if (next && !(await ensureTerrainSources())) return false;
-    if (map.getLayer(HILLSHADE_LAYER)) {
-      map.setLayoutProperty(HILLSHADE_LAYER, "visibility", next ? "visible" : "none");
+    if (next) beginBackgroundPreparation();
+    try {
+      if (next && !(await ensureTerrainSources())) return false;
+      if (map.getLayer(HILLSHADE_LAYER)) {
+        map.setLayoutProperty(HILLSHADE_LAYER, "visibility", next ? "visible" : "none");
+      }
+      hillshadeEnabled = next;
+      updateTerrainControls();
+      return true;
+    } finally {
+      if (next) endBackgroundPreparation();
+      else scheduleBackgroundReadyCheck();
     }
-    hillshadeEnabled = next;
-    updateTerrainControls();
-    return true;
   }
 
   function waitForSourceReady(sourceId, timeoutMs = 5000) {
@@ -721,8 +884,52 @@
     };
   }
 
+  function scheduleTerrainCameraClearance() {
+    if (!terrain3dEnabled || terrainClearanceRaf) return;
+    terrainClearanceRaf = window.requestAnimationFrame(() => {
+      terrainClearanceRaf = 0;
+      if (!terrain3dEnabled || map.isMoving() || terrainClearanceCorrections >= 4) return;
+      // These transform methods are available in the pinned MapLibre 5.24.1
+      // build. The public terrain query samples the ground below the camera.
+      const transform = map.transform;
+      if (!transform || !transform.getCameraLngLat || !transform.getCameraAltitude) return;
+      const cameraPosition = transform.getCameraLngLat();
+      const cameraAltitude = transform.getCameraAltitude();
+      const groundAltitude = map.queryTerrainElevation(cameraPosition);
+      if (!Number.isFinite(cameraAltitude) || !Number.isFinite(groundAltitude)
+        || cameraAltitude - groundAltitude >= MIN_TERRAIN_CAMERA_CLEARANCE_METERS) return;
+      try {
+        const target = map.calculateCameraOptionsFromCameraLngLatAltRotation(
+          cameraPosition, groundAltitude + MIN_TERRAIN_CAMERA_CLEARANCE_METERS + 2,
+          map.getBearing(), map.getPitch());
+        if (!target || !Number.isFinite(target.zoom)) return;
+        terrainClearanceCorrections += 1;
+        terrainClearanceCorrecting = true;
+        map.easeTo({
+          center: target.center,
+          zoom: Math.min(map.getZoom() - 0.01, target.zoom),
+          duration: 220,
+          essential: true,
+        });
+      } catch (error) {
+        terrainClearanceCorrecting = false;
+        console.warn("Could not adjust terrain camera clearance:", error);
+      }
+    });
+  }
+
   async function setTerrain3dEnabled(enabled, adjustCamera = true) {
     const next = Boolean(enabled);
+    if (next) beginBackgroundPreparation();
+    try {
+      return await applyTerrain3dEnabled(next, adjustCamera);
+    } finally {
+      if (next) endBackgroundPreparation();
+      else scheduleBackgroundReadyCheck();
+    }
+  }
+
+  async function applyTerrain3dEnabled(next, adjustCamera) {
     if (next && !(await ensureTerrainSources())) return false;
     const viewCenter = map.getCenter();
     const viewZoom = map.getZoom();
@@ -741,6 +948,7 @@
         // before tilting so the visible area remains the camera pivot.
         map.jumpTo({ center: [viewCenter.lng, viewCenter.lat] });
         if (adjustCamera) map.easeTo(terrainCameraTarget(viewCenter, viewZoom));
+        else scheduleTerrainCameraClearance();
       } else if (adjustCamera) {
         map.easeTo({
           center: [viewCenter.lng, viewCenter.lat],
@@ -750,6 +958,7 @@
           essential: true,
         });
       }
+      if (!next) terrainClearanceCorrections = 0;
       setTerrainStatus();
       return true;
     } catch (error) {
@@ -798,14 +1007,9 @@
       if (mobileActivationZoom !== null) activationZoom = mobileActivationZoom;
     }
     activationZoom = Math.max(0, Math.round(activationZoom * 1000) / 1000);
-    const earlyZoomShift = archiveMinZoom - activationZoom;
     const regularZoomShift = archiveMinZoom - (activationZoom + 0.5);
-    const earlyTileSize = Math.round(
-      (MAPLIBRE_CANONICAL_TILE_SIZE / Math.pow(2, earlyZoomShift)) * 1000) / 1000;
-    const regularTileSize = Math.round(
+    const tileSize = Math.round(
       (MAPLIBRE_CANONICAL_TILE_SIZE / Math.pow(2, regularZoomShift)) * 1000) / 1000;
-    const tileSize = map.getZoom() + 1e-6 < activationZoom + 0.5
-      ? earlyTileSize : regularTileSize;
     return { activationZoom, tileSize };
   }
 
@@ -833,33 +1037,22 @@
     return 90 - map.getPitch();
   }
 
-  function waitForPmtilesMotion(signal) {
-    if (!pmtilesMotionPaused || signal.aborted) return Promise.resolve();
-    return new Promise((resolve) => {
-      const resume = () => {
-        pmtilesMotionWaiters.delete(resume);
-        signal.removeEventListener("abort", resume);
-        resolve();
-      };
-      pmtilesMotionWaiters.add(resume);
-      signal.addEventListener("abort", resume, { once: true });
-    });
-  }
-
   function resumePmtilesRequests() {
     pmtilesMotionPaused = false;
-    for (const resume of [...pmtilesMotionWaiters]) resume();
+    if (pmtilesBackgroundPaused) return;
+    for (const cellId of activeRasters.keys()) resumeCellRaster(cellId);
   }
 
   function suspendPmtilesForCameraMotion() {
     if (pmtilesMotionPaused
       || viewAngleFromHorizon() >= HORIZON_VIEW_RASTER_LIMIT_DEGREES) return;
     pmtilesMotionPaused = true;
+    for (const cellId of activeRasters.keys()) pauseCellRaster(cellId);
   }
 
   function finishCameraMotion() {
     resumePmtilesRequests();
-    // Let MapLibre paint the settled camera before reconciling visible cells.
+    // MapLibre updates base sources on the next paint after the camera settles.
     window.requestAnimationFrame(syncRasterToMap);
   }
 
@@ -882,7 +1075,7 @@
     if (!catalog || !mapLoaded) return [];
     const bounds = map.getBounds();
     const limitDistantCells = viewAngleFromHorizon() < HORIZON_VIEW_RASTER_LIMIT_DEGREES;
-    const center = limitDistantCells ? map.getCenter() : null;
+    const center = map.getCenter();
     const matches = [];
     for (const cell of catalog.cells) {
       const bbox = analysisBBox(cell);
@@ -898,9 +1091,56 @@
     return matches;
   }
 
+  function cellContainsMapCenter(cell, center) {
+    const bbox = analysisBBox(cell);
+    return bbox && center.lng >= bbox[0][0] && center.lng <= bbox[1][0]
+      && center.lat >= bbox[0][1] && center.lat <= bbox[1][1];
+  }
+
+  function startCellRasterLoad(entry) {
+    const promise = loadCellRaster(entry.cell, entry.tileSize);
+    const loading = rasterLoads.get(entry.cell.id);
+    if (loading) loading.promise = promise;
+    return promise;
+  }
+
+  function loadDesiredRastersCenterFirst() {
+    const generation = ++rasterPriorityGeneration;
+    const entries = [...desiredRasters.values()];
+    const center = map.getCenter();
+    const primary = entries.find(({ cell }) => cellContainsMapCenter(cell, center));
+    const startPending = () => {
+      if (generation !== rasterPriorityGeneration || !pmtilesEnabled) return;
+      for (const entry of entries) {
+        const id = entry.cell.id;
+        const active = activeRasters.get(id);
+        const loading = rasterLoads.get(id);
+        if (desiredRasters.get(id)?.tileSize !== entry.tileSize
+          || (active && active.tileSize === entry.tileSize)
+          || (loading && loading.tileSize === entry.tileSize)
+          || rasterFailures.has(id)) continue;
+        void startCellRasterLoad(entry);
+      }
+    };
+    if (!primary || rasterFailures.has(primary.cell.id)
+      || activeRasters.get(primary.cell.id)?.tileSize === primary.tileSize) {
+      startPending();
+      return;
+    }
+    const pending = rasterLoads.get(primary.cell.id);
+    const firstLoad = pending && pending.tileSize === primary.tileSize
+      ? pending.promise : startCellRasterLoad(primary);
+    // Give MapLibre a frame to enqueue the center sheet's tiles before
+    // attaching peripheral sources. All peripheral sheets still load.
+    void Promise.resolve(firstLoad).then(() => new Promise((resolve) =>
+      window.requestAnimationFrame(resolve))).then(startPending, startPending);
+  }
+
   function syncRasterToMap() {
     const nextDesired = new Map(rasterCellsForViewport().map((entry) =>
       [entry.cell.id, entry]));
+
+    if (!map.isMoving()) cancelObsoletePmtilesTiles(nextDesired);
 
     for (const cellId of rasterLoads.keys()) {
       const next = nextDesired.get(cellId);
@@ -908,7 +1148,7 @@
       if (!next || !loading || next.tileSize !== loading.tileSize) rasterLoads.delete(cellId);
     }
     for (const cellId of activeRasters.keys()) {
-      if (!nextDesired.has(cellId)) removeCellRaster(cellId);
+      if (!nextDesired.has(cellId) && !inactiveRasters.has(cellId)) cacheInactiveRaster(cellId);
     }
     for (const cellId of rasterFailures) {
       if (!nextDesired.has(cellId)) rasterFailures.delete(cellId);
@@ -918,16 +1158,32 @@
     if (selectedCell && !desiredRasters.has(selectedCell.id)) setTilesNote("hidden");
     if (!pmtilesEnabled) return;
 
+    if (!backgroundSourcesReady()) {
+      rasterPriorityGeneration += 1;
+      pausePmtilesForBackground();
+      return;
+    }
+    if (pmtilesBackgroundPaused) {
+      pmtilesBackgroundPaused = false;
+      if (!pmtilesMotionPaused) {
+        for (const cellId of activeRasters.keys()) resumeCellRaster(cellId);
+      }
+    }
+
     for (const { cell, tileSize } of desiredRasters.values()) {
       const active = activeRasters.get(cell.id);
-      const loading = rasterLoads.get(cell.id);
       if (active && active.tileSize === tileSize) {
+        if (inactiveRasters.delete(cell.id)) {
+          const manager = tileManagerFor(cell.id);
+          if (manager) manager._maxTileCacheSize = null;
+          const layerId = rasterIdsFor(cell.id).layer;
+          if (map.getLayer(layerId)) map.setLayoutProperty(layerId, "visibility",
+            pmtilesLayersAreVisible() ? "visible" : "none");
+        }
         setTilesNoteForCell(cell, "ready", `PMTiles loaded for ${cell.id}.`);
-        continue;
       }
-      if ((loading && loading.tileSize === tileSize) || rasterFailures.has(cell.id)) continue;
-      void loadCellRaster(cell, tileSize);
     }
+    loadDesiredRastersCenterFirst();
   }
 
   async function loadCellRaster(cell, tileSize) {
@@ -967,17 +1223,27 @@
       }
 
       setTilesNoteForCell(cell, "loading", `Loading PMTiles for ${cell.id}…`);
-      let header = resource.header;
-      if (!header || resource.url !== absUrl) {
+      if (!resource.archivePromise || resource.url !== absUrl) {
         const archive = new window.pmtiles.PMTiles(absUrl);
-        header = await archive.getHeader();
-        if (!isRasterHeader(header)) {
-          throw new Error("This viewer expects raster PMTiles, but the archive contains vector tiles.");
-        }
-        pmtilesProtocol.add(archive);
-        resource.header = header;
         resource.url = absUrl;
+        resource.archivePromise = archive.getHeader().then((loadedHeader) => {
+          if (!isRasterHeader(loadedHeader)) {
+            throw new Error("This viewer expects raster PMTiles, but the archive contains vector tiles.");
+          }
+          if (resource.url === absUrl) {
+            pmtilesProtocol.add(archive);
+            resource.header = loadedHeader;
+          }
+          return loadedHeader;
+        }).catch((error) => {
+          if (resource.url === absUrl) {
+            resource.archivePromise = null;
+            resource.header = null;
+          }
+          throw error;
+        });
       }
+      const header = await resource.archivePromise;
       if (!isCurrent()) return;
 
       const catalogZoom = Array.isArray(cell.zoom) && cell.zoom.every(Number.isFinite)
@@ -1002,6 +1268,7 @@
       }
       map.addSource(ids.source, sourceSpec);
       lockRasterLodToMapZoom(ids.source);
+      if (pmtilesMotionPaused || pmtilesBackgroundPaused) pauseCellRaster(cell.id);
       const before = map.getLayer("cells-line") ? "cells-line" : undefined;
       map.addLayer({
         id: ids.layer,
@@ -1534,7 +1801,7 @@
     routeActive = active; routeToggle.setAttribute("aria-pressed", String(active));
     routeReadout.hidden = !active && !routePoints.length;
     map.getCanvas().classList.toggle("is-routing", active);
-    if (active) { setMeasurementMode(false); closeCoordinateMenu(); closeDetails(false); }
+    if (active) { clearSuppressedMapClick(); setMeasurementMode(false); closeCoordinateMenu(); closeDetails(false); }
   }
 
   function downloadRouteGpx() {
@@ -1593,6 +1860,7 @@
 
   function startMeasurement() {
     setRouteMode(false);
+    clearSuppressedMapClick();
     closeDetails(false);
     closeCoordinateMenu();
     measurementPoints = [];
@@ -1637,11 +1905,17 @@
     }
   }
 
-  function suppressMapClickBriefly() {
-    suppressNextMapClick = true;
+  function clearSuppressedMapClick() {
     if (suppressNextMapClickTimer !== null) {
       window.clearTimeout(suppressNextMapClickTimer);
     }
+    suppressNextMapClick = false;
+    suppressNextMapClickTimer = null;
+  }
+
+  function suppressMapClickBriefly() {
+    clearSuppressedMapClick();
+    suppressNextMapClick = true;
     suppressNextMapClickTimer = window.setTimeout(() => {
       suppressNextMapClick = false;
       suppressNextMapClickTimer = null;
@@ -1712,6 +1986,7 @@
 
   function openCoordinateMenu(event) {
     event.originalEvent.preventDefault();
+    if (measurementActive || routeActive) return;
     if (isMobileViewport()) suppressMapClickBriefly();
     openCoordinateMenuAt(event.point, event.lngLat);
   }
@@ -1849,11 +2124,7 @@
 
   map.on("click", (event) => {
     if (suppressNextMapClick) {
-      suppressNextMapClick = false;
-      if (suppressNextMapClickTimer !== null) {
-        window.clearTimeout(suppressNextMapClickTimer);
-        suppressNextMapClickTimer = null;
-      }
+      clearSuppressedMapClick();
       return;
     }
     if (routeActive) {
@@ -1863,16 +2134,21 @@
       }
       return;
     }
+    if (measurementActive) {
+      closeCoordinateMenu();
+      addMeasurementPoint(event.lngLat);
+      return;
+    }
     if (isMobileViewport()) {
       openCoordinateMenuAt(event.point, event.lngLat);
       return;
     }
     closeCoordinateMenu();
-    if (measurementActive) addMeasurementPoint(event.lngLat);
-    else closeDetails(false);
+    closeDetails(false);
   });
   map.on("contextmenu", openCoordinateMenu);
   map.on("movestart", closeCoordinateMenu);
+  map.on("movestart", pausePmtilesForBackground);
   map.on("dragstart", suspendPmtilesForCameraMotion);
   map.on("rotatestart", suspendPmtilesForCameraMotion);
   map.on("rotate", updateCardinalCompass);
@@ -1882,6 +2158,16 @@
     updateMeasurementLabel();
   });
   map.on("moveend", finishCameraMotion);
+  map.on("moveend", () => {
+    if (terrainClearanceCorrecting) terrainClearanceCorrecting = false;
+    else terrainClearanceCorrections = 0;
+    scheduleTerrainCameraClearance();
+  });
+  map.on("sourcedata", (event) => {
+    if (event.sourceId === TERRAIN_SOURCE) scheduleTerrainCameraClearance();
+    if (event.sourceId === "osm" || event.sourceId === TERRAIN_SOURCE
+      || event.sourceId === HILLSHADE_SOURCE) scheduleBackgroundReadyCheck();
+  });
   map.on("zoom", () => {
     scheduleLabels();
     updateMeasurementLabel();
