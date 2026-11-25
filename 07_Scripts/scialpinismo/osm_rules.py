@@ -59,7 +59,7 @@ def classify(t, kind):
         if t.get('aerialway') and t['aerialway'] not in ('pylon', 'station', 'no'):
             targets.append('impianti')
     elif kind == 'multipolygons':
-        if t.get('natural') in ('water', 'glacier') or t.get('landuse') in ('reservoir', 'basin') or t.get('waterway') == 'riverbank' or t.get('water') in ('lake', 'river', 'reservoir', 'pond'):
+        if t.get('natural') in ('water', 'glacier') or t.get('landuse') in ('reservoir', 'basin') or t.get('waterway') == 'riverbank' or t.get('water') in ('lake', 'river', 'reservoir', 'pond', 'basin', 'lagoon'):
             targets.append('acque')
         if t.get('natural') in ('wood', 'scrub') or t.get('landuse') == 'forest':
             targets.append('vegetazione')

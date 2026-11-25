@@ -36,7 +36,7 @@ gdal.SetCacheMax(256 * 1024 * 1024)
 gdal.SetConfigOption('GDAL_NUM_THREADS', '2')
 gdal.SetConfigOption('OSM_MAX_TMPFILE_SIZE', '128')
 VERSION = '1.4.3'
-OSM_EXTRACTOR_VERSION = 'osm-interleaved-v2'
+OSM_EXTRACTOR_VERSION = 'osm-interleaved-v3'
 COG_OPTIONS = ['COMPRESS=DEFLATE', 'PREDICTOR=YES', 'BLOCKSIZE=512', 'NUM_THREADS=2', 'BIGTIFF=IF_SAFER', 'RESAMPLING=AVERAGE']
 DTM_COMPARISON_MIN_M = 20.0
 DTM_CORRECTION_DEPTH_M = 500.0
@@ -434,12 +434,19 @@ def osm_config_path(archive):
             raise RuntimeError('osmconf.ini GDAL non trovato: verificare GDAL_DATA')
         lines = Path(default).read_text().splitlines()
     updated = []
+    section = ''
     polygon_keys = ('ruins', 'waterway=riverbank', 'building:part', 'abandoned:building', 'disused:building')
     for line in lines:
+        if line.startswith('['):
+            section = line.strip()
         if line.startswith('ignore='):
             line='ignore='+','.join(t for t in line.split('=',1)[1].split(',') if t!='ele')
-        elif line.startswith('attributes=') and 'ele' not in line.split('=',1)[1].split(','):
-            line+=',ele'
+        elif line.startswith('attributes='):
+            attributes = line.split('=',1)[1].split(',')
+            required = ['ele']
+            if section == '[multipolygons]':
+                required.extend(('water', 'waterway'))
+            line += ''.join(','+tag for tag in required if tag not in attributes)
         elif line.startswith('closed_ways_are_polygons='):
             present = line.split('=', 1)[1].split(',')
             line += ''.join(','+key for key in polygon_keys if key not in present)
@@ -2022,6 +2029,45 @@ class Workflow:
             self.log('Estratto OSM comune creato: '+temporary.name)
         return temporary
 
+    def _cached_osm_waterbodies(self, pbf, config_path):
+        """Estrae i poligoni idrici completi, anche quando superano il riquadro di una cella."""
+        pbf = Path(pbf)
+        source_name = pbf.name.removesuffix('.osm.pbf')
+        cache_dir = self.archive/'osm/estratti'/(
+            f'{source_name}_schema-{OSM_EXTRACTOR_VERSION.replace(".", "-")}')
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        signature = digest([fingerprint(pbf), digest(Path(config_path).read_text()),
+                            OSM_EXTRACTOR_VERSION, 'waterbodies-v1'])
+        temporary = cache_dir/f'waterbodies_{signature[:16]}.gpkg'
+        if temporary.exists():
+            self.log('Bacini idrici OSM completi riutilizzati: '+temporary.name)
+            return temporary
+
+        pending = temporary.with_suffix('.partial.gpkg')
+        pending.unlink(missing_ok=True)
+        query = (
+            "SELECT * FROM multipolygons WHERE natural = 'water' "
+            "OR water IN ('lake','river','reservoir','pond','basin','lagoon') "
+            "OR landuse IN ('reservoir','basin') OR waterway = 'riverbank'"
+        )
+        options = ['-f', 'GPKG', '-oo', 'CONFIG_FILE='+str(config_path),
+                   '-oo', 'INTERLEAVED_READING=YES', '-sql', query,
+                   '-nlt', 'PROMOTE_TO_MULTI', '-lco', 'SPATIAL_INDEX=YES']
+        ds = gdal.VectorTranslate(str(pending), str(pbf), options=options,
+                                  callback=self.gdal_callback)
+        ds = None
+        if not pending.exists():
+            return None
+        with sqlite3.connect(str(pending)) as connection:
+            tables = {row[0] for row in connection.execute(
+                "SELECT table_name FROM gpkg_contents WHERE data_type='features'")}
+        if 'multipolygons' not in tables:
+            pending.unlink(missing_ok=True)
+            return None
+        pending.replace(temporary)
+        self.log('Bacini idrici OSM completi estratti: '+temporary.name)
+        return temporary
+
     def extract_osm(self, pbfs, geometry, c, gpkg, marker):
         if isinstance(pbfs, (str, Path)):
             pbfs = [Path(pbfs)]
@@ -2029,11 +2075,16 @@ class Workflow:
             pbfs = [Path(pbf) for pbf in pbfs]
         bbox = geometry_in(geometry.buffer(c['buffer_m'], 12), c['processing_crs'], 'EPSG:4326').boundingBox()
         config_path = osm_config_path(self.archive)
-        temporaries = [self._cached_osm_extract(pbf, geometry, c, bbox, config_path) for pbf in pbfs]
+        area_temporaries = [self._cached_osm_extract(pbf, geometry, c, bbox, config_path) for pbf in pbfs]
+        water_temporaries = [self._cached_osm_waterbodies(pbf, config_path) for pbf in pbfs]
+        water_temporaries = [path for path in water_temporaries if path is not None]
+        temporaries = water_temporaries + area_temporaries
         raw_counts = {'points': 0, 'lines': 0, 'multipolygons': 0}
         for temporary in temporaries:
             with sqlite3.connect(str(temporary)) as connection:
-                for name in raw_counts:
+                tables = {row[0] for row in connection.execute(
+                    "SELECT table_name FROM gpkg_contents WHERE data_type='features'")}
+                for name in raw_counts.keys() & tables:
                     raw_counts[name] += connection.execute(
                         f'SELECT count(*) FROM "{name}"').fetchone()[0]
         if raw_counts['multipolygons'] == 0 and raw_counts['points'] + raw_counts['lines'] > 0:
@@ -2048,6 +2099,7 @@ class Workflow:
         clip = geometry.buffer(c['buffer_m'], 12)
         hut_seen = {}
         feature_seen = set()
+        water_features = {}
         for temporary in temporaries:
             raw = ogr.Open(str(temporary))
             layer_names = [raw.GetLayerByIndex(i).GetName() for i in range(raw.GetLayerCount())]
@@ -2087,7 +2139,7 @@ class Workflow:
                             continue
                         for target in targets:
                             unique = (target, values['source_uid'])
-                            if unique in feature_seen:
+                            if target != 'acque' and unique in feature_seen:
                                 continue
                             part = QgsGeometry(g)
                             if ln == 'multipolygons' and themes[target].geometryType() == 0:
@@ -2096,6 +2148,18 @@ class Workflow:
                             if part.isEmpty() or part.type() != themes[target].geometryType():
                                 continue  # Contatti puntuali di linee/poligoni sul bordo del ritaglio.
                             part.convertToMultiType()
+                            if target == 'acque':
+                                previous = water_features.get(values['source_uid'])
+                                if previous:
+                                    combined = previous[0].combine(part)
+                                    if not combined.isEmpty():
+                                        if not combined.isGeosValid():
+                                            combined = combined.makeValid()
+                                        previous[0] = combined
+                                else:
+                                    water_features[values['source_uid']] = [
+                                        QgsGeometry(part), [values[t] for t in FIELDS]]
+                                continue
                             if target == 'rifugi' and values['label']:
                                 key = values['label'].strip().casefold()
                                 if any(part.distance(other) < 75 for other in hut_seen.get(key, [])):
@@ -2104,6 +2168,14 @@ class Workflow:
                             add_feature(themes[target], part, [values[t] for t in FIELDS])
                             feature_seen.add(unique)
                 del layer
+        for part, attributes in water_features.values():
+            if not part.isGeosValid():
+                part = part.makeValid()
+            part.convertGeometryCollectionToSubclass(themes['acque'].geometryType())
+            if part.isEmpty() or part.type() != themes['acque'].geometryType():
+                continue
+            part.convertToMultiType()
+            add_feature(themes['acque'], part, attributes)
         counts = {}
         for name, layer in themes.items():
             write_layer(layer, gpkg, name)
