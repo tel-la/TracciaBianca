@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-25T16:21:13Z",
+  "generated_at": "2026-11-26T13:57:27Z",
   "repository": "https://github.com/tel-la/TracciaBianca",
   "grid_id": "ALP35_OVERLAP2_LAEA_v2",
   "cell_count": 89,
@@ -26,12 +26,12 @@
         "Western and Maritime Alps"
       ],
       "status": "published",
-      "edition": "20261124T144658Z",
+      "edition": "20261125T222805Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 599891968,
+      "bytes": 599896064,
       "analysis_bounds": [
         [
           44.23182779010189,
@@ -44,12 +44,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E130_N076_ubaye-occidentale_20261124T144658Z_01_z12-16.mbtiles",
-          "bytes": 599891968,
-          "sha256": "0712c7b4cef251e3f17132cc0c60f5aaa0a3c8a86f1dbeeeaf1878e4b690862e",
+          "file": "ALP_E130_N076_ubaye-occidentale_20261125T222805Z_01_z12-16.mbtiles",
+          "bytes": 599896064,
+          "sha256": "e6fe4eed90294bebc0e41005963fbfaff251f6dfffb8afe0daf56e2680a3b29f",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N076_ubaye-occidentale_20261124T144658Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N076_ubaye-occidentale_20261125T222805Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -64,12 +64,12 @@
         "Western and Maritime Alps"
       ],
       "status": "published",
-      "edition": "20261124T142720Z",
+      "edition": "20261125T223615Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 635097088,
+      "bytes": 635379712,
       "analysis_bounds": [
         [
           44.5110029969167,
@@ -82,12 +82,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E130_N077_queyras-sud-occidentale_20261124T142720Z_01_z12-16.mbtiles",
-          "bytes": 635097088,
-          "sha256": "abb27e165ef611aa72dd2b6b95072d8084ec0f264225b0c29635315849a24ef8",
+          "file": "ALP_E130_N077_queyras-sud-occidentale_20261125T223615Z_01_z12-16.mbtiles",
+          "bytes": 635379712,
+          "sha256": "65042f753436948fb2e1b140bfaf9345d559b49d99f9469c53e04c300367447b",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N077_queyras-sud-occidentale_20261124T142720Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E130_N077_queyras-sud-occidentale_20261125T223615Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1129,12 +1129,12 @@
         "Lago Maggiore – Ossola"
       ],
       "status": "published",
-      "edition": "20261029T163500Z",
+      "edition": "20261125T224624Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 580640768,
+      "bytes": 581423104,
       "analysis_bounds": [
         [
           45.67885367672487,
@@ -1147,12 +1147,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles",
-          "bytes": 580640768,
-          "sha256": "318c2ce1e6e5605e8e5135457e16bdd9328ed8e48ebbd3218ec270f4e8a34a10",
+          "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261125T224624Z_01_z12-16.mbtiles",
+          "bytes": 581423104,
+          "sha256": "fab20118833a045a3487c03264f5d1b98f20b6ed7b49c0e85c6a531162c0b41f",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N081_verbania-lago-maggiore-ossola_20261125T224624Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1168,12 +1168,12 @@
         "Lago Maggiore – Ossola"
       ],
       "status": "published",
-      "edition": "20261029T085830Z",
+      "edition": "20261125T225522Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 771768320,
+      "bytes": 769667072,
       "analysis_bounds": [
         [
           45.95804476864901,
@@ -1186,12 +1186,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles",
-          "bytes": 771768320,
-          "sha256": "23ffa2999a188839a0d1abc6f8b171552ea91eed7917478c28d6f7bc0c0564a8",
+          "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261125T225522Z_01_z12-16.mbtiles",
+          "bytes": 769667072,
+          "sha256": "edf17712e8c6c374471e5a812869f48c7c10e7116a4ae0965216a097c7aee62c",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E135_N082_domodossola-lago-maggiore-ossola_20261125T225522Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1246,12 +1246,12 @@
         "Lago Maggiore – Ossola"
       ],
       "status": "published",
-      "edition": "20261029T164520Z",
+      "edition": "20261126T071418Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 574955520,
+      "bytes": 572063744,
       "analysis_bounds": [
         [
           45.68473993765938,
@@ -1264,12 +1264,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles",
-          "bytes": 574955520,
-          "sha256": "e123a968cdb2bb47f3b706cd5618756824cfdfa4dd24a1331c81c835af16dc66",
+          "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261126T071418Z_01_z12-16.mbtiles",
+          "bytes": 572063744,
+          "sha256": "d73aa81dd298c446233d4f8c265fab98f8d8415e6fb35be33836af3dff0432b3",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N081_varese-lago-maggiore-ossola_20261126T071418Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1285,12 +1285,12 @@
         "Lago Maggiore – Ossola"
       ],
       "status": "published",
-      "edition": "20261029T091825Z",
+      "edition": "20261126T072043Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 771923968,
+      "bytes": 771862528,
       "analysis_bounds": [
         [
           45.96396603559028,
@@ -1303,12 +1303,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles",
-          "bytes": 771923968,
-          "sha256": "763c15d1e96d5d64176024e5f036941b64214caa70f2b1f328709c92cfc578a9",
+          "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261126T072043Z_01_z12-16.mbtiles",
+          "bytes": 771862528,
+          "sha256": "1bf4964960520b62cc041d7215e9873060961aacbaa3938c3e28898a196c36ac",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E136_N082_luino-lago-maggiore-ossola_20261126T072043Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1362,12 +1362,12 @@
         "Lario – Valchiavenna"
       ],
       "status": "published",
-      "edition": "20261029T165353Z",
+      "edition": "20261126T072837Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 643166208,
+      "bytes": 639582208,
       "analysis_bounds": [
         [
           45.689137014996135,
@@ -1380,12 +1380,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles",
-          "bytes": 643166208,
-          "sha256": "fd600d76b0ed4ffb29ec1f8572f11ddb199432cfd02882c7c55962e8af7c9e61",
+          "file": "ALP_E137_N081_como-lario-valchiavenna_20261126T072837Z_01_z12-16.mbtiles",
+          "bytes": 639582208,
+          "sha256": "aa970fde7a5dc0283284b2626903b9054169f4a272afab7be875ef4843f78f22",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N081_como-lario-valchiavenna_20261126T072837Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
@@ -1401,12 +1401,12 @@
         "Lario – Valchiavenna"
       ],
       "status": "published",
-      "edition": "20261029T100244Z",
+      "edition": "20261126T074247Z",
       "zoom": [
         12,
         16
       ],
-      "bytes": 731783168,
+      "bytes": 729313280,
       "analysis_bounds": [
         [
           45.96838926895795,
@@ -1419,12 +1419,12 @@
       ],
       "packages": [
         {
-          "file": "ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles",
-          "bytes": 731783168,
-          "sha256": "d5599cd6e60636445bc7c98c7e68200b21ccea5a2c7043b6a751c8d0495d4f8b",
+          "file": "ALP_E137_N082_colico-lario-valchiavenna_20261126T074247Z_01_z12-16.mbtiles",
+          "bytes": 729313280,
+          "sha256": "8ffbccc8d787f9b3606b860fbc575e4272afb692adca024e41b07c67629475ac",
           "release_tag": "v0.1.0-beta.1",
           "release_url": "https://github.com/tel-la/TracciaBianca/releases/tag/v0.1.0-beta.1",
-          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.mbtiles"
+          "download_url": "https://github.com/tel-la/TracciaBianca/releases/download/v0.1.0-beta.1/ALP_E137_N082_colico-lario-valchiavenna_20261126T074247Z_01_z12-16.mbtiles"
         }
       ],
       "elevation_package": null
