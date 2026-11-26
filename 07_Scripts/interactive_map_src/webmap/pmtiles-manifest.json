@@ -2,14 +2,14 @@
   "schema_version": 1,
   "sheets": {
     "ALP_E130_N076": {
-      "file": "ALP_E130_N076_ubaye-occidentale_20261124T144658Z_01_z12-16.pmtiles",
-      "bytes": 41990708,
+      "file": "ALP_E130_N076_ubaye-occidentale_20261125T222805Z_01_z12-16.pmtiles",
+      "bytes": 41991314,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E130_N077": {
-      "file": "ALP_E130_N077_queyras-sud-occidentale_20261124T142720Z_01_z12-16.pmtiles",
-      "bytes": 43663374,
+      "file": "ALP_E130_N077_queyras-sud-occidentale_20261125T223615Z_01_z12-16.pmtiles",
+      "bytes": 43700296,
       "minzoom": 12,
       "maxzoom": 16
     },
@@ -176,14 +176,14 @@
       "maxzoom": 16
     },
     "ALP_E135_N081": {
-      "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261029T163500Z_01_z12-16.pmtiles",
-      "bytes": 44623024,
+      "file": "ALP_E135_N081_verbania-lago-maggiore-ossola_20261125T224624Z_01_z12-16.pmtiles",
+      "bytes": 44753646,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E135_N082": {
-      "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261029T085830Z_01_z12-16.pmtiles",
-      "bytes": 54079841,
+      "file": "ALP_E135_N082_domodossola-lago-maggiore-ossola_20261125T225522Z_01_z12-16.pmtiles",
+      "bytes": 53783560,
       "minzoom": 12,
       "maxzoom": 16
     },
@@ -194,14 +194,14 @@
       "maxzoom": 16
     },
     "ALP_E136_N081": {
-      "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261029T164520Z_01_z12-16.pmtiles",
-      "bytes": 47123466,
+      "file": "ALP_E136_N081_varese-lago-maggiore-ossola_20261126T071418Z_01_z12-16.pmtiles",
+      "bytes": 46807437,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E136_N082": {
-      "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261029T091825Z_01_z12-16.pmtiles",
-      "bytes": 59508351,
+      "file": "ALP_E136_N082_luino-lago-maggiore-ossola_20261126T072043Z_01_z12-16.pmtiles",
+      "bytes": 59566184,
       "minzoom": 12,
       "maxzoom": 16
     },
@@ -212,14 +212,14 @@
       "maxzoom": 16
     },
     "ALP_E137_N081": {
-      "file": "ALP_E137_N081_como-lario-valchiavenna_20261029T165353Z_01_z12-16.pmtiles",
-      "bytes": 50081449,
+      "file": "ALP_E137_N081_como-lario-valchiavenna_20261126T072837Z_01_z12-16.pmtiles",
+      "bytes": 49933555,
       "minzoom": 12,
       "maxzoom": 16
     },
     "ALP_E137_N082": {
-      "file": "ALP_E137_N082_colico-lario-valchiavenna_20261029T100244Z_01_z12-16.pmtiles",
-      "bytes": 53608783,
+      "file": "ALP_E137_N082_colico-lario-valchiavenna_20261126T074247Z_01_z12-16.pmtiles",
+      "bytes": 53573773,
       "minzoom": 12,
       "maxzoom": 16
     },
